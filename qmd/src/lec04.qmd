@@ -1,0 +1,537 @@
+18.404/6.840  Lecture 4
+
+Last time:
+- Finite automata → regular expressions
+- Proving languages aren’t regular
+- Context free grammars
+
+Today:  (Sipser §2.2)
+- Context free grammars (CFGs) – definition
+- Context free languages (CFLs)
+- Pushdown automata (PDA)
+- Converting CFGs to PDAs
+
+1
+
+Context Free Grammars (CFGs)
+
+#%
+
+S → 0S1
+S → R
+R → ε
+
+Shorthand:
+
+S → 0S1 | R
+R → ε
+
+Recall that a CFG has terminals, variables, and rules.
+
+Grammars generate strings
+1.  Write down start variable
+2.  Replace any variable according to a rule
+Repeat until only terminals remain
+
+3.  Result is the generated string
+4.  !(#) is the language of all generated strings
+5.  We call !(#) a Context Free Language.
+
+2
+
+Example of #% generating a string
+
+Tree of
+substitutions
+“parse tree”
+
+S
+
+0 S 1
+
+S
+
+0S1
+
+Resulting
+string
+
+0 S 1
+
+00S11
+
+R
+ε
+
+00R11
+0011
+
+∈ !  #%
+!  #%  =  0*1*  , ≥ 0}
+
+CFG – Formal Definition
+
+Defn:  A Context Free Grammar (CFG) ! is a 4-tuple (#, Σ, &, ')
+
+#  finite set of variables
+Σ
+&
+'  start variable
+
+finite set of terminal symbols
+finite set of rules (rule form:  # →  # ∪ Σ  ∗ )
+
+For ,, - ∈  # ∪ Σ  ∗ write
+1)  , ⇒ - if can go from , to - with one substitution step in
+2)  , ⇒ - if can go from , to - with some number of substit
+is called a derivati
+
+∗
+
+, ⇒ ,0 ⇒ ,1 ⇒ ⋯ ⇒ ,3  = -
+If , = ' then it is a derivation of -.
+
+Check-in 4.1
+!
+Which of these are valid CFGs?
+ution steps in !
+on of - from ,.
+
+90:  B → 0B1 | ε
+B1 → 1B
+0B → 0B
+
+91:
+
+S → 0S | S1
+R → RR
+
+5 !  = 6 6 ∈ Σ∗ and ' ⇒ 6}
+Defn:  8 is a Context Free Language (CFL)  if  8 = 5(!)
+
+∗
+
+for so
+
+a)  90 only
+b)  91 only
+me CFG !.
+c)  Both 90 and 91
+d)  Neither
+
+3
+
+Check-in 4.1
+
+CFG – Example
+
+'(
+
+E → E+T | T
+T → T×F | F
+F → ( E ) | a
+
+! =  {E, T, F}
+Σ =  {+, ×, (, ), a}
+$ =  the 6 rules above
+% =  E
+
+Parse
+tree
+
+E
+
+E + T
+
+T  T × F
+
+F  F
+
+a
+
+a
+
+a
+
+a
+
+Resulting
+string
+
+E
+
+E+T
+
+T+T×F
+
+F+F×a
+
+a+a×a
+
+∈ * '(
+
+Generates a+a×a
+
+Observe that the parse tree contains additional informatio
+such as the precedence of  ×  over  + .
+
+Check-in 4.2
+, (a+a)× a, a, a+a+a, etc.
+How many reasonable distinct meanings
+does the following English sentence have?
+n,
+The boy saw the girl with the mirror.
+
+If a string has two different parse trees then it is derived a
+and we say that the grammar is ambiguous.
+
+(a)  1
+mbiguously
+(b)  2
+(c)  3 or more
+
+4
+
+Check-in 4.2
+
+Ambiguity
+
+!#
+
+E → E+E | E×E |  ( E ) | a
+
+!"
+
+E → E+T | T
+T → T×F | F
+F → ( E ) | a
+
+Both !" and !# recognize the same language, i.e.,  $ !"  = $ !# .
+However  !"  is an unambiguous CFG and  !#  is ambiguous.
+
+5
+
+E
+
+E
+
+E
+
+E  E
+
+a  +  a × a
+
+E
+
+E
+
+E
+
+E
+
+E
+
+Pushdown Automata (PDA)
+
+“head”
+a b a b a  …
+a
+input appears on a “tape”
+
+Finite
+control
+
+Schematic diagram for DFA or NFA
+
+c
+d
+d
+
+(pushdown)
+stack
+
+Schematic diagram for PDA
+
+Operates like an NFA except can write-add or read-remove symbols
+from the top of stack.
+
+push
+
+pop
+
+Example:  PDA for  ! =  0$1$  & ≥ 0
+1)  Read 0s from input, push onto stack until read 1.
+
+2)  Read 1s from input, while popping 0s from stack.
+
+3)  Enter accept state if stack is empty.  (note: acceptance only at end of input)
+
+6
+
+PDA – Formal Definition
+
+Defn:  A Pushdown Automaton (PDA) is a 6-tuple  (", Σ, Γ, &, '0, ))
+Σ
+input alphabet
+Γ  stack alphabet
+&:  Q×Σ.×Γ.  → 0("×Γ.)
+
+Accept if some thread is in the accept state
+at the end of the input string.
+
+&  ', a, c  =  45, d  ,  47, e
+
+Example:  PDA for  9 = {;; ℛ| ; ∈  0,1  ∗ }  Sample input:
+1)  Read and push input symbols.
+
+0  1  1  1  1  0
+
+Nondeterministically either repeat or go to (2).
+
+2)  Read input symbols and pop stack symbols, compare.
+
+If ever ≠ then thread rejects.
+
+3)  Enter accept state if stack is empty.  (do in “software”)
+
+The nondeterministic forks replicate the stack.
+
+This language requires nondeterminism.
+Our PDA model is nondeterministic.
+
+7
+
+Converting CFGs to PDAs
+
+Theorem:  If ! is a CFL then some PDA recognizes !
+Proof:  Convert !’s CFG to a PDA
+
+E → E+T | T
+T → …
+F → …  CFG
+
+PDA
+
+…
+
+IDEA:  PDA begins with starting variable and guesses substitutions.
+It keeps intermediate generated strings on stack.  When done, compare with input.
+
+E
+
+E
++
+T
+
+T
++
+T
+
+T
++
+T
+×
+F
+
+Input:
+
+a + a
+
+× a
+
+Problem!  Access below the top of stack is cheating!
+
+Instead, only substitute variables when on the top of stack.
+If a terminal is on the top of stack, pop it and compare with input.  Reject if ≠.
+
+$%
+
+E → E+T | T
+T → T×F | F
+F → ( E ) | a
+
+E
+
+E+ T
+
+E
+
+E +  T
+
+T + T× F
+
+T  T × F
+
+F + F× a
+
+a + a× a
+
+F  F
+
+a
+
+a
+
+a
+
+a
+
+8
+
+Converting CFGs to PDAs  (contd)
+
+Theorem:  If ! is a CFL then some PDA recognizes !
+Proof construction:  Convert the CFG for ! to the following PDA.
+1)  Push the start symbol on the stack.
+
+2)
+
+If the top of stack is
+
+Variable:  replace with right hand side of rule (nondet choice).
+
+Terminal:  pop it and match with next input symbol.
+
+3)
+
+If the stack is empty, accept.
+
+Example:
+
+E
+
+a + a
+
+× a
+
+E
++
+T
+
+F
++
+T
+
+T
++
+T
+
+a
++
+T
+
++
+T
+
+T
+
+T
+×
+F
+
+9
+
+#$
+
+E → E+T | T
+T → T×F | F
+F → ( E ) | a
+
+E
+
+E+T
+
+E
+
+E + T
+
+T+T×F
+
+T  T × F
+
+F+F×a
+
+a+a×a
+
+F  F
+
+a
+
+a
+
+a
+
+a
+
+Equivalence of CFGs and PDAs
+
+Theorem:  ! is a CFL  iff*  some PDA recognizes !
+
+Done.
+In book.  You are responsible for knowing
+it is true, but not for knowing the proof.
+
+* “iff”  =  “if an only if” means the implication goes both ways.
+So we need to prove both directions:  forward (→) and reverse (←).
+
+Check-in 4.3
+Is every Regular Language also
+a Context Free Language?
+
+(a)  Yes
+(b)  No
+(c)  Not sure
+
+10
+
+Check-in 4.3
+
+Recap
+
+Recognizer
+
+Generator
+
+Regular
+language
+
+Context Free
+language
+
+DFA or NFA
+
+PDA
+
+Regular
+expression
+
+Context Free
+Grammar
+
+Context Free
+languages
+
+Regular
+languages
+
+11
+
+Quick review of today
+
+1.  Defined Context Free Grammars (CFGs)
+and Context Free Languages (CFLs)
+
+2.  Defined Pushdown Automata(PDAs)
+
+3.  Gave conversion of CFGs to PDAs.
+
+12
+
+MIT OpenCourseWare
+https://ocw.mit.edu
+
+18.404J / 18.4041J / 6.840J Theory of Computation
+Fall 2020
+
+For information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms.
+

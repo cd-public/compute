@@ -1,0 +1,254 @@
+[
+  {
+    "objectID": "starfa.html#zoom-lectures",
+    "href": "starfa.html#zoom-lectures",
+    "title": "*FAs",
+    "section": "Zoom Lectures",
+    "text": "Zoom Lectures\n\n\n\nLive and Interactive via Chat Live lectures are recorded for later viewing\nZoom Recitations - Not recorded - - Review concepts and more examples - Optional unless you are having difficulty\nTwo convert to in-person\nParticipation can raise low grades\n\nAttend any recitation"
+  },
+  {
+    "objectID": "starfa.html#text",
+    "href": "starfa.html#text",
+    "title": "*FAs",
+    "section": "Text",
+    "text": "Text\nIntroduction to the Theory of Computation Sipser, 3rd Edition US. (Other editions ok but are missing some Exercises and Problems).\n3\nHomework bi-weekly – 35% - More information to follow\nMidterm (15%) and Final exam (25%) - Open book and notes\nCheck-in quizzes for credit – 25% - Distinct Live and Recorded versions\n\nComplete either one for credit within 48 hours\n\n\nInitially ungraded; full credit for participation\n\fCourse Expectations\nPrerequisites\nPrior substantial experience and comfort with mathematical concepts, theorems, and proofs. Creativity will be needed for psets and exams.\nCollaboration policy on homework - Allowed. But try problems yourself first. - Write up your own solutions. - No bibles or online materials.\n4\n\fRole of Theory in Computer Science\n\nApplications\nBasic Research\nConnections to other fields\nWhat is the nature of computation?\n\n5\n\fLet’s begin: Finite Automata\n!1\n0\n*1\n1\n0\n1\n*2\n*3\n0,1\nStates: 1 2 *3\nTransitions:\n1\nStart state:\nAccept states:\nInput: finite string Output: Accept or Reject\nComputation process: Begin at start state,\nread input symbols, follow corresponding transitions, Accept if end with accept state, Reject if not.\nExamples: 01101 → Accept 00101 → Reject\n!1 accepts exactly those strings in # where # = {&| & contains substring 11}.\nSay that # is the language of !1 and that !1 recognizes # and that # = -(!1).\n6\n\fFinite Automata – Formal Definition\nDefn: A finite automaton ! is a 5-tuple (#, Σ, &, ’0, )) # finite set of states\nΣ\n&\nfinite set of alphabet symbols\ntransition function &: #×Σ → #\n’0 start state\n) set of accept states\n& (‘, .) = 0 means’\na\n0\n7\nExample:\n!1\n0\n’1\n1\n0\n’2\n1\n’3\n0,1\n!1 = (#, Σ, &, ’1, ))"
+  },
+  {
+    "objectID": "starfa.html#examples",
+    "href": "starfa.html#examples",
+    "title": "*FAs",
+    "section": "Examples:",
+    "text": "Examples:\n\fClosure Properties for Regular Languages\nTheorem: If !“, !$ are regular languages, so is !” ∪ !$ (closure under ∪)\nProof: Let &” = ()“, Σ, +” , ,” , -” ) recognize !” &$ = ()\\(, Σ, +\\) , ,$ , -$ ) recognize !$\nConstruct & = () , Σ , + , ,0, - ) recognizing !” ∪ !$\n& should accept input 0 if either &” or &$ accept 0.\n&”\nCheck-in 1.1\n,\nIn the proof, if &” and &$ are finite automata where &” has 8” states and &$ has 8$ states Then how many states does & have? (a) 8” + 8$ (b) 8” (c) 8”×8$\n$ + 8$\n$\n1\n&$\nComponents of 2:\n) = )“×)$\n= ,“, ,$ ,” ∈ )” and ,$ ∈ )$}\n,6 = (,“, ,$)\n\n,, 1 , 7 = +” ,, 7 , +$ 1, 7\n= -“×-$ NO! [gives intersection]\n= -“×)$ ∪ )”×-$\n\nCheck-in 1.1\n11\n\fClosure Properties continued\nTheorem: If !“, !$ are regular languages, so is !”!$ (closure under ∘)\nProof: Let &” = ()“, Σ, +” , ,” , -” ) recognize !” &$ = ()\\(, Σ, +\\) , ,$ , -$ ) recognize !$\nConstruct & = () , Σ , + , ,0, - ) recognizing !“!$\n&$\n&”\n&\n& should accept input 0 if 0 = 12 where\n&” accepts 1 and &$ accepts 2.\n0\n1\n2\nDoesn’t work: Where to split 0?\n12\n\fQuick review of today\n\nIntroduction, outline, mechanics, expectations\nFinite Automata, formal definition, regular languages\nRegular Operations and Regular Expressions\nProved: Class of regular languages is closed under ∪\nStarted: Closure under ∘ , to be continued…\n\n13\n\fMIT OpenCourseWare https://ocw.mit.edu\n18.404J / 18.4041J / 6.840J Theory of Computation Fall 2020\nFor information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms."
+  },
+  {
+    "objectID": "starfa.html#sketch",
+    "href": "starfa.html#sketch",
+    "title": "*FAs",
+    "section": "Sketch",
+    "text": "Sketch\n\nWhat is theory of computation?\n\n1930s - 1950s\n1960s - 2020s\n\nRole of Theory\nFinite Automata\n\nFormal Definition"
+  },
+  {
+    "objectID": "starfa.html#theory-of-computation",
+    "href": "starfa.html#theory-of-computation",
+    "title": "*FAs",
+    "section": "Theory of Computation",
+    "text": "Theory of Computation\n\n&lt;50s:\n\nIf we had computers, what could they do?\nWhat can’t they do?\nI call this automata or computability theory. ## Example\n\nSay we:\n\nHave a computer, or formal definition thereof.\nHave a sorting algorithm, or a formal definition thereof?\n\nCan we determine:\n\nIf the sorting algorithm is provably correct.\n\nTurns out: impossible.\n\nProving is equivalent to computing, so there’s a logical collapse.\nWe’ll prove this more precisely."
+  },
+  {
+    "objectID": "starfa.html#example",
+    "href": "starfa.html#example",
+    "title": "*FAs",
+    "section": "Example",
+    "text": "Example\n\n\n\n\n\n[...]\n[0,...]\n[0,1,1,0,1]\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#example-1",
+    "href": "starfa.html#example-1",
+    "title": "*FAs",
+    "section": "Example 1",
+    "text": "Example 1\n\nSay we:\n\nHave a really, really optimized LLM, like Gemini.\nHave a program we’d like to run, but aren’t sure we have enough compute.\n\nCan we determine:\n\nWhether the program will ever finish running?\n\nTurns out: impossible."
+  },
+  {
+    "objectID": "starfa.html#some-previews",
+    "href": "starfa.html#some-previews",
+    "title": "*FAs",
+    "section": "Some Previews",
+    "text": "Some Previews\n\nFinite Automata\n\nToday\n\nTuring Machines\n\nIn residence"
+  },
+  {
+    "objectID": "starfa.html#complexity",
+    "href": "starfa.html#complexity",
+    "title": "*FAs",
+    "section": "Complexity",
+    "text": "Complexity\n2\n\fCourse Mechanics"
+  },
+  {
+    "objectID": "starfa.html#theory-of-complexity",
+    "href": "starfa.html#theory-of-complexity",
+    "title": "*FAs",
+    "section": "Theory of Complexity",
+    "text": "Theory of Complexity\n\nWhat can we actually do?\n\nFactoring Problem, foundation of modern cryptography.\nCan we measure relative “goodness” of things."
+  },
+  {
+    "objectID": "starfa.html#theory-of-computation-1",
+    "href": "starfa.html#theory-of-computation-1",
+    "title": "*FAs",
+    "section": "Theory of Computation",
+    "text": "Theory of Computation\n\n&lt;50s:\n\nIf we had computers, what could they do?\nWhat can’t they do?\nI call this automata or computability theory."
+  },
+  {
+    "objectID": "starfa.html#open-questions",
+    "href": "starfa.html#open-questions",
+    "title": "*FAs",
+    "section": "Open Questions",
+    "text": "Open Questions\n\nHow does the brain work?\n\nIs it a neural network?\nWhat is creativity?\nCan machine learning do formal sciences including mathematics?\n\nCan we claim to understand computing without being able to answer the factoring question?"
+  },
+  {
+    "objectID": "starfa.html#course-mechanics",
+    "href": "starfa.html#course-mechanics",
+    "title": "*FAs",
+    "section": "Course Mechanics",
+    "text": "Course Mechanics"
+  },
+  {
+    "objectID": "starfa.html#definition",
+    "href": "starfa.html#definition",
+    "title": "*FAs",
+    "section": "Definition",
+    "text": "Definition\n\n\n\nTerm this \\(M_1\\):\n\nStates \\[\n   q_n\n   \\]\nTransitions \\[\n  \\overset{\\{1\\}}{\\longrightarrow}\n  \\]\nStart state \\(q_1\\)\nAccept state \\(q_3\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#definition-1",
+    "href": "starfa.html#definition-1",
+    "title": "*FAs",
+    "section": "Definition",
+    "text": "Definition\n\nCheck the following:\n\n\n\n\n\n[0,1,1,0,1]\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#process",
+    "href": "starfa.html#process",
+    "title": "*FAs",
+    "section": "Process",
+    "text": "Process\n\n\n\n\nTerm this \\(M_1\\):\n\nStates \\[\n   q_n\n   \\]\nTransitions \\[\n  \\overset{\\{1\\}}{\\longrightarrow}\n  \\]\nStart state \\(q_1\\)\nAccept state \\(q_3\\)\n\n\n\n\n\nInput\n\nFinite bit string\n\\(\\{0,1\\}^n\\)\n\nOutput\n\nBoolean or bit\n\\(\\{0,1\\}\\)\n\nBegin in start\nRead symbol\nFollow edge"
+  },
+  {
+    "objectID": "starfa.html#notes",
+    "href": "starfa.html#notes",
+    "title": "*FAs",
+    "section": "Notes",
+    "text": "Notes\n!1 accepts exactly those strings in # where # = {&| & contains substring 11}.\nSay that # is the language of !1 and that !1 recognizes # and that # = -(!1).\n6\n\fFinite Automata – Formal Definition\nDefn: A finite automaton ! is a 5-tuple (#, Σ, &, ’0, )) # finite set of states\nΣ\n&\nfinite set of alphabet symbols\ntransition function &: #×Σ → #\n’0 start state\n) set of accept states\n& (‘, .) = 0 means’\na\n0\n7\nExample:\n!1\n0\n’1\n1\n0\n’2\n1\n’3\n0,1\n!1 = (#, Σ, &, ’1, ))"
+  },
+  {
+    "objectID": "aims.html#announcements",
+    "href": "aims.html#announcements",
+    "title": "Aims of Education",
+    "section": "Announcements",
+    "text": "Announcements\n\nWelcome to residency of CSCI 5100: Theory of Computation!\nIt is a pleasure to launch the LaGrange College M.S. in Computer Science (MSCS) with you.\nYou should have:\n\nQuarto running.\nDGitHub pages set up."
+  },
+  {
+    "objectID": "aims.html#sketch",
+    "href": "aims.html#sketch",
+    "title": "Aims of Education",
+    "section": "Sketch",
+    "text": "Sketch\n\n20 minute intro\n20 guest lecture\n20 minute goal setting\nThen into Theory of Computatation"
+  },
+  {
+    "objectID": "aims.html#about-me",
+    "href": "aims.html#about-me",
+    "title": "Aims of Education",
+    "section": "About Me",
+    "text": "About Me\n\n\n\nAbout\nMe\n\n\n\n\nName:\nCalvin (Deutschbein)\n\n\nSay:\n(Professor) Calvin\n\n\nPronoun:\nthey/them\n\n\nOffice:\nDiscord calvin2501\n\n\nEmail:\nckdeutschbein@willamette.edu (@lagrange email Soon™)\n\n\nWebsite:\ncd-public.github.io"
+  },
+  {
+    "objectID": "aims.html#background",
+    "href": "aims.html#background",
+    "title": "Aims of Education",
+    "section": "Background",
+    "text": "Background\n\nThesis Title: Mining Secure Behavior of Hardware Designs\n\n\nSpecification mining can discover properties that can verify the secure behavior of closed-source CISC CPU designs, the temporal correctness of CPU designs, and hyperproperties for secure information flow in modules, SoCs, and CPUs."
+  },
+  {
+    "objectID": "aims.html#background-1",
+    "href": "aims.html#background-1",
+    "title": "Aims of Education",
+    "section": "Background",
+    "text": "Background\n\nThesis Title: Mining Secure Behavior of Hardware Designs\n\nPlain English:\nJust as there are bugs in code that make software, modern hardware is also written in code and therefore may contain bugs. I find these bugs.\n\nOf note: I found those bugs using computation theory specifically automata."
+  },
+  {
+    "objectID": "aims.html#course-description",
+    "href": "aims.html#course-description",
+    "title": "Aims of Education",
+    "section": "Course Description",
+    "text": "Course Description\n\nStudy of abstract models of computation, unsolvability, complexity theory, formal grammars and parsing, and other advanced topics in theoretical computer science.\n\n~25 contact hours on automata\n~15 contact hours on complexity"
+  },
+  {
+    "objectID": "aims.html#modality",
+    "href": "aims.html#modality",
+    "title": "Aims of Education",
+    "section": "Modality",
+    "text": "Modality\n\nAll of automata theory in residency, right now.\nAll of complexity theory in video recordings, over the next 8 weeks.\nI maintain a website with videos, slides, code, and problem sets.\nYou will maintain a website with completed problem sets."
+  },
+  {
+    "objectID": "aims.html#grading",
+    "href": "aims.html#grading",
+    "title": "Aims of Education",
+    "section": "Grading",
+    "text": "Grading\n\nWeekly problem sets that will lag (due to the residency) and catch up at the end.\nAll coursework as Python .qmd rendered in .html on GitHub pages.\n“Final” is having a theory of computation website."
+  },
+  {
+    "objectID": "aims.html#feedback-and-grading",
+    "href": "aims.html#feedback-and-grading",
+    "title": "Aims of Education",
+    "section": "Feedback and Grading",
+    "text": "Feedback and Grading\n\n“After some consideration, I’ve decided to move away from a traditional grading structure for this class. Rather than assign work with the intent of assessing student progress, assignments in this course will instead focus on fostering student learning. As a result, I intend to implement the following:”"
+  },
+  {
+    "objectID": "aims.html#group-exercise",
+    "href": "aims.html#group-exercise",
+    "title": "Aims of Education",
+    "section": "Group Exercise:",
+    "text": "Group Exercise:\n\nLet’s start the class off right away with an exercise designed for:\n\nGroups\n\nDiscussion\n\nDisagreement\n\nDeep critical thinking"
+  },
+  {
+    "objectID": "aims.html#aims-of-education",
+    "href": "aims.html#aims-of-education",
+    "title": "Aims of Education",
+    "section": "Aims of Education",
+    "text": "Aims of Education\n\nBefore starting my first degree, we went to a lecture titled “Aims of Education”\nI completed all remaining degrees during shutdowns/other crises!\nI remember it fondly.\nWe will watch “How open-source hardware is changing our future” by Amber Huffman.\n\nAnd then discuss."
+  },
+  {
+    "objectID": "aims.html#question-0",
+    "href": "aims.html#question-0",
+    "title": "Aims of Education",
+    "section": "Question 0",
+    "text": "Question 0\n\nWhat are the goals of an education in computer science?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-1",
+    "href": "aims.html#question-1",
+    "title": "Aims of Education",
+    "section": "Question 1",
+    "text": "Question 1\n\nHow does ascientist learn something new?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-2",
+    "href": "aims.html#question-2",
+    "title": "Aims of Education",
+    "section": "Question 2",
+    "text": "Question 2\n\nWhat do you reasonably expect to remember from your courses in 20 years?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-3",
+    "href": "aims.html#question-3",
+    "title": "Aims of Education",
+    "section": "Question 3",
+    "text": "Question 3\n\nWhat is the value of making mistakes in the learning process?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-4",
+    "href": "aims.html#question-4",
+    "title": "Aims of Education",
+    "section": "Question 4",
+    "text": "Question 4\n\nHow do we create a safe environment where risk-taking is encouraged and productive failure is valued?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#closing-thoughts",
+    "href": "aims.html#closing-thoughts",
+    "title": "Aims of Education",
+    "section": "Closing Thoughts",
+    "text": "Closing Thoughts\n\nTry! Hard work leads to innovative thinking.\n\nFail! Don’t fear failure. Be ready to redo from scratch.\n\nCollaborate! Work with peers to succeed at this course and succeed at collaboration.\nEnjoy! Experience the fun of being a scientist through hard work and exploration."
+  },
+  {
+    "objectID": "starfa.html#example-2",
+    "href": "starfa.html#example-2",
+    "title": "*FAs",
+    "section": "Example",
+    "text": "Example\n\n\n\n\n\n[...]\n[0,...]\n[0,1,1,0,1]\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#example-0",
+    "href": "starfa.html#example-0",
+    "title": "*FAs",
+    "section": "Example 0",
+    "text": "Example 0\n\nSay we:\n\nHave a computer, or formal definition thereof.\nHave a sorting algorithm, or a formal definition thereof?\n\nCan we determine:\n\nIf the sorting algorithm is provably correct.\n\nTurns out: impossible.\n\nProving is equivalent to computing!"
+  }
+]

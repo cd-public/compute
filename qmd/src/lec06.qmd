@@ -1,0 +1,404 @@
+18.404/6.840  Lecture 6
+
+Last time:
+- Proving languages not Context Free
+- Turing machines
+- Recognizers and deciders
+- T-recognizable and T-decidable languages
+
+Today:  (Sipser §3.2 – §3.3)
+- Equivalence of variants of the Turing machine model
+
+a. Multi-tape TMs
+b. Nondeterministic TMs
+c. Enumerators
+- Church-Turing Thesis
+- Notation for encodings and TMs
+
+1
+
+Turing machine model – review
+
+head
+
+a b a b b
+read/write input tape
+
+˽  ˽
+
+. . .
+
+Finite
+control
+
+On input ! a TM " may halt (enter #acc  or  #rej)
+or loop (run forever).
+
+) is T-recognizable if ) = +(") for some TM ".
+) is T-decidable if ) = +(") for some TM decider ".
+
+So " has 3 possible outcomes for each input !:
+1.  Accept ! (enter #acc )
+2.  Reject ! by halting  (enter #rej )
+3.  Reject ! by looping  (running forever)
+
+halts on all inputs
+
+Turing machines model general-purpose computation.
+
+Q:  Why pick this model?
+
+A:  Choice of model doesn't matter.
+
+All reasonable models are equivalent in power.
+
+Virtues of TMs:  simplicity, familiarity.
+
+2
+
+Multi-tape Turing machines
+
+Finite
+control
+
+.
+
+.
+
+.
+
+input tape
+
+}work tapes, initially blank
+
+all tapes read/write
+
+Theorem:  ! is T-recognizable iff some multi-tape TM recognizes !
+(←)  convert multi-tape to single tape:
+Proof:  (→)  immediate.
+
+multi-tape  '
+
+a a  b b a
+
+˽  ˽
+
+. . .
+
+1 0 1
+
+. . .
+
+˽
+
+.
+
+.
+
+.
+
+c  c  c  a
+
+˽
+
+. . .
+
+single tape
+
+&
+
+a  a  b  b  a  #  1  0  1  #
+
+…
+
+#  c  c  c  a
+
+˽ ˽
+
+3
+
+& simulates ' by storing the contents of
+multiple tapes on a single tape in “blocks”.
+Record head positions with dotted symbols.
+
+Some details of &:
+1)  To simulate each of '’s steps
+
+a.  Scan entire tape to find dotted symbols.
+b. Scan again to update according to '’s  (.
+c.  Shift to add room as needed.
+
+2) Accept/reject if ' does.
+
+Nondeterministic Turing machines
+
+A Nondeterministic TM (NTM) is similar to a Deterministic TM
+except for its transition function  !:  Q×Γ → '( )×Γ× {L, R} ).
+
+Theorem:  + is T-recognizable iff some NTM recognizes +
+Proof:  (→)  immediate.
+
+(←)  convert NTM to Deterministic TM.
+
+.
+
+NTM
+
+a a b a  ˽  ˽
+
+Nondeterministic computation tree
+for . on input /.
+
+.
+
+.
+
+.
+
+accept
+
+4
+
+Deterministic TM
+
+-
+
+02  a a b a #  01  c  b #  03  b c b  ˽ ˽
+
+- simulates . by storing each thread’s tape in a
+separate “block” on its tape.
+Also need to store the head location,
+and the state for each thread, in the block.
+
+If a thread forks, then - copies the block.
+
+If a thread accepts then - accepts.
+
+Turing Enumerators
+
+Finite
+control
+
+˽  ˽  ˽  ˽  ˽  ˽  ˽
+
+. . .
+
+read/write tape – initially blank
+
+printer
+
+Defn:  A Turing Enumerator is a deterministic TM with a printer.
+It starts on a blank tape and it can print strings  !" , !$ , !% , …  possibly going forever.
+Its language is the set of all strings it prints.  It is a generator, not a recognizer.
+For enumerator ' we say ( '  = !  ' prints !}.
+
+Theorem:  A is T-recognizable iff + = ((') for some T-enumerator '.
+
+'
+
+)  Convert
+
+/
+to equivalent TM .
+
+←
+Proof:  (
+Check-in 6.1
+/ = for input !:
+When converting TM / to enumerator ',
+does ' always print the strings in string order?
+a)  Yes.
+b)  No.
+
+Simulate ' (on blank input).
+Whenever ' prints 0, test 0 = !.
+Accept if = and continue otherwise.
+
+Proof:  (→)  Convert TM / to equivalent enumerator '.
+' =  Simulate / on each !2 in Σ∗  = {6, 0,1,00,01,10, … }
+
+If / accepts !2 then print !2 .
+Continue with next !2 .
+Problem:  What if / on !2 loops?
+Fix:  Simulate / on !" , !$ , … , !2 for 9 steps, for 9 = 1,2, …
+
+Print those !2 which are accepted.
+
+Image of the printer © Source unknown. All rights reserved. This content is excluded from
+our Creative Commons license. For more information, see https://ocw.mit.edu/fairuse.
+
+5
+
+Check-in 6.1
+
+Church-Turing Thesis  ~1936
+
+Alonzo Church
+1903–1995
+
+Algorithm
+
+Intuitive
+
+=
+
+Turing
+machine
+
+Formal
+
+Instead of Turing machines,
+can use any other “reasonable” model
+of unrestricted computation:
+Check-in 6.2
+!-calculus, random access machine,
+Which is the following is true about Alan Turing?
+your favorite programming language, …
+Check all that apply.
+a) Broke codes for England during WW2.
+b) Worked in AI.
+c) Worked in Biology.
+d) Was imprisoned for being gay.
+e) Appears on a British banknote.
+
+Big impact on mathematics.
+
+Alan Turing
+1912–1954
+
+Will appear in 2021
+
+Photos of Alonzo Church and Alan Turing © Source unknown. Image of Alan Turing on the UK's £50 note © The Governor and Company of the Bank of
+England. All rights reserved. This content is excluded from our Creative Commons license. For more information, see https://ocw.mit.edu/fairuse.
+
+Check-in 6.2
+
+6
+
+Hilbert’s 10th Problem
+
+In 1900 David Hilbert posed 23 problems
+#1)    Problem of the continuum  ( Does set ! exist where  ℕ < ! < |ℝ| ? ).
+#2)    Prove that the axioms of mathematics are consistent.
+#10)  Give an algorithm for solving Diophantine equations.
+
+Diophantine equations:
+Equations of polynomials where solutions must be integers.
+Example:   3'( − 2'+ − +(, = 7
+
+solution:  ' = 1, + = 2, , = −2
+
+Let 1 = 2 polynomial  2 '3, '(, … , '5 = 0 has a solution in integers)
+Hilbert’s 10th problem:   Give an algorithm to decide 1.
+Matiyasevich proved in 1970:   1 is not decidable.
+
+David Hilbert
+1862—1943
+
+Note:  1 is T-recognizable.
+
+© Source unknown. All rights reserved. This content is excluded from our Creative
+Commons license. For more information, see https://ocw.mit.edu/fairuse.
+
+7
+
+Notation for encodings and TMs
+
+Notation for encoding objects into strings
+
+- If ! is some object (e.g., polynomial, automaton, graph, etc.),
+we write 〈!〉 to be an encoding of that object into a string.
+
+- If !$, !&, … , !( is a list of objects then we write 〈!$, !&, … , !(〉
+to be an encoding of them together into a single string.
+
+Notation for writing Turing machines
+Check-in 6.3
+If , and - are strings, would ,- be a good choice
+We will use high-level English descriptions of algorithms when we describe TMs,
+for their encoding 〈,, -〉 into a single string?
+knowing that we could (in principle) convert those descriptions into states,
+Yes.
+a)
+transition function, etc.  Our notation for writing a TM ) is
+b) No.
+) = “On input +
+
+[English description of the algorithm]”
+
+8
+
+Check-in 6.3
+
+TM – example revisited
+
+TM ! recognizing  " = a$b$c$ % ≥ 0
+
+! = “On input (
+
+1.  Check if ( ∈ a∗b∗c∗,  reject if not.
+2.  Count the number of a’s, b’s, and c’s in (.
+3.  Accept if all counts are equal; reject if not.”
+
+High-level description is ok.
+You do not need to manage tapes, states, etc…
+
+9
+
+Problem Set 2
+
+#5)  Show ! is T-recognizable  iff  there is a decidable " where
+
+! = $ ∃& $, & ∈ " }
+
+$, & ∈ Σ∗
+
+〈$, &〉 is an encoding of the pair of strings $ and & into a single string.
+Think of " as a collection of pairs of strings.
+
+&-axis
+
+"
+
+($, &)
+
+! is a “projection” of "
+
+!
+
+$
+
+$-axis
+
+10
+
+Quick review of today
+
+1. We showed that various TM variants
+
+(multi-tape, nondeterministic, enumerator)
+are all equivalent to the single-tape model.
+
+2. Concluded that all “reasonable” models with
+unrestricted memory access are equivalent.
+
+3. Discussed the Church-Turing Thesis:
+
+Turing machines are equivalent to “algorithms”.
+
+4. Notation for encoding objects and describing
+
+TMs.
+
+5. Discussed Pset 2 Problem 5.
+
+11
+
+MIT OpenCourseWare
+https://ocw.mit.edu
+
+18.404J / 18.4041J / 6.840J Theory of Computation
+Fall 2020
+
+For information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms.
+

@@ -1,0 +1,517 @@
+---
+title: "*FAs"
+author: Prof. Calvin
+subtitle: "23 Jan 09 AM"
+institute: CSCI 5100
+format: 
+    revealjs: 
+        incremental: true
+        code-fold: true
+        theme: dark
+        mainfont: monospace
+        slide-number: true
+        show-slide-number: all
+        width: 1050
+        height: 700
+        footer: "[Home](https://cd-public.github.io/compute/)"
+  
+execute:
+    echo: false
+---
+
+## Sketch
+- What is theory of computation?
+    - 1930s - 1950s
+    - 1960s - 2020s
+- Role of Theory
+- Finite Automata
+   - Formal Definition
+
+# Theory of Computation
+
+## Theory of Computation
+- <50s:
+    -   If we had computers, what could they do?
+    -   What can't they do?
+    -   I call this automata or computability theory.
+
+## Example 0
+-   Say we:
+    -   Have a computer, or formal definition thereof.
+    -   Have a sorting algorithm, or a formal definition thereof?
+-   Can we determine:
+    -   If the sorting algorithm is provably correct.
+-   Turns out: **impossible**.
+    -   Proving is equivalent to computing!
+
+## Example 1
+-   Say we:
+    -   Have a really, really optimized LLM, like Gemini.
+    -   Have a program we'd like to run, but aren't sure we have enough compute.
+-   Can we determine:
+    -   Whether the program will ever finish running?
+-   Turns out: **impossible**.
+
+## Some Previews
+-   Finite Automata
+    -   Today
+-   Turing Machines
+    -   In residence
+
+## Theory of Complexity
+-   What can we actually do?
+    -   Factoring Problem, foundation of modern [cryptography](https://cd-public.github.io/courses/c89s25/index.html).
+    -   Can we measure relative "goodness" of things.
+
+
+# Role of Theory
+
+## Open Questions
+
+-   How does the brain work?
+    -   Is it a neural network?
+    -   What is creativity?
+    -   Can machine learning do formal sciences including mathematics?
+-   Can we claim to understand computing without being able to answer the factoring question?
+
+
+# Finite Automata
+
+## Definition
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Term this $M_1$:
+    - States
+     $$
+     q_n
+     $$
+
+    - Transitions 
+    $$
+    \overset{\{1\}}{\longrightarrow}
+    $$
+    - Start state $q_1$
+    - Accept state $q_3$
+
+:::
+
+::: {.column width="50%"}
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+:::
+
+::::
+
+## Process
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+:::{.nonincremental}
+
+- Term this $M_1$:
+    - States
+     $$
+     q_n
+     $$
+
+    - Transitions 
+    $$
+    \overset{\{1\}}{\longrightarrow}
+    $$
+    - Start state $q_1$
+    - Accept state $q_3$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+- **Input**
+    - *Finite* bit string 
+    -   $\{0,1\}^n$
+- **Output**
+    - Boolean or bit
+    -   $\{0,1\}$
+-   Begin in start
+-   Read symbol
+-   Follow edge
+
+:::
+
+::::
+
+
+## Example
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+
+::: {.incremental}
+
+
+::: {.r-stack}
+
+- `[...]`
+- `[0,...]`
+- `[0,1,1,0,1]`
+
+:::
+
+:::
+
+:::
+
+::: {.column width="50%"}
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+:::
+
+::::
+
+## Notes
+
+!1 accepts exactly those strings in # where
+#  =  {&| & contains substring 11}.
+
+Say that # is the language of !1 and that !1 recognizes # and that #  =  -(!1).
+
+6
+
+Finite Automata – Formal Definition
+
+Defn:  A finite automaton ! is a 5-tuple (#, Σ, &, '0, ))
+#  finite set of states
+
+Σ
+
+&
+
+finite set of alphabet symbols
+
+transition function  &: #×Σ  →  #
+
+'0  start state
+
+)  set of accept states
+
+& (',  .)  =  0  means  '
+
+a
+
+0
+
+7
+
+Example:
+
+!1
+
+0
+
+'1
+
+1
+
+0
+
+'2
+
+1
+
+'3
+
+0,1
+
+!1  =  (#, Σ, &, '1, ))
+
+#  =  {'1, '2, '3}
+
+Σ  =  {0, 1}
+
+)  =  {'3}
+
+& =
+
+0
+1
+'1 '1  '2
+'2  '1  '3
+'3  '3  '3
+
+Finite Automata – Computation
+
+Strings and languages
+
+- A string is a finite sequence of symbols in Σ
+
+- A language is a set of strings (finite or infinite)
+
+-
+
+-
+
+The empty string  ε  is the string of length 0
+
+The empty language  ø  is the set with no strings
+
+Defn:  # accepts string  $  =  $1$2 … $)  each $* + Σ
+if there is a sequence of states  ,0, ,1, ,2, , … , ,)  +  /
+where:
+
+- ,0 =  00
+- ,*  =  1(,345, $*)  for  1 ≤ * ≤ )
+- ,) + 8
+
+8
+
+Recognizing languages
+- :(#)  =  {$| # accepts $}
+- :(#) is the language of #
+- # recognizes :(#)
+
+Defn:  A language is regular if some
+finite automaton recognizes it.
+
+Regular Languages – Examples
+
+"1
+
+0
+
+81
+
+1
+
+0
+
+1
+
+82
+
+83
+
+0,1
+
+!  "#  =  {&| & contains substring 11} = 5
+
+Therefore 5 is regular
+
+More examples:
+
+Let 6 =  & & has an even number of 1s}
+6 is regular (make automaton for practice).
+
+Let 7 =  & & has equal numbers of 0s and 1s}
+7 is not regular (we will prove).
+
+Goal:  Understand the regular languages
+
+9
+
+Regular Expressions
+
+Regular operations.  Let !, # be languages:
+
+- Union:
+
+! ∪ # =  &  & ∈ !  or  & ∈ #}
+
+- Concatenation:  ! ∘ # =  *+  * ∈ !  and  + ∈ #} = !#
+!∗ =  *- …  */  each *0  ∈ !  for  1 ≥ 0}
+
+- Star:
+
+Note:  ε ∈ !∗  always
+
+Example.  Let ! = {good, bad} and # = {boy, girl}.
+
+- ! ∪ # = {good, bad, boy, girl}
+
+Regular expressions
+- Built from  Σ, members Σ, ∅, ε  [Atomic]
+- By using  ∪,∘,∗
+
+[Composite]
+
+- ! ∘ # = !# = {goodboy, goodgirl, badboy, badgirl}
+- !∗ =  {ε, good, bad, goodgood, goodbad, badgood,
+badbad, goodgoodgood, goodgoodbad, … }
+Goal:  Show finite automata equivalent to regular expressions
+
+0 ∪ 1  ∗ = Σ∗  gives all strings over Σ
+Σ∗1  gives all strings that end with 1
+Σ∗11Σ∗  = all strings that contain 11 = :  ;-
+
+-
+
+-
+
+10
+
+Examples:
+-
+
+Closure Properties for Regular Languages
+
+Theorem:  If  !",  !$  are regular languages, so is !" ∪ !$  (closure under ∪)
+
+Proof:  Let &"  = ()", Σ, +" , ," , -" )  recognize !"
+&$  = ()$, Σ, +$ , ,$ , -$ ) recognize !$
+
+Construct  &  =  () , Σ , + , ,0, - ) recognizing !" ∪ !$
+
+&  should accept input  0  if either &"  or  &$  accept 0.
+
+&"
+
+Check-in 1.1
+
+,
+
+In the proof, if &" and &$ are finite automata
+where &" has 8" states and &$ has 8$ states
+Then how many states does & have?
+(a)  8" + 8$
+(b)  8"
+(c)  8"×8$
+
+$ +  8$
+
+$
+
+1
+
+&$
+
+Components of 2:
+
+) = )"×)$
+
+=  ,", ,$  ,"  ∈ )"  and  ,$  ∈ )$}
+
+,6  = (,", ,$)
+
++  ,, 1  , 7  =  +"  ,, 7  , +$  1, 7
+
+- = -"×-$  NO!  [gives intersection]
+- =  -"×)$  ∪  )"×-$
+
+Check-in  1.1
+
+11
+
+Closure Properties continued
+
+Theorem:  If  !",  !$  are regular languages, so is !"!$  (closure under ∘)
+
+Proof:  Let &"  = ()", Σ, +" , ," , -" )  recognize !"
+&$  = ()$, Σ, +$ , ,$ , -$ ) recognize !$
+
+Construct  &  =  () , Σ , + , ,0, - ) recognizing !"!$
+
+&$
+
+&"
+
+&
+
+&  should accept input  0
+if 0 = 12  where
+
+&" accepts 1  and  &$ accepts 2.
+
+0
+
+1
+
+2
+
+Doesn’t work:  Where to split 0?
+
+12
+
+Quick review of today
+
+1.  Introduction, outline, mechanics, expectations
+
+2.  Finite Automata, formal definition, regular languages
+
+3.  Regular  Operations  and  Regular  Expressions
+
+4.  Proved:  Class of regular languages is closed  under ∪
+
+5.  Started: Closure under ∘  , to be continued…
+
+13
+
+MIT OpenCourseWare
+https://ocw.mit.edu
+
+18.404J / 18.4041J / 6.840J Theory of Computation
+Fall 2020
+
+For information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms.
+
