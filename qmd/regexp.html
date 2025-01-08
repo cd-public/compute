@@ -429,12 +429,12 @@ Prof.&nbsp;Calvin
 <p><span class="math display">\[
 A \cup B = \{ w | w \in A \lor w \in B \}
 \]</span></p>
-<div id="bf356dbc" class="cell" data-execution_count="1">
+<div id="bf356dbc" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>A <span class="op">=</span> {<span class="st">''</span>, <span class="st">'0'</span>, <span class="st">'00'</span>, <span class="st">'000'</span>}</span>
 <span id="cb1-2"><a></a>B <span class="op">=</span> {<span class="st">''</span>, <span class="st">'1'</span>, <span class="st">'11'</span>, <span class="st">'111'</span>}</span>
 <span id="cb1-3"><a></a>A.union(B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="1">
+<div class="cell fragment" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>{'', '0', '00', '000', '1', '11', '111'}</code></pre>
 </div>
@@ -452,12 +452,12 @@ A \cup B = \{ w | w \in A \lor w \in B \}
 <p><span class="math display">\[
 A \cdot B = \{ xy | x \in A \land y \in B \} = AB
 \]</span></p>
-<div id="4832fc79" class="cell" data-execution_count="2">
+<div id="4832fc79" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>A <span class="op">=</span> {<span class="st">'0'</span>, <span class="st">'00'</span>}</span>
 <span id="cb3-2"><a></a>B <span class="op">=</span> {<span class="st">'1'</span>, <span class="st">'11'</span>}</span>
 <span id="cb3-3"><a></a>{ a <span class="op">+</span> b <span class="cf">for</span> a <span class="kw">in</span> A <span class="cf">for</span> b <span class="kw">in</span> B }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="2">
+<div class="cell fragment" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>{'001', '0011', '01', '011'}</code></pre>
 </div>
@@ -475,13 +475,13 @@ A \cdot B = \{ xy | x \in A \land y \in B \} = AB
 <p><span class="math display">\[
 A* = \{ x_1x_2\ldots x_n | x_i \in A \land n \geq 0 \}
 \]</span></p>
-<div id="d7e817f6" class="cell" data-execution_count="3">
+<div id="d7e817f6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>A <span class="op">=</span> {<span class="st">'0'</span>}</span>
 <span id="cb5-2"><a></a><span class="im">from</span> itertools <span class="im">import</span> count <span class="co"># infinite iterator</span></span>
 <span id="cb5-3"><a></a>astar <span class="op">=</span> ( a <span class="op">*</span> n <span class="cf">for</span> a <span class="kw">in</span> A <span class="cf">for</span> n <span class="kw">in</span> count() )</span>
 <span id="cb5-4"><a></a><span class="bu">next</span>(astar), <span class="bu">next</span>(astar), <span class="bu">next</span>(astar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="3">
+<div class="cell fragment" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>('', '0', '00')</code></pre>
 </div>
@@ -507,7 +507,7 @@ A* = \{ x_1x_2\ldots x_n | x_i \in A \land n \geq 0 \}
 </section>
 <section id="solution-0" class="slide level2">
 <h2>Solution 0</h2>
-<div id="98a861b6" class="cell" data-execution_count="4">
+<div id="98a861b6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>A <span class="op">=</span> {<span class="st">'0'</span>, <span class="st">'10'</span>}</span>
 <span id="cb7-2"><a></a><span class="im">from</span> itertools <span class="im">import</span> count <span class="co"># infinite iterator</span></span>
 <span id="cb7-3"><a></a><span class="im">from</span> itertools <span class="im">import</span> combinations_with_replacement <span class="im">as</span> cwr</span>
@@ -530,7 +530,7 @@ A* = \{ x_1x_2\ldots x_n | x_i \in A \land n \geq 0 \}
 </section>
 <section id="solution-1" class="slide level2">
 <h2>Solution 1</h2>
-<div id="e9129008" class="cell" data-execution_count="5">
+<div id="e9129008" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="co"># define q_n as a convenience</span></span>
 <span id="cb9-2"><a></a>q_1, q_2 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span></span>
 <span id="cb9-3"><a></a><span class="co"># define M</span></span>
@@ -762,18 +762,19 @@ Q_3 = Q_2 \times Q_2 = { (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 }
 </ul></li>
 </ul>
 </section>
-<section id="statement" class="slide level2">
-<h2>Statement</h2>
+<section id="theorem-1" class="slide level2">
+<h2>Theorem 1</h2>
+<p><span class="math display">\[
+\forall L(M_1), L(M_2), \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+\]</span></p>
+<p><em>Proof</em></p>
 <p><span class="math display">\[
 \begin{aligned}
 L(&amp;Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
-L(&amp;Q_1 \times Q_2, \\
-&amp;\Sigma, \\
+L(&amp;Q_1 \times Q_2, \Sigma, \\
 &amp;(\delta_1(q,a), \delta_1(q',a)), \\
 &amp;(q_1, q_2), \\
-&amp;\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\\
-\therefore &amp;
-\forall L(M_1), L(M_2), \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+&amp;\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
 \end{aligned}
 \]</span></p>
 </section>

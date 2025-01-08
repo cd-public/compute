@@ -252,18 +252,21 @@ $$
     -   $F = \{ (q,q') | q \in F_1 \lor q` \in F_2 \}$
     -   $F = \{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \}$
 
-## Statement
+## Theorem 1
+
+$$
+\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+$$
+
+*Proof*
 
 $$ 
 \begin{aligned}
 L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
- L(&Q_1 \times Q_2, \\
-&\Sigma, \\
-&(\delta_1(q,a), \delta_1(q',a)), \\
+ L(&Q_1 \times Q_2, \Sigma, \\
+&(\delta_1(q,a), \delta_2(q',a)), \\
 &(q_1, q_2), \\
-&\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\\
-\therefore &
-\forall L(M_1), L(M_2), \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+&\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
 \end{aligned}
 $$
 

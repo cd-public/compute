@@ -1050,6 +1050,56 @@ M_1 = (Q_1, \Sigma, \delta_1, q_1, F_1) \land M_2 = (Q_2, \Sigma, \delta_2, q_2,
 </ul></li>
 <li class="fragment">We use the same insight as with <span class="math inline">\(\delta\)</span></li>
 </ul>
+</section>
+<section id="dfa-states" class="slide level2">
+<h2>DFA States</h2>
+<ul>
+<li class="fragment">Let <span class="math inline">\(Q' = \mathcal{P} (Q)\)</span>
+<ul>
+<li class="fragment">One deterministic state for all possible combinations</li>
+<li class="fragment">How many is this?</li>
+<li class="fragment">How can we represent it?</li>
+</ul></li>
+<li class="fragment">We note <span class="math inline">\(\Sigma\)</span> is unaltered.</li>
+</ul>
+</section>
+<section id="dfa-delta" class="slide level2">
+<h2>DFA <span class="math inline">\(\delta`\)</span></h2>
+<ul>
+<li class="fragment">We note <span class="math inline">\(\Sigma\)</span> is unaltered.</li>
+<li class="fragment">We note NFA <span class="math inline">\(\delta\)</span>:
+<ul>
+<li class="fragment">Accepts <span class="math inline">\(\mathcal{P} (Q)\)</span> and a letter</li>
+<li class="fragment">Produces <span class="math inline">\(\mathcal{P} (Q)\)</span></li>
+<li class="fragment">That the states <span class="math inline">\(Q'\)</span> of the DFA are <span class="math inline">\(\mathcal{P} (Q)\)</span></li>
+</ul></li>
+<li class="fragment"><span class="math inline">\(\delta\)</span> = <span class="math inline">\(\delta`\)</span></li>
+</ul>
+</section>
+<section id="dfa-f" class="slide level2">
+<h2>DFA <span class="math inline">\(F\)</span></h2>
+<ul>
+<li class="fragment">The DFA tracks a set of possible states.</li>
+<li class="fragment">Only one state need be accepting.</li>
+<li class="fragment"><span class="math inline">\(F' = \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \}\)</span></li>
+</ul>
+</section>
+<section id="theorem-2" class="slide level2">
+<h2>Theorem 2</h2>
+<p><span class="math display">\[
+\forall M_{NFA}, \exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))
+\]</span></p>
+<p><em>Proof</em></p>
+<p><span class="math display">\[
+\begin{aligned}
+M_{NFA}(&amp;Q, \Sigma, \delta, q_1, F_1) = \\
+M_{DFA}(&amp;\mathcal{P} (Q), \Sigma, \delta, \{q_1\}, \\
+        &amp; \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \})\blacksquare
+\end{aligned}
+\]</span></p>
+<ul>
+<li class="fragment">We take some minor liberties with precisely defining the type of <span class="math inline">\(\delta\)</span></li>
+</ul>
 </section></section>
 <section id="stretch-break" class="title-slide slide level1 center">
 <h1>Stretch Break</h1>

@@ -915,5 +915,236 @@
     "title": "3. NFAs",
     "section": "Goal",
     "text": "Goal\n\nWish to show any NFA language can be recognized by a DFA.\nTake an NFA\n\n\\(M = (Q, \\Sigma, \\delta, q_0, F)\\)\n\nConstruct a DFA\n\n\\(M = (Q', \\Sigma, \\delta', q'_0, F')\\)\n\nWe use the same insight as with \\(\\delta\\)"
+  },
+  {
+    "objectID": "nfas.html#transformation",
+    "href": "nfas.html#transformation",
+    "title": "3. NFAs",
+    "section": "Transformation",
+    "text": "Transformation\n\nLet \\(Q' = \\mathcal{P} (Q)\\)\n\nOne deterministic state for all possible combinations\nHow many is this?\nHow can we represent it?"
+  },
+  {
+    "objectID": "nfas.html#dfa-states",
+    "href": "nfas.html#dfa-states",
+    "title": "3. NFAs",
+    "section": "DFA States",
+    "text": "DFA States\n\nLet \\(Q' = \\mathcal{P} (Q)\\)\n\nOne deterministic state for all possible combinations\nHow many is this?\nHow can we represent it?\n\nWe note \\(\\Sigma\\) is unaltered."
+  },
+  {
+    "objectID": "nfas.html#dfa-delta",
+    "href": "nfas.html#dfa-delta",
+    "title": "3. NFAs",
+    "section": "DFA \\(\\delta`\\)",
+    "text": "DFA \\(\\delta`\\)\n\nWe note \\(\\Sigma\\) is unaltered.\nWe note NFA \\(\\delta\\):\n\nAccepts \\(\\mathcal{P} (Q)\\) and a letter\nProduces \\(\\mathcal{P} (Q)\\)\nThat the states \\(Q'\\) of the DFA are \\(\\mathcal{P} (Q)\\)\n\n\\(\\delta\\) = \\(\\delta`\\)"
+  },
+  {
+    "objectID": "regexp.html#theorem-1",
+    "href": "regexp.html#theorem-1",
+    "title": "2. Regular Expressions",
+    "section": "Theorem 1",
+    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_1(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "nfas.html#theorem-2",
+    "href": "nfas.html#theorem-2",
+    "title": "3. NFAs",
+    "section": "Theorem 2",
+    "text": "Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]\n\nWe take some minor liberties with precisely defining the type of \\(\\delta\\)"
+  },
+  {
+    "objectID": "nfas.html#dfa-f",
+    "href": "nfas.html#dfa-f",
+    "title": "3. NFAs",
+    "section": "DFA \\(F\\)",
+    "text": "DFA \\(F\\)\n\nThe DFA tracks a set of possible states.\nOnly one state need be accepting.\n\\(F' = \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\}\\)"
+  },
+  {
+    "objectID": "nfas.html#theorem-2-1",
+    "href": "nfas.html#theorem-2-1",
+    "title": "3. NFAs",
+    "section": "Theorem 2",
+    "text": "Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\nL_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nL_{DFA}(&\\mathcal{P} (Q), \\\\\n        &\\Sigma, \\\\\n        &\\delta, \\\\\n        &{q_1}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\} \\\\\n        &) //\n\\]"
+  },
+  {
+    "objectID": "closures.html#sketch",
+    "href": "closures.html#sketch",
+    "title": "4. Closures",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nClosures\n\nUnion\nConcatenation\nStar"
+  },
+  {
+    "objectID": "closures.html#theorem-1",
+    "href": "closures.html#theorem-1",
+    "title": "4. Closures",
+    "section": "Theorem 1",
+    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup ((q_0, \\varnothing) \\rightarrow \\{q_1, q_2\\} \\\\\n&q_0, \\\\\n& F_1 \\sqcup F_2)\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "closures.html#review",
+    "href": "closures.html#review",
+    "title": "4. Closures",
+    "section": "Review",
+    "text": "Review\n\nWe previously proved closure under union (for regular languages).\nWe did so using only deterministic finite automata (DFAs).\nThe proof was somewhat demanding and non-trivial.\nWe re-prove using NFAs\n\nSeparately, we prove the result for NFAs."
+  },
+  {
+    "objectID": "closures.html#recall-theorem-1",
+    "href": "closures.html#recall-theorem-1",
+    "title": "4. Closures",
+    "section": "Recall: Theorem 1",
+    "text": "Recall: Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "closures.html#new-technique",
+    "href": "closures.html#new-technique",
+    "title": "4. Closures",
+    "section": "New Technique",
+    "text": "New Technique\n\nWe can equivalent argue take both \\(M_1\\) and \\(M_2\\)\nWe non-deterministically read into both simultaneously\nWe begin with the first edge from the first state."
+  },
+  {
+    "objectID": "closures.html#new-q",
+    "href": "closures.html#new-q",
+    "title": "4. Closures",
+    "section": "New \\(Q\\)",
+    "text": "New \\(Q\\)\n\nTake \\(Q\\) to be all states in \\(Q_1\\) and in \\(Q_2\\)\n\nWe can renumber them, if needed.\nWe add novel start state \\(q_0\\)\n\nInitial state with no return edges\n\n\\(q_1\\) and \\(q_2\\) persist, without start edge.\n\n\\(Q_3 = Q_1 \\sqcup Q_2 \\cup \\{q_0\\}\\)\n\n\\(\\sqcup\\) is disjoint union - members indexed by initial set to avoid duplication."
+  },
+  {
+    "objectID": "closures.html#new-delta",
+    "href": "closures.html#new-delta",
+    "title": "4. Closures",
+    "section": "New \\(\\delta\\)",
+    "text": "New \\(\\delta\\)\n\nSame as \\(Q\\) - take \\(\\delta_1\\) and \\(\\delta_2\\)\n\nAdd \\(q_0\\) with outgoing edges \\(q_1 \\sqcup q_2\\)\nNo other changes."
+  },
+  {
+    "objectID": "closures.html#q_0-f",
+    "href": "closures.html#q_0-f",
+    "title": "4. Closures",
+    "section": "\\(q_0, F\\)",
+    "text": "\\(q_0, F\\)\n\nWe use the new initial state.\nThe set of accepting states is also a disjoint union."
+  },
+  {
+    "objectID": "closures.html#graphically",
+    "href": "closures.html#graphically",
+    "title": "4. Closures",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\\(M_1\\)\n\n\\(M_2\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#renumber",
+    "href": "closures.html#renumber",
+    "title": "3. NFAs",
+    "section": "Renumber",
+    "text": "Renumber\n\nPrepare for \\(\\sqcup\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#renumber-for-sqcup",
+    "href": "closures.html#renumber-for-sqcup",
+    "title": "4. Closures",
+    "section": "Renumber for \\(\\sqcup\\)",
+    "text": "Renumber for \\(\\sqcup\\)\n\n\n\\(M_1\\)\n\n\\(M_2\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#combine",
+    "href": "closures.html#combine",
+    "title": "4. Closures",
+    "section": "Combine",
+    "text": "Combine\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#add-q_0",
+    "href": "closures.html#add-q_0",
+    "title": "4. Closures",
+    "section": "Add \\(q_0\\)",
+    "text": "Add \\(q_0\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nq0\n\nq\n0\n\n\n\nr0-&gt;q0\n\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq0-&gt;r1\n\n\n{0}\n\n\n\nq0-&gt;r2\n\n\n{1}\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq0-&gt;q2\n\n\n{1}\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}\n\n\n\n\n\n\n\n\n\nEssentially just the two machines running in parallel."
+  },
+  {
+    "objectID": "closures.html#use-varnothing-edges.",
+    "href": "closures.html#use-varnothing-edges.",
+    "title": "4. Closures",
+    "section": "Use \\(\\varnothing\\) edges.",
+    "text": "Use \\(\\varnothing\\) edges.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nq0\n\nq\n0\n\n\n\nr0-&gt;q0\n\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq0-&gt;r1\n\n\n{}\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n{}\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#recall-theorem-1-1",
+    "href": "closures.html#recall-theorem-1-1",
+    "title": "3. NFAs",
+    "section": "Recall: Theorem 1",
+    "text": "Recall: Theorem 1\n\\[\n\\forall L(M_1), L(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&(\\delta_1 \\sqcup \\delta_2 \\cup ((q_0, \\varnothing) \\rightarrow \\{q_1, q_2\\}) \\\\\n&q_0, \\\\\n& F_1 \\sqcup F_2)\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "closures.html#recall-theorem-2",
+    "href": "closures.html#recall-theorem-2",
+    "title": "4. Closures",
+    "section": "Recall: Theorem 2",
+    "text": "Recall: Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "closures.html#recall-theorem-2-1",
+    "href": "closures.html#recall-theorem-2-1",
+    "title": "3. NFAs",
+    "section": "Recall: Theorem 2",
+    "text": "Recall: Theorem 2\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "closures.html#goal",
+    "href": "closures.html#goal",
+    "title": "4. Closures",
+    "section": "Goal",
+    "text": "Goal\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]"
+  },
+  {
+    "objectID": "closures.html#new-q-1",
+    "href": "closures.html#new-q-1",
+    "title": "4. Closures",
+    "section": "New \\(Q\\)",
+    "text": "New \\(Q\\)\n\nAs with union, so with concatenation.\n\\(Q_3 = Q_1 \\sqcup Q_2\\)"
+  },
+  {
+    "objectID": "closures.html#new-delta-1",
+    "href": "closures.html#new-delta-1",
+    "title": "4. Closures",
+    "section": "New \\(\\delta\\)",
+    "text": "New \\(\\delta\\)\n\nAs with union, so with concatenation.\n\\(\\delta_3 = \\delta_1 \\sqcup \\delta_2\\)\nAdditional need to get from \\(M_1\\) to \\(M_2\\)\n\nAdd \\(\\varnothing\\) paths\nFrom \\(q_n \\in F_1\\)\nTo \\(q_2\\) \\(\\delta_3 = \\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_2\\} | f \\in F_1 \\}\\)"
+  },
+  {
+    "objectID": "closures.html#q_0-f-1",
+    "href": "closures.html#q_0-f-1",
+    "title": "4. Closures",
+    "section": "\\(q_0, F\\)",
+    "text": "\\(q_0, F\\)\n\nWe use only \\(M_1\\) initial state \\(q_1\\)\nWe use only \\(M_2\\) accepting states \\(F_2\\)"
+  },
+  {
+    "objectID": "closures.html#combine-graphically",
+    "href": "closures.html#combine-graphically",
+    "title": "4. Closures",
+    "section": "Combine Graphically",
+    "text": "Combine Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#update-q_0",
+    "href": "closures.html#update-q_0",
+    "title": "4. Closures",
+    "section": "Update \\(q_0\\)",
+    "text": "Update \\(q_0\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq1\n\nq\n1\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#update-f",
+    "href": "closures.html#update-f",
+    "title": "4. Closures",
+    "section": "Update \\(F\\)",
+    "text": "Update \\(F\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq1\n\nq\n1\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#update-delta",
+    "href": "closures.html#update-delta",
+    "title": "4. Closures",
+    "section": "Update \\(\\delta\\)",
+    "text": "Update \\(\\delta\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nq1\n\nq\n1\n\n\n\nr1-&gt;q1\n\n\n{}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nr2-&gt;q1\n\n\n{}\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}\n\n\n\n\n\n\n\n\n\nRecall \\(\\exists\\) an equivalent DFA by Theorem 2"
+  },
+  {
+    "objectID": "closures.html#theorem-3",
+    "href": "closures.html#theorem-3",
+    "title": "4. Closures",
+    "section": "Theorem 3",
+    "text": "Theorem 3\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_2\\} | f \\in F_1 \\} \\\\\n&q_1, \\\\\n&F_2)\\blacksquare\n\\end{aligned}\n\\]"
   }
 ]

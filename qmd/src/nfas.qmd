@@ -419,6 +419,47 @@ q_next_dfa = lambda m, qs, a : {q_n for q in d[q][a] for q in qs}
     -  $M = (Q', \Sigma, \delta', q'_0, F')$
 -   We use the same insight as with $\delta$
 
+## DFA States
+
+-   Let $Q' = \mathcal{P} (Q)$
+    -   One deterministic state for all possible combinations
+    -   How many is this?
+    -   How can we represent it?
+-   We note $\Sigma$ is unaltered.
+
+## DFA $\delta`$
+
+-   We note $\Sigma$ is unaltered.
+-   We note NFA $\delta$:
+    -   Accepts $\mathcal{P} (Q)$ and a letter
+    -   Produces $\mathcal{P} (Q)$
+    -   That the states $Q'$ of the DFA are $\mathcal{P} (Q)$ 
+-   $\delta$ = $\delta`$
+
+## DFA $F$
+
+-   The DFA tracks a set of possible states.
+-   Only one state need be accepting.
+-   $F' = \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \}$
+
+## Theorem 2
+
+$$
+\forall M_{NFA}: \exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA})) 
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+M_{NFA}(&Q, \Sigma, \delta, q_1, F_1) = \\
+M_{DFA}(&\mathcal{P} (Q), \Sigma, \delta, \{q_1\}, \\
+        & \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \})\blacksquare
+\end{aligned}
+$$
+
+- We take some minor liberties with precisely defining the type of $\delta$.
+
 # Stretch Break
 
 - [Home](https://cd-public.github.io/compute/)
