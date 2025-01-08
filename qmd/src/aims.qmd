@@ -1,5 +1,5 @@
 ---
-title: Aims of Education
+title: "0. Aims of Education"
 author: Prof. Calvin
 subtitle: "23 Jan 08 AM"
 institute: CSCI 5100
@@ -13,10 +13,13 @@ format:
         show-slide-number: all
         width: 1050
         height: 700
-        footer: "[Home](https://cd-public.github.io/compute/)"
+        footer: "[Home](../index.html)"
   
+
 execute:
-    echo: false
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render
 ---
 
 ---
@@ -30,10 +33,13 @@ execute:
 ---
 
 ## Sketch
+
+::: {.nonincremental}
 - 20 minute intro
 - 20 guest lecture
 - 20 minute goal setting
 - Then into Theory of Computatation
+:::
 
 ## About Me
 
@@ -50,12 +56,16 @@ execute:
 ---
 
 ## Background
+
+
+::: {.nonincremental}
 - **Thesis Title**: [Mining Secure Behavior of Hardware Designs](https://cd-public.github.io/papers/2021/CD2021.pdf)  
 
 >  Specification mining can discover properties that can verify the secure behavior of closed-source CISC CPU designs, the temporal correctness of CPU designs, and hyperproperties for secure information flow in modules, SoCs, and CPUs.  
+:::
+
 
 ## Background
-- **Thesis Title**: [Mining Secure Behavior of Hardware Designs](https://cd-public.github.io/papers/2021/CD2021.pdf)  
 - **Plain English**:  
   Just as there are bugs in code that make **software**, modern **hardware** is also written in code and therefore may contain bugs. I find these bugs.  
 - Of note: I found those bugs *using computation theory* specifically automata.
@@ -92,7 +102,7 @@ execute:
     - Follow lecture.
     - Participate in Discord.
     - Treat fellow students with respect.
-    - Complete problem sets..
+    - Complete problem sets.
 
 ---
 

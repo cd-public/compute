@@ -1,0 +1,355 @@
+---
+title: "2. Regular Expressions"
+author: Prof. Calvin
+subtitle: "23 Jan 10 AM"
+institute: CSCI 5100
+format: 
+    revealjs: 
+        incremental: true
+        theme: dark
+        mainfont: monospace
+        slide-number: true
+        show-slide-number: all
+        width: 1050
+        height: 700
+        footer: "[Home](../index.html)"
+  
+execute:
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render
+---
+
+## Sketch
+
+::: {.nonincremental}
+- Regular Operations
+    - Union
+    - Concatenation
+    - Star
+- Regular Expressions
+:::
+
+# Regular Operations
+
+## Union
+
+$$
+A \cup B = \{ w | w \in A \lor w \in B \}
+$$
+```{python}
+#| output-location: fragment
+A = {'', '0', '00', '000'}
+B = {'', '1', '11', '111'}
+A.union(B)
+```
+
+- Strings which are
+    -   Length less than 4, and
+    -   Containing only `0` or only `1`
+
+## Concatenation
+
+$$
+A \cdot B = \{ xy | x \in A \land y \in B \} = AB
+$$
+```{python}
+#| output-location: fragment
+A = {'0', '00'}
+B = {'1', '11'}
+{ a + b for a in A for b in B }
+```
+
+- Strings which contain
+    -   One or two `0` and `1`, each, and
+    -   All `0` before any `1`
+
+
+## Star
+
+$$
+A* = \{ x_1x_2\ldots x_n | x_i \in A \land n \geq 0 \}
+$$
+```{python}
+#| output-location: fragment
+A = {'0'}
+from itertools import count # infinite iterator
+astar = ( a * n for a in A for n in count() )
+next(astar), next(astar), next(astar)
+```
+
+- Strings which contain
+    -   Zero or more strings in $A$
+    -   Harder in .py with non-trivial $A$
+
+## Exercise 0
+
+- Write a Python generator expression.
+    -   Over `A = {'0', '010'}`
+    -   That defines $A*$
+    -   Check out `itertools` or write your own.
+
+
+## Solution 0
+
+```{python}
+A = {'0', '10'}
+from itertools import count # infinite iterator
+from itertools import combinations_with_replacement as cwr
+astar = ( s for n in count() for s in ("".join(s) for s in cwr(A,n)) ) 
+[next(astar) for i in range(5)]
+```
+
+## Exercise 1
+
+- Write a Python finite automata
+    -   That is defined as a 5-tuple $Q, \Sigma, \delta, q_0, F$
+    -   That is equivalent to $A*$
+
+    
+## Solution 1
+
+```{python}
+# define q_n as a convenience
+q_1, q_2 = "q_1", "q_2"
+# define M
+Q = {q_1, q_2}
+S = {0, 1}
+d = {
+    q_1 : { 0:q_1, 1:q_2 },
+    q_2 : { 0:q_1 }
+}
+M = (Q,S,d,q_1,Q)
+``` 
+
+## Exercise 2
+
+- Sketch the finite automata
+    -   As a graph using .dot
+
+::: {.fragment}
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: true
+//| eval: false
+//| code-overflow: scroll
+digraph finite_automata {
+  rankdir=LR;
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+:::
+
+## Solution 2
+
+```{dot}
+//| echo: true
+//| output-location: slide
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, shape=doublecircle];
+  q2 [label=<<I>q<SUB>2</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+}
+```
+
+# Regular Expressions
+
+## Components
+
+-   Built from:
+    -   $\Sigma$, the letters of the alphabet
+    -   $\varnothing$, the empty set / empty language.
+    -   $\Sigma^0$, the empty string
+-   Built with:
+    -   $\cup$, union
+    -   $\cdot$, concatenation
+    -   $*$, the "star" operator
+
+## Examples
+
+-   ${0,1}* = \Sigma*$ is all bit strings
+-   $\Sigma*1$ is all `1`-terminated bit strings
+-   $\Sigma*11\Sigma*$ is $L(M_1)$
+    -   All strings with `11`
+-   We note we are loosening the rigor of our notation.
+    -   I took, e.g. `11` as `[1, 1]`
+
+# Goal:
+
+*Show that finite automata and regular expressions are equivalently expressive*.
+
+## Closure
+
+-   Closure is with respect to a set and an operation.
+-   We note:
+    -   Natural numbers $\mathbb{N}$ are closed under $+$
+    -   Natural numbers $\mathbb{N}$ not closed under $-$
+-   We wish to apply these to languages, not numbers.
+
+## Closure under $\cup$
+
+-   Our set is the languages recognized FA/FSMs.
+-   Our operation is $\cup$
+-   We wish to show the union of any two regular languages is, itself, a regular language.
+
+## Closure under $\cup$
+
+:::{.fragment}
+
+$$
+M_1 = (Q_1, \Sigma, \delta_1, q_1, F_1) \land M_2 = (Q_2, \Sigma, \delta_2, q_2, F_2) \implies
+$$
+
+:::
+
+:::{.fragment}
+
+$$
+\exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+$$
+
+:::
+
+-   Core insight: Track what state $M_1$ and $M_2$ both would be in, within $M_3$
+
+:::{.fragment}
+$$
+Q_3 = Q_2 \times Q_2 = { (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 }
+$$
+:::
+
+## $M_3$
+
+-   $M_1, M_2  = (Q_1, \Sigma, \delta_1, q_1, F_1), (Q_2, \Sigma, \delta_2, q_2, F_2)$
+-   $Q_3 = Q_2 \times Q_2 = \{ (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 \}$
+-   $q_0 = (q_1, q_2)$
+-   $\delta(q,q'),a) = (\delta_1(q,a), \delta_1(q',a))$
+-   $F \neq F_1 \times F_2$
+    -   $F = \{ (q,q') | q \in F_1 \lor q` \in F_2 \}$
+    -   $F = \{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \}$
+
+## Statement
+
+$$ 
+\begin{aligned}
+L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
+ L(&Q_1 \times Q_2, \\
+&\Sigma, \\
+&(\delta_1(q,a), \delta_1(q',a)), \\
+&(q_1, q_2), \\
+&\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\\
+\therefore &
+\forall L(M_1), L(M_2), \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+\end{aligned}
+$$
+
+## Exercise
+
+Build $M_3$ for the $M_1$ and $M_2$ as:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+$M_1$
+
+:::
+
+::: {.column width="50%"}
+
+$M_2$
+
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, shape=doublecircle];
+  q2 [label=<<I>q<SUB>2</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+}
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+:::
+
+::::
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

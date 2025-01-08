@@ -1,31 +1,36 @@
 ---
-title: "*FAs"
+title: "1. Finite Automata"
 author: Prof. Calvin
 subtitle: "23 Jan 09 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
         incremental: true
-        code-fold: true
         theme: dark
         mainfont: monospace
         slide-number: true
         show-slide-number: all
         width: 1050
         height: 700
-        footer: "[Home](https://cd-public.github.io/compute/)"
+        footer: "[Home](../index.html)"
   
 execute:
-    echo: false
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render
 ---
 
 ## Sketch
+
+::: {.nonincremental}
 - What is theory of computation?
     - 1930s - 1950s
     - 1960s - 2020s
 - Role of Theory
 - Finite Automata
    - Formal Definition
+
+:::
 
 # Theory of Computation
 
@@ -38,11 +43,11 @@ execute:
 ## Example 0
 -   Say we:
     -   Have a computer, or formal definition thereof.
-    -   Have a sorting algorithm, or a formal definition thereof?
+    -   Have a sorting algorithm.
+    -   Having a sorting specificaiton.
 -   Can we determine:
-    -   If the sorting algorithm is provably correct.
+    -   If the sorting algorithm meets a specification?
 -   Turns out: **impossible**.
-    -   Proving is equivalent to computing!
 
 ## Example 1
 -   Say we:
@@ -100,6 +105,7 @@ execute:
 ::: {.column width="50%"}
 ```{dot filename="Finite Automata"}
 //| fig-width: 50%
+//| echo: false
 digraph finite_automata {
   rankdir=LR;
   bgcolor="#191919";
@@ -174,31 +180,138 @@ digraph finite_automata {
 ::::
 
 
-## Example
+## ''
 
-:::: {.columns}
+- The inital state is $q_1$.
 
-::: {.column width="50%"}
+```py
+[] # We'll use a Python list to represent the input.
+```
 
-
-::: {.incremental}
-
-
-::: {.r-stack}
-
-- `[...]`
-- `[0,...]`
-- `[0,1,1,0,1]`
-
-:::
-
-:::
-
-:::
-
-::: {.column width="50%"}
 ```{dot filename="Finite Automata"}
 //| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 [color="orange"]
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+
+## '0'
+
+- Find label containing `0` out of $q_1$.
+
+```py
+[0] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}", color="orange"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+## '01'
+
+- Find label containing `1` out of $q_1$.
+
+```py
+[0, 1] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>, color="orange"];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}", color="orange"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+## '011'
+
+- Find label containing `1` out of $q_2$.
+
+```py
+[0, 1, 1] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
 digraph finite_automata {
   rankdir=LR;
   bgcolor="#191919";
@@ -217,301 +330,308 @@ digraph finite_automata {
   q0 [label="",shape=point]; 
   q1 [label=<<I>q<SUB>1</SUB></I>>];
   q2 [label=<<I>q<SUB>2</SUB></I>>];
-  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
 
-  q0 -> q1
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}", color="orange"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+## '0110'
+
+- Find label containing `0` out of $q_3$.
+
+```py
+[0, 1, 1, 0] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 []
   q1 -> q1 [label="{0}"];
   q1 -> q2 [label="{1}"];
   q2 -> q1 [label="{0}"];
   q2 -> q3 [label="{1}"];
-  q3 -> q3 [label="{0,1}"];
+  q3 -> q3 [label="{0,1}", color="orange"];
 }
 ```
+
+## '01101'
+
+- Find label containing `1` out of $q_3$.
+
+```py
+[0, 1, 1, 0, 1] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}", color="orange"];
+}
+```
+
+## '01101'
+
+- $M_1$ accepts `[0, 1, 1, 0, 1]` by ending in $q_3$
+
+```py
+assert(M_1([0, 1, 1, 0, 1]) # M_1 as a function from bit strings to booleans.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
+  q2 [label=<<I>q<SUB>2</SUB></I>>, color="orange"];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 [color="orange"]
+  q1 -> q1 [label="{0}", color="orange"];
+  q1 -> q2 [label="{1}", color="orange"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}", color="orange"];
+  q3 -> q3 [label="{0,1}", color="orange"];
+}
+```
+
+## Exercise
+
+- Does $M_1$ accept `[0, 0, 1, 0, 1]`?
+
+```py
+[0, 0, 1, 0, 1] # M_1 as a function from bit strings to booleans.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 50%
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
+  q2 [label=<<I>q<SUB>2</SUB></I>>, color="orange"];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 [color="orange"]
+  q1 -> q1 [label="{0}", color="orange"];
+  q1 -> q2 [label="{1}", color="orange"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}", color="orange"];
+  q3 -> q3 [label="{0,1}", color="orange"];
+}
+```
+
+## Terminology
+
+- We say that:
+    -   $A$ is the *language* of $M_1$.
+    -   $M_1$ *recognizes* $A$
+    -   $A = L(M_1)$
+- We note:
+$$
+w \in A \implies \exists i,j < |w| : w_i = 1 \land w_j = 1\}
+$$
+
+:::{.fragment}
+
+```{.py}
+w = '01101' # for example
+assert('11' in w)
+```
+
 :::
 
-::::
+# Formal Definition
 
-## Notes
+## Finite Automaton
 
-!1 accepts exactly those strings in # where
-#  =  {&| & contains substring 11}.
+- A **finite automaton** (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols. 
+    - In class: "finite automaton"
+    - Real life: mostly say "state machine"
+    - I used the notation *FA to denote these are not a specific kind of FA
 
-Say that # is the language of !1 and that !1 recognizes # and that #  =  -(!1).
 
-6
+## Formal Definition
 
-Finite Automata – Formal Definition
+A finite automaton is formally defined as a 5-*tuple*:
 
-Defn:  A finite automaton ! is a 5-tuple (#, Σ, &, '0, ))
-#  finite set of states
+- **$Q$** A finite, non-empty *set* of states.
+- **$\Sigma$:** A finite, non-empty *set* of input symbols called the alphabet.
+- **$\delta$:** The transition function, a mapping 
+    -   $\delta : Q \times \sigma \rightarrow Q$ 
+- **$q_0$:** The initial state, where $q_0$ ∈ Q.
+- **$F$:** A set of accepting states (or final states), where $F \subset Q$.
 
-Σ
+## Explanation:
 
-&
+* **States ($Q$):** Possible internal configurations - like computer memory.
+* **Alphabet ($\Sigma$):** Possible inputs - machine binary or computer I/O.
+* **Transition Function (\delta$):** How the FA's state is updated on read.
+* **Initial State ($q_0$):** This is the state where the automaton begins its operation.
+* **Accepting States ($F$):** These determine if the FA outputs $0$ or $1$.
 
-finite set of alphabet symbols
+## Our Example
 
-transition function  &: #×Σ  →  #
+- $M_1 = (Q, \Sigma, \delta, q_1, \{q_3\})$
+    - $Q = \{q_1, q_2, q_3\}$
+    - $\Sigma = \{0, 1\}$
+- How to express $\delta$?
 
-'0  start state
+:::{.fragment}
 
-)  set of accept states
+| $\delta=$  | $0$ | $1$ |
+|------------|-----|-----|
+| $q_1$&vert;|$q_1$|$q_2$|
+| $q_2$&vert;|$q_1$|$q_3$|
+| $q_3$&vert;|$q_3$|$q_3$|
 
-& (',  .)  =  0  means  '
+:::
 
-a
+## Python
 
-0
+```{python}
+# define q_n as a convenience
+q_1, q_2, q_3 = "q_1", "q_2", "q_3"
+# define M_1
+Q = {q_1, q_2, q_3}
+S = {0, 1}
+d = {
+    q_1 : { 0:q_1, 1:q_2 },
+    q_2 : { 0:q_1, 1:q_3 },
+    q_3 : { 0:q_3, 1:q_3 }
+}
+M_1 = (Q,S,d,q_1,{q_3})
+print(M_1)
+```
 
-7
+## Strings/Languages
 
-Example:
+-   A *string* is a **sequence** of letters $\Sigma^n$
+-   A *language* is a set of *strings*.
+-   The empty string is zero length $\Sigma^0$
+-   The empty language is the empty set $\varnothing$
 
-!1
+:::{.fragment}
+*We note that the empty string is not in or related to the empty language*
+:::
 
-0
+## Acceptance
 
-'1
+-   $M$ *accepts* string $w = w_1w_2\ldots w_n$ if:
 
-1
+:::{.fragment}
+$$
+\forall w_i \in \Sigma : \exists r_0r_1\ldots r_n : 
+$$
+:::
 
-0
 
-'2
+:::{.fragment}
 
-1
+$$
+r_0 = q_0 \land 
+$$
 
-'3
+:::
 
-0,1
 
-!1  =  (#, Σ, &, '1, ))
+:::{.fragment}
 
-#  =  {'1, '2, '3}
+$$
+r_n \in F \land 
+$$
 
-Σ  =  {0, 1}
+:::
 
-)  =  {'3}
 
-& =
+:::{.fragment}
 
-0
-1
-'1 '1  '2
-'2  '1  '3
-'3  '3  '3
+$$
+\forall i : r_i = \delta(r_{i-1},w_i) 
+$$
 
-Finite Automata – Computation
+:::
 
-Strings and languages
+# Stretch Break
 
-- A string is a finite sequence of symbols in Σ
-
-- A language is a set of strings (finite or infinite)
-
--
-
--
-
-The empty string  ε  is the string of length 0
-
-The empty language  ø  is the set with no strings
-
-Defn:  # accepts string  $  =  $1$2 … $)  each $* + Σ
-if there is a sequence of states  ,0, ,1, ,2, , … , ,)  +  /
-where:
-
-- ,0 =  00
-- ,*  =  1(,345, $*)  for  1 ≤ * ≤ )
-- ,) + 8
-
-8
-
-Recognizing languages
-- :(#)  =  {$| # accepts $}
-- :(#) is the language of #
-- # recognizes :(#)
-
-Defn:  A language is regular if some
-finite automaton recognizes it.
-
-Regular Languages – Examples
-
-"1
-
-0
-
-81
-
-1
-
-0
-
-1
-
-82
-
-83
-
-0,1
-
-!  "#  =  {&| & contains substring 11} = 5
-
-Therefore 5 is regular
-
-More examples:
-
-Let 6 =  & & has an even number of 1s}
-6 is regular (make automaton for practice).
-
-Let 7 =  & & has equal numbers of 0s and 1s}
-7 is not regular (we will prove).
-
-Goal:  Understand the regular languages
-
-9
-
-Regular Expressions
-
-Regular operations.  Let !, # be languages:
-
-- Union:
-
-! ∪ # =  &  & ∈ !  or  & ∈ #}
-
-- Concatenation:  ! ∘ # =  *+  * ∈ !  and  + ∈ #} = !#
-!∗ =  *- …  */  each *0  ∈ !  for  1 ≥ 0}
-
-- Star:
-
-Note:  ε ∈ !∗  always
-
-Example.  Let ! = {good, bad} and # = {boy, girl}.
-
-- ! ∪ # = {good, bad, boy, girl}
-
-Regular expressions
-- Built from  Σ, members Σ, ∅, ε  [Atomic]
-- By using  ∪,∘,∗
-
-[Composite]
-
-- ! ∘ # = !# = {goodboy, goodgirl, badboy, badgirl}
-- !∗ =  {ε, good, bad, goodgood, goodbad, badgood,
-badbad, goodgoodgood, goodgoodbad, … }
-Goal:  Show finite automata equivalent to regular expressions
-
-0 ∪ 1  ∗ = Σ∗  gives all strings over Σ
-Σ∗1  gives all strings that end with 1
-Σ∗11Σ∗  = all strings that contain 11 = :  ;-
-
--
-
--
-
-10
-
-Examples:
--
-
-Closure Properties for Regular Languages
-
-Theorem:  If  !",  !$  are regular languages, so is !" ∪ !$  (closure under ∪)
-
-Proof:  Let &"  = ()", Σ, +" , ," , -" )  recognize !"
-&$  = ()$, Σ, +$ , ,$ , -$ ) recognize !$
-
-Construct  &  =  () , Σ , + , ,0, - ) recognizing !" ∪ !$
-
-&  should accept input  0  if either &"  or  &$  accept 0.
-
-&"
-
-Check-in 1.1
-
-,
-
-In the proof, if &" and &$ are finite automata
-where &" has 8" states and &$ has 8$ states
-Then how many states does & have?
-(a)  8" + 8$
-(b)  8"
-(c)  8"×8$
-
-$ +  8$
-
-$
-
-1
-
-&$
-
-Components of 2:
-
-) = )"×)$
-
-=  ,", ,$  ,"  ∈ )"  and  ,$  ∈ )$}
-
-,6  = (,", ,$)
-
-+  ,, 1  , 7  =  +"  ,, 7  , +$  1, 7
-
-- = -"×-$  NO!  [gives intersection]
-- =  -"×)$  ∪  )"×-$
-
-Check-in  1.1
-
-11
-
-Closure Properties continued
-
-Theorem:  If  !",  !$  are regular languages, so is !"!$  (closure under ∘)
-
-Proof:  Let &"  = ()", Σ, +" , ," , -" )  recognize !"
-&$  = ()$, Σ, +$ , ,$ , -$ ) recognize !$
-
-Construct  &  =  () , Σ , + , ,0, - ) recognizing !"!$
-
-&$
-
-&"
-
-&
-
-&  should accept input  0
-if 0 = 12  where
-
-&" accepts 1  and  &$ accepts 2.
-
-0
-
-1
-
-2
-
-Doesn’t work:  Where to split 0?
-
-12
-
-Quick review of today
-
-1.  Introduction, outline, mechanics, expectations
-
-2.  Finite Automata, formal definition, regular languages
-
-3.  Regular  Operations  and  Regular  Expressions
-
-4.  Proved:  Class of regular languages is closed  under ∪
-
-5.  Started: Closure under ∘  , to be continued…
-
-13
-
-MIT OpenCourseWare
-https://ocw.mit.edu
-
-18.404J / 18.4041J / 6.840J Theory of Computation
-Fall 2020
-
-For information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms.
-
+- [Home](https://cd-public.github.io/compute/)
