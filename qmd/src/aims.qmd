@@ -1,7 +1,7 @@
 ---
 title: "0. Aims of Education"
 author: Prof. Calvin
-subtitle: "23 Jan 08 AM"
+subtitle: "24 Jan 08 AM"
 institute: CSCI 5100
 format: 
     revealjs: 

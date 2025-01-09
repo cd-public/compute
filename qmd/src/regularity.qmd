@@ -1,0 +1,558 @@
+---
+title: "5. Regularity"
+author: Prof. Calvin
+subtitle: "24 Jan 02 PM"
+institute: CSCI 5100
+format: 
+    revealjs: 
+        incremental: true
+        theme: dark
+        mainfont: monospace
+        slide-number: true
+        show-slide-number: all
+        width: 1050
+        height: 700
+        footer: "[Home](../index.html)"
+  
+execute:
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render
+---
+
+## Sketch
+
+::: {.nonincremental}
+-   Review of Theorems
+-   Regular Expressions and NFAs
+    -   $R$ &rarr; NFA
+    -   Generalized NFA
+    -   NFA &rarr; $R$
+:::
+
+# Review
+
+## Theorems on *FAs
+
+::: {.fragment}
+
+$$
+\forall M_{NFA}, \exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA})) 
+$$
+
+:::
+
+
+::: {.fragment}
+$$
+\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+$$
+
+:::
+
+::: {.fragment}
+$$
+\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1)L(M_2)
+$$
+
+:::
+
+::: {.fragment}
+
+$$
+\forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
+$$
+
+:::
+
+
+## Regular Expressions
+
+-   Built from:
+    -   $\Sigma$, the letters of the alphabet
+    -   $\varnothing$, the empty set / empty language.
+    -   $\Sigma^0$, the empty string
+-   Built with:
+    -   $\cup$, union
+    -   $\cdot$, concatenation
+    -   $*$, the "star" operator
+
+## Goal:
+
+*Show that finite automata and regular expressions are equivalently expressive*.
+
+-   Closure is with respect to a set and an operation.
+-   We note:
+    -   Natural numbers $\mathbb{N}$ are closed under $+$
+    -   Natural numbers $\mathbb{N}$ not closed under $-$
+-   We wish to apply these to languages, not numbers.
+
+# $R$ &rarr; NFA
+
+## Atomic
+
+-   There exist *atomic* $R$
+    -   Built from:
+      -   $\Sigma$, the letters of the alphabet
+      -   $\varnothing$, the empty set / empty language.
+      -   $\Sigma^0$, the empty string
+
+## Letter atomicity
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+-   Take $R = a : a \in \Sigma$
+    -   $M | L(M) = R$
+        -   $Q = \{q_0,q_1\}$
+        -   $\delta =  \{ (q_0, a) \rightarrow \{q_1\} \}$
+        -   $F = \{q_1\}$
+
+:::
+
+::: {.column width="50%"}
+
+:::{.fragment}
+
+```{dot}
+//| echo: false
+//| fig-width: 400px
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>, ];
+  q1 [label=<<I>q<SUB>1</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> q1 [label="{a}"];
+}
+```
+
+:::
+
+:::
+
+::::
+
+## Empty String Atomicty
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+-   Take $R = \Sigma^0$
+    -   $M | L(M) = R$
+        -   $Q = {q_0}$
+        -   $\delta =  \varnothing$
+        -   $F = \{q_0\}$
+
+:::
+
+::: {.column width="50%"}
+
+:::{.fragment}
+
+```{dot}
+//| echo: false
+//| fig-width: 400px
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>,shape=doublecircle]; 
+
+  d0 -> q0
+}
+```
+
+:::
+
+:::
+
+::::
+
+## Empty Language Atomicty
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+-   Take $R = \varnothing$
+    -   $M | L(M) = R$
+        -   $Q = {q_0}$
+        -   $\delta =  \varnothing$
+        -   $F = \varnothing$
+
+:::
+
+::: {.column width="50%"}
+
+:::{.fragment}
+
+```{dot}
+//| echo: false
+//| fig-width: 400px
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>]; 
+
+  d0 -> q0
+}
+```
+
+:::
+
+:::
+
+::::
+
+## Atomicity Lemma
+
+$$
+\begin{aligned}
+\exists M_1, M_2, M_3 :\\
+ L(M_1) &= a \in \Sigma \\
+L(M_2) &= \Sigma^0 \\
+L(M_2) &= \varnothing
+\end{aligned}
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+M_1 &= (\{q_0,q_1\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
+M_2 &= (\{q_0\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
+M_3 &= (\{q_0\}, &\Sigma, &\varnothing,  &q_0, &\{q_1\}) \\
+\end{aligned}
+$$
+
+## Composite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+-   &exist; *composite* $R$
+    -   Over other $R$
+        -   $R_1 \cup R_2$, union
+        -   $R_1R_2$
+        -   $R*$
+
+:::
+
+::: {.column width="50%"}
+
+-   Proven over NFAs
+    -   &there4; DFA (Theorem 2)
+        -   (Theorem 1)
+        -   (Theorem 3)
+        -   (Theorem 4)
+
+
+:::
+
+::::
+
+## Theorem 5
+
+$$
+\forall R : \exists M : R = L(M)
+$$
+
+*Proof*
+
+-   Atomic $R$ follows from Atomicity Lemma
+-   Composite $R$ follows from Closure properties (Theorems 1-4)
+
+# Generalized NFA
+
+## Transitions
+
+-   We understand $\delta$ as a transition relation
+-   In DFAs, it is a deterministic transition
+-   In NFAs, it is still deterministic(!), but over sets.
+-   However both are *identity* or *inclusion* relations
+    -   That is, `letter` $\in$ `label`
+
+## Transitions that 'think'
+
+-   Instead of identity/inclusion...
+-   We can use *regular expressions* as transition labels.
+
+:::{.fragment}
+
+```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>, ];
+  q1 [label=<<I>q<SUB>1</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> q1 [label="(a∪b)*"];
+}
+```
+
+:::
+
+## Implementation
+
+-   It is simple enough to argue for GNFAs
+    -   Every operation can be an NFA
+    -   Any NFA node can be replaced with an NFA
+        -   Essentially the closure options.
+    -   Therefore, a GNFA is equivalently expressive to NFA
+-   The complete proof is left as an exercise to the interested student.
+
+## Special Form
+
+-   We take GNFAs which:
+    -   Have a single accept state $|F| = 1$
+    -   Connections all states but $q_0 \land q_i \in F$
+        -   Unrelated states via empty language $\varnothing$
+            -   GNFA $\varnothing$ label refers to empty langauge (labels are languages)
+            -   NFA $\varnothing$ label refers to the empty string (labels are strings)
+
+
+# NFA &rarr; $R$
+
+## Theorem 6
+
+$$
+\forall M : \exists R : R = L(M)
+$$
+
+- We will prove with GNFA $G$.
+- We will use *induction*.
+  - Induct over cardinality of state set $|Q|$
+
+## Begin
+
+- Via our simplifying assumptions of GNFAs
+  - Our base GNFA has 2 states
+    - A start state, and
+    - An accept state.
+- Define $|G| = |Q|$ as a shorthand convenience.
+
+## Base Case
+
+:::{.nonincremental}
+
+- The two state GNFA $G$ is as follows:
+
+```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>, ];
+  q1 [label=<<I>q<SUB>1</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> q1 [label="R"];
+}
+```
+
+:::
+
+## Base Lemma
+
+$$
+\forall |G| = 2 := (\{q_0,q_1\},\Sigma,\delta,q_0,\{q_1\}) : \exists R : R = L(G)
+$$
+
+*Proof*
+
+- By definition, $G = (\{q_0,q_1\},\Sigma,\delta,q_0,\{q_1\})$
+
+- By definition, $\delta = \{ (q_0, R') \rightarrow q_1 \}$
+
+- Let $R = R'$
+
+- $\blacksquare$
+
+## Induction
+
+- We prove that GNFA of $k>2$ states can be converted to a GNFA of $k-1$ states.
+- With our base, this suffices to prove our theorem.
+  - Do we need to go over induction?
+
+## State Exclusion
+
+- Arbitrary select state $q_i : q_i \neq q_0 \land q_i \notin F$
+- Work over $\delta$
+  - Let $\delta_{i,0} = \{R : ((q_x, R) \rightarrow q_i) \in \delta \}$
+  - Let $\delta_{i,1} = \{R : ((q_i, R) \rightarrow q_y) \in \delta \}$ 
+  - Let $S : ((q_i, S) \rightarrow q_i) \in \delta$
+  
+## Delta Reconstruction
+
+- We synthesize new relations out of $\bigcup\limits_{[-1,1]}\delta_{i,n}$
+- Recall there is an edge between all nodes!
+  - With the special exception of edges back into start and out of accept.
+
+## New Transitions
+
+- Take $R_{i,j} = ((q_i, R) \rightarrow q_j)$
+  - We note going from $q_x$ to $q_y$ through $q_i$ is given as $R_{x,i}R_{i,i}R_{i,y}$
+- Unionize with existing relation $R_{x,y}$
+- Denote $R'_{x,y} = R_{x,y} \cup R_{x,i}R_{i,i}R_{i,y}$
+- Let $\delta_{-i} = \{ (q_x, R'_{x,y})  \rightarrow q_y | q_y, q_x \in Q \}$
+
+## Inductive Lemma
+
+$$
+\forall |G| = (k > 2) : \exists |G| = (k - 1) : L(G) = L(G')
+$$
+
+*Proof*
+
+- By definition, $G = (Q,\Sigma,\delta,q_0,\{q_n\})$
+
+- Select arbitrary $q_i \in Q \setminus \{q_0, q_n\}$
+
+- Take $G' = (Q \setminus \{q_i\},\Sigma,\delta_{-i},q_0,\{q_n\})$
+
+## Graphically
+
+  ```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qi [label=<<I>q<SUB>i</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qi [label="R"];
+  qi -> qi [label="S"];
+  qi -> qn [label="T"];
+  q0 -> qn [label="V"];
+}
+```
+
+## Omit $q_i$
+
+  ```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qi [label="",shape=point];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qi [label="R"];
+  qi -> qi [label="S"];
+  qi -> qn [label="T"];
+  q0 -> qn [label="V"];
+}
+```
+
+## Partition $\delta$
+
+  ```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  r [label="RST",shape=plaintext];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qn [label="V"];
+}
+```
+
+## Readd $q_i$ incident edges
+
+```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qn [label="RST"];
+  q0 -> qn [label="V"];
+}
+```
+
+## Apply Union Operator
+
+```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qn [label="RST∪V"];
+}
+```
+
+## Theorem 6
+
+$$
+\forall M : \exists R : R = L(M)
+$$
+
+*Proof*
+
+- $\forall |G| = 2 := (\{q_0,q_1\},\Sigma,\delta,q_0,\{q_1\}) : \exists R : R = L(G)$
+- $\forall |G| = (k > 2) : \exists |G| = (k - 1) : L(G) = L(G')$
+- By induction, $\forall M : \exists R : R = L(M)$
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

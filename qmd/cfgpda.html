@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.30">
 
   <meta name="author" content="Prof.&nbsp;Calvin">
-  <title>0. Aims of Education</title>
+  <title>8. Pushdown Automata</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,6 +28,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; background-color: #2a0f15; font-weight: bold; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-0f071606cd187ea9c4f27a73aca9ddf7.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -325,8 +390,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">0. Aims of Education</h1>
-  <p class="subtitle">24 Jan 08 AM</p>
+  <h1 class="title">8. Pushdown Automata</h1>
+  <p class="subtitle">23 Jan 05 PM</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -340,274 +405,263 @@ Prof.&nbsp;Calvin
 </div>
 
 </section>
-<section id="announcements" class="slide level2">
-<h2>Announcements</h2>
-<ul>
-<li class="fragment">Welcome to residency of CSCI 5100: Theory of Computation!</li>
-<li class="fragment">It is a pleasure to launch the LaGrange College M.S. in Computer Science (MSCS) with you.</li>
-<li class="fragment">You should have:
-<ul>
-<li class="fragment">Quarto running.</li>
-<li class="fragment">DGitHub pages set up.</li>
-</ul></li>
-</ul>
-</section>
 <section id="sketch" class="slide level2">
 <h2>Sketch</h2>
 <div>
 <ul>
-<li>20 minute intro</li>
-<li>20 guest lecture</li>
-<li>20 minute goal setting</li>
-<li>Then into Theory of Computatation</li>
+<li>Schematic View of Automata</li>
+<li>The Stack</li>
+<li>The Automaton</li>
+<li>Conversions</li>
 </ul>
 </div>
 </section>
-<section id="about-me" class="slide level2">
-<h2>About Me</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>About</th>
-<th>Me</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Name</strong>:</td>
-<td>Calvin (Deutschbein)</td>
-</tr>
-<tr class="even">
-<td><strong>Say</strong>:</td>
-<td>(Professor) Calvin</td>
-</tr>
-<tr class="odd">
-<td><strong>Pronoun</strong>:</td>
-<td>they/them</td>
-</tr>
-<tr class="even">
-<td><strong>Office</strong>:</td>
-<td>Discord calvin2501</td>
-</tr>
-<tr class="odd">
-<td><strong>Email</strong>:</td>
-<td><a href="@mailto:ckdeutschbein@willamette.edu">ckdeutschbein@willamette.edu</a> (<span class="citation" data-cites="lagrange">@lagrange</span> email <a href="https://wowpedia.fandom.com/wiki/Soon">Soon™</a>)</td>
-</tr>
-<tr class="even">
-<td><strong>Website</strong>:</td>
-<td><a href="https://cd-public.github.io">cd-public.github.io</a></td>
-</tr>
-</tbody>
-</table>
+<section>
+<section id="schematic-view" class="title-slide slide level1 center">
+<h1>Schematic View</h1>
+
 </section>
-<section id="background" class="slide level2">
-<h2>Background</h2>
+<section id="overview" class="slide level2">
+<h2>Overview</h2>
+<ul>
+<li class="fragment">We <em>abstract</em> the automata into a unit called the “Finite Control”
+<ul>
+<li class="fragment">In a *FA, this denotes the current state.</li>
+<li class="fragment">We often denote it as a box</li>
+</ul></li>
+<li class="fragment">We imagine input as coming on a tape.
+<ul>
+<li class="fragment">In practice, early devices did use tapes.</li>
+<li class="fragment">Modern devices use block reads of SSDs (same thing)</li>
+</ul></li>
+</ul>
+</section>
+<section id="tapes" class="slide level2">
+<h2>Tapes</h2>
+
+<img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg" class="r-stretch"></section>
+<section id="terms" class="slide level2">
+<h2>Terms</h2>
+<ul>
+<li class="fragment"><em>Finite Control</em>: Represents the finite state, or states, of an automata.</li>
+<li class="fragment"><em>Input</em>: Represents the input string to some automata.
+<ul>
+<li class="fragment">*FAs can only read in one direction - not so for all automata.</li>
+</ul></li>
+<li class="fragment">This abstraction made it easier for me to separate letters and states in my mind.</li>
+</ul>
+</section>
+<section id="new-terms" class="slide level2">
+<h2>New Terms</h2>
+<ul>
+<li class="fragment"><em>Stack</em>: Memory of the automata
+<ul>
+<li class="fragment">*FAs had no memory other than internal state - not so for all automata.</li>
+</ul></li>
+<li class="fragment"><em>Head</em>: Refer to “wherever the automata is currently pointed” as where the head of the automata is.
+<ul>
+<li class="fragment">Think, perhaps, of a vinyl player.</li>
+<li class="fragment">My first job was on Hard Disk Drives (HDDs) with a “head” which wrote/read bits from a rotating magnetic disk.</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="the-stack" class="title-slide slide level1 center">
+<h1>The Stack</h1>
+
+</section>
+<section id="the-stack-1" class="slide level2">
+<h2>The Stack</h2>
+<ul>
+<li class="fragment">PDA has <em>unlimited</em> but <em>restricted</em> memory.</li>
+<li class="fragment">It can only write certain symbols.</li>
+<li class="fragment">It can only read the most recent symbol.</li>
+<li class="fragment">Think the stack abstract data structure.</li>
+</ul>
+<div class="fragment">
+<div id="f2616c2d" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>stack <span class="op">=</span> []</span>
+<span id="cb1-2"><a></a>stack.append(<span class="st">'a'</span>)</span>
+<span id="cb1-3"><a></a>stack.append(<span class="st">'b'</span>)</span>
+<span id="cb1-4"><a></a>stack.append(<span class="st">'a'</span>)</span>
+<span id="cb1-5"><a></a><span class="bu">print</span>(stack.pop())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>a</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="intuition" class="slide level2">
+<h2>Intuition</h2>
+<ul>
+<li class="fragment">Think of an NFA</li>
+<li class="fragment">Which write/add and read/remove symbols from the stack.</li>
+<li class="fragment">There is no “peek” operation.
+<ul>
+<li class="fragment">But if can be synthesize from read+write.</li>
+</ul></li>
+</ul>
+</section>
+<section id="exercise" class="slide level2">
+<h2>Exercise</h2>
+<ul>
+<li class="fragment">Recognize <span class="math inline">\(D = \{ 0^k1^k | k \in \mathbb{N}\}\)</span> in Python</li>
+<li class="fragment">Read every character individually.</li>
+<li class="fragment">Only use one stack.</li>
+<li class="fragment">If you’re not sure of goals, read the solution and translate it to <code>def</code> from <code>lambda</code></li>
+</ul>
+</section>
+<section id="solution" class="slide level2">
+<h2>Solution</h2>
+<div id="b693184f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>q_1 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.append(<span class="st">'0'</span>), q_1(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'0'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> [stack.pop(), q_2(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-2"><a></a>q_2 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.pop(), q_2(s[<span class="dv">1</span>:],stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> q_n(s, stack)</span>
+<span id="cb3-3"><a></a>q_n <span class="op">=</span> <span class="kw">lambda</span> s, stack : s <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(stack) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb3-4"><a></a>q_1(<span class="st">'000111'</span>, []), q_1(<span class="st">'00111'</span>, []), q_1(<span class="st">'00011'</span>, [])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>(True, False, False)</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="the-automaton" class="title-slide slide level1 center">
+<h1>The Automaton</h1>
+
+</section>
+<section id="formal-definition" class="slide level2">
+<h2>Formal Definition…</h2>
+<p>A Pushdown Automaton (PDA) is formally defined as a 6-<em>tuple</em>:</p>
+<ul>
+<li class="fragment"><strong><span class="math inline">\(Q\)</span></strong>: A finite, non-empty <em>set</em> of states.</li>
+<li class="fragment"><strong><span class="math inline">\(\Sigma\)</span></strong>: A finite, non-empty <em>set</em> of input symbols called the input alphabet.</li>
+<li class="fragment"><strong><span class="math inline">\(\Gamma\)</span></strong>: A finite, non-empty <em>set</em> of stack symbols called the stack alphabet.</li>
+<li class="fragment"><strong><span class="math inline">\(\delta\)</span></strong>: The transition function, a mapping</li>
+</ul>
+</section>
+<section id="formal-definition.." class="slide level2">
+<h2>Formal Definition..</h2>
+<p>A PDA is a 6-<em>tuple</em> <span class="math inline">\((Q, \Sigma, \Gamma, \delta, \ldots)\)</span></p>
+<ul>
+<li class="fragment"><strong><span class="math inline">\(\delta\)</span></strong>: The transition function, a mapping
+<ul>
+<li class="fragment"><span class="math inline">\(\delta : Q \times (\Sigma_{\varepsilon} \cup \Gamma_{\varepsilon}) \rightarrow \mathcal{P} (Q \times \Gamma_{\varepsilon})\)</span></li>
+<li class="fragment">Given a state, letter, and stack symbol</li>
+<li class="fragment">Get a set of states and stack symbols.</li>
+<li class="fragment"><span class="math inline">\(\delta(q, a, c) = {(r_1, d), (r_2, e)}\)</span>
+<ul>
+<li class="fragment">In state <span class="math inline">\(q\)</span>, reading <span class="math inline">\(a\)</span> on tape and <span class="math inline">\(c\)</span> on stack, either write <span class="math inline">\(d\)</span> and go to state <span class="math inline">\(r_1\)</span> or write <span class="math inline">\(e\)</span> and go to state <span class="math inline">\(r_2\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="formal-definition." class="slide level2">
+<h2>Formal Definition.</h2>
+<p>A PDA is a 6-<em>tuple</em> <span class="math inline">\((Q, \Sigma, \Gamma, \delta, q_0, F)\)</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\(q_0, F\)</span> as in the *FAs.</li>
+<li class="fragment">It’s a *FA with a new alphabet that delta reads.</li>
+</ul>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<ul>
+<li class="fragment">Introduce reverse operation <span class="math inline">\(w^\mathcal{R}\)</span></li>
+<li class="fragment">Easiest to define with Python.</li>
+</ul>
+<div class="fragment">
+<div id="014479d7" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>superscript_r <span class="op">=</span> <span class="kw">lambda</span> w : w[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-2"><a></a>w <span class="op">=</span> <span class="st">"stressed"</span></span>
+<span id="cb5-3"><a></a><span class="bu">print</span>(<span class="st">'w ='</span>, w, <span class="st">'w^R ='</span>, superscript_r(w))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>w = stressed w^R = desserts</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">Take <span class="math inline">\(B = \{ww^\mathcal{R} | w \in \{0,1\}*\}\)</span></li>
+</ul>
+<div class="fragment">
+<div class="cell" data-fig-width="300px" data-fig-height="100px" data-layout-align="default">
+<div class="cell-output-display">
 <div>
-<ul>
-<li><strong>Thesis Title</strong>: <a href="https://cd-public.github.io/papers/2021/CD2021.pdf">Mining Secure Behavior of Hardware Designs</a></li>
-</ul>
-<blockquote>
-<p>Specification mining can discover properties that can verify the secure behavior of closed-source CISC CPU designs, the temporal correctness of CPU designs, and hyperproperties for secure information flow in modules, SoCs, and CPUs.</p>
-</blockquote>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="300" height="100" viewbox="0.00 0.00 192.00 45.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 41)">
+<title>g</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-41 188,-41 188,4 -4,4"></polygon>
+<!-- n -->
+<g id="node1" class="node">
+<title>n</title>
+<polygon fill="none" stroke="#ffffff" points="0,-0.5 0,-36.5 184,-36.5 184,-0.5 0,-0.5"></polygon>
+<text text-anchor="middle" x="11.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
+<polyline fill="none" stroke="#ffffff" points="23,-0.5 23,-36.5 "></polyline>
+<text text-anchor="middle" x="34.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
+<polyline fill="none" stroke="#ffffff" points="46,-0.5 46,-36.5 "></polyline>
+<text text-anchor="middle" x="57.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+<polyline fill="none" stroke="#ffffff" points="69,-0.5 69,-36.5 "></polyline>
+<text text-anchor="middle" x="80.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+<polyline fill="none" stroke="#ffffff" points="92,-0.5 92,-36.5 "></polyline>
+<text text-anchor="middle" x="103.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+<polyline fill="none" stroke="#ffffff" points="115,-0.5 115,-36.5 "></polyline>
+<text text-anchor="middle" x="126.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+<polyline fill="none" stroke="#ffffff" points="138,-0.5 138,-36.5 "></polyline>
+<text text-anchor="middle" x="149.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
+<polyline fill="none" stroke="#ffffff" points="161,-0.5 161,-36.5 "></polyline>
+<text text-anchor="middle" x="172.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </div>
 </section>
-<section id="background-1" class="slide level2">
-<h2>Background</h2>
+<section id="intuition-1" class="slide level2">
+<h2>Intuition</h2>
 <ul>
-<li class="fragment"><strong>Plain English</strong>:<br>
-Just as there are bugs in code that make <strong>software</strong>, modern <strong>hardware</strong> is also written in code and therefore may contain bugs. I find these bugs.<br>
-</li>
-<li class="fragment">Of note: I found those bugs <em>using computation theory</em> specifically automata.</li>
-</ul>
-</section>
-<section id="course-description" class="slide level2">
-<h2>Course Description</h2>
+<li class="fragment">Read symbol, push to stack</li>
+<li class="fragment">At halfway mark, pop off stack and read.
 <ul>
-<li class="fragment">Study of abstract models of computation, unsolvability, complexity theory, formal grammars and parsing, and other advanced topics in theoretical computer science.
+<li class="fragment">If same, continue</li>
+<li class="fragment">If different, reject</li>
+</ul></li>
+<li class="fragment">How do we know we are the middle?
 <ul>
-<li class="fragment">~25 contact hours on automata</li>
-<li class="fragment">~15 contact hours on complexity</li>
+<li class="fragment">Nondeterminism - it doesn’t matter!</li>
+<li class="fragment">Each nondeterministic branch gets its own stack!</li>
 </ul></li>
 </ul>
 </section>
-<section id="modality" class="slide level2">
-<h2>Modality</h2>
+<section id="empty-stack" class="slide level2">
+<h2>Empty stack</h2>
 <ul>
-<li class="fragment">All of automata theory in residency, right now.</li>
-<li class="fragment">All of complexity theory in video recordings, over the next 8 weeks.</li>
-<li class="fragment">I maintain a website with videos, slides, code, and problem sets.</li>
-<li class="fragment">You will maintain a website with completed problem sets.</li>
-</ul>
-</section>
-<section id="grading" class="slide level2">
-<h2>Grading</h2>
+<li class="fragment">Wait… how do we see if the stack is empty.
 <ul>
-<li class="fragment">Weekly problem sets that will lag (due to the residency) and catch up at the end.</li>
-<li class="fragment">All coursework as Python .qmd rendered in .html on GitHub pages.</li>
-<li class="fragment">“Final” is having a theory of computation website.</li>
-</ul>
-</section>
-<section id="feedback-and-grading" class="slide level2">
-<h2>Feedback and Grading</h2>
-<blockquote>
-<p>“After some consideration, I’ve decided to move away from a traditional grading structure for this class. Rather than assign work with the intent of assessing student progress, assignments in this course will instead focus on fostering student learning. As a result, I intend to implement the following:”</p>
-</blockquote>
-</section>
-<section class="slide level2">
-
-<h3 id="general-expectations">General Expectations</h3>
+<li class="fragment">Easy.</li>
+<li class="fragment">Invent a novel symbol.</li>
+<li class="fragment">Necessarily write it in the first state.
 <ul>
-<li class="fragment"><strong>Students will begin the course with a grade of an “A”.</strong>
-<ul>
-<li class="fragment">Students will be expected to:
-<ul>
-<li class="fragment">Follow lecture.</li>
-<li class="fragment">Participate in Discord.</li>
-<li class="fragment">Treat fellow students with respect.</li>
-<li class="fragment">Complete problem sets.</li>
+<li class="fragment">Can simply add a new state, transition, as needed.</li>
 </ul></li>
+<li class="fragment">These simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results.</li>
+<li class="fragment">See also: Transitions along empty strings.</li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level2">
-
-<h3 id="instructor-communication">Instructor Communication</h3>
+<section id="exercise-1" class="slide level2">
+<h2>Exercise</h2>
 <ul>
-<li class="fragment">Students will be contacted privately by the course instructor in the unusual event that they are not meeting expectations.
-<ul>
-<li class="fragment">Students will not be held to an expectation of perfection.</li>
-<li class="fragment">Students will not lose points or grades without prior discussion.</li>
-<li class="fragment">Students will have the opportunity to explain their engagement with the course.</li>
-</ul></li>
+<li class="fragment">Accept <span class="math inline">\(D\)</span> in Python.</li>
 </ul>
-</section>
-<section class="slide level2">
-
-<h3 id="feedback-structure">Feedback Structure</h3>
+</section></section>
+<section id="end-of-day" class="title-slide slide level1 center">
+<h1>End of Day :)</h1>
 <ul>
-<li class="fragment">Students collectively within the class as a whole will receive feedback on computation, automata, and complexity.
-<ul>
-<li class="fragment">Individual feedback will be provided in limited and unique cases.</li>
-<li class="fragment">Students are expected to provide respectfully collaborate on problem sets.</li>
-<li class="fragment">Students may request individual feedback from the instructor at any time.</li>
-<li class="fragment">Students will receive narrative rather than quantitative feedback.</li>
-</ul></li>
-</ul>
-</section>
-<section id="group-exercise" class="slide level2">
-<h2>Group Exercise:</h2>
-<ul>
-<li class="fragment">Let’s start the class off right away with an exercise designed for:
-<ul>
-<li class="fragment">Groups<br>
-</li>
-<li class="fragment">Discussion<br>
-</li>
-<li class="fragment">Disagreement<br>
-</li>
-<li class="fragment">Deep critical thinking</li>
-</ul></li>
-</ul>
-</section>
-<section id="aims-of-education" class="slide level2">
-<h2>Aims of Education</h2>
-<ul>
-<li class="fragment">Before starting my first degree, we went to a lecture titled “Aims of Education”</li>
-<li class="fragment">I completed all remaining degrees during shutdowns/other crises!</li>
-<li class="fragment">I remember it fondly.</li>
-<li class="fragment">We will watch “How open-source hardware is changing our future” by Amber Huffman.
-<ul>
-<li class="fragment">And then discuss.</li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level2">
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/trabJm8GT0s?si=1XNFCa5h6Lo5UWaw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-</center>
-</section>
-<section id="question-0" class="slide level2">
-<h2>Question 0</h2>
-<blockquote>
-<p><strong>What are the goals of an education in computer science?</strong></p>
-</blockquote>
-<ul>
-<li class="fragment"><strong>Think</strong>: about a possible answer individually.<br>
-</li>
-<li class="fragment"><strong>Discuss</strong>: answers within the group.<br>
-</li>
-<li class="fragment"><strong>Record</strong>: a summary of the discussion.</li>
-</ul>
-</section>
-<section id="question-1" class="slide level2">
-<h2>Question 1</h2>
-<blockquote>
-<p><strong>How does a scientist learn something new?</strong></p>
-</blockquote>
-<ul>
-<li class="fragment"><strong>Think</strong>: about a possible answer individually.<br>
-</li>
-<li class="fragment"><strong>Discuss</strong>: answers within the group.<br>
-</li>
-<li class="fragment"><strong>Record</strong>: a summary of the discussion.</li>
-</ul>
-</section>
-<section id="question-2" class="slide level2">
-<h2>Question 2</h2>
-<blockquote>
-<p><strong>What do you reasonably expect to remember from your courses in 20 years?</strong></p>
-</blockquote>
-<ul>
-<li class="fragment"><strong>Think</strong>: about a possible answer individually.<br>
-</li>
-<li class="fragment"><strong>Discuss</strong>: answers within the group.<br>
-</li>
-<li class="fragment"><strong>Record</strong>: a summary of the discussion.</li>
-</ul>
-</section>
-<section id="question-3" class="slide level2">
-<h2>Question 3</h2>
-<blockquote>
-<p><strong>What is the value of making mistakes in the learning process?</strong></p>
-</blockquote>
-<ul>
-<li class="fragment"><strong>Think</strong>: about a possible answer individually.<br>
-</li>
-<li class="fragment"><strong>Discuss</strong>: answers within the group.<br>
-</li>
-<li class="fragment"><strong>Record</strong>: a summary of the discussion.</li>
-</ul>
-</section>
-<section id="question-4" class="slide level2">
-<h2>Question 4</h2>
-<blockquote>
-<p><strong>How do we create a safe environment where risk-taking is encouraged and productive failure is valued?</strong></p>
-</blockquote>
-<ul>
-<li class="fragment"><strong>Think</strong>: about a possible answer individually.<br>
-</li>
-<li class="fragment"><strong>Discuss</strong>: answers within the group.<br>
-</li>
-<li class="fragment"><strong>Record</strong>: a summary of the discussion.</li>
-</ul>
-</section>
-<section id="closing-thoughts" class="slide level2">
-<h2>Closing Thoughts</h2>
-<ul>
-<li class="fragment"><strong>Try!</strong> Hard work leads to innovative thinking.<br>
-</li>
-<li class="fragment"><strong>Fail!</strong> Don’t fear failure. Be ready to redo from scratch.<br>
-</li>
-<li class="fragment"><strong>Collaborate!</strong> Work with peers to succeed at this course and succeed at collaboration.</li>
-<li class="fragment"><strong>Enjoy!</strong> Experience the fun of being a scientist through hard work and exploration.</li>
-</ul>
-</section>
-<section id="stretch-break" class="title-slide slide level1 center">
-<h1>Stretch Break</h1>
-<ul>
-<li class="fragment"><a href="https://cd-public.github.io/compute/">Home</a></li>
+<li class="fragment">Good work!</li>
 </ul>
 
 

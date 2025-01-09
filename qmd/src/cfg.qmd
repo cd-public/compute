@@ -1,0 +1,797 @@
+---
+title: "7. Context Free Grammars"
+author: Prof. Calvin
+subtitle: "24 Jan 04 PM"
+institute: CSCI 5100
+format: 
+    revealjs: 
+        incremental: true
+        theme: dark
+        mainfont: monospace
+        slide-number: true
+        show-slide-number: all
+        width: 1050
+        height: 700
+        footer: "[Home](../index.html)"
+  
+execute:
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render
+---
+
+## Sketch
+
+::: {.nonincremental}
+- Context Free Grammars
+  - Rules
+  - Formal Definition
+  - Examples
+  - Amibuity
+:::
+
+# Rules
+
+## Context Free Grammars
+
+$$
+\begin{align*}
+G_1& \\
+ &\left.
+    \begin{aligned}
+        &S \rightarrow 0S1 \\
+        &S \rightarrow R \\
+        &R \rightarrow \varepsilon
+    \end{aligned}
+\right\} \quad \text{(Substitution) Rules}
+\end{align*}
+$$
+
+- We use $\varepsilon$ to denote the empty string.
+- Term these "rules"
+- They are of form:
+    - Symbol
+    - &rarr;
+    - String of symbols
+
+## Terms
+
+- *Rule*: Statements of form *Variable* &rarr; (string of symbols and terminals)
+- *Variable*: Those symbols on the left-hand side (LHS) of a &rarr; in a rule
+- *Terminals*: Those symbols which appear in only on the right-hand side (RHS)
+- *Starting* variable: The topmost symbol.
+
+## 3 Rules
+
+- $S \rightarrow 0S1$
+- $S \rightarrow R$
+- $R \rightarrow \varepsilon$
+
+## 2 Variables / 2 Terminals
+
+- Variables
+  - $S$
+  - $R$
+- Terminals
+  - $0$
+  - $1$
+
+## Generation
+
+1. Write down the start variable.
+2. Substitute the start variable according to any rule.
+3. Substitute any variable for any rule until no variables remain.
+  - That is, only terminals.
+4. Every possible string is the language $L(G)$
+
+## Example
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+$$
+\begin{aligned}
+    &S \rightarrow 0S1 \\
+    &S \rightarrow R \\
+    &R \rightarrow \varepsilon
+\end{aligned}
+$$
+
+:::
+
+::: {.column width="25%"}
+
+- $S$
+- $0S1$
+- $00S11$
+- $00R11$
+- $0011$
+
+:::
+
+
+::: {.column width="25%"}
+
+- $S$
+- $0S1$
+- $0R1$
+- $01$
+
+:::
+
+::::
+
+## Graphically
+
+:::: {.columns}
+
+::: {.column }
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="S"]; 
+  2 [label="0"];
+  3 [label="S"];
+  4 [label="1"];
+  5 [label="0"];
+  6 [label="S"];
+  7 [label="1"];
+  8 [label="R"];
+  9 [label="ε"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+  3 -> 5
+  3 -> 6
+  3 -> 7
+  6 -> 8
+  8 -> 9
+
+}
+```
+
+:::
+
+::: {.column }
+
+:::{.nonincremental}
+
+
+- $S$  
+- $0S1$
+- $00S11$
+- $00R11$
+- $0011$
+
+
+:::
+
+:::
+
+::::
+
+## Graphically
+
+:::: {.columns}
+
+::: {.column }
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="S"]; 
+  2 [label="0"];
+  3 [label="S"];
+  4 [label="1"];
+  5 [label="0"];
+  6 [label="S"];
+  7 [label="1"];
+  8 [label="R"];
+  9 [label="ε"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+  3 -> 5
+  3 -> 6
+  3 -> 7
+  6 -> 8
+  8 -> 9
+
+}
+```
+
+:::
+
+::: {.column }
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="S"]; 
+  2 [label="0"];
+  3 [label="S"];
+  4 [label="1"];
+  5 [label="0"];
+  6 [label="S"];
+  7 [label="1"];
+  8 [label="R"];
+  9 [label="ε"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+  3 -> 5
+  3 -> 6
+  3 -> 7
+  6 -> 8
+  8 -> 9
+  2 -> 5
+  5 -> 9
+  9 -> 7
+  7 -> 4
+
+}
+```
+
+:::
+
+::::
+
+
+## Example
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+$$
+\begin{aligned}
+    &S \rightarrow 0S1 \\
+    &S \rightarrow R \\
+    &R \rightarrow \varepsilon
+\end{aligned}
+$$
+
+:::
+
+::: {.column width="50%"}
+
+- $L(G_1) = \{ 0^k1^k | k \in \mathbb{N} \}$
+- This is a language a CFG can do.
+  - That a DFA/NFA/GNFA cannot.
+
+:::
+
+::::
+
+## Shorthand
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+$$
+\begin{aligned}
+    &S \rightarrow 0S1 \\
+    &S \rightarrow R \\
+    &R \rightarrow \varepsilon
+\end{aligned}
+$$
+
+:::
+
+::: {.column width="50%"}
+
+$$
+\begin{aligned}
+    &S \rightarrow 0S1\quad|\quad R\\
+    &R \rightarrow \varepsilon
+\end{aligned}
+$$
+
+:::
+
+::::
+
+# Formal Definition
+
+## Context Free Grammar
+
+- A *Context Free Grammar* (CFG) 
+- A CFG is a 4-tuple $(V, \Sigma, R, S)$
+  - $V$ : finite set of variables
+  - $\Sigma$ : finite set of terminal symbols
+    - We note this is the alphabet, a la DFA
+  - $R$ finite set of rules
+    - Of form $V \rightarrow (V \cup \Sigma)*$
+  - $S$ start variable
+
+## Substitutions
+
+- $\forall u,v \in (V \cup \Sigma)*$
+- $u \Rightarrow v := \exists R : R(u) \rightarrow v$
+- $u \overset{*}{\Rightarrow} v := \exists u_1, u_2, ... u_n : \underset{i \leq n}{\Rightarrow} u_i = v$
+  -  $\overset{*}{\Rightarrow}$ is the transitive closure of $\Rightarrow$
+  -  Term this a *derivation* of $v$ from $u$
+  -  If %u = $S$ term this the *derivation* of $v$
+- $L(G) = \{ w | w \in \Sigma* \land S \overset{*}{\Rightarrow} w \}$
+
+## Check in
+
+- Which of the following is a CFG
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+$$
+\begin{align*}
+C_1& \\
+ &\left.
+    \begin{aligned}
+        &B \rightarrow 0B1 \\
+        &B1 \rightarrow 1B \\
+        &0B \rightarrow 0B
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+- This has a context.
+
+:::
+
+::: {.column width="50%"}
+
+$$
+\begin{align*}
+C_2& \\
+ &\left.
+    \begin{aligned}
+        &S \rightarrow 0S \quad | \quad S1 \\
+        &R \rightarrow RR 
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+- This happens to be the empty language.
+
+:::
+
+::::
+
+# Example
+
+## Arithmetic
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+$$
+\begin{align*}
+G_2& \\
+ &\left.
+    \begin{aligned}
+        &E \rightarrow E+T \quad | \quad  T\\
+        &T \rightarrow T\times F \quad | \quad  F \\
+        &F \rightarrow ( E ) \quad | \quad a
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+:::
+
+::: {.column width="50%"}
+
+$$
+\begin{aligned}
+&V = \{ E, T, F \}\\
+&\Sigma = \{+, \times, (, ), a \}\\
+&R = \text{As shown}\\
+&S = E
+\end{aligned}
+$$
+
+:::
+
+::::
+
+## Graphically
+
+:::: {.columns}
+
+::: {.column }
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="E"]; 
+
+  2 [label="E"];
+  3 [label="+"];
+  4 [label="T"];
+
+  5 [label="T"];
+  6 [label="T"];
+  7 [label="×"];
+  8 [label="F"];
+
+  9 [label="F"];
+  A [label="F"];
+  B [label="a"];
+
+  C [label="a"];
+  D [label="a"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+
+  2 -> 5
+  4 -> 6
+  4 -> 7
+  4 -> 8
+
+  5 -> 9
+  6 -> A
+  8 -> B
+
+  9 -> C
+  A -> D
+
+
+}
+```
+
+:::
+
+::: {.column }
+
+:::{.nonincremental}
+
+
+- $E$  
+- $E+T$
+- $T+T\times F$
+- $F+F\times a$
+- $a+a\times a$
+
+
+:::
+
+:::
+
+::::
+
+## Graphically
+
+:::: {.columns}
+
+::: {.column }
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="E"]; 
+
+  2 [label="E"];
+  3 [label="+"];
+  4 [label="T"];
+
+  5 [label="T"];
+  6 [label="T"];
+  7 [label="×"];
+  8 [label="F"];
+
+  9 [label="F"];
+  A [label="F"];
+  B [label="a"];
+
+  C [label="a"];
+  D [label="a"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+
+  2 -> 5
+  4 -> 6
+  4 -> 7
+  4 -> 8
+
+  5 -> 9
+  6 -> A
+  8 -> B
+
+  9 -> C
+  A -> D
+
+
+}
+```
+
+:::
+
+::: {.column }
+
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="E"]; 
+
+  2 [label="E"];
+  3 [label="+"];
+  4 [label="T"];
+
+  5 [label="T"];
+  6 [label="T"];
+  7 [label="×"];
+  8 [label="F"];
+
+  9 [label="F"];
+  A [label="F"];
+  B [label="a"];
+
+  C [label="a"];
+  D [label="a"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+
+  2 -> 5
+  4 -> 6
+  4 -> 7
+  4 -> 8
+
+  5 -> 9
+  6 -> A
+  8 -> B
+
+  9 -> C
+  A -> D
+
+  C -> 3
+  3 -> D
+  D -> 7
+  7 -> B
+}
+```
+
+
+:::
+
+::::
+
+## Takeaways
+
+- This is a viable way to decribe a programming language.
+  - In fact I wrote a series of grammars for my [doctoral thesis](https://cd-public.github.io/papers/2021/CD2021.pdf) (pg 18).
+- Parse trees may encode e.g. precedence
+  - $\times$ over $+$
+- If a string can be *derived* by different substitutions it is *ambigious*.
+
+# Ambiguity
+
+## Arithmetic
+
+$$
+\begin{align*}
+G_2& \\
+ &\left.
+    \begin{aligned}
+        &E \rightarrow E+T \quad | \quad  T\\
+        &T \rightarrow T\times F \quad | \quad  F \\
+        &F \rightarrow ( E ) \quad | \quad a
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+$$
+\begin{align*}
+G_3& \\
+ &\left.
+    \begin{aligned}
+        &E \rightarrow E+E \quad | \quad  E \times E \quad | \quad  ( E ) \quad | \quad  a\\
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+- These represent the same language ($L(G_2) = L(G_3)$)!
+- But $G_3$ is ambigious!
+
+# $a + a \times a$
+
+:::: {.columns}
+
+::: {.column }
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="E"]; 
+
+  2 [label="E"];
+  3 [label=""];
+  4 [label="E"];
+
+  5 [label=""];
+  6 [label=""];
+  7 [label="E"];
+  8 [label=""];
+  9 [label="E"];
+
+  A [label="a"];
+  B [label="+"];
+  C [label="a"];
+  D [label="×"];
+  E [label="a"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+
+  2 -> 5
+  3 -> 6
+  4 -> 7
+  4 -> 8
+  4 -> 9
+
+  5 -> A
+  6 -> B
+  7 -> C
+  8 -> D
+  9 -> E
+
+}
+```
+
+:::
+
+::: {.column }
+
+
+```{dot}
+// | echo: false
+// | fig-width: 500px
+digraph finite_automata {
+  rankdir=TB; bgcolor="#191919";  
+  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=plaintext];
+  1 [label="E"]; 
+
+  2 [label="E"];
+  3 [label="+"];
+  4 [label="E"];
+
+  5 [label="E"];
+  6 [label=""];
+  7 [label="E"];
+  8 [label=""];
+  9 [label=""];
+
+  A [label="a"];
+  B [label="+"];
+  C [label="a"];
+  D [label="×"];
+  E [label="a"];
+
+  1 -> 2
+  1 -> 3
+  1 -> 4
+
+  2 -> 5
+  2 -> 6
+  2 -> 7
+  3 -> 8
+  4 -> 9
+
+  5 -> A
+  6 -> B
+  7 -> C
+  8 -> D
+  9 -> E
+
+}
+```
+
+:::
+
+::::
+
+# Exercise
+
+## Python
+
+$$
+\begin{align*}
+G_3& \\
+ &\left.
+    \begin{aligned}
+        &E \rightarrow E+E \quad | \quad  E \times E \quad | \quad  ( E ) \quad | \quad  a\\
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+- Express CFG $G_3$ in Python.
+
+## Solution
+
+```{python}
+
+from itertools import count # infinite iterator
+from itertools import combinations_with_replacement as cwr
+# define variables, so we can use them
+rules = (
+  lambda s : s.replace("E", "E+E"),
+  lambda s : s.replace("E", "ExE"), 
+  lambda s : s.replace("E", "(E)"), 
+  lambda s : s.replace("E", "a")
+)
+trans = lambda fs, s: fs[0](trans(fs[1:], s)) if len(fs) else s
+
+G_2 = (trans(fs,'E') for n in count() for fs in cwr(rules, n))
+
+next(G_2), next(G_2), next(G_2)
+```
+- This isn't quite right. What's wrong?
+
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

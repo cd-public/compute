@@ -1,9 +1,0 @@
-from markitdown import MarkItDown
-import glob, os
-
-md = MarkItDown()
-
-for file in glob.glob("*.pdf"):
-    print(file)
-    #result = md.convert("test.xlsx")
-    #print(result.text_content)

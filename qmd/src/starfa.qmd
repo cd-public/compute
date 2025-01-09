@@ -1,7 +1,7 @@
 ---
 title: "1. Finite Automata"
 author: Prof. Calvin
-subtitle: "23 Jan 09 AM"
+subtitle: "24 Jan 09 AM"
 institute: CSCI 5100
 format: 
     revealjs: 

@@ -1,26 +1,5 @@
 [
   {
-    "objectID": "starfa.html#zoom-lectures",
-    "href": "starfa.html#zoom-lectures",
-    "title": "*FAs",
-    "section": "Zoom Lectures",
-    "text": "Zoom Lectures\n\n\n\nLive and Interactive via Chat Live lectures are recorded for later viewing\nZoom Recitations - Not recorded - - Review concepts and more examples - Optional unless you are having difficulty\nTwo convert to in-person\nParticipation can raise low grades\n\nAttend any recitation"
-  },
-  {
-    "objectID": "starfa.html#text",
-    "href": "starfa.html#text",
-    "title": "*FAs",
-    "section": "Text",
-    "text": "Text\nIntroduction to the Theory of Computation Sipser, 3rd Edition US. (Other editions ok but are missing some Exercises and Problems).\n3\nHomework bi-weekly – 35% - More information to follow\nMidterm (15%) and Final exam (25%) - Open book and notes\nCheck-in quizzes for credit – 25% - Distinct Live and Recorded versions\n\nComplete either one for credit within 48 hours\n\n\nInitially ungraded; full credit for participation\n\fCourse Expectations\nPrerequisites\nPrior substantial experience and comfort with mathematical concepts, theorems, and proofs. Creativity will be needed for psets and exams.\nCollaboration policy on homework - Allowed. But try problems yourself first. - Write up your own solutions. - No bibles or online materials.\n4\n\fRole of Theory in Computer Science\n\nApplications\nBasic Research\nConnections to other fields\nWhat is the nature of computation?\n\n5\n\fLet’s begin: Finite Automata\n!1\n0\n*1\n1\n0\n1\n*2\n*3\n0,1\nStates: 1 2 *3\nTransitions:\n1\nStart state:\nAccept states:\nInput: finite string Output: Accept or Reject\nComputation process: Begin at start state,\nread input symbols, follow corresponding transitions, Accept if end with accept state, Reject if not.\nExamples: 01101 → Accept 00101 → Reject\n!1 accepts exactly those strings in # where # = {&| & contains substring 11}.\nSay that # is the language of !1 and that !1 recognizes # and that # = -(!1).\n6\n\fFinite Automata – Formal Definition\nDefn: A finite automaton ! is a 5-tuple (#, Σ, &, ’0, )) # finite set of states\nΣ\n&\nfinite set of alphabet symbols\ntransition function &: #×Σ → #\n’0 start state\n) set of accept states\n& (‘, .) = 0 means’\na\n0\n7\nExample:\n!1\n0\n’1\n1\n0\n’2\n1\n’3\n0,1\n!1 = (#, Σ, &, ’1, ))"
-  },
-  {
-    "objectID": "starfa.html#examples",
-    "href": "starfa.html#examples",
-    "title": "*FAs",
-    "section": "Examples:",
-    "text": "Examples:\n\fClosure Properties for Regular Languages\nTheorem: If !“, !$ are regular languages, so is !” ∪ !$ (closure under ∪)\nProof: Let &” = ()“, Σ, +” , ,” , -” ) recognize !” &$ = ()\\(, Σ, +\\) , ,$ , -$ ) recognize !$\nConstruct & = () , Σ , + , ,0, - ) recognizing !” ∪ !$\n& should accept input 0 if either &” or &$ accept 0.\n&”\nCheck-in 1.1\n,\nIn the proof, if &” and &$ are finite automata where &” has 8” states and &$ has 8$ states Then how many states does & have? (a) 8” + 8$ (b) 8” (c) 8”×8$\n$ + 8$\n$\n1\n&$\nComponents of 2:\n) = )“×)$\n= ,“, ,$ ,” ∈ )” and ,$ ∈ )$}\n,6 = (,“, ,$)\n\n,, 1 , 7 = +” ,, 7 , +$ 1, 7\n= -“×-$ NO! [gives intersection]\n= -“×)$ ∪ )”×-$\n\nCheck-in 1.1\n11\n\fClosure Properties continued\nTheorem: If !“, !$ are regular languages, so is !”!$ (closure under ∘)\nProof: Let &” = ()“, Σ, +” , ,” , -” ) recognize !” &$ = ()\\(, Σ, +\\) , ,$ , -$ ) recognize !$\nConstruct & = () , Σ , + , ,0, - ) recognizing !“!$\n&$\n&”\n&\n& should accept input 0 if 0 = 12 where\n&” accepts 1 and &$ accepts 2.\n0\n1\n2\nDoesn’t work: Where to split 0?\n12\n\fQuick review of today\n\nIntroduction, outline, mechanics, expectations\nFinite Automata, formal definition, regular languages\nRegular Operations and Regular Expressions\nProved: Class of regular languages is closed under ∪\nStarted: Closure under ∘ , to be continued…\n\n13\n\fMIT OpenCourseWare https://ocw.mit.edu\n18.404J / 18.4041J / 6.840J Theory of Computation Fall 2020\nFor information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms."
-  },
-  {
     "objectID": "starfa.html#sketch",
     "href": "starfa.html#sketch",
     "title": "1. Finite Automata",
@@ -28,18 +7,18 @@
     "text": "Sketch\n\n\nWhat is theory of computation?\n\n1930s - 1950s\n1960s - 2020s\n\nRole of Theory\nFinite Automata\n\nFormal Definition"
   },
   {
-    "objectID": "starfa.html#theory-of-computation",
-    "href": "starfa.html#theory-of-computation",
-    "title": "*FAs",
+    "objectID": "starfa.html#theory-of-computation-1",
+    "href": "starfa.html#theory-of-computation-1",
+    "title": "1. Finite Automata",
     "section": "Theory of Computation",
-    "text": "Theory of Computation\n\n&lt;50s:\n\nIf we had computers, what could they do?\nWhat can’t they do?\nI call this automata or computability theory. ## Example\n\nSay we:\n\nHave a computer, or formal definition thereof.\nHave a sorting algorithm, or a formal definition thereof?\n\nCan we determine:\n\nIf the sorting algorithm is provably correct.\n\nTurns out: impossible.\n\nProving is equivalent to computing, so there’s a logical collapse.\nWe’ll prove this more precisely."
+    "text": "Theory of Computation\n\n&lt;50s:\n\nIf we had computers, what could they do?\nWhat can’t they do?\nI call this automata or computability theory."
   },
   {
-    "objectID": "starfa.html#example",
-    "href": "starfa.html#example",
-    "title": "*FAs",
-    "section": "Example",
-    "text": "Example\n[]\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "starfa.html#example-0",
+    "href": "starfa.html#example-0",
+    "title": "1. Finite Automata",
+    "section": "Example 0",
+    "text": "Example 0\n\nSay we:\n\nHave a computer, or formal definition thereof.\nHave a sorting algorithm.\nHaving a sorting specificaiton.\n\nCan we determine:\n\nIf the sorting algorithm meets a specification?\n\nTurns out: impossible."
   },
   {
     "objectID": "starfa.html#example-1",
@@ -56,25 +35,11 @@
     "text": "Some Previews\n\nFinite Automata\n\nToday\n\nTuring Machines\n\nIn residence"
   },
   {
-    "objectID": "starfa.html#complexity",
-    "href": "starfa.html#complexity",
-    "title": "*FAs",
-    "section": "Complexity",
-    "text": "Complexity\n2\n\fCourse Mechanics"
-  },
-  {
     "objectID": "starfa.html#theory-of-complexity",
     "href": "starfa.html#theory-of-complexity",
     "title": "1. Finite Automata",
     "section": "Theory of Complexity",
     "text": "Theory of Complexity\n\nWhat can we actually do?\n\nFactoring Problem, foundation of modern cryptography.\nCan we measure relative “goodness” of things."
-  },
-  {
-    "objectID": "starfa.html#theory-of-computation-1",
-    "href": "starfa.html#theory-of-computation-1",
-    "title": "1. Finite Automata",
-    "section": "Theory of Computation",
-    "text": "Theory of Computation\n\n&lt;50s:\n\nIf we had computers, what could they do?\nWhat can’t they do?\nI call this automata or computability theory."
   },
   {
     "objectID": "starfa.html#open-questions",
@@ -84,25 +49,11 @@
     "text": "Open Questions\n\nHow does the brain work?\n\nIs it a neural network?\nWhat is creativity?\nCan machine learning do formal sciences including mathematics?\n\nCan we claim to understand computing without being able to answer the factoring question?"
   },
   {
-    "objectID": "starfa.html#course-mechanics",
-    "href": "starfa.html#course-mechanics",
-    "title": "*FAs",
-    "section": "Course Mechanics",
-    "text": "Course Mechanics"
-  },
-  {
     "objectID": "starfa.html#definition",
     "href": "starfa.html#definition",
     "title": "1. Finite Automata",
     "section": "Definition",
     "text": "Definition\n\n\n\nTerm this \\(M_1\\):\n\nStates \\[\n   q_n\n   \\]\nTransitions \\[\n  \\overset{\\{1\\}}{\\longrightarrow}\n  \\]\nStart state \\(q_1\\)\nAccept state \\(q_3\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "starfa.html#definition-1",
-    "href": "starfa.html#definition-1",
-    "title": "*FAs",
-    "section": "Definition",
-    "text": "Definition\n\nCheck the following:\n\n\n\n\n\n[0,1,1,0,1]\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
   },
   {
     "objectID": "starfa.html#process",
@@ -112,11 +63,753 @@
     "text": "Process\n\n\n\n\nTerm this \\(M_1\\):\n\nStates \\[\n   q_n\n   \\]\nTransitions \\[\n  \\overset{\\{1\\}}{\\longrightarrow}\n  \\]\nStart state \\(q_1\\)\nAccept state \\(q_3\\)\n\n\n\n\n\nInput\n\nFinite bit string\n\\(\\{0,1\\}^n\\)\n\nOutput\n\nBoolean or bit\n\\(\\{0,1\\}\\)\n\nBegin in start\nRead symbol\nFollow edge"
   },
   {
-    "objectID": "starfa.html#notes",
-    "href": "starfa.html#notes",
-    "title": "*FAs",
-    "section": "Notes",
-    "text": "Notes\n!1 accepts exactly those strings in # where # = {&| & contains substring 11}.\nSay that # is the language of !1 and that !1 recognizes # and that # = -(!1).\n6\n\fFinite Automata – Formal Definition\nDefn: A finite automaton ! is a 5-tuple (#, Σ, &, ’0, )) # finite set of states\nΣ\n&\nfinite set of alphabet symbols\ntransition function &: #×Σ → #\n’0 start state\n) set of accept states\n& (‘, .) = 0 means’\na\n0\n7\nExample:\n!1\n0\n’1\n1\n0\n’2\n1\n’3\n0,1\n!1 = (#, Σ, &, ’1, ))"
+    "objectID": "starfa.html#section",
+    "href": "starfa.html#section",
+    "title": "1. Finite Automata",
+    "section": "’’",
+    "text": "’’\n\nThe inital state is \\(q_1\\).\n\n[] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#section-1",
+    "href": "starfa.html#section-1",
+    "title": "1. Finite Automata",
+    "section": "‘0’",
+    "text": "‘0’\n\nFind label containing 0 out of \\(q_1\\).\n\n[0] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#section-2",
+    "href": "starfa.html#section-2",
+    "title": "1. Finite Automata",
+    "section": "‘01’",
+    "text": "‘01’\n\nFind label containing 1 out of \\(q_1\\).\n\n[0, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#section-3",
+    "href": "starfa.html#section-3",
+    "title": "1. Finite Automata",
+    "section": "‘011’",
+    "text": "‘011’\n\nFind label containing 1 out of \\(q_2\\).\n\n[0, 1, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#section-4",
+    "href": "starfa.html#section-4",
+    "title": "1. Finite Automata",
+    "section": "‘0110’",
+    "text": "‘0110’\n\nFind label containing 0 out of \\(q_3\\).\n\n[0, 1, 1, 0] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#section-5",
+    "href": "starfa.html#section-5",
+    "title": "1. Finite Automata",
+    "section": "‘01101’",
+    "text": "‘01101’\n\nFind label containing 1 out of \\(q_3\\).\n\n[0, 1, 1, 0, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#section-6",
+    "href": "starfa.html#section-6",
+    "title": "1. Finite Automata",
+    "section": "‘01101’",
+    "text": "‘01101’\n\n\\(M_1\\) accepts [0, 1, 1, 0, 1] by ending in \\(q_3\\)\n\nassert(M_1([0, 1, 1, 0, 1]) # M_1 as a function from bit strings to booleans.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#exercise",
+    "href": "starfa.html#exercise",
+    "title": "1. Finite Automata",
+    "section": "Exercise",
+    "text": "Exercise\n\nDoes \\(M_1\\) accept [0, 0, 1, 0, 1]?\n\n[0, 0, 1, 0, 1] # M_1 as a function from bit strings to booleans.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "starfa.html#terminology",
+    "href": "starfa.html#terminology",
+    "title": "1. Finite Automata",
+    "section": "Terminology",
+    "text": "Terminology\n\nWe say that:\n\n\\(A\\) is the language of \\(M_1\\).\n\\(M_1\\) recognizes \\(A\\)\n\\(A = L(M_1)\\)\n\nWe note: \\[\nw \\in A \\implies \\exists i,j &lt; |w| : w_i = 1 \\land w_j = 1\\}\n\\]\n\n\nw = '01101' # for example\nassert('11' in w)"
+  },
+  {
+    "objectID": "starfa.html#finite-automaton",
+    "href": "starfa.html#finite-automaton",
+    "title": "1. Finite Automata",
+    "section": "Finite Automaton",
+    "text": "Finite Automaton\n\nA finite automaton (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols.\n\nIn class: “finite automaton”\nReal life: mostly say “state machine”\nI used the notation *FA to denote these are not a specific kind of FA"
+  },
+  {
+    "objectID": "starfa.html#formal-definition-1",
+    "href": "starfa.html#formal-definition-1",
+    "title": "1. Finite Automata",
+    "section": "Formal Definition",
+    "text": "Formal Definition\nA finite automaton is formally defined as a 5-tuple:\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
+  },
+  {
+    "objectID": "starfa.html#explanation",
+    "href": "starfa.html#explanation",
+    "title": "1. Finite Automata",
+    "section": "Explanation:",
+    "text": "Explanation:\n\nStates (\\(Q\\)): Possible internal configurations - like computer memory.\nAlphabet (\\(\\Sigma\\)): Possible inputs - machine binary or computer I/O.\nTransition Function ($): How the FA’s state is updated on read.\nInitial State (\\(q_0\\)): This is the state where the automaton begins its operation.\nAccepting States (\\(F\\)): These determine if the FA outputs \\(0\\) or \\(1\\)."
+  },
+  {
+    "objectID": "starfa.html#our-example",
+    "href": "starfa.html#our-example",
+    "title": "1. Finite Automata",
+    "section": "Our Example",
+    "text": "Our Example\n\n\\(M_1 = (Q, \\Sigma, \\delta, q_1, \\{q_3\\})\\)\n\n\\(Q = \\{q_1, q_2, q_3\\}\\)\n\\(\\Sigma = \\{0, 1\\}\\)\n\nHow to express \\(\\delta\\)?\n\n\n\n\n\n\\(\\delta=\\)\n\\(0\\)\n\\(1\\)\n\n\n\n\n\\(q_1\\)|\n\\(q_1\\)\n\\(q_2\\)\n\n\n\\(q_2\\)|\n\\(q_1\\)\n\\(q_3\\)\n\n\n\\(q_3\\)|\n\\(q_3\\)\n\\(q_3\\)"
+  },
+  {
+    "objectID": "starfa.html#python",
+    "href": "starfa.html#python",
+    "title": "1. Finite Automata",
+    "section": "Python",
+    "text": "Python\n\n# define q_n as a convenience\nq_1, q_2, q_3 = \"q_1\", \"q_2\", \"q_3\"\n# define M_1\nQ = {q_1, q_2, q_3}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1, 1:q_3 },\n    q_3 : { 0:q_3, 1:q_3 }\n}\nM_1 = (Q,S,d,q_1,{q_3})\nprint(M_1)\n\n({'q_2', 'q_3', 'q_1'}, {0, 1}, {'q_1': {0: 'q_1', 1: 'q_2'}, 'q_2': {0: 'q_1', 1: 'q_3'}, 'q_3': {0: 'q_3', 1: 'q_3'}}, 'q_1', {'q_3'})"
+  },
+  {
+    "objectID": "starfa.html#stringslanguages",
+    "href": "starfa.html#stringslanguages",
+    "title": "1. Finite Automata",
+    "section": "Strings/Languages",
+    "text": "Strings/Languages\n\nA string is a sequence of letters \\(\\Sigma^n\\)\nA language is a set of strings.\nThe empty string is zero length \\(\\Sigma^0\\)\nThe empty language is the empty set \\(\\varnothing\\)\n\n\nWe note that the empty string is not in or related to the empty language"
+  },
+  {
+    "objectID": "starfa.html#acceptance",
+    "href": "starfa.html#acceptance",
+    "title": "1. Finite Automata",
+    "section": "Acceptance",
+    "text": "Acceptance\n\n\\(M\\) accepts string \\(w = w_1w_2\\ldots w_n\\) if:\n\n\n\\[\n\\forall w_i \\in \\Sigma : \\exists r_0r_1\\ldots r_n :\n\\]\n\n\n\\[\nr_0 = q_0 \\land\n\\]\n\n\n\\[\nr_n \\in F \\land\n\\]\n\n\n\\[\n\\forall i : r_i = \\delta(r_{i-1},w_i)\n\\]"
+  },
+  {
+    "objectID": "regularity.html#sketch",
+    "href": "regularity.html#sketch",
+    "title": "5. Regularity",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nReview of Theorems\nRegular Expressions and NFAs\n\n\\(R\\) → NFA\nGeneralized NFA\nNFA → \\(R\\)"
+  },
+  {
+    "objectID": "regularity.html#theorems-on-fas",
+    "href": "regularity.html#theorems-on-fas",
+    "title": "5. Regularity",
+    "section": "Theorems on *FAs",
+    "text": "Theorems on *FAs\n\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\n\n\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\n\n\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\n\n\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]"
+  },
+  {
+    "objectID": "regularity.html#regular-expressions",
+    "href": "regularity.html#regular-expressions",
+    "title": "5. Regularity",
+    "section": "Regular Expressions",
+    "text": "Regular Expressions\n\nBuilt from:\n\n\\(\\Sigma\\), the letters of the alphabet\n\\(\\varnothing\\), the empty set / empty language.\n\\(\\Sigma^0\\), the empty string\n\nBuilt with:\n\n\\(\\cup\\), union\n\\(\\cdot\\), concatenation\n\\(*\\), the “star” operator"
+  },
+  {
+    "objectID": "regularity.html#goal",
+    "href": "regularity.html#goal",
+    "title": "5. Regularity",
+    "section": "Goal:",
+    "text": "Goal:\nShow that finite automata and regular expressions are equivalently expressive.\n\nClosure is with respect to a set and an operation.\nWe note:\n\nNatural numbers \\(\\mathbb{N}\\) are closed under \\(+\\)\nNatural numbers \\(\\mathbb{N}\\) not closed under \\(-\\)\n\nWe wish to apply these to languages, not numbers."
+  },
+  {
+    "objectID": "regularity.html#atomic",
+    "href": "regularity.html#atomic",
+    "title": "5. Regularity",
+    "section": "Atomic",
+    "text": "Atomic\n\nThere exist atomic \\(R\\)\n\nBuilt from:\n\\(\\Sigma\\), the letters of the alphabet\n\\(\\varnothing\\), the empty set / empty language.\n\\(\\Sigma^0\\), the empty string"
+  },
+  {
+    "objectID": "regularity.html#letter-atomicity",
+    "href": "regularity.html#letter-atomicity",
+    "title": "5. Regularity",
+    "section": "Letter atomicity",
+    "text": "Letter atomicity\n\n\n\nTake \\(R = a : a \\in \\Sigma\\)\n\n\\(M | L(M) = R\\)\n\n\\(Q = \\{q_0,q_1\\}\\)\n\\(\\delta =  \\{ (q_0, a) \\rightarrow \\{q_1\\} \\}\\)\n\\(F = \\{q_1\\}\\)\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n{a}"
+  },
+  {
+    "objectID": "regularity.html#empty-string-atomicty",
+    "href": "regularity.html#empty-string-atomicty",
+    "title": "5. Regularity",
+    "section": "Empty String Atomicty",
+    "text": "Empty String Atomicty\n\n\n\nTake \\(R = \\Sigma^0\\)\n\n\\(M | L(M) = R\\)\n\n\\(Q = {q_0}\\)\n\\(\\delta =  \\varnothing\\)\n\\(F = \\{q_0\\}\\)\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\n\nq\n0\n\n\n\nd0-&gt;q0"
+  },
+  {
+    "objectID": "regularity.html#empty-language-atomicty",
+    "href": "regularity.html#empty-language-atomicty",
+    "title": "5. Regularity",
+    "section": "Empty Language Atomicty",
+    "text": "Empty Language Atomicty\n\n\n\nTake \\(R = \\varnothing\\)\n\n\\(M | L(M) = R\\)\n\n\\(Q = {q_0}\\)\n\\(\\delta =  \\varnothing\\)\n\\(F = \\varnothing\\)\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0"
+  },
+  {
+    "objectID": "regularity.html#atomicity-lemma",
+    "href": "regularity.html#atomicity-lemma",
+    "title": "5. Regularity",
+    "section": "Atomicity Lemma",
+    "text": "Atomicity Lemma\n\\[\n\\begin{aligned}\n\\exists M_1, M_2, M_3 :\\\\\nL(M_1) &= a \\in \\Sigma \\\\\nL(M_2) &= \\Sigma^0 \\\\\nL(M_2) &= \\varnothing\n\\end{aligned}\n\\]\nProof\n\\[\n\\begin{aligned}\nM_1 &= (\\{q_0,q_1\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_2 &= (\\{q_0\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_3 &= (\\{q_0\\}, &\\Sigma, &\\varnothing,  &q_0, &\\{q_1\\}) \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "regularity.html#composite",
+    "href": "regularity.html#composite",
+    "title": "5. Regularity",
+    "section": "Composite",
+    "text": "Composite\n\n\n\n∃ composite \\(R\\)\n\nOver other \\(R\\)\n\n\\(R_1 \\cup R_2\\), union\n\\(R_1R_2\\)\n\\(R*\\)\n\n\n\n\n\nProven over NFAs\n\n∴ DFA (Theorem 2)\n\n(Theorem 1)\n(Theorem 3)\n(Theorem 4)"
+  },
+  {
+    "objectID": "regularity.html#theorem-5",
+    "href": "regularity.html#theorem-5",
+    "title": "5. Regularity",
+    "section": "Theorem 5",
+    "text": "Theorem 5\n\\[\n\\forall R : \\exists M : R = L(M)\n\\]\nProof\n\nAtomic \\(R\\) follows from Atomicity Lemma\nComposite \\(R\\) follows from Closure properties (Theorems 1-4)"
+  },
+  {
+    "objectID": "regularity.html#transitions",
+    "href": "regularity.html#transitions",
+    "title": "5. Regularity",
+    "section": "Transitions",
+    "text": "Transitions\n\nWe understand \\(\\delta\\) as a transition relation\nIn DFAs, it is a deterministic transition\nIn NFAs, it is still deterministic(!), but over sets.\nHowever both are identity or inclusion relations\n\nThat is, letter \\(\\in\\) label"
+  },
+  {
+    "objectID": "regularity.html#transitions-that-think",
+    "href": "regularity.html#transitions-that-think",
+    "title": "5. Regularity",
+    "section": "Transitions that ‘think’",
+    "text": "Transitions that ‘think’\n\nInstead of identity/inclusion…\nWe can use regular expressions as transition labels.\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n(a∪b)*"
+  },
+  {
+    "objectID": "regularity.html#implementation",
+    "href": "regularity.html#implementation",
+    "title": "5. Regularity",
+    "section": "Implementation",
+    "text": "Implementation\n\nIt is simple enough to argue for GNFAs\n\nEvery operation can be an NFA\nAny NFA node can be replaced with an NFA\n\nEssentially the closure options.\n\nTherefore, a GNFA is equivalently expressive to NFA\n\nThe complete proof is left as an exercise to the interested student."
+  },
+  {
+    "objectID": "regularity.html#special-form",
+    "href": "regularity.html#special-form",
+    "title": "5. Regularity",
+    "section": "Special Form",
+    "text": "Special Form\n\nWe take GNFAs which:\n\nHave a single accept state \\(|F| = 1\\)\nConnections all states but \\(q_0 \\land q_i \\in F\\)\n\nUnrelated states via empty language \\(\\varnothing\\)\n\nGNFA \\(\\varnothing\\) label refers to empty langauge (labels are languages)\nNFA \\(\\varnothing\\) label refers to the empty string (labels are strings)"
+  },
+  {
+    "objectID": "regularity.html#theorem-6",
+    "href": "regularity.html#theorem-6",
+    "title": "5. Regularity",
+    "section": "Theorem 6",
+    "text": "Theorem 6\n\\[\n\\forall M : \\exists R : R = L(M)\n\\]\n\nWe will prove with GNFA \\(G\\).\nWe will use induction.\n\nInduct over cardinality of state set \\(|Q|\\)"
+  },
+  {
+    "objectID": "regularity.html#begin",
+    "href": "regularity.html#begin",
+    "title": "5. Regularity",
+    "section": "Begin",
+    "text": "Begin\n\nVia our simplifying assumptions of GNFAs\n\nOur base GNFA has 2 states\n\nA start state, and\nAn accept state.\n\n\nDefine \\(|G| = |Q|\\) as a shorthand convenience."
+  },
+  {
+    "objectID": "regularity.html#base-case",
+    "href": "regularity.html#base-case",
+    "title": "5. Regularity",
+    "section": "Base Case",
+    "text": "Base Case\n\n\nThe two state GNFA \\(G\\) is as follows:\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\nR"
+  },
+  {
+    "objectID": "regularity.html#base-lemma",
+    "href": "regularity.html#base-lemma",
+    "title": "5. Regularity",
+    "section": "Base Lemma",
+    "text": "Base Lemma\n\\[\n\\forall |G| = 2 := (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\}) : \\exists R : R = L(G)\n\\]\nProof\n\nBy definition, \\(G = (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\})\\)\nBy definition, \\(\\delta = \\{ (q_0, R') \\rightarrow q_1 \\}\\)\nLet \\(R = R'\\)\n\\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "regularity.html#induction",
+    "href": "regularity.html#induction",
+    "title": "5. Regularity",
+    "section": "Induction",
+    "text": "Induction\n\nWe prove that GNFA of \\(k&gt;2\\) states can be converted to a GNFA of \\(k-1\\) states.\nWith our base, this suffices to prove our theorem.\n\nDo we need to go over induction?"
+  },
+  {
+    "objectID": "regularity.html#state-exclusion",
+    "href": "regularity.html#state-exclusion",
+    "title": "5. Regularity",
+    "section": "State Exclusion",
+    "text": "State Exclusion\n\nArbitrary select state \\(q_i : q_i \\neq q_0 \\land q_i \\notin F\\)\nWork over \\(\\delta\\)\n\nLet \\(\\delta_{i,0} = \\{R : ((q_x, R) \\rightarrow q_i) \\in \\delta \\}\\)\nLet \\(\\delta_{i,1} = \\{R : ((q_i, R) \\rightarrow q_y) \\in \\delta \\}\\)\nLet \\(S : ((q_i, S) \\rightarrow q_i) \\in \\delta\\)"
+  },
+  {
+    "objectID": "regularity.html#delta-reconstruction",
+    "href": "regularity.html#delta-reconstruction",
+    "title": "5. Regularity",
+    "section": "Delta Reconstruction",
+    "text": "Delta Reconstruction\n\nWe synthesize new relations out of \\(\\bigcup\\limits_{[-1,1]}\\delta_{i,n}\\)\nRecall there is an edge between all nodes!\n\nWith the special exception of edges back into start and out of accept."
+  },
+  {
+    "objectID": "regularity.html#new-transitions",
+    "href": "regularity.html#new-transitions",
+    "title": "5. Regularity",
+    "section": "New Transitions",
+    "text": "New Transitions\n\nTake \\(R_{i,j} = ((q_i, R) \\rightarrow q_j)\\)\n\nWe note going from \\(q_x\\) to \\(q_y\\) through \\(q_i\\) is given as \\(R_{x,i}R_{i,i}R_{i,y}\\)\n\nUnionize with existing relation \\(R_{x,y}\\)\nDenote \\(R'_{x,y} = R_{x,y} \\cup R_{x,i}R_{i,i}R_{i,y}\\)\nLet \\(\\delta_{-i} = \\{ (q_x, R'_{x,y})  \\rightarrow q_y | q_y, q_x \\in Q \\}\\)"
+  },
+  {
+    "objectID": "regularity.html#inductive-lemma",
+    "href": "regularity.html#inductive-lemma",
+    "title": "5. Regularity",
+    "section": "Inductive Lemma",
+    "text": "Inductive Lemma\n\\[\n\\forall |G| = (k &gt; 2) : \\exists |G| = (k - 1) : L(G) = L(G')\n\\]\nProof\n\nBy definition, \\(G = (Q,\\Sigma,\\delta,q_0,\\{q_n\\})\\)\nSelect arbitrary \\(q_i \\in Q \\setminus \\{q_0, q_n\\}\\)\nTake \\(G' = (Q \\setminus \\{q_i\\},\\Sigma,\\delta_{-i},q_0,\\{q_n\\})\\)"
+  },
+  {
+    "objectID": "regularity.html#graphically",
+    "href": "regularity.html#graphically",
+    "title": "5. Regularity",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\nq\ni\n\n\n\nq0-&gt;qi\n\n\nR\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\nV\n\n\n\nqi-&gt;qi\n\n\nS\n\n\n\nqi-&gt;qn\n\n\nT"
+  },
+  {
+    "objectID": "regularity.html#omit-q_i",
+    "href": "regularity.html#omit-q_i",
+    "title": "5. Regularity",
+    "section": "Omit \\(q_i\\)",
+    "text": "Omit \\(q_i\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\n\n\n\nq0-&gt;qi\n\n\nR\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\nV\n\n\n\nqi-&gt;qi\n\n\nS\n\n\n\nqi-&gt;qn\n\n\nT"
+  },
+  {
+    "objectID": "regularity.html#partition-delta",
+    "href": "regularity.html#partition-delta",
+    "title": "5. Regularity",
+    "section": "Partition \\(\\delta\\)",
+    "text": "Partition \\(\\delta\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\nV\n\n\n\nr\nRST"
+  },
+  {
+    "objectID": "regularity.html#readd-q_i-incident-edges",
+    "href": "regularity.html#readd-q_i-incident-edges",
+    "title": "5. Regularity",
+    "section": "Readd \\(q_i\\) incident edges",
+    "text": "Readd \\(q_i\\) incident edges\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\nRST\n\n\n\nq0-&gt;qn\n\n\nV"
+  },
+  {
+    "objectID": "regularity.html#apply-union-operator",
+    "href": "regularity.html#apply-union-operator",
+    "title": "5. Regularity",
+    "section": "Apply Union Operator",
+    "text": "Apply Union Operator\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\nRST∪V"
+  },
+  {
+    "objectID": "regularity.html#theorem-6-1",
+    "href": "regularity.html#theorem-6-1",
+    "title": "5. Regularity",
+    "section": "Theorem 6",
+    "text": "Theorem 6\n\\[\n\\forall M : \\exists R : R = L(M)\n\\]\nProof\n\n\\(\\forall |G| = 2 := (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\}) : \\exists R : R = L(G)\\)\n\\(\\forall |G| = (k &gt; 2) : \\exists |G| = (k - 1) : L(G) = L(G')\\)\nBy induction, \\(\\forall M : \\exists R : R = L(M)\\)"
+  },
+  {
+    "objectID": "pump.html#sketch",
+    "href": "pump.html#sketch",
+    "title": "6. Pumping Lemma",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nPumping Lemma\n\nStatement\nExamples"
+  },
+  {
+    "objectID": "pump.html#avoid-this-trap",
+    "href": "pump.html#avoid-this-trap",
+    "title": "6. Pumping Lemma",
+    "section": "Avoid this trap",
+    "text": "Avoid this trap\n\nSuppose we wish to prove a language is not regular.\nWe must prove there is no DFA that recognizes the language.\nIt may be tempting to conclude:\n\nI thought about it really hard.\nI could find no DFA.\nTherefore the language is irregular."
+  },
+  {
+    "objectID": "pump.html#example",
+    "href": "pump.html#example",
+    "title": "6. Pumping Lemma",
+    "section": "Example",
+    "text": "Example\n\nTake \\(\\Sigma = \\{0,1\\}\\)\n\nTake \\(B\\) to be the language for which there are equal numbers of 0s and 1s\nTake \\(C\\) to be the language for which there are equal numbers of 01s and 10s.\n\n0101 \\(\\notin C\\)\n0110 \\(\\in C\\)\n\n\nOne of these is regular.\nLeft as an exercise to the student."
+  },
+  {
+    "objectID": "pump.html#statement-of-lemma",
+    "href": "pump.html#statement-of-lemma",
+    "title": "6. Pumping Lemma",
+    "section": "Statement of Lemma",
+    "text": "Statement of Lemma\n\\[\n\\begin{aligned}\n&\\forall A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\] - That is, \\(\\{xz, xyz, xyyz\\} \\in A\\)\n\nWe “pump up” the number of occurances of y"
+  },
+  {
+    "objectID": "pump.html#definitions",
+    "href": "pump.html#definitions",
+    "title": "6. Pumping Lemma",
+    "section": "Definitions",
+    "text": "Definitions\n\nTake \\(M | L(M) = A\\)\nTake \\(p = |M| = |Q|\\)\nTake \\(s \\in A = xyz : |s| \\geq p\\)"
+  },
+  {
+    "objectID": "pump.html#sketch-of-proof",
+    "href": "pump.html#sketch-of-proof",
+    "title": "6. Pumping Lemma",
+    "section": "Sketch of Proof",
+    "text": "Sketch of Proof\n\nWe note that \\(s\\) visits states \\(p\\) times.\n\nWe make no claims about which states.\n\nDefine sequence of states \\(S = (q_0,s_1,s_2,\\ldots,s_i,s_{i+1},\\ldots,s_p)\\)\n\\(\\forall s_i \\in S : s_i \\in Q\\)\n\\(|P| &gt; |Q|\\)\n\\(\\therefore \\exists i,j : s_i = s_j\\)"
+  },
+  {
+    "objectID": "pump.html#find-xyz",
+    "href": "pump.html#find-xyz",
+    "title": "6. Pumping Lemma",
+    "section": "Find x,y,z",
+    "text": "Find x,y,z\n\nLet \\(x = (a_o,\\ldots,a_i)\\)\n\n\\(M\\) is in state \\(s_*j*\\) after reading \\(x\\)\n\nLet \\(y = (a_i,\\ldots,a_{j-1})\\)\n\n\\(M\\) is in state \\(s_j\\) after reading \\(y\\) when beginning in \\(s_i\\)\n\\(s_i = s_j\\)\n\nLet \\(z = (a_{j-1},\\ldots,a_p)\\)\n\n\\(M\\) accepts after reading \\(z\\) when beginning in \\(s_j\\)"
+  },
+  {
+    "objectID": "pump.html#pump-on-y",
+    "href": "pump.html#pump-on-y",
+    "title": "6. Pumping Lemma",
+    "section": "Pump on \\(y\\)",
+    "text": "Pump on \\(y\\)\n\nWe note\n\n\\(xz\\) is accepted by \\((q_0,s_1,\\ldots,s_i,s_{j+1},\\ldots,s_p)\\)\n\nDenote as \\([0,i][j+1,p]\\)\n\n\\(xyz\\) is accepted by \\((q_0,s_1,\\ldots,s_p)\\)\n\nDenote as \\([0,p] = [0,i][i+1,j][j+1,p]\\)\n\n\\(xyyz\\) is accepted by \\((q_0,s_1,\\ldots,s_i+1,\\ldots,s_{j-1},s_i\\ldots,s_j, s_{j+1},\\ldots, s_p)\\)\n\nDenote as \\([0,i][i+1,j][i+1,j][j+1,p]\\)\n\n\\(xy^nz\\) is accepted by \\([0,i][i+1,j]^n[j+1,p]\\)"
+  },
+  {
+    "objectID": "pump.html#python",
+    "href": "pump.html#python",
+    "title": "6. Pumping Lemma",
+    "section": "Python",
+    "text": "Python\n# assume S as a list of states.\nS : List[states]\nx : str\ny : str\nz : str\nassert(states(x + z)         == S[:i]+S[j:]) \nassert(states(x + y + z)     == S  == S[:i]+S[i:j]+S[j:])\nassert(states(x + y + y + z) == S[:i] + S[i:j] + S[i:j] + S[j:])\nassert(states(x + y * 2 + z) == S[:i] + S[i:j] * 2      + S[j:])\n# This can't run - it's infinite\nassert(all((states(x+y*n+z) == A[:i]+A[i:j]*n+A[j:]) for n in count()))\n\nMuch easier with Pythonic slices."
+  },
+  {
+    "objectID": "pump.html#graphically",
+    "href": "pump.html#graphically",
+    "title": "6. Pumping Lemma",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\n?"
+  },
+  {
+    "objectID": "pump.html#show-s_is_j",
+    "href": "pump.html#show-s_is_j",
+    "title": "6. Pumping Lemma",
+    "section": "Show \\(s_i=s_j\\)",
+    "text": "Show \\(s_i=s_j\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\n?\n\n\n\nqi-&gt;qi\n\n\n?\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\n?"
+  },
+  {
+    "objectID": "pump.html#label-edges",
+    "href": "pump.html#label-edges",
+    "title": "6. Pumping Lemma",
+    "section": "Label Edges",
+    "text": "Label Edges\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz\n\n\n\n\n\n\n\n\n\nThis is valid GNFA that reduces to a DFA."
+  },
+  {
+    "objectID": "pump.html#pumping-lemma-1",
+    "href": "pump.html#pumping-lemma-1",
+    "title": "6. Pumping Lemma",
+    "section": "Pumping Lemma",
+    "text": "Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\]\nProof\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz"
+  },
+  {
+    "objectID": "pump.html#easy-to-read",
+    "href": "pump.html#easy-to-read",
+    "title": "6. Pumping Lemma",
+    "section": "Easy to read",
+    "text": "Easy to read\n\n\\(s \\in A \\land |s| &gt; p\\) requires\n\n\\(xy^nz \\in A\\)\n\\(|y| &gt; 0\\)\n\\(|xy| \\leq p\\)"
+  },
+  {
+    "objectID": "pump.html#irregular-0",
+    "href": "pump.html#irregular-0",
+    "title": "6. Pumping Lemma",
+    "section": "Irregular 0",
+    "text": "Irregular 0\n\nTake \\(D = \\{ 0^k1^k | k \\in \\mathbb{N}\\}\\)\nShow \\(D\\) is not regular.\nWe proceed by contradiction.\n\nAssume \\(D\\) is regular.\nApply the pumping lemma.\nDerive a contradiction."
+  },
+  {
+    "objectID": "pump.html#strategy",
+    "href": "pump.html#strategy",
+    "title": "6. Pumping Lemma",
+    "section": "Strategy",
+    "text": "Strategy\n\nWe take string \\(s = 0^p1^p\\)\nPumping lemma requires \\(\\exists xy : |xy| \\leq p\\)\n\\(\\forall xy \\not\\exists 1 \\in xy\\)\nSo \\(xz = 0^{p-|y|}1^p\\)\nPumping lemma requires \\(|y| &gt; 0\\)\n\\(D\\) requires \\(p - |y| = p\\)\nContradiction \\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "pump.html#on-graphics",
+    "href": "pump.html#on-graphics",
+    "title": "6. Pumping Lemma",
+    "section": "On Graphics",
+    "text": "On Graphics\n\nWe note we cannot show this graphically.\nWe have proven no DFA accepts \\(D\\)\nHow could we draw a DFA!\nThis is also why we can’t really on graphics!"
+  },
+  {
+    "objectID": "pump.html#irregular-1",
+    "href": "pump.html#irregular-1",
+    "title": "6. Pumping Lemma",
+    "section": "Irregular 1",
+    "text": "Irregular 1\n\nTake \\(F = \\{ ww | w\\ \\in \\Sigma*\\}\\)\nShow \\(F\\) is not regular.\nWe proceed by contradiction.\n\nAssume \\(F\\) is regular.\nApply the pumping lemma.\nDerive a contradiction."
+  },
+  {
+    "objectID": "pump.html#avoid-this",
+    "href": "pump.html#avoid-this",
+    "title": "6. Pumping Lemma",
+    "section": "Avoid this",
+    "text": "Avoid this\n\nSay we chose \\(0^p0^p\\)\nWe take, say, \\(x = y = 0^(p/2 - 1)\\)\nWell we actually can pump \\(y\\) if \\(|y|\\) is odd.\nHave to be careful!"
+  },
+  {
+    "objectID": "pump.html#strategy-1",
+    "href": "pump.html#strategy-1",
+    "title": "6. Pumping Lemma",
+    "section": "Strategy",
+    "text": "Strategy\n\nWe take string $s = \\(0^p10^p1\\)\nPumping lemma requires \\(\\exists xy : |xy| \\leq p\\)\n\\(\\forall xy \\not\\exists 1 \\in x\\)\nSo \\(xz = 0^{p-|y|}10^p1\\)\nPumping lemma requires \\(|y| &gt; 0\\)\n\\(F\\) requires \\(p - |y| = p\\)\nContradiction \\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "pump.html#combined-tactics",
+    "href": "pump.html#combined-tactics",
+    "title": "6. Pumping Lemma",
+    "section": "Combined Tactics",
+    "text": "Combined Tactics\n\nWe have used the assumptions of the pumping lemma.\nWe have proven other results!\nWe now explore a result using closure properties (Theorems 1-4)"
+  },
+  {
+    "objectID": "pump.html#irregular-2",
+    "href": "pump.html#irregular-2",
+    "title": "6. Pumping Lemma",
+    "section": "Irregular 2",
+    "text": "Irregular 2\n\nRecall \\(B\\)\n\n“…equal numbers of 0s and 1s”\n\nAssume by contradiction \\(B\\) is regular.\nSince \\(B\\) is regular, \\(B \\cap 0*1*\\) is regular\n\nClosure under intersection\n\nWe note that \\(D = B \\cap 0*1*\\)\n\n\\(D\\) is irregular!\n\n\\(B\\) is irregular.\n\\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "nfas.html#sketch",
+    "href": "nfas.html#sketch",
+    "title": "3. NFAs",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nNFAs\n\nMotivation\nFormal Definition\nConversion to DFAs"
+  },
+  {
+    "objectID": "nfas.html#closure-under-cdot",
+    "href": "nfas.html#closure-under-cdot",
+    "title": "3. NFAs",
+    "section": "Closure under \\(\\cdot\\)",
+    "text": "Closure under \\(\\cdot\\)\n\n\\[\nM_1 = (Q_1, \\Sigma, \\delta_1, q_1, F_1) \\land M_2 = (Q_2, \\Sigma, \\delta_2, q_2, F_2) \\implies\n\\]\n\n\n\\[\n\\exists M_3 : L(M_3) = L(M_1) \\cdot L(M_2) = L(M_1)L(M_2) = A_1A_2\n\\]"
+  },
+  {
+    "objectID": "nfas.html#non-trivial",
+    "href": "nfas.html#non-trivial",
+    "title": "3. NFAs",
+    "section": "Non-trivial",
+    "text": "Non-trivial\n\nA natural strategy\n\nTake \\(M_1\\)\nConnect states in \\(F_1\\) (\\(M_1\\) accept)\nAdd edges out of \\(F_1\\)\nConnect edges to \\(q_2\\) (\\(M_2\\) start)"
+  },
+  {
+    "objectID": "nfas.html#problem",
+    "href": "nfas.html#problem",
+    "title": "3. NFAs",
+    "section": "Problem",
+    "text": "Problem\n\nHow do we know if we should go to \\(M_2\\) at a given time.\n\nSuppose \\(M_1\\) requires 0 appear in odd-length substrings \\(\\{0\\}^{2n+1}\\).\nSuppose \\(M_2\\) requires 0 appear in even-length substrings \\(\\{0\\}^{2n}\\).\nImagine seeing a 0 after a 1\nDo you leave \\(M_1\\) into \\(M_2\\) or not?\n\nSimply do both."
+  },
+  {
+    "objectID": "nfas.html#new-features",
+    "href": "nfas.html#new-features",
+    "title": "3. NFAs",
+    "section": "New Features",
+    "text": "New Features\n\nIn DFAs, the \\(\\cap\\) of any pair of labels on outgoing edges must \\(=\\varnothing\\).\n\nLabels appear exactly once.\nNFAs - no such restriction.\n\nIn NFAs, we can use \\(\\sigma\\) to move regardless of input.\nIf NFAs, accept if any path reaches any accepting state.\n\nThat is, there may be multiple paths."
+  },
+  {
+    "objectID": "nfas.html#exercise-0",
+    "href": "nfas.html#exercise-0",
+    "title": "3. NFAs",
+    "section": "Exercise 0",
+    "text": "Exercise 0\nFind a string accepted by the NFA that is rejected by the DFA.\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0,1}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
+  },
+  {
+    "objectID": "nfas.html#solution-0",
+    "href": "nfas.html#solution-0",
+    "title": "3. NFAs",
+    "section": "Solution 0",
+    "text": "Solution 0\n\n\n[1,1]\n\nREJECT: \\(q_1 \\rightarrow q_2 \\rightarrow \\varnothing\\)\nREJECT: \\(q_1 \\rightarrow q_1 \\rightarrow q_1\\)\nACCEPT: \\(q_1 \\rightarrow q_1 \\rightarrow q_2\\)\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0,1}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
+  },
+  {
+    "objectID": "nfas.html#exercise-1",
+    "href": "nfas.html#exercise-1",
+    "title": "3. NFAs",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nDefine an expression over \\(\\delta\\) that holds if a finite automata is deterministic.\nYou may write it in formal mathematics or in Python."
+  },
+  {
+    "objectID": "nfas.html#solution-1",
+    "href": "nfas.html#solution-1",
+    "title": "3. NFAs",
+    "section": "Solution 1",
+    "text": "Solution 1\n\nWe note that Python dictionaries can only be used for the \\(\\delta\\) of a DFA.\n\n\n\n# define q_n as a convenience\nq_1, q_2 = \"q_1\", \"q_2\"\n# define d\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1 }\n}\n\n\n\nTo implement an NFA, what would we do?\n\n\n\nassert(all((type(d[q])==type({}) for q in d)))"
+  },
+  {
+    "objectID": "nfas.html#aside",
+    "href": "nfas.html#aside",
+    "title": "3. NFAs",
+    "section": "Aside",
+    "text": "Aside\n\nHistorically, nondeterminism not regarded as an actually physical existing device.\nIn practice, speculative execution is exactly that.\nMy automata research applied nondeterminism to x86-64 processors.\nCloud computing, today, is quite similar."
+  },
+  {
+    "objectID": "nfas.html#speculation",
+    "href": "nfas.html#speculation",
+    "title": "3. NFAs",
+    "section": "Speculation",
+    "text": "Speculation"
+  },
+  {
+    "objectID": "nfas.html#ways",
+    "href": "nfas.html#ways",
+    "title": "3. NFAs",
+    "section": "3 ways:",
+    "text": "3 ways:\n\nComputational: Fork new parallel thread and accept if any thread leads to an accept state.\nMathematical: Tree with branches. Accept if any branch leads to an accept state.\nMagical: Guess at each nondeterministic step which way to go. Machine always makes the right guess that leads to accepting, if possible."
+  },
+  {
+    "objectID": "nfas.html#delta",
+    "href": "nfas.html#delta",
+    "title": "3. NFAs",
+    "section": "\\(\\delta\\)",
+    "text": "\\(\\delta\\)\n\nVersus DFAs, NFAs are unaltered except in \\(\\delta\\)\nDFAs consider individual state and a letter.\n\nNFA \\(\\delta\\) most work over sets of states."
+  },
+  {
+    "objectID": "nfas.html#step-0",
+    "href": "nfas.html#step-0",
+    "title": "3. NFAs",
+    "section": "Step 0",
+    "text": "Step 0\n\nAlter \\(\\delta\\)’s codomain (set of destination)\n\nDFA : \\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\nNFA : \\(\\delta : Q \\times \\sigma \\rightarrow \\mathcal{P} (Q)\\)\n\n\\(\\mathcal{P} (Q)\\) is the power set of \\(Q\\)\n\\(\\mathcal{P} (Q) = \\{ R | R \\subset Q \\}\\)"
+  },
+  {
+    "objectID": "nfas.html#in-python",
+    "href": "nfas.html#in-python",
+    "title": "3. NFAs",
+    "section": "In Python",
+    "text": "In Python\n\n\nd_dfa = {\n    q_1 : { \n        0:q_1, \n        1:q_2 # This is wrong\n    },\n    q_2 : { \n        0:q_1 \n    }\n}\n\nd_nfa = {\n    q_1 : { \n        0:{q_1}, \n        1:{q_1, q_2}\n    },\n    q_2 : { \n        0:{q_1} \n    }\n}\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0,1}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
+  },
+  {
+    "objectID": "nfas.html#step-1",
+    "href": "nfas.html#step-1",
+    "title": "3. NFAs",
+    "section": "Step 1",
+    "text": "Step 1\n\nAlter \\(\\delta\\)’s domain (set of inputs)\n\nDFA : \\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\nNFA: \\(\\delta : \\mathcal{P} (Q) \\times \\sigma \\rightarrow \\mathcal{P} (Q)\\)\n\nIn Python, this is simple set comprehension of the Step 0 \\(\\delta\\)"
+  },
+  {
+    "objectID": "nfas.html#in-python-1",
+    "href": "nfas.html#in-python-1",
+    "title": "3. NFAs",
+    "section": "In Python",
+    "text": "In Python\n# setup\nstate = str\nletter = str\ndfa = tuple\nnfa = tuple\n\ndef q_next_dfa(m:dfa, q:state, a:letter) -&gt; state:\n    d = m[2] # dict of state:dict of letter:state\n    return d[q][a]\n\ndef q_next_nfa(m:nfa, qs:set, a:letter) -&gt; set:\n    d = m[2] # dict of state:dict of letter:set of state\n    return {q_n for q in d[q][a] for q in qs}\n\nCan do this with lambda (which I’d prefer) but then we lose type hints."
+  },
+  {
+    "objectID": "nfas.html#lambda",
+    "href": "nfas.html#lambda",
+    "title": "3. NFAs",
+    "section": "Lambda",
+    "text": "Lambda\nOr put the lambdas in the *FA\nq_next_dfa = lambda m, q, a : m[2]d[q][a]\n\nq_next_dfa = lambda m, qs, a : {q_n for q in d[q][a] for q in qs}"
+  },
+  {
+    "objectID": "nfas.html#goal",
+    "href": "nfas.html#goal",
+    "title": "3. NFAs",
+    "section": "Goal",
+    "text": "Goal\n\nWish to show any NFA language can be recognized by a DFA.\nTake an NFA\n\n\\(M = (Q, \\Sigma, \\delta, q_0, F)\\)\n\nConstruct a DFA\n\n\\(M = (Q', \\Sigma, \\delta', q'_0, F')\\)\n\nWe use the same insight as with \\(\\delta\\)"
+  },
+  {
+    "objectID": "nfas.html#dfa-states",
+    "href": "nfas.html#dfa-states",
+    "title": "3. NFAs",
+    "section": "DFA States",
+    "text": "DFA States\n\nLet \\(Q' = \\mathcal{P} (Q)\\)\n\nOne deterministic state for all possible combinations\nHow many is this?\nHow can we represent it?\n\nWe note \\(\\Sigma\\) is unaltered."
+  },
+  {
+    "objectID": "nfas.html#dfa-delta",
+    "href": "nfas.html#dfa-delta",
+    "title": "3. NFAs",
+    "section": "DFA \\(\\delta`\\)",
+    "text": "DFA \\(\\delta`\\)\n\nWe note \\(\\Sigma\\) is unaltered.\nWe note NFA \\(\\delta\\):\n\nAccepts \\(\\mathcal{P} (Q)\\) and a letter\nProduces \\(\\mathcal{P} (Q)\\)\nThat the states \\(Q'\\) of the DFA are \\(\\mathcal{P} (Q)\\)\n\n\\(\\delta\\) = \\(\\delta`\\)"
+  },
+  {
+    "objectID": "nfas.html#dfa-f",
+    "href": "nfas.html#dfa-f",
+    "title": "3. NFAs",
+    "section": "DFA \\(F\\)",
+    "text": "DFA \\(F\\)\n\nThe DFA tracks a set of possible states.\nOnly one state need be accepting.\n\\(F' = \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\}\\)"
+  },
+  {
+    "objectID": "nfas.html#theorem-2",
+    "href": "nfas.html#theorem-2",
+    "title": "3. NFAs",
+    "section": "Theorem 2",
+    "text": "Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]\n\nWe take some minor liberties with precisely defining the type of \\(\\delta\\)"
+  },
+  {
+    "objectID": "cfgpda.html#sketch",
+    "href": "cfgpda.html#sketch",
+    "title": "8. Pushdown Automata",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nSchematic View of Automata\nThe Stack\nThe Automaton\nConversions"
+  },
+  {
+    "objectID": "cfgpda.html#overview",
+    "href": "cfgpda.html#overview",
+    "title": "8. Pushdown Automata",
+    "section": "Overview",
+    "text": "Overview\n\nWe abstract the automata into a unit called the “Finite Control”\n\nIn a *FA, this denotes the current state.\nWe often denote it as a box\n\nWe imagine input as coming on a tape.\n\nIn practice, early devices did use tapes.\nModern devices use block reads of SSDs (same thing)"
+  },
+  {
+    "objectID": "cfgpda.html#tapes",
+    "href": "cfgpda.html#tapes",
+    "title": "8. Pushdown Automata",
+    "section": "Tapes",
+    "text": "Tapes"
+  },
+  {
+    "objectID": "cfgpda.html#terms",
+    "href": "cfgpda.html#terms",
+    "title": "8. Pushdown Automata",
+    "section": "Terms",
+    "text": "Terms\n\nFinite Control: Represents the finite state, or states, of an automata.\nInput: Represents the input string to some automata.\n\n*FAs can only read in one direction - not so for all automata.\n\nThis abstraction made it easier for me to separate letters and states in my mind."
+  },
+  {
+    "objectID": "cfgpda.html#new-terms",
+    "href": "cfgpda.html#new-terms",
+    "title": "8. Pushdown Automata",
+    "section": "New Terms",
+    "text": "New Terms\n\nStack: Memory of the automata\n\n*FAs had no memory other than internal state - not so for all automata.\n\nHead: Refer to “wherever the automata is currently pointed” as where the head of the automata is.\n\nThink, perhaps, of a vinyl player.\nMy first job was on Hard Disk Drives (HDDs) with a “head” which wrote/read bits from a rotating magnetic disk."
+  },
+  {
+    "objectID": "cfgpda.html#the-stack-1",
+    "href": "cfgpda.html#the-stack-1",
+    "title": "8. Pushdown Automata",
+    "section": "The Stack",
+    "text": "The Stack\n\nPDA has unlimited but restricted memory.\nIt can only write certain symbols.\nIt can only read the most recent symbol.\nThink the stack abstract data structure.\n\n\n\nstack = []\nstack.append('a')\nstack.append('b')\nstack.append('a')\nprint(stack.pop())\n\na"
+  },
+  {
+    "objectID": "cfgpda.html#intuition",
+    "href": "cfgpda.html#intuition",
+    "title": "8. Pushdown Automata",
+    "section": "Intuition",
+    "text": "Intuition\n\nThink of an NFA\nWhich write/add and read/remove symbols from the stack.\nThere is no “peek” operation.\n\nBut if can be synthesize from read+write."
+  },
+  {
+    "objectID": "cfgpda.html#exercise",
+    "href": "cfgpda.html#exercise",
+    "title": "8. Pushdown Automata",
+    "section": "Exercise",
+    "text": "Exercise\n\nRecognize \\(D = \\{ 0^k1^k | k \\in \\mathbb{N}\\}\\) in Python\nRead every character individually.\nOnly use one stack.\nIf you’re not sure of goals, read the solution and translate it to def from lambda"
+  },
+  {
+    "objectID": "cfgpda.html#solution",
+    "href": "cfgpda.html#solution",
+    "title": "8. Pushdown Automata",
+    "section": "Solution",
+    "text": "Solution\n\nq_1 = lambda s, stack : [stack.append('0'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) &gt; 1 else [stack.pop(), q_2(s[1:], stack)][-1]\nq_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) &gt; 1 else q_n(s, stack)\nq_n = lambda s, stack : s == '1' and len(stack) == 1\nq_1('000111', []), q_1('00111', []), q_1('00011', [])\n\n(True, False, False)"
+  },
+  {
+    "objectID": "cfgpda.html#formal-definition",
+    "href": "cfgpda.html#formal-definition",
+    "title": "8. Pushdown Automata",
+    "section": "Formal Definition…",
+    "text": "Formal Definition…\nA Pushdown Automaton (PDA) is formally defined as a 6-tuple:\n\n\\(Q\\): A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the input alphabet.\n\\(\\Gamma\\): A finite, non-empty set of stack symbols called the stack alphabet.\n\\(\\delta\\): The transition function, a mapping"
+  },
+  {
+    "objectID": "cfgpda.html#formal-definition..",
+    "href": "cfgpda.html#formal-definition..",
+    "title": "8. Pushdown Automata",
+    "section": "Formal Definition..",
+    "text": "Formal Definition..\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, \\ldots)\\)\n\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times (\\Sigma_{\\varepsilon} \\cup \\Gamma_{\\varepsilon}) \\rightarrow \\mathcal{P} (Q \\times \\Gamma_{\\varepsilon})\\)\nGiven a state, letter, and stack symbol\nGet a set of states and stack symbols.\n\\(\\delta(q, a, c) = {(r_1, d), (r_2, e)}\\)\n\nIn state \\(q\\), reading \\(a\\) on tape and \\(c\\) on stack, either write \\(d\\) and go to state \\(r_1\\) or write \\(e\\) and go to state \\(r_2\\)"
+  },
+  {
+    "objectID": "cfgpda.html#formal-definition.",
+    "href": "cfgpda.html#formal-definition.",
+    "title": "8. Pushdown Automata",
+    "section": "Formal Definition.",
+    "text": "Formal Definition.\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, q_0, F)\\)\n\n\\(q_0, F\\) as in the *FAs.\nIt’s a *FA with a new alphabet that delta reads."
+  },
+  {
+    "objectID": "cfgpda.html#example",
+    "href": "cfgpda.html#example",
+    "title": "8. Pushdown Automata",
+    "section": "Example",
+    "text": "Example\n\nIntroduce reverse operation \\(w^\\mathcal{R}\\)\nEasiest to define with Python.\n\n\n\nsuperscript_r = lambda w : w[::-1]\nw = \"stressed\"\nprint('w =', w, 'w^R =', superscript_r(w))\n\nw = stressed w^R = desserts\n\n\n\n\nTake \\(B = \\{ww^\\mathcal{R} | w \\in \\{0,1\\}*\\}\\)\n\n\n\n\n\n\n\n\n\ng\n\n\n\nn\n\n0\n\n0\n\n1\n\n1\n\n1\n\n1\n\n0\n\n0"
+  },
+  {
+    "objectID": "cfgpda.html#intuition-1",
+    "href": "cfgpda.html#intuition-1",
+    "title": "8. Pushdown Automata",
+    "section": "Intuition",
+    "text": "Intuition\n\nRead symbol, push to stack\nAt halfway mark, pop off stack and read.\n\nIf same, continue\nIf different, reject\n\nHow do we know we are the middle?\n\nNondeterminism - it doesn’t matter!\nEach nondeterministic branch gets its own stack!"
+  },
+  {
+    "objectID": "cfgpda.html#empty-stack",
+    "href": "cfgpda.html#empty-stack",
+    "title": "8. Pushdown Automata",
+    "section": "Empty stack",
+    "text": "Empty stack\n\nWait… how do we see if the stack is empty.\n\nEasy.\nInvent a novel symbol.\nNecessarily write it in the first state.\n\nCan simply add a new state, transition, as needed.\n\nThese simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results.\nSee also: Transitions along empty strings."
+  },
+  {
+    "objectID": "cfgpda.html#exercise-1",
+    "href": "cfgpda.html#exercise-1",
+    "title": "8. Pushdown Automata",
+    "section": "Exercise",
+    "text": "Exercise\n\nAccept \\(D\\) in Python."
   },
   {
     "objectID": "aims.html#announcements",
@@ -238,732 +931,151 @@
     "text": "Closing Thoughts\n\nTry! Hard work leads to innovative thinking.\n\nFail! Don’t fear failure. Be ready to redo from scratch.\n\nCollaborate! Work with peers to succeed at this course and succeed at collaboration.\nEnjoy! Experience the fun of being a scientist through hard work and exploration."
   },
   {
-    "objectID": "starfa.html#example-2",
-    "href": "starfa.html#example-2",
-    "title": "*FAs",
+    "objectID": "cfg.html#sketch",
+    "href": "cfg.html#sketch",
+    "title": "7. Context Free Grammars",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nContext Free Grammars\n\nRules\nFormal Definition\nExamples\nAmibuity"
+  },
+  {
+    "objectID": "cfg.html#context-free-grammars",
+    "href": "cfg.html#context-free-grammars",
+    "title": "7. Context Free Grammars",
+    "section": "Context Free Grammars",
+    "text": "Context Free Grammars\n\\[\n\\begin{align*}\nG_1& \\\\\n&\\left.\n    \\begin{aligned}\n        &S \\rightarrow 0S1 \\\\\n        &S \\rightarrow R \\\\\n        &R \\rightarrow \\varepsilon\n    \\end{aligned}\n\\right\\} \\quad \\text{(Substitution) Rules}\n\\end{align*}\n\\]\n\nWe use \\(\\varepsilon\\) to denote the empty string.\nTerm these “rules”\nThey are of form:\n\nSymbol\n→\nString of symbols"
+  },
+  {
+    "objectID": "cfg.html#terms",
+    "href": "cfg.html#terms",
+    "title": "7. Context Free Grammars",
+    "section": "Terms",
+    "text": "Terms\n\nRule: Statements of form Variable → (string of symbols and terminals)\nVariable: Those symbols on the left-hand side (LHS) of a → in a rule\nTerminals: Those symbols which appear in only on the right-hand side (RHS)\nStarting variable: The topmost symbol."
+  },
+  {
+    "objectID": "cfg.html#rules-1",
+    "href": "cfg.html#rules-1",
+    "title": "7. Context Free Grammars",
+    "section": "3 Rules",
+    "text": "3 Rules\n\n\\(S \\rightarrow 0S1\\)\n\\(S \\rightarrow R\\)\n\\(R \\rightarrow \\varepsilon\\)"
+  },
+  {
+    "objectID": "cfg.html#variables-2-terminals",
+    "href": "cfg.html#variables-2-terminals",
+    "title": "7. Context Free Grammars",
+    "section": "2 Variables / 2 Terminals",
+    "text": "2 Variables / 2 Terminals\n\nVariables\n\n\\(S\\)\n\\(R\\)\n\nTerminals\n\n\\(0\\)\n\\(1\\)"
+  },
+  {
+    "objectID": "cfg.html#generation",
+    "href": "cfg.html#generation",
+    "title": "7. Context Free Grammars",
+    "section": "Generation",
+    "text": "Generation\n\nWrite down the start variable.\nSubstitute the start variable according to any rule.\nSubstitute any variable for any rule until no variables remain.\n\n\nThat is, only terminals.\n\n\nEvery possible string is the language \\(L(G)\\)"
+  },
+  {
+    "objectID": "cfg.html#example",
+    "href": "cfg.html#example",
+    "title": "7. Context Free Grammars",
     "section": "Example",
-    "text": "Example\n\n\n\n\n\n[...]\n[0,...]\n[0,1,1,0,1]\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "text": "Example\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0S1 \\\\\n    &S \\rightarrow R \\\\\n    &R \\rightarrow \\varepsilon\n\\end{aligned}\n\\]\n\n\n\\(S\\)\n\\(0S1\\)\n\\(00S11\\)\n\\(00R11\\)\n\\(0011\\)\n\n\n\n\\(S\\)\n\\(0S1\\)\n\\(0R1\\)\n\\(01\\)"
   },
   {
-    "objectID": "starfa.html#example-0",
-    "href": "starfa.html#example-0",
-    "title": "1. Finite Automata",
-    "section": "Example 0",
-    "text": "Example 0\n\nSay we:\n\nHave a computer, or formal definition thereof.\nHave a sorting algorithm.\nHaving a sorting specificaiton.\n\nCan we determine:\n\nIf the sorting algorithm meets a specification?\n\nTurns out: impossible."
+    "objectID": "cfg.html#graphically",
+    "href": "cfg.html#graphically",
+    "title": "7. Context Free Grammars",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nS\n\n\n\n2\n0\n\n\n\n1-&gt;2\n\n\n\n\n\n3\nS\n\n\n\n1-&gt;3\n\n\n\n\n\n4\n1\n\n\n\n1-&gt;4\n\n\n\n\n\n5\n0\n\n\n\n3-&gt;5\n\n\n\n\n\n6\nS\n\n\n\n3-&gt;6\n\n\n\n\n\n7\n1\n\n\n\n3-&gt;7\n\n\n\n\n\n8\nR\n\n\n\n6-&gt;8\n\n\n\n\n\n9\nε\n\n\n\n8-&gt;9\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(S\\)\n\n\\(0S1\\)\n\\(00S11\\)\n\\(00R11\\)\n\\(0011\\)"
   },
   {
-    "objectID": "starfa.html#section",
-    "href": "starfa.html#section",
-    "title": "1. Finite Automata",
-    "section": "’’",
-    "text": "’’\n\nThe inital state is \\(q_1\\).\n\n[] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#graphically-1",
+    "href": "cfg.html#graphically-1",
+    "title": "7. Context Free Grammars",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nS\n\n\n\n2\n0\n\n\n\n1-&gt;2\n\n\n\n\n\n3\nS\n\n\n\n1-&gt;3\n\n\n\n\n\n4\n1\n\n\n\n1-&gt;4\n\n\n\n\n\n5\n0\n\n\n\n3-&gt;5\n\n\n\n\n\n6\nS\n\n\n\n3-&gt;6\n\n\n\n\n\n7\n1\n\n\n\n3-&gt;7\n\n\n\n\n\n8\nR\n\n\n\n6-&gt;8\n\n\n\n\n\n9\nε\n\n\n\n8-&gt;9\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nS\n\n\n\n2\n0\n\n\n\n1-&gt;2\n\n\n\n\n\n3\nS\n\n\n\n1-&gt;3\n\n\n\n\n\n4\n1\n\n\n\n1-&gt;4\n\n\n\n\n\n5\n0\n\n\n\n2-&gt;5\n\n\n\n\n\n3-&gt;5\n\n\n\n\n\n6\nS\n\n\n\n3-&gt;6\n\n\n\n\n\n7\n1\n\n\n\n3-&gt;7\n\n\n\n\n\n9\nε\n\n\n\n5-&gt;9\n\n\n\n\n\n8\nR\n\n\n\n6-&gt;8\n\n\n\n\n\n7-&gt;4\n\n\n\n\n\n8-&gt;9\n\n\n\n\n\n9-&gt;7"
   },
   {
-    "objectID": "starfa.html#section-1",
-    "href": "starfa.html#section-1",
-    "title": "1. Finite Automata",
-    "section": "‘0’",
-    "text": "‘0’\n\nFind label containing 0 out of \\(q_1\\).\n\n[0] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#example-1",
+    "href": "cfg.html#example-1",
+    "title": "7. Context Free Grammars",
+    "section": "Example",
+    "text": "Example\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0S1 \\\\\n    &S \\rightarrow R \\\\\n    &R \\rightarrow \\varepsilon\n\\end{aligned}\n\\]\n\n\n\\(L(G_1) = \\{ 0^k1^k | k \\in \\mathbb{N} \\}\\)\nThis is a language a CFG can do.\n\nThat a DFA/NFA/GNFA cannot."
   },
   {
-    "objectID": "starfa.html#section-2",
-    "href": "starfa.html#section-2",
-    "title": "1. Finite Automata",
-    "section": "‘01’",
-    "text": "‘01’\n\nFind label containing 1 out of \\(q_1\\).\n\n[0, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#shorthand",
+    "href": "cfg.html#shorthand",
+    "title": "7. Context Free Grammars",
+    "section": "Shorthand",
+    "text": "Shorthand\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0S1 \\\\\n    &S \\rightarrow R \\\\\n    &R \\rightarrow \\varepsilon\n\\end{aligned}\n\\]\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0S1\\quad|\\quad R\\\\\n    &R \\rightarrow \\varepsilon\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "starfa.html#section-3",
-    "href": "starfa.html#section-3",
-    "title": "1. Finite Automata",
-    "section": "‘011’",
-    "text": "‘011’\n\nFind label containing 1 out of \\(q_2\\).\n\n[0, 1, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#context-free-grammar",
+    "href": "cfg.html#context-free-grammar",
+    "title": "7. Context Free Grammars",
+    "section": "Context Free Grammar",
+    "text": "Context Free Grammar\n\nA Context Free Grammar (CFG)\nA CFG is a 4-tuple \\((V, \\Sigma, R, S)\\)\n\n\\(V\\) : finite set of variables\n\\(\\Sigma\\) : finite set of terminal symbols\n\nWe note this is the alphabet, a la DFA\n\n\\(R\\) finite set of rules\n\nOf form \\(V \\rightarrow (V \\cup \\Sigma)*\\)\n\n\\(S\\) start variable"
   },
   {
-    "objectID": "starfa.html#section-4",
-    "href": "starfa.html#section-4",
-    "title": "1. Finite Automata",
-    "section": "‘0110’",
-    "text": "‘0110’\n\nFind label containing 0 out of \\(q_3\\).\n\n[0, 1, 1, 0] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#substitutions",
+    "href": "cfg.html#substitutions",
+    "title": "7. Context Free Grammars",
+    "section": "Substitutions",
+    "text": "Substitutions\n\n\\(\\forall u,v \\in (V \\cup \\Sigma)*\\)\n\\(u \\Rightarrow v := \\exists R : R(u) \\rightarrow v\\)\n\\(u \\overset{*}{\\Rightarrow} v := \\exists u_1, u_2, ... u_n : \\underset{i \\leq n}{\\Rightarrow} u_i = v\\)\n\n\\(\\overset{*}{\\Rightarrow}\\) is the transitive closure of \\(\\Rightarrow\\)\nTerm this a derivation of \\(v\\) from \\(u\\)\nIf %u = \\(S\\) term this the derivation of \\(v\\)\n\n\\(L(G) = \\{ w | w \\in \\Sigma* \\land S \\overset{*}{\\Rightarrow} w \\}\\)"
   },
   {
-    "objectID": "starfa.html#section-5",
-    "href": "starfa.html#section-5",
-    "title": "1. Finite Automata",
-    "section": "‘01101’",
-    "text": "‘01101’\n\nFind label containing 1 out of \\(q_3\\).\n\n[0, 1, 1, 0, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#check-in",
+    "href": "cfg.html#check-in",
+    "title": "7. Context Free Grammars",
+    "section": "Check in",
+    "text": "Check in\n\nWhich of the following is a CFG\n\n\n\n\\[\n\\begin{align*}\nC_1& \\\\\n&\\left.\n    \\begin{aligned}\n        &B \\rightarrow 0B1 \\\\\n        &B1 \\rightarrow 1B \\\\\n        &0B \\rightarrow 0B\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\nThis has a context.\n\n\n\\[\n\\begin{align*}\nC_2& \\\\\n&\\left.\n    \\begin{aligned}\n        &S \\rightarrow 0S \\quad | \\quad S1 \\\\\n        &R \\rightarrow RR\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\nThis happens to be the empty language."
   },
   {
-    "objectID": "starfa.html#section-6",
-    "href": "starfa.html#section-6",
-    "title": "1. Finite Automata",
-    "section": "‘01101’",
-    "text": "‘01101’\n\n\\(M_1\\) accepts [0, 1, 1, 0, 1] by ending in \\(q_3\\)\n\nassert(M_1([0, 1, 1, 0, 1]) # M_1 as a function from bit strings to booleans.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#arithmetic",
+    "href": "cfg.html#arithmetic",
+    "title": "7. Context Free Grammars",
+    "section": "Arithmetic",
+    "text": "Arithmetic\n\n\n\\[\n\\begin{align*}\nG_2& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+T \\quad | \\quad  T\\\\\n        &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n        &F \\rightarrow ( E ) \\quad | \\quad a\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\n\\[\n\\begin{aligned}\n&V = \\{ E, T, F \\}\\\\\n&\\Sigma = \\{+, \\times, (, ), a \\}\\\\\n&R = \\text{As shown}\\\\\n&S = E\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "starfa.html#exercise",
-    "href": "starfa.html#exercise",
-    "title": "1. Finite Automata",
-    "section": "Exercise",
-    "text": "Exercise\n\nDoes \\(M_1\\) accept [0, 0, 1, 0, 1]?\n\n[0, 0, 1, 0, 1] # M_1 as a function from bit strings to booleans.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+    "objectID": "cfg.html#graphically-2",
+    "href": "cfg.html#graphically-2",
+    "title": "7. Context Free Grammars",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(E\\)\n\n\\(E+T\\)\n\\(T+T\\times F\\)\n\\(F+F\\times a\\)\n\\(a+a\\times a\\)"
   },
   {
-    "objectID": "starfa.html#terminology",
-    "href": "starfa.html#terminology",
-    "title": "1. Finite Automata",
-    "section": "Terminology",
-    "text": "Terminology\n\nWe say that:\n\n\\(A\\) is the language of \\(M_1\\).\n\\(M_1\\) recognizes \\(A\\)\n\\(A = L(M_1)\\)\n\nWe note: \\[\nw \\in A \\implies \\exists i,j &lt; |w| : w_i = 1 \\land w_j = 1\\}\n\\]\n\n\nw = '01101' # for example\nassert('11' in w)"
+    "objectID": "cfg.html#graphically-3",
+    "href": "cfg.html#graphically-3",
+    "title": "7. Context Free Grammars",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\nD\na\n\n\n\n3-&gt;D\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n7-&gt;B\n\n\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nA-&gt;D\n\n\n\n\n\nC-&gt;3\n\n\n\n\n\nD-&gt;7"
   },
   {
-    "objectID": "starfa.html#finite-automaton",
-    "href": "starfa.html#finite-automaton",
-    "title": "1. Finite Automata",
-    "section": "Finite Automaton",
-    "text": "Finite Automaton\n\nA finite automaton (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols.\n\nIn class: “finite automaton”\nReal life: mostly say “state machine”\nI used the notation *FA to denote these are not a specific kind of FA"
+    "objectID": "cfg.html#takeaways",
+    "href": "cfg.html#takeaways",
+    "title": "7. Context Free Grammars",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nThis is a viable way to decribe a programming language.\n\nIn fact I wrote a series of grammars for my doctoral thesis (pg 18).\n\nParse trees may encode e.g. precedence\n\n\\(\\times\\) over \\(+\\)\n\nIf a string can be derived by different substitutions it is ambigious."
   },
   {
-    "objectID": "starfa.html#formal-definition-1",
-    "href": "starfa.html#formal-definition-1",
-    "title": "1. Finite Automata",
-    "section": "Formal Definition",
-    "text": "Formal Definition\nA finite automaton is formally defined as a 5-tuple:\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
+    "objectID": "cfg.html#arithmetic-1",
+    "href": "cfg.html#arithmetic-1",
+    "title": "7. Context Free Grammars",
+    "section": "Arithmetic",
+    "text": "Arithmetic\n\\[\n\\begin{align*}\nG_2& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+T \\quad | \\quad  T\\\\\n        &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n        &F \\rightarrow ( E ) \\quad | \\quad a\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\\[\n\\begin{align*}\nG_3& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+E \\quad | \\quad  E \\times E \\quad | \\quad  ( E ) \\quad | \\quad  a\\\\\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\nThese represent the same language (\\(L(G_2) = L(G_3)\\))!\nBut \\(G_3\\) is ambigious!"
   },
   {
-    "objectID": "starfa.html#explanation",
-    "href": "starfa.html#explanation",
-    "title": "1. Finite Automata",
-    "section": "Explanation:",
-    "text": "Explanation:\n\nStates (\\(Q\\)): Possible internal configurations - like computer memory.\nAlphabet (\\(\\Sigma\\)): Possible inputs - machine binary or computer I/O.\nTransition Function ($): How the FA’s state is updated on read.\nInitial State (\\(q_0\\)): This is the state where the automaton begins its operation.\nAccepting States (\\(F\\)): These determine if the FA outputs \\(0\\) or \\(1\\)."
-  },
-  {
-    "objectID": "starfa.html#our-example",
-    "href": "starfa.html#our-example",
-    "title": "1. Finite Automata",
-    "section": "Our Example",
-    "text": "Our Example\n\n\\(M_1 = (Q, \\Sigma, \\delta, q_1, \\{q_3\\})\\)\n\n\\(Q = \\{q_1, q_2, q_3\\}\\)\n\\(\\Sigma = \\{0, 1\\}\\)\n\nHow to express \\(\\delta\\)?\n\n\n\n\n\n\\(\\delta=\\)\n\\(0\\)\n\\(1\\)\n\n\n\n\n\\(q_1\\)|\n\\(q_1\\)\n\\(q_2\\)\n\n\n\\(q_2\\)|\n\\(q_1\\)\n\\(q_3\\)\n\n\n\\(q_3\\)|\n\\(q_3\\)\n\\(q_3\\)"
-  },
-  {
-    "objectID": "starfa.html#python",
-    "href": "starfa.html#python",
-    "title": "1. Finite Automata",
+    "objectID": "cfg.html#python",
+    "href": "cfg.html#python",
+    "title": "7. Context Free Grammars",
     "section": "Python",
-    "text": "Python\n\n# define q_n as a convenience\nq_1, q_2, q_3 = \"q_1\", \"q_2\", \"q_3\"\n# define M_1\nQ = {q_1, q_2, q_3}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1, 1:q_3 },\n    q_3 : { 0:q_3, 1:q_3 }\n}\nM_1 = (Q,S,d,q_1,{q_3})\nprint(M_1)\n\n({'q_2', 'q_3', 'q_1'}, {0, 1}, {'q_1': {0: 'q_1', 1: 'q_2'}, 'q_2': {0: 'q_1', 1: 'q_3'}, 'q_3': {0: 'q_3', 1: 'q_3'}}, 'q_1', {'q_3'})"
+    "text": "Python\n\\[\n\\begin{align*}\nG_3& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+E \\quad | \\quad  E \\times E \\quad | \\quad  ( E ) \\quad | \\quad  a\\\\\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\nExpress CFG \\(G_3\\) in Python."
   },
   {
-    "objectID": "starfa.html#stringslanguages",
-    "href": "starfa.html#stringslanguages",
-    "title": "1. Finite Automata",
-    "section": "Strings/Languages",
-    "text": "Strings/Languages\n\nA string is a sequence of letters \\(\\Sigma^n\\)\nA language is a set of strings.\nThe empty string is zero length \\(\\Sigma^0\\)\nThe empty language is the empty set \\(\\varnothing\\)\n\n\nWe note that the empty string is not in or related to the empty language"
-  },
-  {
-    "objectID": "starfa.html#acceptance",
-    "href": "starfa.html#acceptance",
-    "title": "1. Finite Automata",
-    "section": "Acceptance",
-    "text": "Acceptance\n\n\\(M\\) accepts string \\(w = w_1w_2\\ldots w_n\\) if:\n\n\n\\[\n\\forall w_i \\in \\Sigma : \\exists r_0r_1\\ldots r_n :\n\\]\n\n\n\\[\nr_0 = q_0 \\land\n\\]\n\n\n\\[\nr_n \\in F \\land\n\\]\n\n\n\\[\n\\forall i : r_i = \\delta(r_{i-1},w_i)\n\\]"
-  },
-  {
-    "objectID": "regexp.html#sketch",
-    "href": "regexp.html#sketch",
-    "title": "2. Regular Expressions",
-    "section": "Sketch",
-    "text": "Sketch\n\n\nRegular Operations\n\nUnion\nConcatenation\nStar\n\nRegular Expressions"
-  },
-  {
-    "objectID": "regexp.html#theory-of-computation",
-    "href": "regexp.html#theory-of-computation",
-    "title": "Regular Expressions",
-    "section": "Theory of Computation",
-    "text": "Theory of Computation\n\n&lt;50s:\n\nIf we had computers, what could they do?\nWhat can’t they do?\nI call this automata or computability theory."
-  },
-  {
-    "objectID": "regexp.html#example-0",
-    "href": "regexp.html#example-0",
-    "title": "Regular Expressions",
-    "section": "Example 0",
-    "text": "Example 0\n\nSay we:\n\nHave a computer, or formal definition thereof.\nHave a sorting algorithm.\nHaving a sorting specificaiton.\n\nCan we determine:\n\nIf the sorting algorithm meets a specification?\n\nTurns out: impossible."
-  },
-  {
-    "objectID": "regexp.html#example-1",
-    "href": "regexp.html#example-1",
-    "title": "Regular Expressions",
-    "section": "Example 1",
-    "text": "Example 1\n\nSay we:\n\nHave a really, really optimized LLM, like Gemini.\nHave a program we’d like to run, but aren’t sure we have enough compute.\n\nCan we determine:\n\nWhether the program will ever finish running?\n\nTurns out: impossible."
-  },
-  {
-    "objectID": "regexp.html#some-previews",
-    "href": "regexp.html#some-previews",
-    "title": "Regular Expressions",
-    "section": "Some Previews",
-    "text": "Some Previews\n\nFinite Automata\n\nToday\n\nTuring Machines\n\nIn residence"
-  },
-  {
-    "objectID": "regexp.html#theory-of-complexity",
-    "href": "regexp.html#theory-of-complexity",
-    "title": "Regular Expressions",
-    "section": "Theory of Complexity",
-    "text": "Theory of Complexity\n\nWhat can we actually do?\n\nFactoring Problem, foundation of modern cryptography.\nCan we measure relative “goodness” of things."
-  },
-  {
-    "objectID": "regexp.html#open-questions",
-    "href": "regexp.html#open-questions",
-    "title": "Regular Expressions",
-    "section": "Open Questions",
-    "text": "Open Questions\n\nHow does the brain work?\n\nIs it a neural network?\nWhat is creativity?\nCan machine learning do formal sciences including mathematics?\n\nCan we claim to understand computing without being able to answer the factoring question?"
-  },
-  {
-    "objectID": "regexp.html#definition",
-    "href": "regexp.html#definition",
-    "title": "Regular Expressions",
-    "section": "Definition",
-    "text": "Definition\n\n\n\nTerm this \\(M_1\\):\n\nStates \\[\n   q_n\n   \\]\nTransitions \\[\n  \\overset{\\{1\\}}{\\longrightarrow}\n  \\]\nStart state \\(q_1\\)\nAccept state \\(q_3\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#process",
-    "href": "regexp.html#process",
-    "title": "Regular Expressions",
-    "section": "Process",
-    "text": "Process\n\n\n\n\nTerm this \\(M_1\\):\n\nStates \\[\n   q_n\n   \\]\nTransitions \\[\n  \\overset{\\{1\\}}{\\longrightarrow}\n  \\]\nStart state \\(q_1\\)\nAccept state \\(q_3\\)\n\n\n\n\n\nInput\n\nFinite bit string\n\\(\\{0,1\\}^n\\)\n\nOutput\n\nBoolean or bit\n\\(\\{0,1\\}\\)\n\nBegin in start\nRead symbol\nFollow edge"
-  },
-  {
-    "objectID": "regexp.html#section",
-    "href": "regexp.html#section",
-    "title": "Regular Expressions",
-    "section": "’’",
-    "text": "’’\n\nThe inital state is \\(q_1\\).\n\n[] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#section-1",
-    "href": "regexp.html#section-1",
-    "title": "Regular Expressions",
-    "section": "‘0’",
-    "text": "‘0’\n\nFind label containing 0 out of \\(q_1\\).\n\n[0] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#section-2",
-    "href": "regexp.html#section-2",
-    "title": "Regular Expressions",
-    "section": "‘01’",
-    "text": "‘01’\n\nFind label containing 1 out of \\(q_1\\).\n\n[0, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#section-3",
-    "href": "regexp.html#section-3",
-    "title": "Regular Expressions",
-    "section": "‘011’",
-    "text": "‘011’\n\nFind label containing 1 out of \\(q_2\\).\n\n[0, 1, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#section-4",
-    "href": "regexp.html#section-4",
-    "title": "Regular Expressions",
-    "section": "‘0110’",
-    "text": "‘0110’\n\nFind label containing 0 out of \\(q_3\\).\n\n[0, 1, 1, 0] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#section-5",
-    "href": "regexp.html#section-5",
-    "title": "Regular Expressions",
-    "section": "‘01101’",
-    "text": "‘01101’\n\nFind label containing 1 out of \\(q_3\\).\n\n[0, 1, 1, 0, 1] # We'll use a Python list to represent the input.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#section-6",
-    "href": "regexp.html#section-6",
-    "title": "Regular Expressions",
-    "section": "‘01101’",
-    "text": "‘01101’\n\n\\(M_1\\) accepts [0, 1, 1, 0, 1] by ending in \\(q_3\\)\n\nassert(M_1([0, 1, 1, 0, 1]) # M_1 as a function from bit strings to booleans.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#exercise",
-    "href": "regexp.html#exercise",
-    "title": "2. Regular Expressions",
-    "section": "Exercise",
-    "text": "Exercise\nBuild \\(M_3\\) for the \\(M_1\\) and \\(M_2\\) as:\n\n\n\\(M_1\\)\n\n\\(M_2\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "regexp.html#terminology",
-    "href": "regexp.html#terminology",
-    "title": "Regular Expressions",
-    "section": "Terminology",
-    "text": "Terminology\n\nWe say that:\n\n\\(A\\) is the language of \\(M_1\\).\n\\(M_1\\) recognizes \\(A\\)\n\\(A = L(M_1)\\)\n\nWe note: \\[\nw \\in A \\implies \\exists i,j &lt; |w| : w_i = 1 \\land w_j = 1\\}\n\\]\n\n\nw = '01101' # for example\nassert('11' in w)"
-  },
-  {
-    "objectID": "regexp.html#finite-automaton",
-    "href": "regexp.html#finite-automaton",
-    "title": "Regular Expressions",
-    "section": "Finite Automaton",
-    "text": "Finite Automaton\n\nA finite automaton (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols.\n\nIn class: “finite automaton”\nReal life: mostly say “state machine”\nI used the notation *FA to denote these are not a specific kind of FA"
-  },
-  {
-    "objectID": "regexp.html#formal-definition-1",
-    "href": "regexp.html#formal-definition-1",
-    "title": "Regular Expressions",
-    "section": "Formal Definition",
-    "text": "Formal Definition\nA finite automaton is formally defined as a 5-tuple:\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
-  },
-  {
-    "objectID": "regexp.html#explanation",
-    "href": "regexp.html#explanation",
-    "title": "Regular Expressions",
-    "section": "Explanation:",
-    "text": "Explanation:\n\nStates (\\(Q\\)): Possible internal configurations - like computer memory.\nAlphabet (\\(\\Sigma\\)): Possible inputs - machine binary or computer I/O.\nTransition Function ($): How the FA’s state is updated on read.\nInitial State (\\(q_0\\)): This is the state where the automaton begins its operation.\nAccepting States (\\(F\\)): These determine if the FA outputs \\(0\\) or \\(1\\)."
-  },
-  {
-    "objectID": "regexp.html#our-example",
-    "href": "regexp.html#our-example",
-    "title": "Regular Expressions",
-    "section": "Our Example",
-    "text": "Our Example\n\n\\(M_1 = (Q, \\Sigma, \\delta, q_1, \\{q_3\\})\\)\n\n\\(Q = \\{q_1, q_2, q_3\\}\\)\n\\(\\Sigma = \\{0, 1\\}\\)\n\nHow to express \\(\\delta\\)?\n\n\n\n\n\n\\(\\delta=\\)\n\\(0\\)\n\\(1\\)\n\n\n\n\n\\(q_1\\)|\n\\(q_1\\)\n\\(q_2\\)\n\n\n\\(q_2\\)|\n\\(q_1\\)\n\\(q_3\\)\n\n\n\\(q_3\\)|\n\\(q_3\\)\n\\(q_3\\)"
-  },
-  {
-    "objectID": "regexp.html#python",
-    "href": "regexp.html#python",
-    "title": "Regular Expressions",
-    "section": "Python",
-    "text": "Python\n\n# define q_n as a convenience\nq_1, q_2, q_3 = \"q_1\", \"q_2\", \"q_3\"\n# define M_1\nQ = {q_1, q_2, q_3}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1, 1:q_3 },\n    q_3 : { 0:q_3, 1:q_3 }\n}\nm_1 = (Q,S,d,q_1,{q_3})\nprint(m_1)\n\n({'q_2', 'q_1', 'q_3'}, {0, 1}, {'q_1': {0: 'q_1', 1: 'q_2'}, 'q_2': {0: 'q_1', 1: 'q_3'}, 'q_3': {0: 'q_3', 1: 'q_3'}}, 'q_1', {'q_3'})"
-  },
-  {
-    "objectID": "regexp.html#stringslanguages",
-    "href": "regexp.html#stringslanguages",
-    "title": "Regular Expressions",
-    "section": "Strings/Languages",
-    "text": "Strings/Languages\n\nA string is a sequence of letters \\(\\Sigma^n\\)\nA language is a set of strings.\nThe empty string is zero length \\(\\Sigma^0\\)\nThe empty language is the empty set \\(\\varnothing\\)\n\n\nWe note that the empty string is not in or related to the empty language"
-  },
-  {
-    "objectID": "regexp.html#acceptance",
-    "href": "regexp.html#acceptance",
-    "title": "Regular Expressions",
-    "section": "Acceptance",
-    "text": "Acceptance\n\n\\(M\\) accepts string \\(w = w_1w_2\\ldots w_n\\) if:\n\n\n\\[\n\\forall w_i \\in \\Sigma : \\exists r_0r_1\\ldots r_n :\n\\]\n\n\n\\[\nr_0 = q_0 \\land\n\\]\n\n\n\\[\nr_n \\in F \\land\n\\]\n\n\n\\[\n\\forall i : r_i = \\delta(r_{i-1},w_i)\n\\]"
-  },
-  {
-    "objectID": "regexp.html#union",
-    "href": "regexp.html#union",
-    "title": "2. Regular Expressions",
-    "section": "Union",
-    "text": "Union\n\\[\nA \\cup B = \\{ w | w \\in A \\lor w \\in B \\}\n\\]\n\nA = {'', '0', '00', '000'}\nB = {'', '1', '11', '111'}\nA.union(B)\n\n\n\n{'', '0', '00', '000', '1', '11', '111'}\n\n\n\nStrings which are\n\nLength less than 4, and\nContaining only 0 or only 1"
-  },
-  {
-    "objectID": "regexp.html#concatenation",
-    "href": "regexp.html#concatenation",
-    "title": "2. Regular Expressions",
-    "section": "Concatenation",
-    "text": "Concatenation\n\\[\nA \\cdot B = \\{ xy | x \\in A \\land y \\in B \\} = AB\n\\]\n\nA = {'0', '00'}\nB = {'1', '11'}\n{ a + b for a in A for b in B }\n\n\n\n{'001', '0011', '01', '011'}\n\n\n\nStrings which contain\n\nOne or two 0 and 1, each, and\nAll 0 before any 1"
-  },
-  {
-    "objectID": "regexp.html#star",
-    "href": "regexp.html#star",
-    "title": "2. Regular Expressions",
-    "section": "Star",
-    "text": "Star\n\\[\nA* = \\{ x_1x_2\\ldots x_n | x_i \\in A \\land n \\geq 0 \\}\n\\]\n\nA = {'0'}\nfrom itertools import count # infinite iterator\nastar = ( a * n for a in A for n in count() )\nnext(astar), next(astar), next(astar)\n\n\n\n('', '0', '00')\n\n\n\nStrings which contain\n\nZero or more strings in \\(A\\)\nHarder in .py with non-trivial \\(A\\)"
-  },
-  {
-    "objectID": "regexp.html#exercise-1",
-    "href": "regexp.html#exercise-1",
-    "title": "2. Regular Expressions",
-    "section": "Exercise 1",
-    "text": "Exercise 1\n\nWrite a Python finite automata\n\nThat is defined as a 5-tuple \\(Q, \\Sigma, \\delta, q_0, F\\)\nThat is equivalent to \\(A*\\)"
-  },
-  {
-    "objectID": "regexp.html#exercise-0",
-    "href": "regexp.html#exercise-0",
-    "title": "2. Regular Expressions",
-    "section": "Exercise 0",
-    "text": "Exercise 0\n\nWrite a Python generator expression.\n\nOver A = {'0', '010'}\nThat defines \\(A*\\)\nCheck out itertools or write your own."
-  },
-  {
-    "objectID": "regexp.html#solution-0",
-    "href": "regexp.html#solution-0",
-    "title": "2. Regular Expressions",
-    "section": "Solution 0",
-    "text": "Solution 0\n\nA = {'0', '10'}\nfrom itertools import count # infinite iterator\nfrom itertools import combinations_with_replacement as cwr\nastar = ( s for n in count() for s in (\"\".join(s) for s in cwr(A,n)) ) \n[next(astar) for i in range(5)]\n\n['', '0', '10', '00', '010']"
-  },
-  {
-    "objectID": "regexp.html#solution-1",
-    "href": "regexp.html#solution-1",
-    "title": "2. Regular Expressions",
-    "section": "Solution 1",
-    "text": "Solution 1\n\n# define q_n as a convenience\nq_1, q_2 = \"q_1\", \"q_2\"\n# define M\nQ = {q_1, q_2}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1 }\n}\nM = (Q,S,d,q_1,Q)"
-  },
-  {
-    "objectID": "regexp.html#solution-1-.py",
-    "href": "regexp.html#solution-1-.py",
-    "title": "Regular Expressions",
-    "section": "Solution 1: .py",
-    "text": "Solution 1: .py\n\n# define q_n as a convenience\nq_1, q_2 = \"q_1\", \"q_2\"\n# define M\nQ = {q_1, q_2}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 0:q_2 },\n    q_2 : { 0:q_1 }\n}\nM = (Q,S,d,q_1,Q)"
-  },
-  {
-    "objectID": "regexp.html#solution-1-.dot",
-    "href": "regexp.html#solution-1-.dot",
-    "title": "Regular Expressions",
-    "section": "Solution 1: .dot",
-    "text": "Solution 1: .dot\n\ndigraph finite_automata {\n  rankdir=LR; bgcolor=\"#191919\";\n  node [fontcolor = \"#ffffff\", color = \"#ffffff\"]\n  edge [color = \"#ffffff\",fontcolor = \"#ffffff\"]\n\n  node [shape=circle];\n  q0 [label=\"\",shape=point]; \n  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle];\n  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; \n\n  q0 -&gt; q1 []\n  q1 -&gt; q1 [label=\"{0}\"];\n  q1 -&gt; q2 [label=\"{1}\"];\n  q2 -&gt; q1 [label=\"{0}\"];\n}"
-  },
-  {
-    "objectID": "regexp.html#solution-1-.dot-output",
-    "href": "regexp.html#solution-1-.dot-output",
-    "title": "Regular Expressions",
-    "section": "Solution 1: .dot",
-    "text": "Solution 1: .dot\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
-  },
-  {
-    "objectID": "regexp.html#exercise-2",
-    "href": "regexp.html#exercise-2",
-    "title": "2. Regular Expressions",
-    "section": "Exercise 2",
-    "text": "Exercise 2\n\nSketch the finite automata\n\nAs a graph using .dot\n\n\n\n\ndigraph finite_automata {\n  rankdir=LR;\n\n  node [shape=circle];\n  q0 [label=\"\",shape=point]; \n  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];\n  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];\n  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; \n\n  q0 -&gt; q1\n  q1 -&gt; q1 [label=\"{0}\"];\n  q1 -&gt; q2 [label=\"{1}\"];\n  q2 -&gt; q1 [label=\"{0}\"];\n  q2 -&gt; q3 [label=\"{1}\"];\n  q3 -&gt; q3 [label=\"{0,1}\"];\n}"
-  },
-  {
-    "objectID": "regexp.html#solution-2",
-    "href": "regexp.html#solution-2",
-    "title": "2. Regular Expressions",
-    "section": "Solution 2",
-    "text": "Solution 2\n\ndigraph finite_automata {\n  rankdir=LR; bgcolor=\"#191919\";\n  node [fontcolor = \"#ffffff\", color = \"#ffffff\"]\n  edge [color = \"#ffffff\",fontcolor = \"#ffffff\"]\n\n  node [shape=circle];\n  q0 [label=\"\",shape=point]; \n  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle];\n  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; \n\n  q0 -&gt; q1 []\n  q1 -&gt; q1 [label=\"{0}\"];\n  q1 -&gt; q2 [label=\"{1}\"];\n  q2 -&gt; q1 [label=\"{0}\"];\n}"
-  },
-  {
-    "objectID": "regexp.html#solution-2-output",
-    "href": "regexp.html#solution-2-output",
-    "title": "2. Regular Expressions",
-    "section": "Solution 2",
-    "text": "Solution 2\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
-  },
-  {
-    "objectID": "regexp.html#components",
-    "href": "regexp.html#components",
-    "title": "2. Regular Expressions",
-    "section": "Components",
-    "text": "Components\n\nBuilt from:\n\n\\(\\Sigma\\), the letters of the alphabet\n\\(\\varnothing\\), the empty set / empty language.\n\\(\\Sigma^0\\), the empty string\n\nBuilt with:\n\n\\(\\cup\\), union\n\\(\\cdot\\), concatenation\n\\(*\\), the “star” operator"
-  },
-  {
-    "objectID": "regexp.html#examples",
-    "href": "regexp.html#examples",
-    "title": "2. Regular Expressions",
-    "section": "Examples",
-    "text": "Examples\n\n\\({0,1}* = \\Sigma*\\) is all bit strings\n\\(\\Sigma*1\\) is all 1-terminated bit strings\n\\(\\Sigma*11\\Sigma*\\) is \\(L(M_1)\\)\n\nAll strings with 11\n\nWe note we are loosening the rigor of our notation.\n\nI took, e.g. 11 as [1, 1]"
-  },
-  {
-    "objectID": "regexp.html#goal",
-    "href": "regexp.html#goal",
-    "title": "Regular Expressions",
-    "section": "Goal:",
-    "text": "Goal:\nShow that finite automata and regular expressions are equivalently expressive."
-  },
-  {
-    "objectID": "regexp.html#closure-under-cup",
-    "href": "regexp.html#closure-under-cup",
-    "title": "2. Regular Expressions",
-    "section": "Closure under \\(\\cup\\)",
-    "text": "Closure under \\(\\cup\\)\n\nOur set is the languages recognized FA/FSMs.\nOur operation is \\(\\cup\\)\nWe wish to show the union of any two regular languages is, itself, a regular language."
-  },
-  {
-    "objectID": "regexp.html#closure",
-    "href": "regexp.html#closure",
-    "title": "2. Regular Expressions",
-    "section": "Closure",
-    "text": "Closure\n\nClosure is with respect to a set and an operation.\nWe note:\n\nNatural numbers \\(\\mathbb{N}\\) are closed under \\(+\\)\nNatural numbers \\(\\mathbb{N}\\) not closed under \\(-\\)\n\nWe wish to apply these to languages, not numbers."
-  },
-  {
-    "objectID": "regexp.html#closure-under-cup-1",
-    "href": "regexp.html#closure-under-cup-1",
-    "title": "2. Regular Expressions",
-    "section": "Closure under \\(\\cup\\)",
-    "text": "Closure under \\(\\cup\\)\n\n\\[\nM_1 = (Q_1, \\Sigma, \\delta_1, q_1, F_1) \\land M_2 = (Q_2, \\Sigma, \\delta_2, q_2, F_2) \\implies\n\\]\n\n\n\\[\n\\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\n\n\nCore insight: Track what state \\(M_1\\) and \\(M_2\\) both would be in, within \\(M_3\\)\n\n\n\\[\nQ_3 = Q_2 \\times Q_2 = { (q_1, q_2) | q_1 \\in Q_1 \\land q_2 \\in Q_2 }\n\\]"
-  },
-  {
-    "objectID": "regexp.html#m_3",
-    "href": "regexp.html#m_3",
-    "title": "2. Regular Expressions",
-    "section": "\\(M_3\\)",
-    "text": "\\(M_3\\)\n\n\\(M_1, M_2  = (Q_1, \\Sigma, \\delta_1, q_1, F_1), (Q_2, \\Sigma, \\delta_2, q_2, F_2)\\)\n\\(Q_3 = Q_2 \\times Q_2 = \\{ (q_1, q_2) | q_1 \\in Q_1 \\land q_2 \\in Q_2 \\}\\)\n\\(q_0 = (q_1, q_2)\\)\n\\(\\delta(q,q'),a) = (\\delta_1(q,a), \\delta_1(q',a))\\)\n\\(F \\neq F_1 \\times F_2\\)\n\n\\(F = \\{ (q,q') | q \\in F_1 \\lor q` \\in F_2 \\}\\)\n\\(F = \\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\}\\)"
-  },
-  {
-    "objectID": "regexp.html#statement",
-    "href": "regexp.html#statement",
-    "title": "2. Regular Expressions",
-    "section": "Statement",
-    "text": "Statement\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\\\\n&\\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_1(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\\\\n\\therefore &\n\\forall L(M_1), L(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\end{aligned}\n\\]"
-  },
-  {
-    "objectID": "nfas.html#sketch",
-    "href": "nfas.html#sketch",
-    "title": "3. NFAs",
-    "section": "Sketch",
-    "text": "Sketch\n\n\nNFAs\n\nMotivation\nFormal Definition\nConversion to DFAs"
-  },
-  {
-    "objectID": "nfas.html#closure-under-cdot",
-    "href": "nfas.html#closure-under-cdot",
-    "title": "3. NFAs",
-    "section": "Closure under \\(\\cdot\\)",
-    "text": "Closure under \\(\\cdot\\)\n\n\\[\nM_1 = (Q_1, \\Sigma, \\delta_1, q_1, F_1) \\land M_2 = (Q_2, \\Sigma, \\delta_2, q_2, F_2) \\implies\n\\]\n\n\n\\[\n\\exists M_3 : L(M_3) = L(M_1) \\cdot L(M_2) = L(M_1)L(M_2) = A_1A_2\n\\]"
-  },
-  {
-    "objectID": "nfas.html#concatenation",
-    "href": "nfas.html#concatenation",
-    "title": "3. NFAs",
-    "section": "Concatenation",
-    "text": "Concatenation\n\\[\nA \\cdot B = \\{ xy | x \\in A \\land y \\in B \\} = AB\n\\]\n\nA = {'0', '00'}\nB = {'1', '11'}\n{ a + b for a in A for b in B }\n\n\n\n{'001', '0011', '01', '011'}\n\n\n\nStrings which contain\n\nOne or two 0 and 1, each, and\nAll 0 before any 1"
-  },
-  {
-    "objectID": "nfas.html#star",
-    "href": "nfas.html#star",
-    "title": "3. NFAs",
-    "section": "Star",
-    "text": "Star\n\\[\nA* = \\{ x_1x_2\\ldots x_n | x_i \\in A \\land n \\geq 0 \\}\n\\]\n\nA = {'0'}\nfrom itertools import count # infinite iterator\nastar = ( a * n for a in A for n in count() )\nnext(astar), next(astar), next(astar)\n\n\n\n('', '0', '00')\n\n\n\nStrings which contain\n\nZero or more strings in \\(A\\)\nHarder in .py with non-trivial \\(A\\)"
-  },
-  {
-    "objectID": "nfas.html#exercise-0",
-    "href": "nfas.html#exercise-0",
-    "title": "3. NFAs",
-    "section": "Exercise 0",
-    "text": "Exercise 0\nFind a string accepted by the NFA that is rejected by the DFA.\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0,1}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
-  },
-  {
-    "objectID": "nfas.html#solution-0",
-    "href": "nfas.html#solution-0",
-    "title": "3. NFAs",
-    "section": "Solution 0",
-    "text": "Solution 0\n\n\n[1,1]\n\nREJECT: \\(q_1 \\rightarrow q_2 \\rightarrow \\varnothing\\)\nREJECT: \\(q_1 \\rightarrow q_1 \\rightarrow q_1\\)\nACCEPT: \\(q_1 \\rightarrow q_1 \\rightarrow q_2\\)\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0,1}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
-  },
-  {
-    "objectID": "nfas.html#exercise-1",
-    "href": "nfas.html#exercise-1",
-    "title": "3. NFAs",
-    "section": "Exercise 1",
-    "text": "Exercise 1\n\nDefine an expression over \\(\\delta\\) that holds if a finite automata is deterministic.\nYou may write it in formal mathematics or in Python."
-  },
-  {
-    "objectID": "nfas.html#solution-1",
-    "href": "nfas.html#solution-1",
-    "title": "3. NFAs",
-    "section": "Solution 1",
-    "text": "Solution 1\n\nWe note that Python dictionaries can only be used for the \\(\\delta\\) of a DFA.\n\n\n\n# define q_n as a convenience\nq_1, q_2 = \"q_1\", \"q_2\"\n# define d\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1 }\n}\n\n\n\nTo implement an NFA, what would we do?\n\n\n\nassert(all((type(d[q])==type({}) for q in d)))"
-  },
-  {
-    "objectID": "nfas.html#exercise-2",
-    "href": "nfas.html#exercise-2",
-    "title": "3. NFAs",
-    "section": "Exercise 2",
-    "text": "Exercise 2\n\nSketch the finite automata\n\nAs a graph using .dot\n\n\n\n\ndigraph finite_automata {\n  rankdir=LR;\n\n  node [shape=circle];\n  q0 [label=\"\",shape=point]; \n  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];\n  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];\n  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; \n\n  q0 -&gt; q1\n  q1 -&gt; q1 [label=\"{0}\"];\n  q1 -&gt; q2 [label=\"{1}\"];\n  q2 -&gt; q1 [label=\"{0}\"];\n  q2 -&gt; q3 [label=\"{1}\"];\n  q3 -&gt; q3 [label=\"{0,1}\"];\n}"
-  },
-  {
-    "objectID": "nfas.html#solution-2",
-    "href": "nfas.html#solution-2",
-    "title": "3. NFAs",
-    "section": "Solution 2",
-    "text": "Solution 2\n\ndigraph finite_automata {\n  rankdir=LR; bgcolor=\"#191919\";\n  node [fontcolor = \"#ffffff\", color = \"#ffffff\"]\n  edge [color = \"#ffffff\",fontcolor = \"#ffffff\"]\n\n  node [shape=circle];\n  q0 [label=\"\",shape=point]; \n  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle];\n  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; \n\n  q0 -&gt; q1 []\n  q1 -&gt; q1 [label=\"{0}\"];\n  q1 -&gt; q2 [label=\"{1}\"];\n  q2 -&gt; q1 [label=\"{0}\"];\n}"
-  },
-  {
-    "objectID": "nfas.html#solution-2-output",
-    "href": "nfas.html#solution-2-output",
-    "title": "3. NFAs",
-    "section": "Solution 2",
-    "text": "Solution 2\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
-  },
-  {
-    "objectID": "nfas.html#components",
-    "href": "nfas.html#components",
-    "title": "3. NFAs",
-    "section": "Components",
-    "text": "Components\n\nBuilt from:\n\n\\(\\Sigma\\), the letters of the alphabet\n\\(\\varnothing\\), the empty set / empty language.\n\\(\\Sigma^0\\), the empty string\n\nBuilt with:\n\n\\(\\cup\\), union\n\\(\\cdot\\), concatenation\n\\(*\\), the “star” operator"
-  },
-  {
-    "objectID": "nfas.html#examples",
-    "href": "nfas.html#examples",
-    "title": "3. NFAs",
-    "section": "Examples",
-    "text": "Examples\n\n\\({0,1}* = \\Sigma*\\) is all bit strings\n\\(\\Sigma*1\\) is all 1-terminated bit strings\n\\(\\Sigma*11\\Sigma*\\) is \\(L(M_1)\\)\n\nAll strings with 11\n\nWe note we are loosening the rigor of our notation.\n\nI took, e.g. 11 as [1, 1]"
-  },
-  {
-    "objectID": "nfas.html#closure",
-    "href": "nfas.html#closure",
-    "title": "3. NFAs",
-    "section": "Closure",
-    "text": "Closure\n\nClosure is with respect to a set and an operation.\nWe note:\n\nNatural numbers \\(\\mathbb{N}\\) are closed under \\(+\\)\nNatural numbers \\(\\mathbb{N}\\) not closed under \\(-\\)\n\nWe wish to apply these to languages, not numbers."
-  },
-  {
-    "objectID": "nfas.html#closure-under-cup",
-    "href": "nfas.html#closure-under-cup",
-    "title": "3. NFAs",
-    "section": "Closure under \\(\\cup\\)",
-    "text": "Closure under \\(\\cup\\)\n\nOur set is the languages recognized FA/FSMs.\nOur operation is \\(\\cup\\)\nWe wish to show the union of any two regular languages is, itself, a regular language."
-  },
-  {
-    "objectID": "nfas.html#closure-under-cup-1",
-    "href": "nfas.html#closure-under-cup-1",
-    "title": "3. NFAs",
-    "section": "Closure under \\(\\cup\\)",
-    "text": "Closure under \\(\\cup\\)\n\n\\[\nM_1 = (Q_1, \\Sigma, \\delta_1, q_1, F_1) \\land M_2 = (Q_2, \\Sigma, \\delta_2, q_2, F_2) \\implies\n\\]\n\n\n\\[\n\\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\n\n\nCore insight: Track what state \\(M_1\\) and \\(M_2\\) both would be in, within \\(M_3\\)\n\n\n\\[\nQ_3 = Q_2 \\times Q_2 = { (q_1, q_2) | q_1 \\in Q_1 \\land q_2 \\in Q_2 }\n\\]"
-  },
-  {
-    "objectID": "nfas.html#m_3",
-    "href": "nfas.html#m_3",
-    "title": "3. NFAs",
-    "section": "\\(M_3\\)",
-    "text": "\\(M_3\\)\n\n\\(M_1, M_2  = (Q_1, \\Sigma, \\delta_1, q_1, F_1), (Q_2, \\Sigma, \\delta_2, q_2, F_2)\\)\n\\(Q_3 = Q_2 \\times Q_2 = \\{ (q_1, q_2) | q_1 \\in Q_1 \\land q_2 \\in Q_2 \\}\\)\n\\(q_0 = (q_1, q_2)\\)\n\\(\\delta(q,q'),a) = (\\delta_1(q,a), \\delta_1(q',a))\\)\n\\(F \\neq F_1 \\times F_2\\)\n\n\\(F = \\{ (q,q') | q \\in F_1 \\lor q` \\in F_2 \\}\\)\n\\(F = \\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\}\\)"
-  },
-  {
-    "objectID": "nfas.html#statement",
-    "href": "nfas.html#statement",
-    "title": "3. NFAs",
-    "section": "Statement",
-    "text": "Statement\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\\\\n&\\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_1(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\\\\n\\therefore &\n\\forall L(M_1), L_(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\end{aligned}\n\\]"
-  },
-  {
-    "objectID": "nfas.html#exercise",
-    "href": "nfas.html#exercise",
-    "title": "3. NFAs",
-    "section": "Exercise",
-    "text": "Exercise\n\nBuild \\(M_3\\) for the \\(M_1\\) and \\(M_2\\) as:\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
-    "objectID": "nfas.html#non-trivial",
-    "href": "nfas.html#non-trivial",
-    "title": "3. NFAs",
-    "section": "Non-trivial",
-    "text": "Non-trivial\n\nA natural strategy\n\nTake \\(M_1\\)\nConnect states in \\(F_1\\) (\\(M_1\\) accept)\nAdd edges out of \\(F_1\\)\nConnect edges to \\(q_2\\) (\\(M_2\\) start)"
-  },
-  {
-    "objectID": "nfas.html#section",
-    "href": "nfas.html#section",
-    "title": "3. NFAs",
-    "section": "",
-    "text": "Problem\n\nHow do we know if we should go to \\(M_2\\) at a given time.\nSuppose \\(M_1\\) requires 0 appear in odd-length substrings \\(\\{0\\}^{2n+1}\\).\nSuppose \\(M_2\\) requires 0 appear in even-length substrings \\(\\{0\\}^{2n}\\).\nImagine seeing a 0 after a 1\nDo you leave \\(M_1\\) into \\(M_2\\) or not?"
-  },
-  {
-    "objectID": "nfas.html#problem",
-    "href": "nfas.html#problem",
-    "title": "3. NFAs",
-    "section": "Problem",
-    "text": "Problem\n\nHow do we know if we should go to \\(M_2\\) at a given time.\n\nSuppose \\(M_1\\) requires 0 appear in odd-length substrings \\(\\{0\\}^{2n+1}\\).\nSuppose \\(M_2\\) requires 0 appear in even-length substrings \\(\\{0\\}^{2n}\\).\nImagine seeing a 0 after a 1\nDo you leave \\(M_1\\) into \\(M_2\\) or not?\n\nSimply do both."
-  },
-  {
-    "objectID": "nfas.html#new-features",
-    "href": "nfas.html#new-features",
-    "title": "3. NFAs",
-    "section": "New Features",
-    "text": "New Features\n\nIn DFAs, the \\(\\cap\\) of any pair of labels on outgoing edges must \\(=\\varnothing\\).\n\nLabels appear exactly once.\nNFAs - no such restriction.\n\nIn NFAs, we can use \\(\\sigma\\) to move regardless of input.\nIf NFAs, accept if any path reaches any accepting state.\n\nThat is, there may be multiple paths."
-  },
-  {
-    "objectID": "nfas.html#aside",
-    "href": "nfas.html#aside",
-    "title": "3. NFAs",
-    "section": "Aside",
-    "text": "Aside\n\nHistorically, nondeterminism not regarded as an actually physical existing device.\nIn practice, speculative execution is exactly that.\nMy automata research applied nondeterminism to x86-64 processors.\nCloud computing, today, is quite similar."
-  },
-  {
-    "objectID": "nfas.html#speculation",
-    "href": "nfas.html#speculation",
-    "title": "3. NFAs",
-    "section": "Speculation",
-    "text": "Speculation"
-  },
-  {
-    "objectID": "nfas.html#ways",
-    "href": "nfas.html#ways",
-    "title": "3. NFAs",
-    "section": "3 ways:",
-    "text": "3 ways:\n\nComputational: Fork new parallel thread and accept if any thread leads to an accept state.\nMathematical: Tree with branches. Accept if any branch leads to an accept state.\nMagical: Guess at each nondeterministic step which way to go. Machine always makes the right guess that leads to accepting, if possible."
-  },
-  {
-    "objectID": "nfas.html#delta",
-    "href": "nfas.html#delta",
-    "title": "3. NFAs",
-    "section": "\\(\\delta\\)",
-    "text": "\\(\\delta\\)\n\nVersus DFAs, NFAs are unaltered except in \\(\\delta\\)\nDFAs consider individual state and a letter.\n\nNFA \\(\\delta\\) most work over sets of states."
-  },
-  {
-    "objectID": "nfas.html#step-0",
-    "href": "nfas.html#step-0",
-    "title": "3. NFAs",
-    "section": "Step 0",
-    "text": "Step 0\n\nAlter \\(\\delta\\)’s codomain (set of destination)\n\nDFA : \\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\nNFA : \\(\\delta : Q \\times \\sigma \\rightarrow \\mathcal{P} (Q)\\)\n\n\\(\\mathcal{P} (Q)\\) is the power set of \\(Q\\)\n\\(\\mathcal{P} (Q) = \\{ R | R \\subset Q \\}\\)"
-  },
-  {
-    "objectID": "nfas.html#in-python",
-    "href": "nfas.html#in-python",
-    "title": "3. NFAs",
-    "section": "In Python",
-    "text": "In Python\n\n\nd_dfa = {\n    q_1 : { \n        0:q_1, \n        1:q_2 # This is wrong\n    },\n    q_2 : { \n        0:q_1 \n    }\n}\n\nd_nfa = {\n    q_1 : { \n        0:{q_1}, \n        1:{q_1, q_2}\n    },\n    q_2 : { \n        0:{q_1} \n    }\n}\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0,1}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
-  },
-  {
-    "objectID": "nfas.html#step-1",
-    "href": "nfas.html#step-1",
-    "title": "3. NFAs",
-    "section": "Step 1",
-    "text": "Step 1\n\nAlter \\(\\delta\\)’s domain (set of inputs)\n\nDFA : \\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\nNFA: \\(\\delta : \\mathcal{P} (Q) \\times \\sigma \\rightarrow \\mathcal{P} (Q)\\)\n\nIn Python, this is simple set comprehension of the Step 0 \\(\\delta\\)"
-  },
-  {
-    "objectID": "nfas.html#in-python-1",
-    "href": "nfas.html#in-python-1",
-    "title": "3. NFAs",
-    "section": "In Python",
-    "text": "In Python\n# setup\nstate = str\nletter = str\ndfa = tuple\nnfa = tuple\n\ndef q_next_dfa(m:dfa, q:state, a:letter) -&gt; state:\n    d = m[2] # dict of state:dict of letter:state\n    return d[q][a]\n\ndef q_next_nfa(m:nfa, qs:set, a:letter) -&gt; set:\n    d = m[2] # dict of state:dict of letter:set of state\n    return {q_n for q in d[q][a] for q in qs}\n\nCan do this with lambda (which I’d prefer) but then we lose type hints."
-  },
-  {
-    "objectID": "nfas.html#lambda",
-    "href": "nfas.html#lambda",
-    "title": "3. NFAs",
-    "section": "Lambda",
-    "text": "Lambda\nOr put the lambdas in the *FA\nq_next_dfa = lambda m, q, a : m[2]d[q][a]\n\nq_next_dfa = lambda m, qs, a : {q_n for q in d[q][a] for q in qs}"
-  },
-  {
-    "objectID": "nfas.html#goal",
-    "href": "nfas.html#goal",
-    "title": "3. NFAs",
-    "section": "Goal",
-    "text": "Goal\n\nWish to show any NFA language can be recognized by a DFA.\nTake an NFA\n\n\\(M = (Q, \\Sigma, \\delta, q_0, F)\\)\n\nConstruct a DFA\n\n\\(M = (Q', \\Sigma, \\delta', q'_0, F')\\)\n\nWe use the same insight as with \\(\\delta\\)"
-  },
-  {
-    "objectID": "nfas.html#transformation",
-    "href": "nfas.html#transformation",
-    "title": "3. NFAs",
-    "section": "Transformation",
-    "text": "Transformation\n\nLet \\(Q' = \\mathcal{P} (Q)\\)\n\nOne deterministic state for all possible combinations\nHow many is this?\nHow can we represent it?"
-  },
-  {
-    "objectID": "nfas.html#dfa-states",
-    "href": "nfas.html#dfa-states",
-    "title": "3. NFAs",
-    "section": "DFA States",
-    "text": "DFA States\n\nLet \\(Q' = \\mathcal{P} (Q)\\)\n\nOne deterministic state for all possible combinations\nHow many is this?\nHow can we represent it?\n\nWe note \\(\\Sigma\\) is unaltered."
-  },
-  {
-    "objectID": "nfas.html#dfa-delta",
-    "href": "nfas.html#dfa-delta",
-    "title": "3. NFAs",
-    "section": "DFA \\(\\delta`\\)",
-    "text": "DFA \\(\\delta`\\)\n\nWe note \\(\\Sigma\\) is unaltered.\nWe note NFA \\(\\delta\\):\n\nAccepts \\(\\mathcal{P} (Q)\\) and a letter\nProduces \\(\\mathcal{P} (Q)\\)\nThat the states \\(Q'\\) of the DFA are \\(\\mathcal{P} (Q)\\)\n\n\\(\\delta\\) = \\(\\delta`\\)"
-  },
-  {
-    "objectID": "regexp.html#theorem-1",
-    "href": "regexp.html#theorem-1",
-    "title": "2. Regular Expressions",
-    "section": "Theorem 1",
-    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_1(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
-  },
-  {
-    "objectID": "nfas.html#theorem-2",
-    "href": "nfas.html#theorem-2",
-    "title": "3. NFAs",
-    "section": "Theorem 2",
-    "text": "Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]\n\nWe take some minor liberties with precisely defining the type of \\(\\delta\\)"
-  },
-  {
-    "objectID": "nfas.html#dfa-f",
-    "href": "nfas.html#dfa-f",
-    "title": "3. NFAs",
-    "section": "DFA \\(F\\)",
-    "text": "DFA \\(F\\)\n\nThe DFA tracks a set of possible states.\nOnly one state need be accepting.\n\\(F' = \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\}\\)"
-  },
-  {
-    "objectID": "nfas.html#theorem-2-1",
-    "href": "nfas.html#theorem-2-1",
-    "title": "3. NFAs",
-    "section": "Theorem 2",
-    "text": "Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\nL_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nL_{DFA}(&\\mathcal{P} (Q), \\\\\n        &\\Sigma, \\\\\n        &\\delta, \\\\\n        &{q_1}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\} \\\\\n        &) //\n\\]"
+    "objectID": "cfg.html#solution",
+    "href": "cfg.html#solution",
+    "title": "7. Context Free Grammars",
+    "section": "Solution",
+    "text": "Solution\n\nfrom itertools import count # infinite iterator\nfrom itertools import combinations_with_replacement as cwr\n# define variables, so we can use them\nrules = (\n  lambda s : s.replace(\"E\", \"E+E\"),\n  lambda s : s.replace(\"E\", \"ExE\"), \n  lambda s : s.replace(\"E\", \"(E)\"), \n  lambda s : s.replace(\"E\", \"a\")\n)\ntrans = lambda fs, s: fs[0](trans(fs[1:], s)) if len(fs) else s\n\nG_2 = (trans(fs,'E') for n in count() for fs in cwr(rules, n))\n\nnext(G_2), next(G_2), next(G_2)\n\n('E', 'E+E', 'ExE')\n\n\n\nThis isn’t quite right. What’s wrong?"
   },
   {
     "objectID": "closures.html#sketch",
@@ -971,13 +1083,6 @@
     "title": "4. Closures",
     "section": "Sketch",
     "text": "Sketch\n\n\nClosures\n\nUnion\nConcatenation\nStar"
-  },
-  {
-    "objectID": "closures.html#theorem-1",
-    "href": "closures.html#theorem-1",
-    "title": "4. Closures",
-    "section": "Theorem 1",
-    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup ((q_0, \\varnothing) \\rightarrow \\{q_1, q_2\\} \\\\\n&q_0, \\\\\n& F_1 \\sqcup F_2)\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "closures.html#review",
@@ -1029,13 +1134,6 @@
     "text": "Graphically\n\n\n\\(M_1\\)\n\n\\(M_2\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
   },
   {
-    "objectID": "closures.html#renumber",
-    "href": "closures.html#renumber",
-    "title": "3. NFAs",
-    "section": "Renumber",
-    "text": "Renumber\n\nPrepare for \\(\\sqcup\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr0-&gt;r1\n\n\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
-  },
-  {
     "objectID": "closures.html#renumber-for-sqcup",
     "href": "closures.html#renumber-for-sqcup",
     "title": "4. Closures",
@@ -1064,13 +1162,6 @@
     "text": "Use \\(\\varnothing\\) edges.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nq0\n\nq\n0\n\n\n\nr0-&gt;q0\n\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq0-&gt;r1\n\n\n{}\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n{}\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
   },
   {
-    "objectID": "closures.html#recall-theorem-1-1",
-    "href": "closures.html#recall-theorem-1-1",
-    "title": "3. NFAs",
-    "section": "Recall: Theorem 1",
-    "text": "Recall: Theorem 1\n\\[\n\\forall L(M_1), L(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&(\\delta_1 \\sqcup \\delta_2 \\cup ((q_0, \\varnothing) \\rightarrow \\{q_1, q_2\\}) \\\\\n&q_0, \\\\\n& F_1 \\sqcup F_2)\\blacksquare\n\\end{aligned}\n\\]"
-  },
-  {
     "objectID": "closures.html#recall-theorem-2",
     "href": "closures.html#recall-theorem-2",
     "title": "4. Closures",
@@ -1078,11 +1169,11 @@
     "text": "Recall: Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "closures.html#recall-theorem-2-1",
-    "href": "closures.html#recall-theorem-2-1",
-    "title": "3. NFAs",
-    "section": "Recall: Theorem 2",
-    "text": "Recall: Theorem 2\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "objectID": "closures.html#theorem-1",
+    "href": "closures.html#theorem-1",
+    "title": "4. Closures",
+    "section": "Theorem 1",
+    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup ((q_0, \\varnothing) \\rightarrow \\{q_1, q_2\\} \\\\\n&q_0, \\\\\n& F_1 \\sqcup F_2)\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "closures.html#goal",
@@ -1146,5 +1237,425 @@
     "title": "4. Closures",
     "section": "Theorem 3",
     "text": "Theorem 3\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_2\\} | f \\in F_1 \\} \\\\\n&q_1, \\\\\n&F_2)\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "closures.html#goal-1",
+    "href": "closures.html#goal-1",
+    "title": "4. Closures",
+    "section": "Goal",
+    "text": "Goal\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\n\nWe note that the empty string \"\" \\(\\in A* \\forall A\\)"
+  },
+  {
+    "objectID": "closures.html#new-q-2",
+    "href": "closures.html#new-q-2",
+    "title": "4. Closures",
+    "section": "New \\(Q\\)",
+    "text": "New \\(Q\\)\n\n\\(Q_2 = Q_1 \\cup \\{q_0\\}\\)\nWe add novel \\(q_0\\) to support the empty string."
+  },
+  {
+    "objectID": "closures.html#new-delta-2",
+    "href": "closures.html#new-delta-2",
+    "title": "4. Closures",
+    "section": "New \\(\\delta\\)",
+    "text": "New \\(\\delta\\)\n\nNeed to get from \\(F\\) to \\(q_1\\)\n\nAdd \\(\\varnothing\\) paths\nFrom \\(q_n \\in F_1\\)\nTo \\(q_1\\)\nAnd \\(q_0\\) to \\(q_1\\)\n\n\\(\\delta_2 = \\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_2\\}| f \\in F_1 \\cup \\{q_0\\} \\}\\)"
+  },
+  {
+    "objectID": "closures.html#q_0-f-2",
+    "href": "closures.html#q_0-f-2",
+    "title": "4. Closures",
+    "section": "\\(q_0, F\\)",
+    "text": "\\(q_0, F\\)\n\nWe add novel start state \\(q_0\\)\nWe include \\(q_0\\) in \\(F\\)\nThis includes the empty string."
+  },
+  {
+    "objectID": "closures.html#combine-graphically-1",
+    "href": "closures.html#combine-graphically-1",
+    "title": "4. Closures",
+    "section": "Combine Graphically",
+    "text": "Combine Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#update-q_0-and-f",
+    "href": "closures.html#update-q_0-and-f",
+    "title": "4. Closures",
+    "section": "Update \\(q_0\\) and \\(F\\)",
+    "text": "Update \\(q_0\\) and \\(F\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n{}\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#update-delta-1",
+    "href": "closures.html#update-delta-1",
+    "title": "4. Closures",
+    "section": "Update \\(\\delta\\)",
+    "text": "Update \\(\\delta\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n{}\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q1\n\n\n{}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "closures.html#theorem-4",
+    "href": "closures.html#theorem-4",
+    "title": "4. Closures",
+    "section": "Theorem 4",
+    "text": "Theorem 4\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1)\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "pda.html#sketch",
+    "href": "pda.html#sketch",
+    "title": "8. Pushdown Automata",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nSchematic View of Automata\nThe Stack\nThe Automaton\nConversions"
+  },
+  {
+    "objectID": "pda.html#overview",
+    "href": "pda.html#overview",
+    "title": "8. Pushdown Automata",
+    "section": "Overview",
+    "text": "Overview\n\nWe abstract the automata into a unit called the “Finite Control”\n\nIn a *FA, this denotes the current state.\nWe often denote it as a box\n\nWe imagine input as coming on a tape.\n\nIn practice, early devices did use tapes.\nModern devices use block reads of SSDs (same thing)"
+  },
+  {
+    "objectID": "pda.html#tapes",
+    "href": "pda.html#tapes",
+    "title": "8. Pushdown Automata",
+    "section": "Tapes",
+    "text": "Tapes"
+  },
+  {
+    "objectID": "pda.html#terms",
+    "href": "pda.html#terms",
+    "title": "8. Pushdown Automata",
+    "section": "Terms",
+    "text": "Terms\n\nFinite Control: Represents the finite state, or states, of an automata.\nInput: Represents the input string to some automata.\n\n*FAs can only read in one direction - not so for all automata.\n\nThis abstraction made it easier for me to separate letters and states in my mind."
+  },
+  {
+    "objectID": "pda.html#new-terms",
+    "href": "pda.html#new-terms",
+    "title": "8. Pushdown Automata",
+    "section": "New Terms",
+    "text": "New Terms\n\nStack: Memory of the automata\n\n*FAs had no memory other than internal state - not so for all automata.\n\nHead: Refer to “wherever the automata is currently pointed” as where the head of the automata is.\n\nThink, perhaps, of a vinyl player.\nMy first job was on Hard Disk Drives (HDDs) with a “head” which wrote/read bits from a rotating magnetic disk."
+  },
+  {
+    "objectID": "pda.html#the-stack-1",
+    "href": "pda.html#the-stack-1",
+    "title": "8. Pushdown Automata",
+    "section": "The Stack",
+    "text": "The Stack\n\nPDA has unlimited but restricted memory.\nIt can only write certain symbols.\nIt can only read the most recent symbol.\nThink the stack abstract data structure.\n\n\n\nstack = []\nstack.append('a')\nstack.append('b')\nstack.append('a')\nprint(stack.pop())\n\na"
+  },
+  {
+    "objectID": "pda.html#intuition",
+    "href": "pda.html#intuition",
+    "title": "8. Pushdown Automata",
+    "section": "Intuition",
+    "text": "Intuition\n\nThink of an NFA\nWhich write/add and read/remove symbols from the stack.\nThere is no “peek” operation.\n\nBut if can be synthesize from read+write."
+  },
+  {
+    "objectID": "pda.html#exercise",
+    "href": "pda.html#exercise",
+    "title": "8. Pushdown Automata",
+    "section": "Exercise",
+    "text": "Exercise\n\nRecognize \\(D = \\{ 0^k1^k | k \\in \\mathbb{N}\\}\\) in Python\nRead every character individually.\nOnly use one stack.\nIf you’re not sure of goals, read the solution and translate it to def from lambda"
+  },
+  {
+    "objectID": "pda.html#solution",
+    "href": "pda.html#solution",
+    "title": "8. Pushdown Automata",
+    "section": "Solution",
+    "text": "Solution\n\nq_1 = lambda s, stack : [stack.append('0'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) &gt; 1 else [stack.pop(), q_2(s[1:], stack)][-1]\nq_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) &gt; 1 else q_n(s, stack)\nq_n = lambda s, stack : s == '1' and len(stack) == 1\nq_1('000111', []), q_1('00111', []), q_1('00011', [])\n\n(True, False, False)"
+  },
+  {
+    "objectID": "pda.html#formal-definition",
+    "href": "pda.html#formal-definition",
+    "title": "8. Pushdown Automata",
+    "section": "Formal Definition…",
+    "text": "Formal Definition…\nA Pushdown Automaton (PDA) is formally defined as a 6-tuple:\n\n\\(Q\\): A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the input alphabet.\n\\(\\Gamma\\): A finite, non-empty set of stack symbols called the stack alphabet.\n\\(\\delta\\): The transition function, a mapping"
+  },
+  {
+    "objectID": "pda.html#formal-definition..",
+    "href": "pda.html#formal-definition..",
+    "title": "8. Pushdown Automata",
+    "section": "Formal Definition..",
+    "text": "Formal Definition..\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, \\ldots)\\)\n\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times (\\Sigma_{\\varepsilon} \\cup \\Gamma_{\\varepsilon}) \\rightarrow \\mathcal{P} (Q \\times \\Gamma_{\\varepsilon})\\)\nGiven a state, letter, and stack symbol\nGet a set of states and stack symbols.\n\\(\\delta(q, a, c) = {(r_1, d), (r_2, e)}\\)\n\nIn state \\(q\\), reading \\(a\\) on tape and \\(c\\) on stack, either write \\(d\\) and go to state \\(r_1\\) or write \\(e\\) and go to state \\(r_2\\)"
+  },
+  {
+    "objectID": "pda.html#formal-definition.",
+    "href": "pda.html#formal-definition.",
+    "title": "8. Pushdown Automata",
+    "section": "Formal Definition.",
+    "text": "Formal Definition.\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, q_0, F)\\)\n\n\\(q_0, F\\) as in the *FAs.\nIt’s a *FA with a new alphabet that delta reads."
+  },
+  {
+    "objectID": "pda.html#example",
+    "href": "pda.html#example",
+    "title": "8. Pushdown Automata",
+    "section": "Example",
+    "text": "Example\n\nIntroduce reverse operation \\(w^\\mathcal{R}\\)\nEasiest to define with Python.\n\n\n\nsuperscript_r = lambda w : w[::-1]\nw = \"stressed\"\nprint('w =', w, 'w^R =', superscript_r(w))\n\nw = stressed w^R = desserts\n\n\n\n\nTake \\(B = \\{ww^\\mathcal{R} | w \\in \\{0,1\\}*\\}\\)\n\n\n\n\n\n\n\n\n\ng\n\n\n\nn\n\n0\n\n0\n\n1\n\n1\n\n1\n\n1\n\n0\n\n0"
+  },
+  {
+    "objectID": "pda.html#intuition-1",
+    "href": "pda.html#intuition-1",
+    "title": "8. Pushdown Automata",
+    "section": "Intuition",
+    "text": "Intuition\n\nRead symbol, push to stack\nAt halfway mark, pop off stack and read.\n\nIf same, continue\nIf different, reject\n\nHow do we know we are the middle?\n\nNondeterminism - it doesn’t matter!\nEach nondeterministic branch gets its own stack!"
+  },
+  {
+    "objectID": "pda.html#empty-stack",
+    "href": "pda.html#empty-stack",
+    "title": "8. Pushdown Automata",
+    "section": "Empty stack",
+    "text": "Empty stack\n\nWait… how do we see if the stack is empty.\n\nEasy.\nInvent a novel symbol.\nNecessarily write it in the first state.\n\nCan simply add a new state, transition, as needed.\n\nThese simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results.\nSee also: Transitions along empty strings."
+  },
+  {
+    "objectID": "pda.html#exercise-1",
+    "href": "pda.html#exercise-1",
+    "title": "8. Pushdown Automata",
+    "section": "Exercise",
+    "text": "Exercise\n\nAccept \\(D\\) in Python."
+  },
+  {
+    "objectID": "regexp.html#sketch",
+    "href": "regexp.html#sketch",
+    "title": "2. Regular Expressions",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nRegular Operations\n\nUnion\nConcatenation\nStar\n\nRegular Expressions"
+  },
+  {
+    "objectID": "regexp.html#union",
+    "href": "regexp.html#union",
+    "title": "2. Regular Expressions",
+    "section": "Union",
+    "text": "Union\n\\[\nA \\cup B = \\{ w | w \\in A \\lor w \\in B \\}\n\\]\n\nA = {'', '0', '00', '000'}\nB = {'', '1', '11', '111'}\nA.union(B)\n\n\n\n{'', '0', '00', '000', '1', '11', '111'}\n\n\n\nStrings which are\n\nLength less than 4, and\nContaining only 0 or only 1"
+  },
+  {
+    "objectID": "regexp.html#concatenation",
+    "href": "regexp.html#concatenation",
+    "title": "2. Regular Expressions",
+    "section": "Concatenation",
+    "text": "Concatenation\n\\[\nA \\cdot B = \\{ xy | x \\in A \\land y \\in B \\} = AB\n\\]\n\nA = {'0', '00'}\nB = {'1', '11'}\n{ a + b for a in A for b in B }\n\n\n\n{'001', '0011', '01', '011'}\n\n\n\nStrings which contain\n\nOne or two 0 and 1, each, and\nAll 0 before any 1"
+  },
+  {
+    "objectID": "regexp.html#star",
+    "href": "regexp.html#star",
+    "title": "2. Regular Expressions",
+    "section": "Star",
+    "text": "Star\n\\[\nA* = \\{ x_1x_2\\ldots x_n | x_i \\in A \\land n \\geq 0 \\}\n\\]\n\nA = {'0'}\nfrom itertools import count # infinite iterator\nastar = ( a * n for a in A for n in count() )\nnext(astar), next(astar), next(astar)\n\n\n\n('', '0', '00')\n\n\n\nStrings which contain\n\nZero or more strings in \\(A\\)\nHarder in .py with non-trivial \\(A\\)"
+  },
+  {
+    "objectID": "regexp.html#exercise-0",
+    "href": "regexp.html#exercise-0",
+    "title": "2. Regular Expressions",
+    "section": "Exercise 0",
+    "text": "Exercise 0\n\nWrite a Python generator expression.\n\nOver A = {'0', '010'}\nThat defines \\(A*\\)\nCheck out itertools or write your own."
+  },
+  {
+    "objectID": "regexp.html#solution-0",
+    "href": "regexp.html#solution-0",
+    "title": "2. Regular Expressions",
+    "section": "Solution 0",
+    "text": "Solution 0\n\nA = {'0', '10'}\nfrom itertools import count # infinite iterator\nfrom itertools import combinations_with_replacement as cwr\nastar = ( s for n in count() for s in (\"\".join(s) for s in cwr(A,n)) ) \n[next(astar) for i in range(5)]\n\n['', '0', '10', '00', '010']"
+  },
+  {
+    "objectID": "regexp.html#exercise-1",
+    "href": "regexp.html#exercise-1",
+    "title": "2. Regular Expressions",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nWrite a Python finite automata\n\nThat is defined as a 5-tuple \\(Q, \\Sigma, \\delta, q_0, F\\)\nThat is equivalent to \\(A*\\)"
+  },
+  {
+    "objectID": "regexp.html#solution-1",
+    "href": "regexp.html#solution-1",
+    "title": "2. Regular Expressions",
+    "section": "Solution 1",
+    "text": "Solution 1\n\n# define q_n as a convenience\nq_1, q_2 = \"q_1\", \"q_2\"\n# define M\nQ = {q_1, q_2}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1 }\n}\nM = (Q,S,d,q_1,Q)"
+  },
+  {
+    "objectID": "regexp.html#exercise-2",
+    "href": "regexp.html#exercise-2",
+    "title": "2. Regular Expressions",
+    "section": "Exercise 2",
+    "text": "Exercise 2\n\nSketch the finite automata\n\nAs a graph using .dot\n\n\n\n\ndigraph finite_automata {\n  rankdir=LR;\n\n  node [shape=circle];\n  q0 [label=\"\",shape=point]; \n  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];\n  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];\n  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; \n\n  q0 -&gt; q1\n  q1 -&gt; q1 [label=\"{0}\"];\n  q1 -&gt; q2 [label=\"{1}\"];\n  q2 -&gt; q1 [label=\"{0}\"];\n  q2 -&gt; q3 [label=\"{1}\"];\n  q3 -&gt; q3 [label=\"{0,1}\"];\n}"
+  },
+  {
+    "objectID": "regexp.html#solution-2",
+    "href": "regexp.html#solution-2",
+    "title": "2. Regular Expressions",
+    "section": "Solution 2",
+    "text": "Solution 2\n\ndigraph finite_automata {\n  rankdir=LR; bgcolor=\"#191919\";\n  node [fontcolor = \"#ffffff\", color = \"#ffffff\"]\n  edge [color = \"#ffffff\",fontcolor = \"#ffffff\"]\n\n  node [shape=circle];\n  q0 [label=\"\",shape=point]; \n  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle];\n  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; \n\n  q0 -&gt; q1 []\n  q1 -&gt; q1 [label=\"{0}\"];\n  q1 -&gt; q2 [label=\"{1}\"];\n  q2 -&gt; q1 [label=\"{0}\"];\n}"
+  },
+  {
+    "objectID": "regexp.html#solution-2-output",
+    "href": "regexp.html#solution-2-output",
+    "title": "2. Regular Expressions",
+    "section": "Solution 2",
+    "text": "Solution 2\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}"
+  },
+  {
+    "objectID": "regexp.html#components",
+    "href": "regexp.html#components",
+    "title": "2. Regular Expressions",
+    "section": "Components",
+    "text": "Components\n\nBuilt from:\n\n\\(\\Sigma\\), the letters of the alphabet\n\\(\\varnothing\\), the empty set / empty language.\n\\(\\Sigma^0\\), the empty string\n\nBuilt with:\n\n\\(\\cup\\), union\n\\(\\cdot\\), concatenation\n\\(*\\), the “star” operator"
+  },
+  {
+    "objectID": "regexp.html#examples",
+    "href": "regexp.html#examples",
+    "title": "2. Regular Expressions",
+    "section": "Examples",
+    "text": "Examples\n\n\\({0,1}* = \\Sigma*\\) is all bit strings\n\\(\\Sigma*1\\) is all 1-terminated bit strings\n\\(\\Sigma*11\\Sigma*\\) is \\(L(M_1)\\)\n\nAll strings with 11\n\nWe note we are loosening the rigor of our notation.\n\nI took, e.g. 11 as [1, 1]"
+  },
+  {
+    "objectID": "regexp.html#closure",
+    "href": "regexp.html#closure",
+    "title": "2. Regular Expressions",
+    "section": "Closure",
+    "text": "Closure\n\nClosure is with respect to a set and an operation.\nWe note:\n\nNatural numbers \\(\\mathbb{N}\\) are closed under \\(+\\)\nNatural numbers \\(\\mathbb{N}\\) not closed under \\(-\\)\n\nWe wish to apply these to languages, not numbers."
+  },
+  {
+    "objectID": "regexp.html#closure-under-cup",
+    "href": "regexp.html#closure-under-cup",
+    "title": "2. Regular Expressions",
+    "section": "Closure under \\(\\cup\\)",
+    "text": "Closure under \\(\\cup\\)\n\nOur set is the languages recognized FA/FSMs.\nOur operation is \\(\\cup\\)\nWe wish to show the union of any two regular languages is, itself, a regular language."
+  },
+  {
+    "objectID": "regexp.html#closure-under-cup-1",
+    "href": "regexp.html#closure-under-cup-1",
+    "title": "2. Regular Expressions",
+    "section": "Closure under \\(\\cup\\)",
+    "text": "Closure under \\(\\cup\\)\n\n\\[\nM_1 = (Q_1, \\Sigma, \\delta_1, q_1, F_1) \\land M_2 = (Q_2, \\Sigma, \\delta_2, q_2, F_2) \\implies\n\\]\n\n\n\\[\n\\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\n\n\nCore insight: Track what state \\(M_1\\) and \\(M_2\\) both would be in, within \\(M_3\\)\n\n\n\\[\nQ_3 = Q_2 \\times Q_2 = { (q_1, q_2) | q_1 \\in Q_1 \\land q_2 \\in Q_2 }\n\\]"
+  },
+  {
+    "objectID": "regexp.html#m_3",
+    "href": "regexp.html#m_3",
+    "title": "2. Regular Expressions",
+    "section": "\\(M_3\\)",
+    "text": "\\(M_3\\)\n\n\\(M_1, M_2  = (Q_1, \\Sigma, \\delta_1, q_1, F_1), (Q_2, \\Sigma, \\delta_2, q_2, F_2)\\)\n\\(Q_3 = Q_2 \\times Q_2 = \\{ (q_1, q_2) | q_1 \\in Q_1 \\land q_2 \\in Q_2 \\}\\)\n\\(q_0 = (q_1, q_2)\\)\n\\(\\delta(q,q'),a) = (\\delta_1(q,a), \\delta_1(q',a))\\)\n\\(F \\neq F_1 \\times F_2\\)\n\n\\(F = \\{ (q,q') | q \\in F_1 \\lor q` \\in F_2 \\}\\)\n\\(F = \\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\}\\)"
+  },
+  {
+    "objectID": "regexp.html#theorem-1",
+    "href": "regexp.html#theorem-1",
+    "title": "2. Regular Expressions",
+    "section": "Theorem 1",
+    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_1(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "regexp.html#exercise",
+    "href": "regexp.html#exercise",
+    "title": "2. Regular Expressions",
+    "section": "Exercise",
+    "text": "Exercise\nBuild \\(M_3\\) for the \\(M_1\\) and \\(M_2\\) as:\n\n\n\\(M_1\\)\n\n\\(M_2\\)\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nq0\n\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
+  },
+  {
+    "objectID": "saturday.html#aims-of-education",
+    "href": "saturday.html#aims-of-education",
+    "title": "Review",
+    "section": "Aims of Education",
+    "text": "Aims of Education\n\nAmber Huffman, a Principal Engineer at Google, has spent her career defining standards for the hardware industry. Now with the rapid growth of AI the demand and uses for Open Source Hardware have never been higher. Learn what Open Source Hardware is and why it is important to all of us."
+  },
+  {
+    "objectID": "saturday.html#finite-automata",
+    "href": "saturday.html#finite-automata",
+    "title": "Review",
+    "section": "Finite Automata",
+    "text": "Finite Automata\nA 5-tuple \\(M = (Q, \\Sigma, \\delta, q_0, F)\\):\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
+  },
+  {
+    "objectID": "saturday.html#theorem-1-union-closure",
+    "href": "saturday.html#theorem-1-union-closure",
+    "title": "Review",
+    "section": "Theorem 1: Union Closure",
+    "text": "Theorem 1: Union Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "saturday.html#theorem-2-nfa-dfa",
+    "href": "saturday.html#theorem-2-nfa-dfa",
+    "title": "Review",
+    "section": "Theorem 2: NFA → DFA",
+    "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "saturday.html#theorem-3-concat-closure",
+    "href": "saturday.html#theorem-3-concat-closure",
+    "title": "Review",
+    "section": "Theorem 3: Concat Closure",
+    "text": "Theorem 3: Concat Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_2\\} | f \\in F_1 \\} \\\\\n&q_1, \\\\\n&F_2)\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "saturday.html#theorem-4-star-closure",
+    "href": "saturday.html#theorem-4-star-closure",
+    "title": "Review",
+    "section": "Theorem 4: Star Closure",
+    "text": "Theorem 4: Star Closure\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1)\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "saturday.html#gnfas",
+    "href": "saturday.html#gnfas",
+    "title": "Review",
+    "section": "GNFAs",
+    "text": "GNFAs\n\nIt is simple enough to argue for GNFAs\n\nEvery operation can be an NFA\nAny NFA node can be replaced with an NFA\n\nEssentially the closure options.\n\nTherefore, a GNFA is equivalently expressive to NFA\n\nThe complete proof is left as an exercise to the interested student."
+  },
+  {
+    "objectID": "saturday.html#atomicity-lemma",
+    "href": "saturday.html#atomicity-lemma",
+    "title": "Review",
+    "section": "Atomicity Lemma",
+    "text": "Atomicity Lemma\n\\[\n\\begin{aligned}\n\\exists M_1, M_2, M_3 :\\\\\nL(M_1) &= a \\in \\Sigma \\\\\nL(M_2) &= \\Sigma^0 \\\\\nL(M_2) &= \\varnothing\n\\end{aligned}\n\\]\nProof\n\\[\n\\begin{aligned}\nM_1 &= (\\{q_0,q_1\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_2 &= (\\{q_0\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_3 &= (\\{q_0\\}, &\\Sigma, &\\varnothing,  &q_0, &\\{q_1\\}) \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "saturday.html#theorem-5",
+    "href": "saturday.html#theorem-5",
+    "title": "Review",
+    "section": "Theorem 5:",
+    "text": "Theorem 5:\n\\[\n\\forall R : \\exists M : R = L(M)\n\\]\nProof\n\nAtomic \\(R\\) follows from Atomicity Lemma\nComposite \\(R\\) follows from Closure properties (Theorems 1-4)"
+  },
+  {
+    "objectID": "saturday.html#base-lemma",
+    "href": "saturday.html#base-lemma",
+    "title": "Review",
+    "section": "Base Lemma",
+    "text": "Base Lemma\n\\[\n\\forall |G| = 2 := (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\}) : \\exists R : R = L(G)\n\\]\nProof\n\nBy definition, \\(G = (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\})\\)\nBy definition, \\(\\delta = \\{ (q_0, R') \\rightarrow q_1 \\}\\)\nLet \\(R = R'\\)\n\\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "saturday.html#inductive-lemma",
+    "href": "saturday.html#inductive-lemma",
+    "title": "Review",
+    "section": "Inductive Lemma",
+    "text": "Inductive Lemma\n\\[\n\\forall |G| = (k &gt; 2) : \\exists |G| = (k - 1) : L(G) = L(G')\n\\]\nProof\n\nBy definition, \\(G = (Q,\\Sigma,\\delta,q_0,\\{q_n\\})\\)\nSelect arbitrary \\(q_i \\in Q \\setminus \\{q_0, q_n\\}\\)\nTake \\(G' = (Q \\setminus \\{q_i\\},\\Sigma,\\delta_{-i},q_0,\\{q_n\\})\\)"
+  },
+  {
+    "objectID": "saturday.html#theorem-6",
+    "href": "saturday.html#theorem-6",
+    "title": "Review",
+    "section": "Theorem 6",
+    "text": "Theorem 6\n\\[\n\\forall M : \\exists R : R = L(M)\n\\]\nProof\n\n\\(\\forall |G| = 2 := (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\}) : \\exists R : R = L(G)\\)\n\\(\\forall |G| = (k &gt; 2) : \\exists |G| = (k - 1) : L(G) = L(G')\\)\nBy induction, \\(\\forall M : \\exists R : R = L(M)\\)"
+  },
+  {
+    "objectID": "saturday.html#pumping-lemma",
+    "href": "saturday.html#pumping-lemma",
+    "title": "Review",
+    "section": "Pumping Lemma",
+    "text": "Pumping Lemma\n\n\\(s \\in A \\land |s| &gt; p\\) requires\n\n\\(xy^nz \\in A\\)\n\\(|y| &gt; 0\\)\n\\(|xy| \\leq p\\)\n\n\nProof\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz"
+  },
+  {
+    "objectID": "saturday.html#cfgs",
+    "href": "saturday.html#cfgs",
+    "title": "Review",
+    "section": "CFGs",
+    "text": "CFGs\n\nRule: Statements of form Variable → (string of symbols and terminals)\nVariable: Those symbols on the left-hand side (LHS) of a → in a rule\nTerminals: Those symbols which appear in only on the right-hand side (RHS)\nStarting variable: The topmost symbol."
+  },
+  {
+    "objectID": "saturday.html#ambiguity",
+    "href": "saturday.html#ambiguity",
+    "title": "Review",
+    "section": "Ambiguity",
+    "text": "Ambiguity\n\\[\n\\begin{align*}\nG_2& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+T \\quad | \\quad  T\\\\\n        &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n        &F \\rightarrow ( E ) \\quad | \\quad a\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\\[\n\\begin{align*}\nG_3& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+E \\quad | \\quad  E \\times E \\quad | \\quad  ( E ) \\quad | \\quad  a\\\\\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\nThese represent the same language (\\(L(G_2) = L(G_3)\\))!\nBut \\(G_3\\) is ambigious!"
+  },
+  {
+    "objectID": "saturday.html#pdas",
+    "href": "saturday.html#pdas",
+    "title": "Review",
+    "section": "PDAs",
+    "text": "PDAs\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, q_0, F)\\)\n\n\\(\\delta : Q \\times (\\Sigma_{\\varepsilon} \\cup \\Gamma_{\\varepsilon}) \\rightarrow \\mathcal{P} (Q \\times \\Gamma_{\\varepsilon})\\)\n\nGiven a state, letter, and stack symbol\nGet a set of states and stack symbols.\n\\(\\delta(q, a, c) = {(r_1, d), (r_2, e)}\\)\n\nIn state \\(q\\), reading \\(a\\) on tape and \\(c\\) on stack, either write \\(d\\) and go to state \\(r_1\\) or write \\(e\\) and go to state \\(r_2\\)"
+  },
+  {
+    "objectID": "saturday.html#schematic-view",
+    "href": "saturday.html#schematic-view",
+    "title": "Review",
+    "section": "Schematic View",
+    "text": "Schematic View"
   }
 ]

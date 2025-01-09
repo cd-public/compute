@@ -1,7 +1,7 @@
 ---
 title: "3. NFAs"
 author: Prof. Calvin
-subtitle: "23 Jan 11 AM"
+subtitle: "24 Jan 11 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
