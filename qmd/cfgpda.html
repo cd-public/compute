@@ -463,13 +463,13 @@ Prof.&nbsp;Calvin
 </section>
 <section id="a-note-cont." class="slide level2">
 <h2>A Note, Cont.</h2>
-<div id="2d39231b" class="cell" data-execution_count="2">
+<div id="8d587bad" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="co"># We note we can use a stack language of {!} for an input language of {0,1}</span></span>
 <span id="cb1-2"><a></a>q_1 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.append(<span class="st">'!'</span>), q_1(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'0'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> [stack.pop(), q_2(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb1-3"><a></a>q_2 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.pop(), q_2(s[<span class="dv">1</span>:],stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> q_n(s, stack)</span>
 <span id="cb1-4"><a></a>q_n <span class="op">=</span> <span class="kw">lambda</span> s, stack : s <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(stack) <span class="op">==</span> <span class="dv">1</span></span>
 <span id="cb1-5"><a></a>q_1(<span class="st">'000111'</span>, []), q_1(<span class="st">'00111'</span>, []), q_1(<span class="st">'00011'</span>, [])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>(True, False, False)</code></pre>
 </div>
 </div>
@@ -668,7 +668,7 @@ Prof.&nbsp;Calvin
 </ul></li>
 </ul>
 <div class="fragment">
-<div id="d62ca0e2" class="cell" data-execution_count="3">
+<div id="c65cb916" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>s <span class="op">=</span> [<span class="st">'E'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb3-2"><a></a>s.pop()</span>
 <span id="cb3-3"><a></a>s.append(<span class="st">'T'</span>)</span>
@@ -685,7 +685,7 @@ Prof.&nbsp;Calvin
 <li class="fragment">Say we then pop <span class="math inline">\(T\)</span> and push <span class="math inline">\(T\times F\)</span></li>
 </ul>
 <div class="fragment">
-<div id="5d682025" class="cell" data-execution_count="4">
+<div id="dab1a5e7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>s <span class="op">=</span> [<span class="st">'T'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb5-2"><a></a>s.pop()</span>
 <span id="cb5-3"><a></a>[s.append(a) <span class="cf">for</span> a <span class="kw">in</span> [<span class="st">'T'</span>,<span class="st">'×'</span>,<span class="st">'F'</span>][::<span class="op">-</span><span class="dv">1</span>]]</span>
@@ -965,6 +965,57 @@ Prof.&nbsp;Calvin
 </tr>
 </tbody>
 </table>
+</section>
+<section id="relation-between-results" class="slide level2">
+<h2>Relation Between Results</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div id="b1a8763e" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="cfgpda_files/figure-revealjs/cell-5-output-1.png" width="389" height="389"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment">Can be fun to view as a Venn diagram.</li>
+<li class="fragment">Many more PDA than *FA languages
+<ul>
+<li class="fragment">How many more?</li>
+</ul></li>
+<li class="fragment">Things bigger than PDA, of course.</li>
+</ul>
+</div></div>
+</section>
+<section id="code-reveal" class="slide level2">
+<h2>Code Reveal</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div id="1f835087" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="cfgpda_files/figure-revealjs/cell-6-output-1.png" width="389" height="389"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
+<span id="cb8-3"><a></a></span>
+<span id="cb8-4"><a></a></span>
+<span id="cb8-5"><a></a></span>
+<span id="cb8-6"><a></a>v <span class="op">=</span> venn2(subsets <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>), set_labels<span class="op">=</span>(<span class="st">"PDA"</span>, <span class="st">"*FA"</span>,))</span>
+<span id="cb8-7"><a></a></span>
+<span id="cb8-8"><a></a><span class="cf">for</span> idx, subset <span class="kw">in</span> <span class="bu">enumerate</span>(v.subset_labels):</span>
+<span id="cb8-9"><a></a>    v.subset_labels[idx].set_visible(<span class="va">False</span>)</span>
+<span id="cb8-10"><a></a></span>
+<span id="cb8-11"><a></a>plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
 </section>
 <section id="end-of-day" class="title-slide slide level1 center">
 <h1>End of Day :)</h1>

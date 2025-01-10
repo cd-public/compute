@@ -341,9 +341,82 @@ $$
 
 ## Relation Between Results
 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
 ```{python}
-# Venn Diagram here I guess.
+#| echo: false
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn2
+
+
+
+v = venn2(subsets = (4, 0, 1), set_labels=("PDA", "*FA",))
+
+for idx, subset in enumerate(v.subset_labels):
+    v.subset_labels[idx].set_visible(False)
+
+plt
 ```
+
+:::
+
+::: {.column width="50%"}
+
+- Can be fun to view as a Venn diagram.
+- Many more PDA than *FA languages
+  - How many more?
+- Things bigger than PDA, of course.
+
+:::
+
+::::
+
+## Code Reveal
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn2
+
+
+
+v = venn2(subsets = (4, 0, 1), set_labels=("PDA", "*FA",))
+
+for idx, subset in enumerate(v.subset_labels):
+    v.subset_labels[idx].set_visible(False)
+
+plt
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{.python}
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn2
+
+
+
+v = venn2(subsets = (4, 0, 1), set_labels=("PDA", "*FA",))
+
+for idx, subset in enumerate(v.subset_labels):
+    v.subset_labels[idx].set_visible(False)
+
+plt
+```
+:::
+
+::::
+
 
 # End of Day :)
 

@@ -1776,5 +1776,19 @@
     "title": "9. CFG → PDA",
     "section": "Summary of Results",
     "text": "Summary of Results\n\n\n\n\nRecognizer\nGenerator\n\n\n\n\nRegular language\n*FA\nRegular Expression\n\n\nContext Free lanuage\nPDA\nContext Free Grammar"
+  },
+  {
+    "objectID": "cfgpda.html#relation-between-results",
+    "href": "cfgpda.html#relation-between-results",
+    "title": "9. CFG → PDA",
+    "section": "Relation Between Results",
+    "text": "Relation Between Results\n\n\n\n\n\n\n\n\n\n\n\n\n\nCan be fun to view as a Venn diagram.\nMany more PDA than *FA languages\n\nHow many more?\n\nThings bigger than PDA, of course."
+  },
+  {
+    "objectID": "cfgpda.html#code-reveal",
+    "href": "cfgpda.html#code-reveal",
+    "title": "9. CFG → PDA",
+    "section": "Code Reveal",
+    "text": "Code Reveal\n\n\n\n\n\n\n\n\n\n\n\n\nimport matplotlib.pyplot as plt\nfrom matplotlib_venn import venn2\n\n\n\nv = venn2(subsets = (4, 0, 1), set_labels=(\"PDA\", \"*FA\",))\n\nfor idx, subset in enumerate(v.subset_labels):\n    v.subset_labels[idx].set_visible(False)\n\nplt"
   }
 ]
