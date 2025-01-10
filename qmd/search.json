@@ -702,112 +702,112 @@
   {
     "objectID": "cfgpda.html#sketch",
     "href": "cfgpda.html#sketch",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Sketch",
-    "text": "Sketch\n\n\nSchematic View of Automata\nThe Stack\nThe Automaton\nConversions"
+    "text": "Sketch\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0S1 \\\\\n    &S \\rightarrow R \\\\\n    &R \\rightarrow \\varepsilon\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "cfgpda.html#overview",
     "href": "cfgpda.html#overview",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Overview",
     "text": "Overview\n\nWe abstract the automata into a unit called the “Finite Control”\n\nIn a *FA, this denotes the current state.\nWe often denote it as a box\n\nWe imagine input as coming on a tape.\n\nIn practice, early devices did use tapes.\nModern devices use block reads of SSDs (same thing)"
   },
   {
     "objectID": "cfgpda.html#tapes",
     "href": "cfgpda.html#tapes",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Tapes",
     "text": "Tapes"
   },
   {
     "objectID": "cfgpda.html#terms",
     "href": "cfgpda.html#terms",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Terms",
     "text": "Terms\n\nFinite Control: Represents the finite state, or states, of an automata.\nInput: Represents the input string to some automata.\n\n*FAs can only read in one direction - not so for all automata.\n\nThis abstraction made it easier for me to separate letters and states in my mind."
   },
   {
     "objectID": "cfgpda.html#new-terms",
     "href": "cfgpda.html#new-terms",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "New Terms",
     "text": "New Terms\n\nStack: Memory of the automata\n\n*FAs had no memory other than internal state - not so for all automata.\n\nHead: Refer to “wherever the automata is currently pointed” as where the head of the automata is.\n\nThink, perhaps, of a vinyl player.\nMy first job was on Hard Disk Drives (HDDs) with a “head” which wrote/read bits from a rotating magnetic disk."
   },
   {
     "objectID": "cfgpda.html#the-stack-1",
     "href": "cfgpda.html#the-stack-1",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "The Stack",
     "text": "The Stack\n\nPDA has unlimited but restricted memory.\nIt can only write certain symbols.\nIt can only read the most recent symbol.\nThink the stack abstract data structure.\n\n\n\nstack = []\nstack.append('a')\nstack.append('b')\nstack.append('a')\nprint(stack.pop())\n\na"
   },
   {
     "objectID": "cfgpda.html#intuition",
     "href": "cfgpda.html#intuition",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Intuition",
     "text": "Intuition\n\nThink of an NFA\nWhich write/add and read/remove symbols from the stack.\nThere is no “peek” operation.\n\nBut if can be synthesize from read+write."
   },
   {
     "objectID": "cfgpda.html#exercise",
     "href": "cfgpda.html#exercise",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Exercise",
     "text": "Exercise\n\nRecognize \\(D = \\{ 0^k1^k | k \\in \\mathbb{N}\\}\\) in Python\nRead every character individually.\nOnly use one stack.\nIf you’re not sure of goals, read the solution and translate it to def from lambda"
   },
   {
     "objectID": "cfgpda.html#solution",
     "href": "cfgpda.html#solution",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Solution",
     "text": "Solution\n\nq_1 = lambda s, stack : [stack.append('0'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) &gt; 1 else [stack.pop(), q_2(s[1:], stack)][-1]\nq_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) &gt; 1 else q_n(s, stack)\nq_n = lambda s, stack : s == '1' and len(stack) == 1\nq_1('000111', []), q_1('00111', []), q_1('00011', [])\n\n(True, False, False)"
   },
   {
     "objectID": "cfgpda.html#formal-definition",
     "href": "cfgpda.html#formal-definition",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Formal Definition…",
     "text": "Formal Definition…\nA Pushdown Automaton (PDA) is formally defined as a 6-tuple:\n\n\\(Q\\): A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the input alphabet.\n\\(\\Gamma\\): A finite, non-empty set of stack symbols called the stack alphabet.\n\\(\\delta\\): The transition function, a mapping"
   },
   {
     "objectID": "cfgpda.html#formal-definition..",
     "href": "cfgpda.html#formal-definition..",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Formal Definition..",
     "text": "Formal Definition..\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, \\ldots)\\)\n\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times (\\Sigma_{\\varepsilon} \\cup \\Gamma_{\\varepsilon}) \\rightarrow \\mathcal{P} (Q \\times \\Gamma_{\\varepsilon})\\)\nGiven a state, letter, and stack symbol\nGet a set of states and stack symbols.\n\\(\\delta(q, a, c) = {(r_1, d), (r_2, e)}\\)\n\nIn state \\(q\\), reading \\(a\\) on tape and \\(c\\) on stack, either write \\(d\\) and go to state \\(r_1\\) or write \\(e\\) and go to state \\(r_2\\)"
   },
   {
     "objectID": "cfgpda.html#formal-definition.",
     "href": "cfgpda.html#formal-definition.",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Formal Definition.",
     "text": "Formal Definition.\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, q_0, F)\\)\n\n\\(q_0, F\\) as in the *FAs.\nIt’s a *FA with a new alphabet that delta reads."
   },
   {
     "objectID": "cfgpda.html#example",
     "href": "cfgpda.html#example",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Example",
     "text": "Example\n\nIntroduce reverse operation \\(w^\\mathcal{R}\\)\nEasiest to define with Python.\n\n\n\nsuperscript_r = lambda w : w[::-1]\nw = \"stressed\"\nprint('w =', w, 'w^R =', superscript_r(w))\n\nw = stressed w^R = desserts\n\n\n\n\nTake \\(B = \\{ww^\\mathcal{R} | w \\in \\{0,1\\}*\\}\\)\n\n\n\n\n\n\n\n\n\ng\n\n\n\nn\n\n0\n\n0\n\n1\n\n1\n\n1\n\n1\n\n0\n\n0"
   },
   {
     "objectID": "cfgpda.html#intuition-1",
     "href": "cfgpda.html#intuition-1",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Intuition",
     "text": "Intuition\n\nRead symbol, push to stack\nAt halfway mark, pop off stack and read.\n\nIf same, continue\nIf different, reject\n\nHow do we know we are the middle?\n\nNondeterminism - it doesn’t matter!\nEach nondeterministic branch gets its own stack!"
   },
   {
     "objectID": "cfgpda.html#empty-stack",
     "href": "cfgpda.html#empty-stack",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Empty stack",
     "text": "Empty stack\n\nWait… how do we see if the stack is empty.\n\nEasy.\nInvent a novel symbol.\nNecessarily write it in the first state.\n\nCan simply add a new state, transition, as needed.\n\nThese simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results.\nSee also: Transitions along empty strings."
   },
   {
     "objectID": "cfgpda.html#exercise-1",
     "href": "cfgpda.html#exercise-1",
-    "title": "8. Pushdown Automata",
+    "title": "9. CFG → PDA",
     "section": "Exercise",
     "text": "Exercise\n\nAccept \\(D\\) in Python."
   },
@@ -1657,5 +1657,124 @@
     "title": "Review",
     "section": "Schematic View",
     "text": "Schematic View"
+  },
+  {
+    "objectID": "cfgpda.html#sketch-1",
+    "href": "cfgpda.html#sketch-1",
+    "title": "9. CFG → PDA",
+    "section": "Sketch",
+    "text": "Sketch\n\nIf \\(A\\) is a CFL then some PDA recognizes \\(A\\).\n*We will convert \\(A\\)’s CFG to a PDA."
+  },
+  {
+    "objectID": "cfgpda.html#theorem-7",
+    "href": "cfgpda.html#theorem-7",
+    "title": "9. CFG → PDA",
+    "section": "Theorem 7",
+    "text": "Theorem 7\n\\[\n\\forall \\text{CFL}: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]"
+  },
+  {
+    "objectID": "cfgpda.html#first-strategy",
+    "href": "cfgpda.html#first-strategy",
+    "title": "9. CFG → PDA",
+    "section": "First Strategy",
+    "text": "First Strategy\n\nUtilize non-determinism.\n\\(P\\) begins by placing the first variable of the CFL on the stack.\nConsider \\(G_2\\)\n\n\n\\[\n\\begin{aligned}\n    &E \\rightarrow E+T \\quad | \\quad  T\\\\\n    &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n    &F \\rightarrow ( E ) \\quad | \\quad a\n\\end{aligned}\n\\]\n\n\nBegin by placing \\(E\\) on the stack."
+  },
+  {
+    "objectID": "cfgpda.html#a-note",
+    "href": "cfgpda.html#a-note",
+    "title": "9. CFG → PDA",
+    "section": "A Note",
+    "text": "A Note\n\nPlacing \\(E\\), a variable, on stack suggests that \\(E\\) is part of the stack alphabet \\(\\Gamma\\).\n\\(E\\) is necessarily not part of the input alphabet \\(\\Sigma\\)\nThis is a good example of how (and why) these languages may differ.\nWe make no claims (yet) about whether the input alphabet appears on the stack (or not)."
+  },
+  {
+    "objectID": "cfgpda.html#a-note-cont.",
+    "href": "cfgpda.html#a-note-cont.",
+    "title": "9. CFG → PDA",
+    "section": "A Note, Cont.",
+    "text": "A Note, Cont.\n\n# We note we can use a stack language of {!} for an input language of {0,1}\nq_1 = lambda s, stack : [stack.append('!'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) &gt; 1 else [stack.pop(), q_2(s[1:], stack)][-1]\nq_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) &gt; 1 else q_n(s, stack)\nq_n = lambda s, stack : s == '1' and len(stack) == 1\nq_1('000111', []), q_1('00111', []), q_1('00011', [])\n\n(True, False, False)"
+  },
+  {
+    "objectID": "cfgpda.html#on-alphabets",
+    "href": "cfgpda.html#on-alphabets",
+    "title": "9. CFG → PDA",
+    "section": "On Alphabets",
+    "text": "On Alphabets\n\n\\(P\\) begins by placing the first variable of the CFL on the stack.\nConsider \\(G_2\\)\n\n\n\\[\n\\begin{aligned}\n    &E \\rightarrow E+T \\quad | \\quad  T\\\\\n    &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n    &F \\rightarrow ( E ) \\quad | \\quad a\n\\end{aligned}\n\\]\n\n\nBegin by placing \\(E\\) on the stack."
+  },
+  {
+    "objectID": "cfgpda.html#strategy",
+    "href": "cfgpda.html#strategy",
+    "title": "9. CFG → PDA",
+    "section": "Strategy",
+    "text": "Strategy\n\nUtilize non-determinism.\nReplace the start symbol \\(S\\)\n\nNondeterminististically, so we may assume we make the correct substitution.\n\nLet’s follow through for a moment.\nWe target \\(a+a\\times a\\) with \\(G_2\\)"
+  },
+  {
+    "objectID": "cfgpda.html#maintaining-the-stack",
+    "href": "cfgpda.html#maintaining-the-stack",
+    "title": "9. CFG → PDA",
+    "section": "Maintaining the Stack",
+    "text": "Maintaining the Stack\n\n\n\nGoal: \\(a+a\\times a\\)\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\nPythonic notation\n['E']\n['E','+','T']\n['T','+','T']\n['T','+','T']\n['T','+','T','×','F']\nBAD/WRONG!!!"
+  },
+  {
+    "objectID": "cfgpda.html#a-stack",
+    "href": "cfgpda.html#a-stack",
+    "title": "9. CFG → PDA",
+    "section": "A Stack",
+    "text": "A Stack\n\nA stack has only push and pop operations.\nWe can, say, pop \\(E\\) then push \\(T\\)\n\nPython tail pops, so [::1].\n\n\n\n\ns = ['E','+','T'][::-1]\ns.pop()\ns.append('T')\nprint(s[::-1])\n\n['T', '+', 'T']"
+  },
+  {
+    "objectID": "cfgpda.html#a-stack-1",
+    "href": "cfgpda.html#a-stack-1",
+    "title": "9. CFG → PDA",
+    "section": "A Stack",
+    "text": "A Stack\n\nSay we then pop \\(T\\) and push \\(T\\times F\\)\n\n\n\ns = ['T','+','T'][::-1]\ns.pop()\n[s.append(a) for a in ['T','×','F'][::-1]]\nprint(s[::-1])\n\n['T', '×', 'F', '+', 'T']\n\n\n\n\nIt replaced the first $T\nNow the operators are in the wrong arrangement.\n\n\\(\\times\\) before \\(+\\)"
+  },
+  {
+    "objectID": "cfgpda.html#what-to-do",
+    "href": "cfgpda.html#what-to-do",
+    "title": "9. CFG → PDA",
+    "section": "What to do?",
+    "text": "What to do?\n\nOnly push and pop to the top of the stack.\nThat said, if we didn’t have to do that, our proof would work.\n\nIf we can access below, that is random access memory (!!!)\nEquivalent to general computing\n\nTuring Machine / Church’s Lambda Calculus\nGödel’s General Recursion"
+  },
+  {
+    "objectID": "cfgpda.html#a-workaround",
+    "href": "cfgpda.html#a-workaround",
+    "title": "9. CFG → PDA",
+    "section": "A Workaround",
+    "text": "A Workaround\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\nWe needn’t need to work with the bottom of the stack.\nThat T at the top will ultimately turn into a terminal \\(a\\)\nSimply do that first.\n\nThis is easy to do nondeterministically."
+  },
+  {
+    "objectID": "cfgpda.html#reorder-substitutions",
+    "href": "cfgpda.html#reorder-substitutions",
+    "title": "9. CFG → PDA",
+    "section": "Reorder Substitutions",
+    "text": "Reorder Substitutions\n\nSimply do the leftmost/topmost operations first.\nCopy the output to the tape\nThe stack will contain no leading terminals.\n\n\n['E'],         \"\"\n['E','+','T'], \"\"\n['T','+','T'], \"\"\n['F','+','T'], \"\"\n['a','+','T'], \"\"\n['+','T'],     \"a\"\n['T'],         \"a+\""
+  },
+  {
+    "objectID": "cfgpda.html#new-strategy",
+    "href": "cfgpda.html#new-strategy",
+    "title": "9. CFG → PDA",
+    "section": "New Strategy",
+    "text": "New Strategy\n\nAggressively resolve to terminal symbols\nCopy terminals to the tape\nOnly work on the top of the stack."
+  },
+  {
+    "objectID": "cfgpda.html#theorem-7-1",
+    "href": "cfgpda.html#theorem-7-1",
+    "title": "9. CFG → PDA",
+    "section": "Theorem 7",
+    "text": "Theorem 7\n\\[\n\\forall \\text{CFL}: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]\nProof\n\nTake \\(\\Sigma\\) to be the terminals\nTake \\(\\Gamma\\) to be the terminals \\(\\cup\\) variables\nTake \\(\\delta\\) to…\n\nWrite CFL’s \\(S\\) to stack from \\(q_0\\)\nWrite stack terminals to the tape\nImplement all rules"
+  },
+  {
+    "objectID": "cfgpda.html#adjacent-results",
+    "href": "cfgpda.html#adjacent-results",
+    "title": "9. CFG → PDA",
+    "section": "Adjacent Results",
+    "text": "Adjacent Results\n\nIt is the case the PDAs may be converted to CFLs, but it is non-trivial.\n\nIt is sufficient to know it is the case.\n\nEvery regular language is a context free language.\n\nConvert to automata.\nIgnore stacks."
+  },
+  {
+    "objectID": "cfgpda.html#summary-of-results",
+    "href": "cfgpda.html#summary-of-results",
+    "title": "9. CFG → PDA",
+    "section": "Summary of Results",
+    "text": "Summary of Results\n\n\n\n\nRecognizer\nGenerator\n\n\n\n\nRegular language\n*FA\nRegular Expression\n\n\nContext Free lanuage\nPDA\nContext Free Grammar"
   }
 ]

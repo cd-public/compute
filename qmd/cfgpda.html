@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.30">
 
   <meta name="author" content="Prof.&nbsp;Calvin">
-  <title>8. Pushdown Automata</title>
+  <title>9. CFG → PDA</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -390,8 +390,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">8. Pushdown Automata</h1>
-  <p class="subtitle">23 Jan 05 PM</p>
+  <h1 class="title">9. CFG → PDA</h1>
+  <p class="subtitle">25 Jan 09 AM</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -407,209 +407,237 @@ Prof.&nbsp;Calvin
 </section>
 <section id="sketch" class="slide level2">
 <h2>Sketch</h2>
-<div>
-<ul>
-<li>Schematic View of Automata</li>
-<li>The Stack</li>
-<li>The Automaton</li>
-<li>Conversions</li>
-</ul>
-</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;S \rightarrow 0S1 \\
+    &amp;S \rightarrow R \\
+    &amp;R \rightarrow \varepsilon
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg"></p>
+</div></div>
 </section>
-<section>
-<section id="schematic-view" class="title-slide slide level1 center">
-<h1>Schematic View</h1>
-
-</section>
-<section id="overview" class="slide level2">
-<h2>Overview</h2>
+<section id="sketch-1" class="slide level2">
+<h2>Sketch</h2>
 <ul>
-<li class="fragment">We <em>abstract</em> the automata into a unit called the “Finite Control”
-<ul>
-<li class="fragment">In a *FA, this denotes the current state.</li>
-<li class="fragment">We often denote it as a box</li>
-</ul></li>
-<li class="fragment">We imagine input as coming on a tape.
-<ul>
-<li class="fragment">In practice, early devices did use tapes.</li>
-<li class="fragment">Modern devices use block reads of SSDs (same thing)</li>
-</ul></li>
+<li class="fragment">If <span class="math inline">\(A\)</span> is a CFL then some PDA recognizes <span class="math inline">\(A\)</span>.</li>
+<li class="fragment">*We will convert <span class="math inline">\(A\)</span>’s CFG to a PDA.</li>
 </ul>
 </section>
-<section id="tapes" class="slide level2">
-<h2>Tapes</h2>
-
-<img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg" class="r-stretch"></section>
-<section id="terms" class="slide level2">
-<h2>Terms</h2>
-<ul>
-<li class="fragment"><em>Finite Control</em>: Represents the finite state, or states, of an automata.</li>
-<li class="fragment"><em>Input</em>: Represents the input string to some automata.
-<ul>
-<li class="fragment">*FAs can only read in one direction - not so for all automata.</li>
-</ul></li>
-<li class="fragment">This abstraction made it easier for me to separate letters and states in my mind.</li>
-</ul>
+<section id="theorem-7" class="slide level2">
+<h2>Theorem 7</h2>
+<p><span class="math display">\[
+\forall \text{CFL}: \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = \text{CFL}
+\]</span></p>
 </section>
-<section id="new-terms" class="slide level2">
-<h2>New Terms</h2>
+<section id="on-alphabets" class="slide level2">
+<h2>On Alphabets</h2>
 <ul>
-<li class="fragment"><em>Stack</em>: Memory of the automata
-<ul>
-<li class="fragment">*FAs had no memory other than internal state - not so for all automata.</li>
-</ul></li>
-<li class="fragment"><em>Head</em>: Refer to “wherever the automata is currently pointed” as where the head of the automata is.
-<ul>
-<li class="fragment">Think, perhaps, of a vinyl player.</li>
-<li class="fragment">My first job was on Hard Disk Drives (HDDs) with a “head” which wrote/read bits from a rotating magnetic disk.</li>
-</ul></li>
-</ul>
-</section></section>
-<section>
-<section id="the-stack" class="title-slide slide level1 center">
-<h1>The Stack</h1>
-
-</section>
-<section id="the-stack-1" class="slide level2">
-<h2>The Stack</h2>
-<ul>
-<li class="fragment">PDA has <em>unlimited</em> but <em>restricted</em> memory.</li>
-<li class="fragment">It can only write certain symbols.</li>
-<li class="fragment">It can only read the most recent symbol.</li>
-<li class="fragment">Think the stack abstract data structure.</li>
+<li class="fragment"><span class="math inline">\(P\)</span> begins by placing the first variable of the CFL on the stack.</li>
+<li class="fragment">Consider <span class="math inline">\(G_2\)</span></li>
 </ul>
 <div class="fragment">
-<div id="f2616c2d" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>stack <span class="op">=</span> []</span>
-<span id="cb1-2"><a></a>stack.append(<span class="st">'a'</span>)</span>
-<span id="cb1-3"><a></a>stack.append(<span class="st">'b'</span>)</span>
-<span id="cb1-4"><a></a>stack.append(<span class="st">'a'</span>)</span>
-<span id="cb1-5"><a></a><span class="bu">print</span>(stack.pop())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>a</code></pre>
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;E \rightarrow E+T \quad | \quad  T\\
+    &amp;T \rightarrow T\times F \quad | \quad  F \\
+    &amp;F \rightarrow ( E ) \quad | \quad a
+\end{aligned}
+\]</span></p>
 </div>
-</div>
-</div>
-</section>
-<section id="intuition" class="slide level2">
-<h2>Intuition</h2>
 <ul>
-<li class="fragment">Think of an NFA</li>
-<li class="fragment">Which write/add and read/remove symbols from the stack.</li>
-<li class="fragment">There is no “peek” operation.
-<ul>
-<li class="fragment">But if can be synthesize from read+write.</li>
-</ul></li>
+<li class="fragment">Begin by placing <span class="math inline">\(E\)</span> on the stack.</li>
 </ul>
 </section>
-<section id="exercise" class="slide level2">
-<h2>Exercise</h2>
+<section id="a-note" class="slide level2">
+<h2>A Note</h2>
 <ul>
-<li class="fragment">Recognize <span class="math inline">\(D = \{ 0^k1^k | k \in \mathbb{N}\}\)</span> in Python</li>
-<li class="fragment">Read every character individually.</li>
-<li class="fragment">Only use one stack.</li>
-<li class="fragment">If you’re not sure of goals, read the solution and translate it to <code>def</code> from <code>lambda</code></li>
+<li class="fragment">Placing <span class="math inline">\(E\)</span>, a variable, on stack suggests that <span class="math inline">\(E\)</span> is part of the stack alphabet <span class="math inline">\(\Gamma\)</span>.</li>
+<li class="fragment"><span class="math inline">\(E\)</span> is necessarily not part of the input alphabet <span class="math inline">\(\Sigma\)</span></li>
+<li class="fragment">This is a good example of how (and why) these languages may differ.</li>
+<li class="fragment">We make no claims (yet) about whether the input alphabet appears on the stack (or not).</li>
 </ul>
 </section>
-<section id="solution" class="slide level2">
-<h2>Solution</h2>
-<div id="b693184f" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>q_1 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.append(<span class="st">'0'</span>), q_1(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'0'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> [stack.pop(), q_2(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb3-2"><a></a>q_2 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.pop(), q_2(s[<span class="dv">1</span>:],stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> q_n(s, stack)</span>
-<span id="cb3-3"><a></a>q_n <span class="op">=</span> <span class="kw">lambda</span> s, stack : s <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(stack) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb3-4"><a></a>q_1(<span class="st">'000111'</span>, []), q_1(<span class="st">'00111'</span>, []), q_1(<span class="st">'00011'</span>, [])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<section id="a-note-cont." class="slide level2">
+<h2>A Note, Cont.</h2>
+<div id="2d39231b" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="co"># We note we can use a stack language of {!} for an input language of {0,1}</span></span>
+<span id="cb1-2"><a></a>q_1 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.append(<span class="st">'!'</span>), q_1(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'0'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> [stack.pop(), q_2(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-3"><a></a>q_2 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.pop(), q_2(s[<span class="dv">1</span>:],stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> q_n(s, stack)</span>
+<span id="cb1-4"><a></a>q_n <span class="op">=</span> <span class="kw">lambda</span> s, stack : s <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(stack) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb1-5"><a></a>q_1(<span class="st">'000111'</span>, []), q_1(<span class="st">'00111'</span>, []), q_1(<span class="st">'00011'</span>, [])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(True, False, False)</code></pre>
 </div>
 </div>
-</section></section>
-<section>
-<section id="the-automaton" class="title-slide slide level1 center">
-<h1>The Automaton</h1>
-
 </section>
-<section id="formal-definition" class="slide level2">
-<h2>Formal Definition…</h2>
-<p>A Pushdown Automaton (PDA) is formally defined as a 6-<em>tuple</em>:</p>
+<section id="strategy" class="slide level2">
+<h2>Strategy</h2>
 <ul>
-<li class="fragment"><strong><span class="math inline">\(Q\)</span></strong>: A finite, non-empty <em>set</em> of states.</li>
-<li class="fragment"><strong><span class="math inline">\(\Sigma\)</span></strong>: A finite, non-empty <em>set</em> of input symbols called the input alphabet.</li>
-<li class="fragment"><strong><span class="math inline">\(\Gamma\)</span></strong>: A finite, non-empty <em>set</em> of stack symbols called the stack alphabet.</li>
-<li class="fragment"><strong><span class="math inline">\(\delta\)</span></strong>: The transition function, a mapping</li>
-</ul>
-</section>
-<section id="formal-definition.." class="slide level2">
-<h2>Formal Definition..</h2>
-<p>A PDA is a 6-<em>tuple</em> <span class="math inline">\((Q, \Sigma, \Gamma, \delta, \ldots)\)</span></p>
+<li class="fragment">Utilize non-determinism.</li>
+<li class="fragment">Replace the start symbol <span class="math inline">\(S\)</span>
 <ul>
-<li class="fragment"><strong><span class="math inline">\(\delta\)</span></strong>: The transition function, a mapping
-<ul>
-<li class="fragment"><span class="math inline">\(\delta : Q \times (\Sigma_{\varepsilon} \cup \Gamma_{\varepsilon}) \rightarrow \mathcal{P} (Q \times \Gamma_{\varepsilon})\)</span></li>
-<li class="fragment">Given a state, letter, and stack symbol</li>
-<li class="fragment">Get a set of states and stack symbols.</li>
-<li class="fragment"><span class="math inline">\(\delta(q, a, c) = {(r_1, d), (r_2, e)}\)</span>
-<ul>
-<li class="fragment">In state <span class="math inline">\(q\)</span>, reading <span class="math inline">\(a\)</span> on tape and <span class="math inline">\(c\)</span> on stack, either write <span class="math inline">\(d\)</span> and go to state <span class="math inline">\(r_1\)</span> or write <span class="math inline">\(e\)</span> and go to state <span class="math inline">\(r_2\)</span></li>
+<li class="fragment">Nondeterminististically, so we may assume we make the correct substitution.</li>
 </ul></li>
-</ul></li>
+<li class="fragment">Let’s follow through for a moment.</li>
+<li class="fragment">We target <span class="math inline">\(a+a\times a\)</span> with <span class="math inline">\(G_2\)</span></li>
 </ul>
 </section>
-<section id="formal-definition." class="slide level2">
-<h2>Formal Definition.</h2>
-<p>A PDA is a 6-<em>tuple</em> <span class="math inline">\((Q, \Sigma, \Gamma, \delta, q_0, F)\)</span></p>
+<section id="maintaining-the-stack" class="slide level2">
+<h2>Maintaining the Stack</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><span class="math inline">\(q_0, F\)</span> as in the *FAs.</li>
-<li class="fragment">It’s a *FA with a new alphabet that delta reads.</li>
+<li class="fragment">Goal: <span class="math inline">\(a+a\times a\)</span></li>
 </ul>
-</section>
-<section id="example" class="slide level2">
-<h2>Example</h2>
-<ul>
-<li class="fragment">Introduce reverse operation <span class="math inline">\(w^\mathcal{R}\)</span></li>
-<li class="fragment">Easiest to define with Python.</li>
-</ul>
-<div class="fragment">
-<div id="014479d7" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>superscript_r <span class="op">=</span> <span class="kw">lambda</span> w : w[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb5-2"><a></a>w <span class="op">=</span> <span class="st">"stressed"</span></span>
-<span id="cb5-3"><a></a><span class="bu">print</span>(<span class="st">'w ='</span>, w, <span class="st">'w^R ='</span>, superscript_r(w))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>w = stressed w^R = desserts</code></pre>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">Take <span class="math inline">\(B = \{ww^\mathcal{R} | w \in \{0,1\}*\}\)</span></li>
-</ul>
-<div class="fragment">
-<div class="cell" data-fig-width="300px" data-fig-height="100px" data-layout-align="default">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="300" height="100" viewbox="0.00 0.00 192.00 45.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 41)">
-<title>g</title>
-<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-41 188,-41 188,4 -4,4"></polygon>
-<!-- n -->
+<svg width="500" height="480" viewbox="0.00 0.00 278.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 274,-368 274,4 -4,4"></polygon>
+<!-- 1 -->
 <g id="node1" class="node">
-<title>n</title>
-<polygon fill="none" stroke="#ffffff" points="0,-0.5 0,-36.5 184,-36.5 184,-0.5 0,-0.5"></polygon>
-<text text-anchor="middle" x="11.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
-<polyline fill="none" stroke="#ffffff" points="23,-0.5 23,-36.5 "></polyline>
-<text text-anchor="middle" x="34.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
-<polyline fill="none" stroke="#ffffff" points="46,-0.5 46,-36.5 "></polyline>
-<text text-anchor="middle" x="57.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
-<polyline fill="none" stroke="#ffffff" points="69,-0.5 69,-36.5 "></polyline>
-<text text-anchor="middle" x="80.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
-<polyline fill="none" stroke="#ffffff" points="92,-0.5 92,-36.5 "></polyline>
-<text text-anchor="middle" x="103.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
-<polyline fill="none" stroke="#ffffff" points="115,-0.5 115,-36.5 "></polyline>
-<text text-anchor="middle" x="126.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
-<polyline fill="none" stroke="#ffffff" points="138,-0.5 138,-36.5 "></polyline>
-<text text-anchor="middle" x="149.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
-<polyline fill="none" stroke="#ffffff" points="161,-0.5 161,-36.5 "></polyline>
-<text text-anchor="middle" x="172.5" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#ffffff">0</text>
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-239.69C27,-231.8 27,-222.68 27,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-214.02 27,-204.02 23.5,-214.02 30.5,-214.02"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M151.33,-239.69C143.32,-231.02 133.96,-220.87 125.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="127.76,-208.99 118.4,-204.02 122.61,-213.74 127.76,-208.99"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M171,-239.69C171,-231.8 171,-222.68 171,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-214.02 171,-204.02 167.5,-214.02 174.5,-214.02"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="243" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M190.67,-239.69C198.68,-231.02 208.04,-220.87 216.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="219.39,-213.74 223.6,-204.02 214.24,-208.99 219.39,-213.74"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="27" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M27,-159.69C27,-151.8 27,-142.68 27,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-134.02 27,-124.02 23.5,-134.02 30.5,-134.02"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 6&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>6-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="243" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 8&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>8-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M243,-159.69C243,-151.8 243,-142.68 243,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-134.02 243,-124.02 239.5,-134.02 246.5,-134.02"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>9-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M27,-79.69C27,-71.8 27,-62.68 27,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.02 27,-44.02 23.5,-54.02 30.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- A&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>A-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
 </g>
 </g>
 </svg>
@@ -618,46 +646,326 @@ Prof.&nbsp;Calvin
 </div>
 </div>
 </div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment">Pythonic notation</li>
+<li class="fragment"><code>['E']</code></li>
+<li class="fragment"><code>['E','+','T']</code></li>
+<li class="fragment"><code>['T','+','T']</code></li>
+<li class="fragment"><code>['T','+','T']</code></li>
+<li class="fragment"><code>['T','+','T','×','F']</code></li>
+<li class="fragment"><strong>BAD/WRONG!!!</strong></li>
+</ul>
+</div></div>
+</section>
+<section id="a-stack" class="slide level2">
+<h2>A Stack</h2>
+<ul>
+<li class="fragment">A stack has <em>only</em> push and pop operations.</li>
+<li class="fragment">We can, say, pop <span class="math inline">\(E\)</span> then push <span class="math inline">\(T\)</span>
+<ul>
+<li class="fragment">Python tail pops, so <code>[::1]</code>.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<div id="d62ca0e2" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>s <span class="op">=</span> [<span class="st">'E'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-2"><a></a>s.pop()</span>
+<span id="cb3-3"><a></a>s.append(<span class="st">'T'</span>)</span>
+<span id="cb3-4"><a></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['T', '+', 'T']</code></pre>
+</div>
+</div>
 </div>
 </section>
-<section id="intuition-1" class="slide level2">
-<h2>Intuition</h2>
+<section id="a-stack-1" class="slide level2">
+<h2>A Stack</h2>
 <ul>
-<li class="fragment">Read symbol, push to stack</li>
-<li class="fragment">At halfway mark, pop off stack and read.
+<li class="fragment">Say we then pop <span class="math inline">\(T\)</span> and push <span class="math inline">\(T\times F\)</span></li>
+</ul>
+<div class="fragment">
+<div id="5d682025" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>s <span class="op">=</span> [<span class="st">'T'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-2"><a></a>s.pop()</span>
+<span id="cb5-3"><a></a>[s.append(a) <span class="cf">for</span> a <span class="kw">in</span> [<span class="st">'T'</span>,<span class="st">'×'</span>,<span class="st">'F'</span>][::<span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb5-4"><a></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['T', '×', 'F', '+', 'T']</code></pre>
+</div>
+</div>
+</div>
 <ul>
-<li class="fragment">If same, continue</li>
-<li class="fragment">If different, reject</li>
-</ul></li>
-<li class="fragment">How do we know we are the middle?
+<li class="fragment">It replaced the first $T</li>
+<li class="fragment">Now the operators are in the wrong arrangement.
 <ul>
-<li class="fragment">Nondeterminism - it doesn’t matter!</li>
-<li class="fragment">Each nondeterministic branch gets its own stack!</li>
+<li class="fragment"><span class="math inline">\(\times\)</span> before <span class="math inline">\(+\)</span></li>
 </ul></li>
 </ul>
 </section>
-<section id="empty-stack" class="slide level2">
-<h2>Empty stack</h2>
+<section id="what-to-do" class="slide level2">
+<h2>What to do?</h2>
 <ul>
-<li class="fragment">Wait… how do we see if the stack is empty.
+<li class="fragment">Only push and pop to the top of the stack.</li>
+<li class="fragment">That said, if we didn’t have to do that, our proof would work.
 <ul>
-<li class="fragment">Easy.</li>
-<li class="fragment">Invent a novel symbol.</li>
-<li class="fragment">Necessarily write it in the first state.
+<li class="fragment">If we can access below, that is random access memory (!!!)</li>
+<li class="fragment">Equivalent to general computing
 <ul>
-<li class="fragment">Can simply add a new state, transition, as needed.</li>
+<li class="fragment">Turing Machine / Church’s Lambda Calculus</li>
+<li class="fragment">Gödel’s General Recursion</li>
 </ul></li>
-<li class="fragment">These simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results.</li>
-<li class="fragment">See also: Transitions along empty strings.</li>
 </ul></li>
 </ul>
 </section>
-<section id="exercise-1" class="slide level2">
-<h2>Exercise</h2>
+<section id="a-workaround" class="slide level2">
+<h2>A Workaround</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 278.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 274,-368 274,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-239.69C27,-231.8 27,-222.68 27,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-214.02 27,-204.02 23.5,-214.02 30.5,-214.02"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M151.33,-239.69C143.32,-231.02 133.96,-220.87 125.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="127.76,-208.99 118.4,-204.02 122.61,-213.74 127.76,-208.99"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M171,-239.69C171,-231.8 171,-222.68 171,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-214.02 171,-204.02 167.5,-214.02 174.5,-214.02"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="243" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M190.67,-239.69C198.68,-231.02 208.04,-220.87 216.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="219.39,-213.74 223.6,-204.02 214.24,-208.99 219.39,-213.74"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="27" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M27,-159.69C27,-151.8 27,-142.68 27,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-134.02 27,-124.02 23.5,-134.02 30.5,-134.02"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 6&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>6-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="243" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 8&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>8-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M243,-159.69C243,-151.8 243,-142.68 243,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-134.02 243,-124.02 239.5,-134.02 246.5,-134.02"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>9-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M27,-79.69C27,-71.8 27,-62.68 27,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.02 27,-44.02 23.5,-54.02 30.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- A&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>A-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment">Accept <span class="math inline">\(D\)</span> in Python.</li>
+<li class="fragment">We needn’t need to work with the bottom of the stack.</li>
+<li class="fragment">That <code>T</code> at the top will ultimately turn into a terminal <span class="math inline">\(a\)</span></li>
+<li class="fragment">Simply do that first.
+<ul>
+<li class="fragment">This is easy to do nondeterministically.</li>
+</ul></li>
 </ul>
-</section></section>
+</div></div>
+</section>
+<section id="reorder-substitutions" class="slide level2">
+<h2>Reorder Substitutions</h2>
+<ul>
+<li class="fragment">Simply do the leftmost/topmost operations first.</li>
+<li class="fragment">Copy the output to the tape</li>
+<li class="fragment">The stack will contain no leading terminals.</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>[<span class="st">'E'</span>],         <span class="st">""</span></span>
+<span id="cb7-2"><a></a>[<span class="st">'E'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-3"><a></a>[<span class="st">'T'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-4"><a></a>[<span class="st">'F'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-5"><a></a>[<span class="st">'a'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-6"><a></a>[<span class="st">'+'</span>,<span class="st">'T'</span>],     <span class="st">"a"</span></span>
+<span id="cb7-7"><a></a>[<span class="st">'T'</span>],         <span class="st">"a+"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="new-strategy" class="slide level2">
+<h2>New Strategy</h2>
+<ul>
+<li class="fragment">Aggressively resolve to terminal symbols</li>
+<li class="fragment">Copy terminals to the tape</li>
+<li class="fragment">Only work on the top of the stack.</li>
+</ul>
+</section>
+<section id="theorem-7-1" class="slide level2">
+<h2>Theorem 7</h2>
+<p><span class="math display">\[
+\forall \text{CFL}: \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = \text{CFL}
+\]</span></p>
+<p><em>Proof</em></p>
+<ul>
+<li class="fragment">Take <span class="math inline">\(\Sigma\)</span> to be the terminals</li>
+<li class="fragment">Take <span class="math inline">\(\Gamma\)</span> to be the terminals <span class="math inline">\(\cup\)</span> variables</li>
+<li class="fragment">Take <span class="math inline">\(\delta\)</span> to…
+<ul>
+<li class="fragment">Write CFL’s <span class="math inline">\(S\)</span> to stack from <span class="math inline">\(q_0\)</span></li>
+<li class="fragment">Write stack terminals to the tape</li>
+<li class="fragment">Implement all rules</li>
+</ul></li>
+</ul>
+</section>
+<section id="adjacent-results" class="slide level2">
+<h2>Adjacent Results</h2>
+<ul>
+<li class="fragment">It is the case the PDAs may be converted to CFLs, but it is non-trivial.
+<ul>
+<li class="fragment">It is sufficient to know it is the case.</li>
+</ul></li>
+<li class="fragment">Every regular language is a context free language.
+<ul>
+<li class="fragment">Convert to automata.</li>
+<li class="fragment">Ignore stacks.</li>
+</ul></li>
+</ul>
+</section>
+<section id="summary-of-results" class="slide level2">
+<h2>Summary of Results</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Recognizer</th>
+<th>Generator</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Regular language</strong></td>
+<td>*FA</td>
+<td>Regular Expression</td>
+</tr>
+<tr class="even">
+<td><strong>Context Free lanuage</strong></td>
+<td>PDA</td>
+<td>Context Free Grammar</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="end-of-day" class="title-slide slide level1 center">
 <h1>End of Day :)</h1>
 <ul>
