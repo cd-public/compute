@@ -417,7 +417,26 @@ plt
 
 ::::
 
+## FAQ 0
 
-# End of Day :)
+- Why do we restrict ourselves to a stack?
+  - The PDA happens to be equivalent to CFG when using a stack.
+  - We like automata as many of the proofs are easier with automata.
 
-- Good work!
+
+## FAQ 1
+
+- Why use "weaker" models without e.g. random access memory.
+  - It is possible to prove properties of *FAs/PDAs which cannot be proved of other models.
+  - *FA/CFG are quite powerful and capture many applications.
+
+
+## FAQ 2
+
+- Do we need nondeterminism?
+  - Nondeterministic PDA and deterministic PDA are not equivalent.
+  - No deterministic PDA recognizes $B = \{ww^\mathcal{R} | w \in \{0,1\}*\}$
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

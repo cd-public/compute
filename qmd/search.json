@@ -1397,7 +1397,7 @@
     "href": "pda.html#empty-stack",
     "title": "8. Pushdown Automata",
     "section": "Empty stack",
-    "text": "Empty stack\n\nWait… how do we see if the stack is empty.\n\nEasy.\nInvent a novel symbol.\nNecessarily write it in the first state.\n\nCan simply add a new state, transition, as needed.\n\nThese simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results.\nSee also: Transitions along empty strings."
+    "text": "Empty stack\n\nWait… how do we see if the stack is empty.\n\nEasy.\nInvent a novel symbol.\nNecessarily write it in the first state.\n\nCan simply add a new state, transition, as needed.\n\nThese simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results."
   },
   {
     "objectID": "pda.html#exercise-1",
@@ -1790,5 +1790,404 @@
     "title": "9. CFG → PDA",
     "section": "Code Reveal",
     "text": "Code Reveal\n\n\n\n\n\n\n\n\n\n\n\n\nimport matplotlib.pyplot as plt\nfrom matplotlib_venn import venn2\n\n\n\nv = venn2(subsets = (4, 0, 1), set_labels=(\"PDA\", \"*FA\",))\n\nfor idx, subset in enumerate(v.subset_labels):\n    v.subset_labels[idx].set_visible(False)\n\nplt"
+  },
+  {
+    "objectID": "cfgpda.html#faq",
+    "href": "cfgpda.html#faq",
+    "title": "9. CFG → PDA",
+    "section": "FAQ",
+    "text": "FAQ\n\nWhy do we restrict ourselves to a stack?\n\nThe PDA happens to be equivalent to CFG when using a stack.\nWe like automata as many of the proofs are easier with automata.\n\nWhy use “weaker” models without e.g. random access memory.\n\nIt is possible to prove properties of *FAs/PDAs which cannot be proved of other models.\n*FA/CFG are quite powerful and capture many applications.\n\nDo we need nondeterminism?\n\nNondeterministic PDA and deterministic PDA are not equivalent."
+  },
+  {
+    "objectID": "cfgpda.html#faq-0",
+    "href": "cfgpda.html#faq-0",
+    "title": "9. CFG → PDA",
+    "section": "FAQ 0",
+    "text": "FAQ 0\n\nWhy do we restrict ourselves to a stack?\n\nThe PDA happens to be equivalent to CFG when using a stack.\nWe like automata as many of the proofs are easier with automata."
+  },
+  {
+    "objectID": "cfgpda.html#faq-1",
+    "href": "cfgpda.html#faq-1",
+    "title": "9. CFG → PDA",
+    "section": "FAQ 1",
+    "text": "FAQ 1\n\nWhy use “weaker” models without e.g. random access memory.\n\nIt is possible to prove properties of *FAs/PDAs which cannot be proved of other models.\n*FA/CFG are quite powerful and capture many applications."
+  },
+  {
+    "objectID": "cfgpda.html#faq-2",
+    "href": "cfgpda.html#faq-2",
+    "title": "9. CFG → PDA",
+    "section": "FAQ 2",
+    "text": "FAQ 2\n\nDo we need nondeterminism?\n\nNondeterministic PDA and deterministic PDA are not equivalent.\nNo deterministic PDA recognizes \\(B = \\{ww^\\mathcal{R} | w \\in \\{0,1\\}*\\}\\)"
+  },
+  {
+    "objectID": "cfpump.html#sketch",
+    "href": "cfpump.html#sketch",
+    "title": "10. Context Free Pumping",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nCF Pumping Lemma\n\nStatement\nExamples"
+  },
+  {
+    "objectID": "cfpump.html#avoid-this-trap",
+    "href": "cfpump.html#avoid-this-trap",
+    "title": "10. Context Free Pumping",
+    "section": "Avoid this trap",
+    "text": "Avoid this trap\n\nSuppose we wish to prove a language is not a context free language\nWe must prove there is no CFG/PDA that recognizes the language.\nIt may be tempting to conclude:\n\nI thought about it really hard.\nI could find no PDA/CFG\nTherefore the language is not a context free language."
+  },
+  {
+    "objectID": "cfpump.html#example",
+    "href": "cfpump.html#example",
+    "title": "10. Context Free Pumping",
+    "section": "Example",
+    "text": "Example\n\nTake \\(\\Sigma = \\{0,1,2\\}\\)\nTake \\(B = \\{0^k1^k2^k| k \\in \\mathbb{N}\\}\\)\nThis language is not a context free language.\n\nIf you had a stack, match 0‘s with 1’\nHow to deal with 2’s?\nNot a proof, but an intuition."
+  },
+  {
+    "objectID": "cfpump.html#statement-of-lemma",
+    "href": "cfpump.html#statement-of-lemma",
+    "title": "10. Context Free Pumping",
+    "section": "Statement of Lemma",
+    "text": "Statement of Lemma\n\\[\n\\begin{aligned}\n&\\forall A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\] - That is, \\(\\{xz, xyz, xyyz\\} \\in A\\)\n\nWe “pump up” the number of occurances of y"
+  },
+  {
+    "objectID": "cfpump.html#definitions",
+    "href": "cfpump.html#definitions",
+    "title": "10. Context Free Pumping",
+    "section": "Definitions",
+    "text": "Definitions\n\nTake \\(M | L(M) = A\\)\nTake \\(p = |M| = |Q|\\)\nTake \\(s \\in A = xyz : |s| \\geq p\\)"
+  },
+  {
+    "objectID": "cfpump.html#sketch-of-proof",
+    "href": "cfpump.html#sketch-of-proof",
+    "title": "10. Context Free Pumping",
+    "section": "Sketch of Proof",
+    "text": "Sketch of Proof\n\nWe imagine an arbitrarily long string.\n\nWe’ll be precise latter.\n\nThe parse tree of a long string is very high.\n\nRecall parse trees:\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nE\n\n\n\n1-&gt;4\n\n\n\n\n\n5\na\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nE\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nE\n\n\n\n4-&gt;8"
+  },
+  {
+    "objectID": "cfpump.html#find-xyz",
+    "href": "cfpump.html#find-xyz",
+    "title": "10. Context Free Pumping",
+    "section": "Find x,y,z",
+    "text": "Find x,y,z\n\nLet \\(x = (a_o,\\ldots,a_i)\\)\n\n\\(M\\) is in state \\(s_*j*\\) after reading \\(x\\)\n\nLet \\(y = (a_i,\\ldots,a_{j-1})\\)\n\n\\(M\\) is in state \\(s_j\\) after reading \\(y\\) when beginning in \\(s_i\\)\n\\(s_i = s_j\\)\n\nLet \\(z = (a_{j-1},\\ldots,a_p)\\)\n\n\\(M\\) accepts after reading \\(z\\) when beginning in \\(s_j\\)"
+  },
+  {
+    "objectID": "cfpump.html#pump-on-y",
+    "href": "cfpump.html#pump-on-y",
+    "title": "10. Context Free Pumping",
+    "section": "Pump on \\(y\\)",
+    "text": "Pump on \\(y\\)\n\nWe note\n\n\\(xz\\) is accepted by \\((q_0,s_1,\\ldots,s_i,s_{j+1},\\ldots,s_p)\\)\n\nDenote as \\([0,i][j+1,p]\\)\n\n\\(xyz\\) is accepted by \\((q_0,s_1,\\ldots,s_p)\\)\n\nDenote as \\([0,p] = [0,i][i+1,j][j+1,p]\\)\n\n\\(xyyz\\) is accepted by \\((q_0,s_1,\\ldots,s_i+1,\\ldots,s_{j-1},s_i\\ldots,s_j, s_{j+1},\\ldots, s_p)\\)\n\nDenote as \\([0,i][i+1,j][i+1,j][j+1,p]\\)\n\n\\(xy^nz\\) is accepted by \\([0,i][i+1,j]^n[j+1,p]\\)"
+  },
+  {
+    "objectID": "cfpump.html#python",
+    "href": "cfpump.html#python",
+    "title": "10. Context Free Pumping",
+    "section": "Python",
+    "text": "Python\n# assume S as a list of states.\nS : List[states]\nx : str\ny : str\nz : str\nassert(states(x + z)         == S[:i]+S[j:]) \nassert(states(x + y + z)     == S  == S[:i]+S[i:j]+S[j:])\nassert(states(x + y + y + z) == S[:i] + S[i:j] + S[i:j] + S[j:])\nassert(states(x + y * 2 + z) == S[:i] + S[i:j] * 2      + S[j:])\n# This can't run - it's infinite\nassert(all((states(x+y*n+z) == A[:i]+A[i:j]*n+A[j:]) for n in count()))\n\nMuch easier with Pythonic slices."
+  },
+  {
+    "objectID": "cfpump.html#graphically",
+    "href": "cfpump.html#graphically",
+    "title": "10. Context Free Pumping",
+    "section": "Graphically",
+    "text": "Graphically\ndigraph G {\n    rankdir=LR;\n    node [shape=plaintext];\n    S -&gt; u;\n    S -&gt; v;\n    S -&gt; x;\n    S -&gt; y;\n    S -&gt; z;\n    E -&gt; R;\n    E -&gt; R;\n    R -&gt; R;\n}"
+  },
+  {
+    "objectID": "cfpump.html#show-s_is_j",
+    "href": "cfpump.html#show-s_is_j",
+    "title": "10. Context Free Pumping",
+    "section": "Show \\(s_i=s_j\\)",
+    "text": "Show \\(s_i=s_j\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\n?\n\n\n\nqi-&gt;qi\n\n\n?\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\n?"
+  },
+  {
+    "objectID": "cfpump.html#label-edges",
+    "href": "cfpump.html#label-edges",
+    "title": "10. Context Free Pumping",
+    "section": "Label Edges",
+    "text": "Label Edges\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz\n\n\n\n\n\n\n\n\n\nThis is valid GNFA that reduces to a DFA."
+  },
+  {
+    "objectID": "cfpump.html#pumping-lemma-1",
+    "href": "cfpump.html#pumping-lemma-1",
+    "title": "10. Context Free Pumping",
+    "section": "Pumping Lemma",
+    "text": "Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\]\nProof\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz"
+  },
+  {
+    "objectID": "cfpump.html#easy-to-read",
+    "href": "cfpump.html#easy-to-read",
+    "title": "10. Context Free Pumping",
+    "section": "Easy to read",
+    "text": "Easy to read\n\n\\(s \\in A \\land |s| &gt; p\\) requires\n\n\\(xy^nz \\in A\\)\n\\(|y| &gt; 0\\)\n\\(|xy| \\leq p\\)"
+  },
+  {
+    "objectID": "cfpump.html#irregular-0",
+    "href": "cfpump.html#irregular-0",
+    "title": "10. Context Free Pumping",
+    "section": "Irregular 0",
+    "text": "Irregular 0\n\nTake \\(D = \\{ 0^k1^k | k \\in \\mathbb{N}\\}\\)\nShow \\(D\\) is not regular.\nWe proceed by contradiction.\n\nAssume \\(D\\) is regular.\nApply the pumping lemma.\nDerive a contradiction."
+  },
+  {
+    "objectID": "cfpump.html#strategy",
+    "href": "cfpump.html#strategy",
+    "title": "10. Context Free Pumping",
+    "section": "Strategy",
+    "text": "Strategy\n\nWe take string \\(s = 0^p1^p\\)\nPumping lemma requires \\(\\exists xy : |xy| \\leq p\\)\n\\(\\forall xy \\not\\exists 1 \\in xy\\)\nSo \\(xz = 0^{p-|y|}1^p\\)\nPumping lemma requires \\(|y| &gt; 0\\)\n\\(D\\) requires \\(p - |y| = p\\)\nContradiction \\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "cfpump.html#on-graphics",
+    "href": "cfpump.html#on-graphics",
+    "title": "10. Context Free Pumping",
+    "section": "On Graphics",
+    "text": "On Graphics\n\nWe note we cannot show this graphically.\nWe have proven no DFA accepts \\(D\\)\nHow could we draw a DFA!\nThis is also why we can’t really on graphics!"
+  },
+  {
+    "objectID": "cfpump.html#irregular-1",
+    "href": "cfpump.html#irregular-1",
+    "title": "10. Context Free Pumping",
+    "section": "Irregular 1",
+    "text": "Irregular 1\n\nTake \\(F = \\{ ww | w\\ \\in \\Sigma*\\}\\)\nShow \\(F\\) is not regular.\nWe proceed by contradiction.\n\nAssume \\(F\\) is regular.\nApply the pumping lemma.\nDerive a contradiction."
+  },
+  {
+    "objectID": "cfpump.html#avoid-this",
+    "href": "cfpump.html#avoid-this",
+    "title": "10. Context Free Pumping",
+    "section": "Avoid this",
+    "text": "Avoid this\n\nSay we chose \\(0^p0^p\\)\nWe take, say, \\(x = y = 0^(p/2 - 1)\\)\nWell we actually can pump \\(y\\) if \\(|y|\\) is odd.\nHave to be careful!"
+  },
+  {
+    "objectID": "cfpump.html#strategy-1",
+    "href": "cfpump.html#strategy-1",
+    "title": "10. Context Free Pumping",
+    "section": "Strategy",
+    "text": "Strategy\n\nWe take string $s = \\(0^p10^p1\\)\nPumping lemma requires \\(\\exists xy : |xy| \\leq p\\)\n\\(\\forall xy \\not\\exists 1 \\in x\\)\nSo \\(xz = 0^{p-|y|}10^p1\\)\nPumping lemma requires \\(|y| &gt; 0\\)\n\\(F\\) requires \\(p - |y| = p\\)\nContradiction \\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "cfpump.html#combined-tactics",
+    "href": "cfpump.html#combined-tactics",
+    "title": "10. Context Free Pumping",
+    "section": "Combined Tactics",
+    "text": "Combined Tactics\n\nWe have used the assumptions of the pumping lemma.\nWe have proven other results!\nWe now explore a result using closure properties (Theorems 1-4)"
+  },
+  {
+    "objectID": "cfpump.html#irregular-2",
+    "href": "cfpump.html#irregular-2",
+    "title": "10. Context Free Pumping",
+    "section": "Irregular 2",
+    "text": "Irregular 2\n\nRecall \\(B\\)\n\n“…equal numbers of 0s and 1s”\n\nAssume by contradiction \\(B\\) is regular.\nSince \\(B\\) is regular, \\(B \\cap 0*1*\\) is regular\n\nClosure under intersection\n\nWe note that \\(D = B \\cap 0*1*\\)\n\n\\(D\\) is irregular!\n\n\\(B\\) is irregular.\n\\(\\blacksquare\\)"
+  },
+  {
+    "objectID": "cfpump.html#regular-pumping-lemma",
+    "href": "cfpump.html#regular-pumping-lemma",
+    "title": "10. Context Free Pumping",
+    "section": "Regular Pumping Lemma",
+    "text": "Regular Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall A:\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\]\n\nThat is, \\(\\{xz, xyz, xyyz\\} \\in A\\)\nWe “pump up” the number of occurances of y"
+  },
+  {
+    "objectID": "cfpump.html#context-free-pumping-lemma",
+    "href": "cfpump.html#context-free-pumping-lemma",
+    "title": "10. Context Free Pumping",
+    "section": "Context Free Pumping Lemma",
+    "text": "Context Free Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall \\text{ CFL } A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists s = uvxyz \\in A : |uvxyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : uv^ixy^iz \\in A \\land \\\\\n&|vy| &gt; 0 \\land \\\\\n&|vxy| \\leq p\n\\end{aligned}\n\\]\n\nThat is, \\(\\{uxz, uvxyz, uvvxyyz\\} \\in A\\)\nWe “pump up” occurances of v and y"
+  },
+  {
+    "objectID": "cfpump.html#checkin",
+    "href": "cfpump.html#checkin",
+    "title": "10. Context Free Pumping",
+    "section": "Checkin",
+    "text": "Checkin\n\nCan a string of length 1 million be made my a parse tree of height 1?\n\nHow about all multiple of 1 million?\n\nWe’ll quantify this shortly.\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0^{10^6} \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "cfpump.html#given-a-tall-tree",
+    "href": "cfpump.html#given-a-tall-tree",
+    "title": "10. Context Free Pumping",
+    "section": "Given a tall tree",
+    "text": "Given a tall tree\n\nLet’s assume the tall tree\nEach step in the tree involves variable substitution\nSo as soon as height is greater than the size of set of variables, we necessarily repeat some variable."
+  },
+  {
+    "objectID": "cfpump.html#graphically-1",
+    "href": "cfpump.html#graphically-1",
+    "title": "10. Context Free Pumping",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\n?"
+  },
+  {
+    "objectID": "cfpump.html#intro",
+    "href": "cfpump.html#intro",
+    "title": "10. Context Free Pumping",
+    "section": "Intro",
+    "text": "Intro\nHere is a TikZ picture\n\n\\begin{tikzpicture}\n \\draw (0,0) circle (1cm);\n % \\draw (0,0) circle (2cm);\n\\end{tikzpicture}"
+  },
+  {
+    "objectID": "cfpump.html#tikz",
+    "href": "cfpump.html#tikz",
+    "title": "10. Context Free Pumping",
+    "section": "Tikz",
+    "text": "Tikz\n\nI’m going to use a new tool to show the next bit: Tikz!\n\nPart of LaTeX\nSeems to run well inside of R\n\nCredit LaTeX Graphics using TikZ\nCredit JBGruber"
+  },
+  {
+    "objectID": "cfpump.html#example-1",
+    "href": "cfpump.html#example-1",
+    "title": "10. Context Free Pumping",
+    "section": "Example",
+    "text": "Example\n\n\\begin{tikzpicture}\n \\draw (0,0) circle (1cm);\n\\end{tikzpicture}"
+  },
+  {
+    "objectID": "cfpump.html#proof-by-picture",
+    "href": "cfpump.html#proof-by-picture",
+    "title": "10. Context Free Pumping",
+    "section": "Proof by Picture",
+    "text": "Proof by Picture"
+  },
+  {
+    "objectID": "cfpump.html#s-is-long",
+    "href": "cfpump.html#s-is-long",
+    "title": "10. Context Free Pumping",
+    "section": "\\(s\\) is long",
+    "text": "\\(s\\) is long"
+  },
+  {
+    "objectID": "cfpump.html#parse-tree",
+    "href": "cfpump.html#parse-tree",
+    "title": "10. Context Free Pumping",
+    "section": "Parse Tree",
+    "text": "Parse Tree"
+  },
+  {
+    "objectID": "cfpump.html#begin-with-e",
+    "href": "cfpump.html#begin-with-e",
+    "title": "10. Context Free Pumping",
+    "section": "Begin with \\(E\\)",
+    "text": "Begin with \\(E\\)"
+  },
+  {
+    "objectID": "cfpump.html#tree-is-tall",
+    "href": "cfpump.html#tree-is-tall",
+    "title": "10. Context Free Pumping",
+    "section": "Tree is tall",
+    "text": "Tree is tall"
+  },
+  {
+    "objectID": "cfpump.html#take-a-derivation",
+    "href": "cfpump.html#take-a-derivation",
+    "title": "10. Context Free Pumping",
+    "section": "Take a Derivation",
+    "text": "Take a Derivation"
+  },
+  {
+    "objectID": "cfpump.html#necessary-repition",
+    "href": "cfpump.html#necessary-repition",
+    "title": "10. Context Free Pumping",
+    "section": "Necessary Repition",
+    "text": "Necessary Repition"
+  },
+  {
+    "objectID": "cfpump.html#necessary-repetition",
+    "href": "cfpump.html#necessary-repetition",
+    "title": "10. Context Free Pumping",
+    "section": "Necessary Repetition",
+    "text": "Necessary Repetition"
+  },
+  {
+    "objectID": "cfpump.html#r-to-s",
+    "href": "cfpump.html#r-to-s",
+    "title": "10. Context Free Pumping",
+    "section": "\\(R\\) to \\(s\\)",
+    "text": "\\(R\\) to \\(s\\)"
+  },
+  {
+    "objectID": "cfpump.html#s-to-uvxyz",
+    "href": "cfpump.html#s-to-uvxyz",
+    "title": "10. Context Free Pumping",
+    "section": "\\(s\\) to \\(uvxyz\\)",
+    "text": "\\(s\\) to \\(uvxyz\\)"
+  },
+  {
+    "objectID": "cfpump.html#s-to-uvvxyyz",
+    "href": "cfpump.html#s-to-uvvxyyz",
+    "title": "10. Context Free Pumping",
+    "section": "\\(s\\) to \\(uvvxyyz\\)",
+    "text": "\\(s\\) to \\(uvvxyyz\\)"
+  },
+  {
+    "objectID": "cfpump.html#display-the-lowest-r",
+    "href": "cfpump.html#display-the-lowest-r",
+    "title": "10. Context Free Pumping",
+    "section": "Display the lowest \\(R\\)…",
+    "text": "Display the lowest \\(R\\)…"
+  },
+  {
+    "objectID": "cfpump.html#display-the-lowest-r-1",
+    "href": "cfpump.html#display-the-lowest-r-1",
+    "title": "10. Context Free Pumping",
+    "section": "Display the lowest \\(R\\)…",
+    "text": "Display the lowest \\(R\\)…"
+  },
+  {
+    "objectID": "cfpump.html#with-the-higher-r",
+    "href": "cfpump.html#with-the-higher-r",
+    "title": "10. Context Free Pumping",
+    "section": "With the higher \\(R\\)…",
+    "text": "With the higher \\(R\\)…"
+  },
+  {
+    "objectID": "cfpump.html#side-by-side",
+    "href": "cfpump.html#side-by-side",
+    "title": "10. Context Free Pumping",
+    "section": "Side by side",
+    "text": "Side by side\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the left we have \\(s = uvxyz\\)\nOn the right we have \\(s = uvvxyz = uv^2xy^2z\\)\nProcess is repeatable."
+  },
+  {
+    "objectID": "cfpump.html#side-by-side-1",
+    "href": "cfpump.html#side-by-side-1",
+    "title": "10. Context Free Pumping",
+    "section": "Side by side",
+    "text": "Side by side\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the left we have \\(s = uvxyz\\)\nOn the right we have \\(s = uvvxyz = uv^2xy^2z\\)\nProcess is repeatable."
+  },
+  {
+    "objectID": "cfpump.html#deskew",
+    "href": "cfpump.html#deskew",
+    "title": "10. Context Free Pumping",
+    "section": "Deskew",
+    "text": "Deskew"
+  },
+  {
+    "objectID": "cfpump.html#code-reveal",
+    "href": "cfpump.html#code-reveal",
+    "title": "10. Context Free Pumping",
+    "section": "Code Reveal",
+    "text": "Code Reveal\n\n\n\\begin{tikzpicture}\n\\fill[darkgray!40!black] (0,0) rectangle (10,7);\n\\draw[white] (2,2) -- node[below,cyan] {u} ++(1,0)  -- node[below,cyan] {v} ++(1,0) ;\n\\draw[white] (4,2) -- node[below,cyan] {x} ++(2,0);\n\\draw[white] (6,2) -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1,0);\n\n\\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0) ;\n\n\\draw[white] (5,4.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,3.5) -- node[below,cyan] {R} ++(0,0) ;\n\n\\draw[white] (2,2) -- (5,5) ;\n\\draw[white] (5,5) -- (8,2) ;\n\n\\draw[white] (3,2) -- (5,4) ;\n\\draw[white] (5,4) -- (7,2) ;\n\n\\draw[white] (4,2) -- (5,3) ;\n\\draw[white] (5,3) -- (6,2) ;\n\n\\end{tikzpicture}\n\n\\begin{tikzpicture}\n\\fill[darkgray!40!black] (0,0) rectangle (10,7);\n\\draw[white] (2,2) -- node[below,cyan] {u} ++(1,0)  -- node[below,cyan] {v} ++(1,0) ;\n\\draw[white] (6,2) -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1,0);\n\n\\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0) ;\n\n\\draw[white] (5,4.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,3.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,2.5) -- node[below,cyan] {R} ++(0,0) ;\n\n\\draw[white] (2,2) -- (5,5) ;\n\\draw[white] (5,5) -- (8,2) ;\n\n\\draw[white] (3,2) -- (5,4) ;\n\\draw[white] (5,4) -- (7,2) ;\n\n\\draw[white] (3,1) -- (5,3) ;\n\\draw[white] (5,3) -- (7,1) ;\n\n\\draw[white] (4,1) -- (5,2) ;\n\\draw[white] (5,2) -- (6,1) ;\n\n\\draw[white] (3,1) -- node[below,cyan] {v} ++(1,0) -- node[below,cyan] {x} ++(2,0) -- node[below,cyan] {y} ++(1,0) ;\n\n\\end{tikzpicture}"
+  },
+  {
+    "objectID": "cfpump.html#uxz",
+    "href": "cfpump.html#uxz",
+    "title": "10. Context Free Pumping",
+    "section": "\\(uxz\\)",
+    "text": "\\(uxz\\)"
+  },
+  {
+    "objectID": "cfpump.html#context-free-pumping-lemma-1",
+    "href": "cfpump.html#context-free-pumping-lemma-1",
+    "title": "10. Context Free Pumping",
+    "section": "Context Free Pumping Lemma",
+    "text": "Context Free Pumping Lemma\n\n\n\\[\n\\begin{aligned}\n&\\forall \\text{ CFL } A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists s = uvxyz \\in A : |uvxyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : uv^ixy^iz \\in A \\land \\\\\n&|vy| &gt; 0 \\land \\\\\n&|vxy| \\leq p\n\\end{aligned}\n\\]\n\nProof"
+  },
+  {
+    "objectID": "cfpump.html#details",
+    "href": "cfpump.html#details",
+    "title": "10. Context Free Pumping",
+    "section": "Details",
+    "text": "Details\n\nTake \\(b\\) maximum branch size\nTake \\(h\\) height parse tree\nNeed \\(|s| &lt; b^h\\)\nLet \\(p = b^{|V|}\\)\n\n\\(V\\) is the set of variables."
+  },
+  {
+    "objectID": "cfpump.html#all-conditions",
+    "href": "cfpump.html#all-conditions",
+    "title": "10. Context Free Pumping",
+    "section": "All conditions",
+    "text": "All conditions\n\n\\(iv^ixy^iz \\in A \\forall i \\in \\mathbb{N}\\)\n\nCut and paste\n\n\\(vy \\neq \\varepsilon\\)\n\nTake smallest possible tree.\n\n\\(|vxy| \\leq p\\)\n\nPick lowest \\(R\\)"
+  },
+  {
+    "objectID": "cfpump.html#example-2",
+    "href": "cfpump.html#example-2",
+    "title": "10. Context Free Pumping",
+    "section": "Example",
+    "text": "Example\n\nTake \\(B = \\{0^k1^k2^k|k\\in\\mathbb{N}\\}\\)\n\nCan’t divide into 5 parts\nCan’t pump anything\nNot in CFL"
   }
 ]

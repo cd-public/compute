@@ -196,7 +196,6 @@ digraph g {
   - Necessarily write it in the first state.
     - Can simply add a new state, transition, as needed.
   - These simplifying assumptions are useful convenience that doesn't adversely impact rigor or change results.
-  - See also: Transitions along empty strings.
 
 ## Exercise
 
