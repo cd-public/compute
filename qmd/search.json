@@ -1,5 +1,397 @@
 [
   {
+    "objectID": "variants.html#sketch",
+    "href": "variants.html#sketch",
+    "title": "11. Turing Machines",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nTuring Machines\n\nRehash\nMulti-tape\nNon-deterministic"
+  },
+  {
+    "objectID": "variants.html#questions",
+    "href": "variants.html#questions",
+    "title": "11. Turing Machines",
+    "section": "Questions",
+    "text": "Questions\n\nWhy use this model?\n\nAll models equivalent in power\nHerding toward TM by people writing proofs\nSeem to be easiest for most people"
+  },
+  {
+    "objectID": "variants.html#motivation",
+    "href": "variants.html#motivation",
+    "title": "11. Turing Machines",
+    "section": "Motivation",
+    "text": "Motivation\n\nPDA had a stack, why can’t TMs write two places!\nWe already have a place TMs can write!\nI want my TM to have multiple tapes!\nMy device has multiple SSD/HDDs."
+  },
+  {
+    "objectID": "variants.html#minimal-model",
+    "href": "variants.html#minimal-model",
+    "title": "11. Turing Machines",
+    "section": "Minimal model",
+    "text": "Minimal model\n\nTake a TM\nAdd any number \\(n\\) of “work tapes”\n“work tapes” are intially blank.\nTM can read write to any tape,\nTM maintains its head position on all tapes."
+  },
+  {
+    "objectID": "variants.html#theorem",
+    "href": "variants.html#theorem",
+    "title": "11. Turing Machines",
+    "section": "Theorem",
+    "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some multi-tape TM recognizes \\(A\\)\nIt is trivial for a multi-tape machine to emulate a single tape machine.\n\nLeave all work tapes blank with no head movement."
+  },
+  {
+    "objectID": "variants.html#theorem-1",
+    "href": "variants.html#theorem-1",
+    "title": "11. Turing Machines",
+    "section": "Theorem",
+    "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some multi-tape TM recognizes \\(A\\)\nWe will show we can convert multi-tape to single tape."
+  },
+  {
+    "objectID": "variants.html#statement",
+    "href": "variants.html#statement",
+    "title": "11. Turing Machines",
+    "section": "Statement",
+    "text": "Statement\n\n\\(S\\) single tape, \\(M\\) multi-tape\n\\(S\\) simulates \\(M\\) by storing contents of multiple tapes in blocks.\n\\(S\\) introduces novel “tape break” symbol.\n\nLike EOF\n\n\\(S\\) introduces a novel “head here” symbol"
+  },
+  {
+    "objectID": "variants.html#statement-1",
+    "href": "variants.html#statement-1",
+    "title": "11. Turing Machines",
+    "section": "Statement",
+    "text": "Statement\n\n\\(S\\) single tape, \\(M\\) multi-tape\n\\(S\\) simulates \\(M\\) by storing contents of multiple tapes in blocks.\n\\(S\\) introduces novel “tape break” symbol.\n\nLike EOF\n\n\\(S\\) introduces a novel “head here” symbol"
+  },
+  {
+    "objectID": "variants.html#graphically",
+    "href": "variants.html#graphically",
+    "title": "11. Turing Machines",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nt2\n\n1\n\n0\n\n1\n\n_\n\n_\n\n_\n\n_\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_"
+  },
+  {
+    "objectID": "variants.html#single-tape",
+    "href": "variants.html#single-tape",
+    "title": "11. Turing Machines",
+    "section": "Single Tape",
+    "text": "Single Tape\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nt\n\na\n\na\n\nb\n\nb\n\n#\n\n1\n\n0\n\n1\n\n#\n\nc\n\nc\n\nc\n\na\n\n_\n\n\n\nt1-&gt;t\n\n\n\n\n\nt2\n\n1\n\n0\n\n1\n\n_\n\n_\n\n_\n\n_\n\n\n\nt2-&gt;t\n\n\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_\n\n\n\nt3-&gt;t"
+  },
+  {
+    "objectID": "variants.html#show-heads",
+    "href": "variants.html#show-heads",
+    "title": "11. Turing Machines",
+    "section": "Show heads",
+    "text": "Show heads\n\n\n\n\n\n\n\ng\n\n\n\nh1\n\nh1\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nh1-&gt;t1:here\n\n\n\n\n\nh2\n\nh2\n\n\n\nt2\n\n1\n\n0\n\n1\n\n1\n\n_\n\n_\n\n_\n\n\n\nh2-&gt;t2:here\n\n\n\n\n\nh3\n\nh3\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_\n\n\n\nh3-&gt;t3:here\n\n\n\n\n\nt\n\na\n\na\n\nb\n\nb\n\n#\n\n1\n\n0\n\n1\n\n1\n\n#\n\nc\n\nc\n\nc\n\na\n\n_\n\n\n\nt1-&gt;t:one\n\n\n\n\n\nt2-&gt;t:two\n\n\n\n\n\nt3-&gt;t:thr\n\n\n\n\n\nh\n\nh\n\n\n\nt:thr-&gt;h"
+  },
+  {
+    "objectID": "variants.html#extend-alphabet",
+    "href": "variants.html#extend-alphabet",
+    "title": "11. Turing Machines",
+    "section": "Extend Alphabet",
+    "text": "Extend Alphabet\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nt\n\na\n\na\n\nb̀\n\nb\n\n#\n\n1\n\n0̀\n\n1\n\n1\n\n#\n\nc̀\n\nc\n\nc\n\na\n\n_\n\n\n\nt1-&gt;t:one\n\n\n\n\n\nt2\n\n1\n\n0\n\n1\n\n1\n\n_\n\n_\n\n_\n\n\n\nt2-&gt;t:two\n\n\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_\n\n\n\nt3-&gt;t:thr\n\n\n\n\n\nh\n\nh\n\n\n\nt:thr-&gt;h"
+  },
+  {
+    "objectID": "variants.html#in-practice",
+    "href": "variants.html#in-practice",
+    "title": "11. Turing Machines",
+    "section": "In Practice",
+    "text": "In Practice\n\n\\(S\\) reads the whole tape before making any read/write.\n\\(S\\) maintains head location in every case\n\\(S\\) has to extend tape space by copying or correctly guessing work space needed.\n\nThis is curiously similar to how e.g. a Python dictionary is implemented."
+  },
+  {
+    "objectID": "variants.html#theorem-8",
+    "href": "variants.html#theorem-8",
+    "title": "11. Turing Machines",
+    "section": "Theorem 8",
+    "text": "Theorem 8\n\n\n\\(A\\) is \\(T-recognizable\\) iff some multi-tape TM recognizes \\(A\\)\n\n\nProof.\n\n\n\n\n\n\n\ng\n\n\n\nt\n\na\n\na\n\nb̀\n\nb\n\n#\n\n1\n\n0̀\n\n1\n\n1\n\n#\n\nc̀\n\nc\n\nc\n\na\n\n_\n\n\n\nh\n\nh\n\n\n\nt:thr-&gt;h"
+  },
+  {
+    "objectID": "variants.html#definition",
+    "href": "variants.html#definition",
+    "title": "11. Turing Machines",
+    "section": "Definition",
+    "text": "Definition\n\nA Nondeterministic TM (TM) is the same 7-tuple, just\nNo longer this transition relation:\n\n\\(\\delta: Q \\times \\Gamma \\rightarrow Q \\times \\Gamma \\times \\{L, R\\} \\quad (L = \\text{Left}, R = \\text{Right})\\)\n\nUtilize power set:\n\n\\(\\delta: Q \\times \\Gamma \\rightarrow \\mathcal{P} (Q \\times \\Gamma \\times \\{L, R\\})\\)"
+  },
+  {
+    "objectID": "variants.html#recall",
+    "href": "variants.html#recall",
+    "title": "11. Turing Machines",
+    "section": "Recall",
+    "text": "Recall\n\nThe NFA and the DFA are equivalent in power\nThe PDA and the deterministic PDA are not equivalent in power\nThe NTM and TM are equivalent in power."
+  },
+  {
+    "objectID": "variants.html#theorem-2",
+    "href": "variants.html#theorem-2",
+    "title": "11. Turing Machines",
+    "section": "Theorem",
+    "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some NTM recognizes \\(A\\)\nIt is trivial for an NTM to emulate a TM\n\nImpose the restriction that sets mapped in \\(\\delta\\) have cardinality =1"
+  },
+  {
+    "objectID": "variants.html#theorem-3",
+    "href": "variants.html#theorem-3",
+    "title": "11. Turing Machines",
+    "section": "Theorem",
+    "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some NTM recognizes \\(A\\)\nWe will show we can convert an NTM to a TM."
+  },
+  {
+    "objectID": "variants.html#insight",
+    "href": "variants.html#insight",
+    "title": "11. Turing Machines",
+    "section": "Insight",
+    "text": "Insight\n\nFor any computation, we can view the set of possible computations as a tree.\nConsider fast exponentiation by squares:\n\n\ndef exp_by_squaring(a, n):\n    if n == 0:\n        return 1\n    elif n == 1:\n        return a\n    elif n % 2 == 0:\n        return exp_by_squaring(a * a, n / 2)\n    else:\n        return a * exp_by_squaring(a * a, (n - 1) / 2)"
+  },
+  {
+    "objectID": "variants.html#insight-1",
+    "href": "variants.html#insight-1",
+    "title": "11. Turing Machines",
+    "section": "Insight",
+    "text": "Insight\n\nIt would be much faster to ignore checks.\n\n\ndef exp(a, n, magic):\n    return [1,a,exp(a * a, n / 2),a * exp(a * a, (n - 1) / 2)][magic]"
+  },
+  {
+    "objectID": "variants.html#insight-2",
+    "href": "variants.html#insight-2",
+    "title": "11. Turing Machines",
+    "section": "Insight",
+    "text": "Insight\n\nImagine a growing tree\n\n\ndef exp(a, n, magic):\n    return [1,a,[1,a,exp(a ** 4, n / 4),a * exp(a ** 4, (n - 1) / 4)],a * exp(a * a, (n - 1) / 2)][magic]"
+  },
+  {
+    "objectID": "variants.html#nondeterministic",
+    "href": "variants.html#nondeterministic",
+    "title": "11. Turing Machines",
+    "section": "Nondeterministic",
+    "text": "Nondeterministic\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe"
+  },
+  {
+    "objectID": "variants.html#recurse",
+    "href": "variants.html#recurse",
+    "title": "11. Turing Machines",
+    "section": "Recurse",
+    "text": "Recurse\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\none\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n'a'\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\nodd\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\neven\n\n\n\noo-&gt;te"
+  },
+  {
+    "objectID": "variants.html#recurse-everywhere",
+    "href": "variants.html#recurse-everywhere",
+    "title": "11. Turing Machines",
+    "section": "Recurse everywhere",
+    "text": "Recurse everywhere\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\none\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n'a'\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\nodd\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\neven\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\none\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n'a'\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\nodd\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\neven\n\n\n\noe-&gt;se"
+  },
+  {
+    "objectID": "variants.html#recurse-recursively",
+    "href": "variants.html#recurse-recursively",
+    "title": "11. Turing Machines",
+    "section": "Recurse recursively",
+    "text": "Recurse recursively\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\none\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n'a'\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\nodd\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\neven\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\none\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n'a'\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\nodd\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\neven\n\n\n\noe-&gt;se\n\n\n\n\n\nu\n\none\n\n\n\nto-&gt;u\n\n\n\n\n\nua\n\n'a'\n\n\n\nto-&gt;ua\n\n\n\n\n\nuo\n\nodd\n\n\n\nto-&gt;uo\n\n\n\n\n\nue\n\neven\n\n\n\nto-&gt;ue"
+  },
+  {
+    "objectID": "variants.html#its-tree",
+    "href": "variants.html#its-tree",
+    "title": "11. Turing Machines",
+    "section": "It’s tree",
+    "text": "It’s tree\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\n\n\n\noe-&gt;se\n\n\n\n\n\nu\n\n\n\n\nto-&gt;u\n\n\n\n\n\nua\n\n\n\n\nto-&gt;ua\n\n\n\n\n\nuo\n\n\n\n\nto-&gt;uo\n\n\n\n\n\nue\n\n\n\n\nto-&gt;ue"
+  },
+  {
+    "objectID": "variants.html#take-one-path",
+    "href": "variants.html#take-one-path",
+    "title": "11. Turing Machines",
+    "section": "Take one path",
+    "text": "Take one path\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\n\n\n\noe-&gt;se\n\n\n\n\n\nu\n\n\n\n\nto-&gt;u\n\n\n\n\n\nua\n\n\n\n\nto-&gt;ua\n\n\n\n\n\nuo\n\n\n\n\nto-&gt;uo\n\n\n\n\n\nue\n\n\n\n\nto-&gt;ue"
+  },
+  {
+    "objectID": "variants.html#multi-tape-1",
+    "href": "variants.html#multi-tape-1",
+    "title": "11. Turing Machines",
+    "section": "Multi-tape",
+    "text": "Multi-tape\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\n#\n\none\n\n`a`\n\nodd\n\neven\n\n#"
+  },
+  {
+    "objectID": "variants.html#store-state-as-separator",
+    "href": "variants.html#store-state-as-separator",
+    "title": "11. Turing Machines",
+    "section": "Store state as separator",
+    "text": "Store state as separator\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\nq_i\n\none\n\n`a`\n\nodd\n\neven\n\nq_j"
+  },
+  {
+    "objectID": "variants.html#create-new-tape-on-branch",
+    "href": "variants.html#create-new-tape-on-branch",
+    "title": "11. Turing Machines",
+    "section": "Create new tape on branch",
+    "text": "Create new tape on branch\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\nq_i\n\none\n\n`a`\n\nodd\n\neven\n\nq_j\n\n\n\nt4\n\nq_j\n\none\n\n`a`\n\nodd\n\neven\n\nq_k\n\n\n\nt3:odd-&gt;t4:q_j"
+  },
+  {
+    "objectID": "variants.html#theorem-9",
+    "href": "variants.html#theorem-9",
+    "title": "11. Turing Machines",
+    "section": "Theorem 9",
+    "text": "Theorem 9\n\n\n\\(A\\) is \\(T-recognizable\\) iff some NTM recognizes \\(A\\)\n\n\nProof.\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\nq_i\n\none\n\n`a`\n\nodd\n\neven\n\nq_j\n\n\n\nt4\n\nq_j\n\none\n\n`a`\n\nodd\n\neven\n\nq_k\n\n\n\nt3:odd-&gt;t4:q_j"
+  },
+  {
+    "objectID": "variants.html#aside",
+    "href": "variants.html#aside",
+    "title": "11. Turing Machines",
+    "section": "Aside",
+    "text": "Aside\n\nThere exists a formulation called a “Turing Enumerator”\nIt is a generator rather than a recognizer.\nLeft as an exercise."
+  },
+  {
+    "objectID": "thesis.html#sketch",
+    "href": "thesis.html#sketch",
+    "title": "12. Church-Turing",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nThe Church-Turing Thesis\nThe 10th Hilbert Problem"
+  },
+  {
+    "objectID": "thesis.html#the-thesis",
+    "href": "thesis.html#the-thesis",
+    "title": "12. Church-Turing",
+    "section": "The Thesis",
+    "text": "The Thesis\nThe Church-Turing thesis concerns the concept of an effective or systematic or mechanical method, as used in logic, mathematics and computer science. “Effective” and its synonyms “systematic” and “mechanical” are terms of art in these disciplines: they do not carry their everyday meaning. A method, or procedure, \\(M\\), for achieving some desired result is called “effective” (or “systematic” or “mechanical”) just in case:"
+  },
+  {
+    "objectID": "thesis.html#the-thesis-1",
+    "href": "thesis.html#the-thesis-1",
+    "title": "12. Church-Turing",
+    "section": "The Thesis",
+    "text": "The Thesis\n\n\\(M\\) is set out in terms of a finite number of exact instructions (each instruction being expressed by means of a finite number of symbols);\n\\(M\\) will, if carried out without error, produce the desired result in a finite number of steps;"
+  },
+  {
+    "objectID": "thesis.html#the-thesis-2",
+    "href": "thesis.html#the-thesis-2",
+    "title": "12. Church-Turing",
+    "section": "The Thesis",
+    "text": "The Thesis\n\n\\(M\\) can (in practice or in principle) be carried out by a human being unaided by any machinery except paper and pencil;\n\\(M\\) demands no insight, intuition, or ingenuity, on the part of the human being carrying out the method."
+  },
+  {
+    "objectID": "thesis.html#credit",
+    "href": "thesis.html#credit",
+    "title": "12. Church-Turing",
+    "section": "Credit",
+    "text": "Credit\n\nhttps://plato.stanford.edu/entries/church-turing/"
+  },
+  {
+    "objectID": "thesis.html#other-formulations",
+    "href": "thesis.html#other-formulations",
+    "title": "12. Church-Turing",
+    "section": "Other Formulations",
+    "text": "Other Formulations\n\nWe shall use the expression “computable function” to mean a function calculable by a machine, and let “effectively calculable” refer to the intuitive idea without particular identification with any one of these definitions.\n\n\nTuring, 1938"
+  },
+  {
+    "objectID": "thesis.html#other-formulations-1",
+    "href": "thesis.html#other-formulations-1",
+    "title": "12. Church-Turing",
+    "section": "Other Formulations",
+    "text": "Other Formulations\n\nNo computational procedure will be considered as an algorithm unless it can be represented as a Turing Machine\n\n\nChurch, apocryphal"
+  },
+  {
+    "objectID": "thesis.html#other-formulations-2",
+    "href": "thesis.html#other-formulations-2",
+    "title": "12. Church-Turing",
+    "section": "Other Formulations",
+    "text": "Other Formulations\n\nIt was stated … that “a function is effectively calculable if its values can be found by some purely mechanical process”. We may take this literally, understanding that by a purely mechanical process one which could be carried out by a machine. The development … leads to … an identification of computability with effective calculability.\n\n\nTuring, 1938"
+  },
+  {
+    "objectID": "thesis.html#other-formulations-3",
+    "href": "thesis.html#other-formulations-3",
+    "title": "12. Church-Turing",
+    "section": "Other Formulations",
+    "text": "Other Formulations\n\nEvery effectively calculable function is a computable function\n\n\nRobin Gandy, 1980"
+  },
+  {
+    "objectID": "thesis.html#the-lambda-calculus",
+    "href": "thesis.html#the-lambda-calculus",
+    "title": "12. Church-Turing",
+    "section": "The Lambda Calculus",
+    "text": "The Lambda Calculus"
+  },
+  {
+    "objectID": "thesis.html#lambda-calculus",
+    "href": "thesis.html#lambda-calculus",
+    "title": "12. Church-Turing",
+    "section": "Lambda Calculus",
+    "text": "Lambda Calculus\n\\[\n\\Lambda := \\{ \\lambda x.M \\mid x \\in V, M \\in \\Lambda \\} \\cup \\{ x \\mid x \\in V \\}\n\\]\n\n\\(\\lambda x.x\\) represents the identity function.\nTerm \\(x\\) a variable in set of variables \\(V\\)\nTerm \\(\\lambda x. M\\) an abstraction (definition)\nTerm \\(M\\space N\\) an application (invocation/call)\nIt took Church 6 years and Turing’s help to get this logically consistent."
+  },
+  {
+    "objectID": "thesis.html#hilbert-problems",
+    "href": "thesis.html#hilbert-problems",
+    "title": "12. Church-Turing",
+    "section": "Hilbert problems",
+    "text": "Hilbert problems\n\n\\(\\exists A : |\\mathbb{N}| \\lt |A| \\lt |\\mathbb{R}|\\)\n\n\nReduces to continuum hypothesis\n\n\nConsistency of Axioms of Mathematics\n\n\nProvably impossible to prove via Gödel’s incompleteness\n\n\n…\nDetermine Solvability of a Diophantine equation"
+  },
+  {
+    "objectID": "thesis.html#diophantine-equation",
+    "href": "thesis.html#diophantine-equation",
+    "title": "12. Church-Turing",
+    "section": "Diophantine Equation",
+    "text": "Diophantine Equation\n\nA polynomial. \\[\n\\sum_{k=0}^n a_k x^k\n\\]\nDoes it have a solution. \\[\n\\sum_{k=0}^n a_k x^k = 0\n\\]"
+  },
+  {
+    "objectID": "thesis.html#diophantine-equation-1",
+    "href": "thesis.html#diophantine-equation-1",
+    "title": "12. Church-Turing",
+    "section": "Diophantine Equation",
+    "text": "Diophantine Equation\n\nFor which all terms are integers \\[\n\\forall k &lt; n : a_k \\in \\mathbb{Z} : \\sum_{k=0}^n a_k x^k = 0 :\n\\]"
+  },
+  {
+    "objectID": "thesis.html#results",
+    "href": "thesis.html#results",
+    "title": "12. Church-Turing",
+    "section": "Results",
+    "text": "Results\n\n1900\n\nProblem proposed\nNot defined\n\n1937\n\nChurch-Turing Thesis\n\n1970\n\nMatiyasevich proves undecidability\n\nNote: It is recognizable\n\nLeft to the student."
+  },
+  {
+    "objectID": "thesis.html#notation-convenience",
+    "href": "thesis.html#notation-convenience",
+    "title": "12. Church-Turing",
+    "section": "Notation convenience",
+    "text": "Notation convenience\n\nSay we wish to express a polynomial\nWe note the polynomial is equivalent to a sequence of values\n\nThat is, an ordered collection\n\nWe note that numerical values are expressible in finite symbols.\n\nFor example, \\(\\{0, 1\\}^n\\)"
+  },
+  {
+    "objectID": "thesis.html#we-encode-as-strings",
+    "href": "thesis.html#we-encode-as-strings",
+    "title": "12. Church-Turing",
+    "section": "We encode as strings",
+    "text": "We encode as strings\n\nTake \\(O\\) some object, like a number, TM state, or anything else.\n\nCould be a polynomial!\nCould be a Turing Machine!\n\nDenote \\(\\langle O \\rangle\\) the encoding of \\(O\\) into a string.\n\nDenote \\(\\langle O_1,O_2,\\ldots,O_K \\rangle\\) a list of objects in a string"
+  },
+  {
+    "objectID": "thesis.html#understanding-check",
+    "href": "thesis.html#understanding-check",
+    "title": "12. Church-Turing",
+    "section": "Understanding check",
+    "text": "Understanding check\n\nSuppose two strings, \\(x\\) and \\(y\\)\nIs \\(xy = \\langle x,y \\rangle\\)\nWhy or why not"
+  },
+  {
+    "objectID": "thesis.html#revist-b",
+    "href": "thesis.html#revist-b",
+    "title": "12. Church-Turing",
+    "section": "Revist \\(B\\)",
+    "text": "Revist \\(B\\)\n\\[\nB = \\{a^kb^kc^k|k\\in\\mathbb{N}\\}\n\\]\n\nCheck if \\(w \\in a^ib^jc^k\\)\nCount each of a, b, c\nAccept on equal counts."
+  },
+  {
+    "objectID": "thesis.html#rules-of-thumb",
+    "href": "thesis.html#rules-of-thumb",
+    "title": "12. Church-Turing",
+    "section": "Rules of thumb",
+    "text": "Rules of thumb\n\nEnsure that any step is possible\nEnsure that any step is finite\nEnsure than any step halts\nEnsure you can implement any step in e.g. Python"
+  },
+  {
+    "objectID": "thesis.html#outcomes",
+    "href": "thesis.html#outcomes",
+    "title": "12. Church-Turing",
+    "section": "Outcomes",
+    "text": "Outcomes\n\nThree possible outcomes for \\(M\\) on \\(w\\)\n\nAccept \\(w\\) by halting in \\(q_{acc}\\)\nReject \\(w\\) by halting in \\(q_{rej}\\)\nReject \\(w\\) by looping"
+  },
+  {
+    "objectID": "thesis.html#recognize-oplus-decide",
+    "href": "thesis.html#recognize-oplus-decide",
+    "title": "12. Church-Turing",
+    "section": "Recognize \\(\\oplus\\) Decide",
+    "text": "Recognize \\(\\oplus\\) Decide\n\nTuring-recognizable\n\n\\(\\exists M : L(M) = \\{w | M(w) \\rightarrow q_{acc} \\}\\)\n\nTuring-decidable\n\n\\(\\exists M : L(M) = \\{w | M(w) \\rightarrow q_{acc} \\land \\forall w: M(w) \\rightarrow \\{q_{acc},q_{req}\\}\\}\\)"
+  },
+  {
+    "objectID": "thesis.html#strings",
+    "href": "thesis.html#strings",
+    "title": "12. Church-Turing",
+    "section": "Strings",
+    "text": "Strings\n\n\\(\\langle x,y \\rangle\\) is the string of list x,y\n\\(\\langle x\\rangle, \\langle y \\rangle\\) is the list of strings of x and y"
+  },
+  {
+    "objectID": "thesis.html#denotation",
+    "href": "thesis.html#denotation",
+    "title": "12. Church-Turing",
+    "section": "Denotation",
+    "text": "Denotation\n\\(M =\\) “On input \\(w\\)\n\nAlgorithm first step\nAlgorithm next step"
+  },
+  {
     "objectID": "starfa.html#sketch",
     "href": "starfa.html#sketch",
     "title": "1. Finite Automata",
@@ -700,235 +1092,235 @@
     "text": "Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]\n\nWe take some minor liberties with precisely defining the type of \\(\\delta\\)"
   },
   {
-    "objectID": "cfgpda.html#sketch",
-    "href": "cfgpda.html#sketch",
-    "title": "9. CFG → PDA",
+    "objectID": "diagonal.html#sketch",
+    "href": "diagonal.html#sketch",
+    "title": "15. Diagonalization",
     "section": "Sketch",
-    "text": "Sketch\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0S1 \\\\\n    &S \\rightarrow R \\\\\n    &R \\rightarrow \\varepsilon\n\\end{aligned}\n\\]"
+    "text": "Sketch\n\nDiagonalization\n\n(It’s non-trivial)"
   },
   {
-    "objectID": "cfgpda.html#overview",
-    "href": "cfgpda.html#overview",
-    "title": "9. CFG → PDA",
-    "section": "Overview",
-    "text": "Overview\n\nWe abstract the automata into a unit called the “Finite Control”\n\nIn a *FA, this denotes the current state.\nWe often denote it as a box\n\nWe imagine input as coming on a tape.\n\nIn practice, early devices did use tapes.\nModern devices use block reads of SSDs (same thing)"
+    "objectID": "diagonal.html#goal",
+    "href": "diagonal.html#goal",
+    "title": "15. Diagonalization",
+    "section": "Goal",
+    "text": "Goal\n\\[\n\\neg\\text{Decidable}(A_{CFG} := \\{\\langle G, w \\rangle \\space | \\space w \\in G:\\text{CFG}\\})\n\\]\n\nWe need some way to say this.\nWe term this notion undecidability\nWe introduce a technique diagonalization first.\n\nIt is the only known technique to show undecidability."
   },
   {
-    "objectID": "cfgpda.html#tapes",
-    "href": "cfgpda.html#tapes",
-    "title": "9. CFG → PDA",
-    "section": "Tapes",
-    "text": "Tapes"
+    "objectID": "diagonal.html#set-theory",
+    "href": "diagonal.html#set-theory",
+    "title": "15. Diagonalization",
+    "section": "Set Theory",
+    "text": "Set Theory\n\nDiagonalization emerged from set and number theory.\n\nMy first diagonalization, and perhaps yours, was over \\(\\mathbb{R}\\)\n\nFirst deployed by Georg Cantor in 1891\n\nShowing \\(|\\mathbb{N}| \\lt |\\mathbb{R}|\\)\n\nFamously showed Gödel’s incompleteness\nFamously (as here) showed Turing’s Entscheidungsproblem"
   },
   {
-    "objectID": "cfgpda.html#terms",
-    "href": "cfgpda.html#terms",
-    "title": "9. CFG → PDA",
-    "section": "Terms",
-    "text": "Terms\n\nFinite Control: Represents the finite state, or states, of an automata.\nInput: Represents the input string to some automata.\n\n*FAs can only read in one direction - not so for all automata.\n\nThis abstraction made it easier for me to separate letters and states in my mind."
+    "objectID": "diagonal.html#functions",
+    "href": "diagonal.html#functions",
+    "title": "15. Diagonalization",
+    "section": "Functions",
+    "text": "Functions\nhttps://www.youtube.com/watch?v=3PzuSPQPEU4"
   },
   {
-    "objectID": "cfgpda.html#new-terms",
-    "href": "cfgpda.html#new-terms",
-    "title": "9. CFG → PDA",
-    "section": "New Terms",
-    "text": "New Terms\n\nStack: Memory of the automata\n\n*FAs had no memory other than internal state - not so for all automata.\n\nHead: Refer to “wherever the automata is currently pointed” as where the head of the automata is.\n\nThink, perhaps, of a vinyl player.\nMy first job was on Hard Disk Drives (HDDs) with a “head” which wrote/read bits from a rotating magnetic disk."
+    "objectID": "cfpump.html#sketch",
+    "href": "cfpump.html#sketch",
+    "title": "10. Context Free Pumping",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nCF Pumping Lemma\n\nStatement\nExamples"
   },
   {
-    "objectID": "cfgpda.html#the-stack-1",
-    "href": "cfgpda.html#the-stack-1",
-    "title": "9. CFG → PDA",
-    "section": "The Stack",
-    "text": "The Stack\n\nPDA has unlimited but restricted memory.\nIt can only write certain symbols.\nIt can only read the most recent symbol.\nThink the stack abstract data structure.\n\n\n\nstack = []\nstack.append('a')\nstack.append('b')\nstack.append('a')\nprint(stack.pop())\n\na"
+    "objectID": "cfpump.html#avoid-this-trap",
+    "href": "cfpump.html#avoid-this-trap",
+    "title": "10. Context Free Pumping",
+    "section": "Avoid this trap",
+    "text": "Avoid this trap\n\nSuppose we wish to prove a language is not a context free language\nWe must prove there is no CFG/PDA that recognizes the language.\nIt may be tempting to conclude:\n\nI thought about it really hard.\nI could find no PDA/CFG\nTherefore the language is not a context free language."
   },
   {
-    "objectID": "cfgpda.html#intuition",
-    "href": "cfgpda.html#intuition",
-    "title": "9. CFG → PDA",
-    "section": "Intuition",
-    "text": "Intuition\n\nThink of an NFA\nWhich write/add and read/remove symbols from the stack.\nThere is no “peek” operation.\n\nBut if can be synthesize from read+write."
-  },
-  {
-    "objectID": "cfgpda.html#exercise",
-    "href": "cfgpda.html#exercise",
-    "title": "9. CFG → PDA",
-    "section": "Exercise",
-    "text": "Exercise\n\nRecognize \\(D = \\{ 0^k1^k | k \\in \\mathbb{N}\\}\\) in Python\nRead every character individually.\nOnly use one stack.\nIf you’re not sure of goals, read the solution and translate it to def from lambda"
-  },
-  {
-    "objectID": "cfgpda.html#solution",
-    "href": "cfgpda.html#solution",
-    "title": "9. CFG → PDA",
-    "section": "Solution",
-    "text": "Solution\n\nq_1 = lambda s, stack : [stack.append('0'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) &gt; 1 else [stack.pop(), q_2(s[1:], stack)][-1]\nq_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) &gt; 1 else q_n(s, stack)\nq_n = lambda s, stack : s == '1' and len(stack) == 1\nq_1('000111', []), q_1('00111', []), q_1('00011', [])\n\n(True, False, False)"
-  },
-  {
-    "objectID": "cfgpda.html#formal-definition",
-    "href": "cfgpda.html#formal-definition",
-    "title": "9. CFG → PDA",
-    "section": "Formal Definition…",
-    "text": "Formal Definition…\nA Pushdown Automaton (PDA) is formally defined as a 6-tuple:\n\n\\(Q\\): A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the input alphabet.\n\\(\\Gamma\\): A finite, non-empty set of stack symbols called the stack alphabet.\n\\(\\delta\\): The transition function, a mapping"
-  },
-  {
-    "objectID": "cfgpda.html#formal-definition..",
-    "href": "cfgpda.html#formal-definition..",
-    "title": "9. CFG → PDA",
-    "section": "Formal Definition..",
-    "text": "Formal Definition..\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, \\ldots)\\)\n\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times (\\Sigma_{\\varepsilon} \\cup \\Gamma_{\\varepsilon}) \\rightarrow \\mathcal{P} (Q \\times \\Gamma_{\\varepsilon})\\)\nGiven a state, letter, and stack symbol\nGet a set of states and stack symbols.\n\\(\\delta(q, a, c) = {(r_1, d), (r_2, e)}\\)\n\nIn state \\(q\\), reading \\(a\\) on tape and \\(c\\) on stack, either write \\(d\\) and go to state \\(r_1\\) or write \\(e\\) and go to state \\(r_2\\)"
-  },
-  {
-    "objectID": "cfgpda.html#formal-definition.",
-    "href": "cfgpda.html#formal-definition.",
-    "title": "9. CFG → PDA",
-    "section": "Formal Definition.",
-    "text": "Formal Definition.\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, q_0, F)\\)\n\n\\(q_0, F\\) as in the *FAs.\nIt’s a *FA with a new alphabet that delta reads."
-  },
-  {
-    "objectID": "cfgpda.html#example",
-    "href": "cfgpda.html#example",
-    "title": "9. CFG → PDA",
+    "objectID": "cfpump.html#example",
+    "href": "cfpump.html#example",
+    "title": "10. Context Free Pumping",
     "section": "Example",
-    "text": "Example\n\nIntroduce reverse operation \\(w^\\mathcal{R}\\)\nEasiest to define with Python.\n\n\n\nsuperscript_r = lambda w : w[::-1]\nw = \"stressed\"\nprint('w =', w, 'w^R =', superscript_r(w))\n\nw = stressed w^R = desserts\n\n\n\n\nTake \\(B = \\{ww^\\mathcal{R} | w \\in \\{0,1\\}*\\}\\)\n\n\n\n\n\n\n\n\n\ng\n\n\n\nn\n\n0\n\n0\n\n1\n\n1\n\n1\n\n1\n\n0\n\n0"
+    "text": "Example\n\nTake \\(\\Sigma = \\{0,1,2\\}\\)\nTake \\(B = \\{0^k1^k2^k| k \\in \\mathbb{N}\\}\\)\nThis language is not a context free language.\n\nIf you had a stack, match 0‘s with 1’\nHow to deal with 2’s?\nNot a proof, but an intuition."
   },
   {
-    "objectID": "cfgpda.html#intuition-1",
-    "href": "cfgpda.html#intuition-1",
-    "title": "9. CFG → PDA",
-    "section": "Intuition",
-    "text": "Intuition\n\nRead symbol, push to stack\nAt halfway mark, pop off stack and read.\n\nIf same, continue\nIf different, reject\n\nHow do we know we are the middle?\n\nNondeterminism - it doesn’t matter!\nEach nondeterministic branch gets its own stack!"
+    "objectID": "cfpump.html#regular-pumping-lemma",
+    "href": "cfpump.html#regular-pumping-lemma",
+    "title": "10. Context Free Pumping",
+    "section": "Regular Pumping Lemma",
+    "text": "Regular Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall A:\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\]\n\nThat is, \\(\\{xz, xyz, xyyz\\} \\in A\\)\nWe “pump up” the number of occurances of y"
   },
   {
-    "objectID": "cfgpda.html#empty-stack",
-    "href": "cfgpda.html#empty-stack",
-    "title": "9. CFG → PDA",
-    "section": "Empty stack",
-    "text": "Empty stack\n\nWait… how do we see if the stack is empty.\n\nEasy.\nInvent a novel symbol.\nNecessarily write it in the first state.\n\nCan simply add a new state, transition, as needed.\n\nThese simplifying assumptions are useful convenience that doesn’t adversely impact rigor or change results.\nSee also: Transitions along empty strings."
+    "objectID": "cfpump.html#context-free-pumping-lemma",
+    "href": "cfpump.html#context-free-pumping-lemma",
+    "title": "10. Context Free Pumping",
+    "section": "Context Free Pumping Lemma",
+    "text": "Context Free Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall \\text{ CFL } A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists s = uvxyz \\in A : |uvxyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : uv^ixy^iz \\in A \\land \\\\\n&|vy| &gt; 0 \\land \\\\\n&|vxy| \\leq p\n\\end{aligned}\n\\]\n\nThat is, \\(\\{uxz, uvxyz, uvvxyyz\\} \\in A\\)\nWe “pump up” occurances of v and y"
   },
   {
-    "objectID": "cfgpda.html#exercise-1",
-    "href": "cfgpda.html#exercise-1",
-    "title": "9. CFG → PDA",
-    "section": "Exercise",
-    "text": "Exercise\n\nAccept \\(D\\) in Python."
+    "objectID": "cfpump.html#sketch-of-proof",
+    "href": "cfpump.html#sketch-of-proof",
+    "title": "10. Context Free Pumping",
+    "section": "Sketch of Proof",
+    "text": "Sketch of Proof\n\nWe imagine an arbitrarily long string.\n\nWe’ll be precise latter.\n\nThe parse tree of a long string is very high.\n\nRecall parse trees:\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nE\n\n\n\n1-&gt;4\n\n\n\n\n\n5\na\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nE\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nE\n\n\n\n4-&gt;8"
   },
   {
-    "objectID": "aims.html#announcements",
-    "href": "aims.html#announcements",
-    "title": "0. Aims of Education",
-    "section": "Announcements",
-    "text": "Announcements\n\nWelcome to residency of CSCI 5100: Theory of Computation!\nIt is a pleasure to launch the LaGrange College M.S. in Computer Science (MSCS) with you.\nYou should have:\n\nQuarto running.\nDGitHub pages set up."
+    "objectID": "cfpump.html#checkin",
+    "href": "cfpump.html#checkin",
+    "title": "10. Context Free Pumping",
+    "section": "Checkin",
+    "text": "Checkin\n\nCan a string of length 1 million be made my a parse tree of height 1?\n\nHow about all multiple of 1 million?\n\nWe’ll quantify this shortly.\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0^{10^6} \\\\\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "aims.html#sketch",
-    "href": "aims.html#sketch",
-    "title": "0. Aims of Education",
-    "section": "Sketch",
-    "text": "Sketch\n\n\n20 minute intro\n20 guest lecture\n20 minute goal setting\nThen into Theory of Computatation"
+    "objectID": "cfpump.html#given-a-tall-tree",
+    "href": "cfpump.html#given-a-tall-tree",
+    "title": "10. Context Free Pumping",
+    "section": "Given a tall tree",
+    "text": "Given a tall tree\n\nLet’s assume the tall tree\nEach step in the tree involves variable substitution\nSo as soon as height is greater than the size of set of variables, we necessarily repeat some variable."
   },
   {
-    "objectID": "aims.html#about-me",
-    "href": "aims.html#about-me",
-    "title": "0. Aims of Education",
-    "section": "About Me",
-    "text": "About Me\n\n\n\nAbout\nMe\n\n\n\n\nName:\nCalvin (Deutschbein)\n\n\nSay:\n(Professor) Calvin\n\n\nPronoun:\nthey/them\n\n\nOffice:\nDiscord calvin2501\n\n\nEmail:\nckdeutschbein@willamette.edu (@lagrange email Soon™)\n\n\nWebsite:\ncd-public.github.io"
+    "objectID": "cfpump.html#tikz",
+    "href": "cfpump.html#tikz",
+    "title": "10. Context Free Pumping",
+    "section": "Tikz",
+    "text": "Tikz\n\nI’m going to use a new tool to show the next bit: Tikz!\n\nPart of LaTeX\nSeems to run well inside of R\n\nCredit LaTeX Graphics using TikZ\nCredit JBGruber"
   },
   {
-    "objectID": "aims.html#background",
-    "href": "aims.html#background",
-    "title": "0. Aims of Education",
-    "section": "Background",
-    "text": "Background\n\n\nThesis Title: Mining Secure Behavior of Hardware Designs\n\n\nSpecification mining can discover properties that can verify the secure behavior of closed-source CISC CPU designs, the temporal correctness of CPU designs, and hyperproperties for secure information flow in modules, SoCs, and CPUs."
+    "objectID": "cfpump.html#example-1",
+    "href": "cfpump.html#example-1",
+    "title": "10. Context Free Pumping",
+    "section": "Example",
+    "text": "Example\n\n\\begin{tikzpicture}\n \\draw (0,0) circle (1cm);\n\\end{tikzpicture}"
   },
   {
-    "objectID": "aims.html#background-1",
-    "href": "aims.html#background-1",
-    "title": "0. Aims of Education",
-    "section": "Background",
-    "text": "Background\n\nPlain English:\nJust as there are bugs in code that make software, modern hardware is also written in code and therefore may contain bugs. I find these bugs.\n\nOf note: I found those bugs using computation theory specifically automata."
+    "objectID": "cfpump.html#proof-by-picture",
+    "href": "cfpump.html#proof-by-picture",
+    "title": "10. Context Free Pumping",
+    "section": "Proof by Picture",
+    "text": "Proof by Picture"
   },
   {
-    "objectID": "aims.html#course-description",
-    "href": "aims.html#course-description",
-    "title": "0. Aims of Education",
-    "section": "Course Description",
-    "text": "Course Description\n\nStudy of abstract models of computation, unsolvability, complexity theory, formal grammars and parsing, and other advanced topics in theoretical computer science.\n\n~25 contact hours on automata\n~15 contact hours on complexity"
+    "objectID": "cfpump.html#s-is-long",
+    "href": "cfpump.html#s-is-long",
+    "title": "10. Context Free Pumping",
+    "section": "\\(s\\) is long",
+    "text": "\\(s\\) is long"
   },
   {
-    "objectID": "aims.html#modality",
-    "href": "aims.html#modality",
-    "title": "0. Aims of Education",
-    "section": "Modality",
-    "text": "Modality\n\nAll of automata theory in residency, right now.\nAll of complexity theory in video recordings, over the next 8 weeks.\nI maintain a website with videos, slides, code, and problem sets.\nYou will maintain a website with completed problem sets."
+    "objectID": "cfpump.html#parse-tree",
+    "href": "cfpump.html#parse-tree",
+    "title": "10. Context Free Pumping",
+    "section": "Parse Tree",
+    "text": "Parse Tree"
   },
   {
-    "objectID": "aims.html#grading",
-    "href": "aims.html#grading",
-    "title": "0. Aims of Education",
-    "section": "Grading",
-    "text": "Grading\n\nWeekly problem sets that will lag (due to the residency) and catch up at the end.\nAll coursework as Python .qmd rendered in .html on GitHub pages.\n“Final” is having a theory of computation website."
+    "objectID": "cfpump.html#begin-with-e",
+    "href": "cfpump.html#begin-with-e",
+    "title": "10. Context Free Pumping",
+    "section": "Begin with \\(E\\)",
+    "text": "Begin with \\(E\\)"
   },
   {
-    "objectID": "aims.html#feedback-and-grading",
-    "href": "aims.html#feedback-and-grading",
-    "title": "0. Aims of Education",
-    "section": "Feedback and Grading",
-    "text": "Feedback and Grading\n\n“After some consideration, I’ve decided to move away from a traditional grading structure for this class. Rather than assign work with the intent of assessing student progress, assignments in this course will instead focus on fostering student learning. As a result, I intend to implement the following:”"
+    "objectID": "cfpump.html#tree-is-tall",
+    "href": "cfpump.html#tree-is-tall",
+    "title": "10. Context Free Pumping",
+    "section": "Tree is tall",
+    "text": "Tree is tall"
   },
   {
-    "objectID": "aims.html#group-exercise",
-    "href": "aims.html#group-exercise",
-    "title": "0. Aims of Education",
-    "section": "Group Exercise:",
-    "text": "Group Exercise:\n\nLet’s start the class off right away with an exercise designed for:\n\nGroups\n\nDiscussion\n\nDisagreement\n\nDeep critical thinking"
+    "objectID": "cfpump.html#take-a-derivation",
+    "href": "cfpump.html#take-a-derivation",
+    "title": "10. Context Free Pumping",
+    "section": "Take a Derivation",
+    "text": "Take a Derivation"
   },
   {
-    "objectID": "aims.html#aims-of-education",
-    "href": "aims.html#aims-of-education",
-    "title": "0. Aims of Education",
-    "section": "Aims of Education",
-    "text": "Aims of Education\n\nBefore starting my first degree, we went to a lecture titled “Aims of Education”\nI completed all remaining degrees during shutdowns/other crises!\nI remember it fondly.\nWe will watch “How open-source hardware is changing our future” by Amber Huffman.\n\nAnd then discuss."
+    "objectID": "cfpump.html#necessary-repetition",
+    "href": "cfpump.html#necessary-repetition",
+    "title": "10. Context Free Pumping",
+    "section": "Necessary Repetition",
+    "text": "Necessary Repetition"
   },
   {
-    "objectID": "aims.html#question-0",
-    "href": "aims.html#question-0",
-    "title": "0. Aims of Education",
-    "section": "Question 0",
-    "text": "Question 0\n\nWhat are the goals of an education in computer science?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+    "objectID": "cfpump.html#r-to-s",
+    "href": "cfpump.html#r-to-s",
+    "title": "10. Context Free Pumping",
+    "section": "\\(R\\) to \\(s\\)",
+    "text": "\\(R\\) to \\(s\\)"
   },
   {
-    "objectID": "aims.html#question-1",
-    "href": "aims.html#question-1",
-    "title": "0. Aims of Education",
-    "section": "Question 1",
-    "text": "Question 1\n\nHow does a scientist learn something new?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+    "objectID": "cfpump.html#s-to-uvxyz",
+    "href": "cfpump.html#s-to-uvxyz",
+    "title": "10. Context Free Pumping",
+    "section": "\\(s\\) to \\(uvxyz\\)",
+    "text": "\\(s\\) to \\(uvxyz\\)"
   },
   {
-    "objectID": "aims.html#question-2",
-    "href": "aims.html#question-2",
-    "title": "0. Aims of Education",
-    "section": "Question 2",
-    "text": "Question 2\n\nWhat do you reasonably expect to remember from your courses in 20 years?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+    "objectID": "cfpump.html#displace-the-lowest-r",
+    "href": "cfpump.html#displace-the-lowest-r",
+    "title": "10. Context Free Pumping",
+    "section": "Displace the lowest \\(R\\)…",
+    "text": "Displace the lowest \\(R\\)…"
   },
   {
-    "objectID": "aims.html#question-3",
-    "href": "aims.html#question-3",
-    "title": "0. Aims of Education",
-    "section": "Question 3",
-    "text": "Question 3\n\nWhat is the value of making mistakes in the learning process?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+    "objectID": "cfpump.html#with-the-higher-r",
+    "href": "cfpump.html#with-the-higher-r",
+    "title": "10. Context Free Pumping",
+    "section": "With the higher \\(R\\)…",
+    "text": "With the higher \\(R\\)…"
   },
   {
-    "objectID": "aims.html#question-4",
-    "href": "aims.html#question-4",
-    "title": "0. Aims of Education",
-    "section": "Question 4",
-    "text": "Question 4\n\nHow do we create a safe environment where risk-taking is encouraged and productive failure is valued?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+    "objectID": "cfpump.html#side-by-side",
+    "href": "cfpump.html#side-by-side",
+    "title": "10. Context Free Pumping",
+    "section": "Side by side",
+    "text": "Side by side\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the left we have \\(s = uvxyz\\)\nOn the right we have \\(s = uvvxyz = uv^2xy^2z\\)\nProcess is repeatable."
   },
   {
-    "objectID": "aims.html#closing-thoughts",
-    "href": "aims.html#closing-thoughts",
-    "title": "0. Aims of Education",
-    "section": "Closing Thoughts",
-    "text": "Closing Thoughts\n\nTry! Hard work leads to innovative thinking.\n\nFail! Don’t fear failure. Be ready to redo from scratch.\n\nCollaborate! Work with peers to succeed at this course and succeed at collaboration.\nEnjoy! Experience the fun of being a scientist through hard work and exploration."
+    "objectID": "cfpump.html#deskew",
+    "href": "cfpump.html#deskew",
+    "title": "10. Context Free Pumping",
+    "section": "Deskew",
+    "text": "Deskew"
+  },
+  {
+    "objectID": "cfpump.html#code-reveal",
+    "href": "cfpump.html#code-reveal",
+    "title": "10. Context Free Pumping",
+    "section": "Code Reveal",
+    "text": "Code Reveal\n\n\n\\begin{tikzpicture}\n\\fill[darkgray!40!black] (0,0) rectangle (10,7);\n\\draw[white] (2,2) -- node[below,cyan] {u} ++(1,0)  -- node[below,cyan] {v} ++(1,0) ;\n\\draw[white] (4,2) -- node[below,cyan] {x} ++(2,0);\n\\draw[white] (6,2) -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1,0);\n\n\\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0) ;\n\n\\draw[white] (5,4.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,3.5) -- node[below,cyan] {R} ++(0,0) ;\n\n\\draw[white] (2,2) -- (5,5) ;\n\\draw[white] (5,5) -- (8,2) ;\n\n\\draw[white] (3,2) -- (5,4) ;\n\\draw[white] (5,4) -- (7,2) ;\n\n\\draw[white] (4,2) -- (5,3) ;\n\\draw[white] (5,3) -- (6,2) ;\n\n\\end{tikzpicture}\n\n\\begin{tikzpicture}\n\\fill[darkgray!40!black] (0,0) rectangle (10,7);\n\\draw[white] (2,2) -- node[below,cyan] {u} ++(1,0)  -- node[below,cyan] {v} ++(1,0) ;\n\\draw[white] (6,2) -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1,0);\n\n\\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0) ;\n\n\\draw[white] (5,4.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,3.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,2.5) -- node[below,cyan] {R} ++(0,0) ;\n\n\\draw[white] (2,2) -- (5,5) ;\n\\draw[white] (5,5) -- (8,2) ;\n\n\\draw[white] (3,2) -- (5,4) ;\n\\draw[white] (5,4) -- (7,2) ;\n\n\\draw[white] (3,1) -- (5,3) ;\n\\draw[white] (5,3) -- (7,1) ;\n\n\\draw[white] (4,1) -- (5,2) ;\n\\draw[white] (5,2) -- (6,1) ;\n\n\\draw[white] (3,1) -- node[below,cyan] {v} ++(1,0) -- node[below,cyan] {x} ++(2,0) -- node[below,cyan] {y} ++(1,0) ;\n\n\\end{tikzpicture}"
+  },
+  {
+    "objectID": "cfpump.html#uxz",
+    "href": "cfpump.html#uxz",
+    "title": "10. Context Free Pumping",
+    "section": "\\(uxz\\)",
+    "text": "\\(uxz\\)"
+  },
+  {
+    "objectID": "cfpump.html#context-free-pumping-lemma-1",
+    "href": "cfpump.html#context-free-pumping-lemma-1",
+    "title": "10. Context Free Pumping",
+    "section": "Context Free Pumping Lemma",
+    "text": "Context Free Pumping Lemma\n\n\n\\[\n\\begin{aligned}\n&\\forall \\text{ CFL } A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists s = uvxyz \\in A : |uvxyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : uv^ixy^iz \\in A \\land \\\\\n&|vy| &gt; 0 \\land \\\\\n&|vxy| \\leq p\n\\end{aligned}\n\\]\n\nProof"
+  },
+  {
+    "objectID": "cfpump.html#details",
+    "href": "cfpump.html#details",
+    "title": "10. Context Free Pumping",
+    "section": "Details",
+    "text": "Details\n\nTake \\(b\\) maximum branch size\nTake \\(h\\) height parse tree\nNeed \\(|s| &lt; b^h\\)\nLet \\(p = b^{|V|}\\)\n\n\\(V\\) is the set of variables."
+  },
+  {
+    "objectID": "cfpump.html#all-conditions",
+    "href": "cfpump.html#all-conditions",
+    "title": "10. Context Free Pumping",
+    "section": "All conditions",
+    "text": "All conditions\n\n\\(uv^ixy^iz \\in A \\forall i \\in \\mathbb{N}\\)\n\n\nCut and paste\n\n\n\\(vy \\neq \\varepsilon\\)\n\n\nTake smallest possible tree.\n\n\n\\(|vxy| \\leq p\\)\n\n\nPick lowest \\(R\\)"
+  },
+  {
+    "objectID": "cfpump.html#example-2",
+    "href": "cfpump.html#example-2",
+    "title": "10. Context Free Pumping",
+    "section": "Example",
+    "text": "Example\n\nTake \\(B = \\{0^k1^k2^k|k\\in\\mathbb{N}\\}\\)\n\nNeed 0, 1, and 2 in \\(vxy\\)\n\n\\(|vxy| \\leq p\\)\n\nPumping anything leads to unequal.\nNot in CFL by condition 3."
   },
   {
     "objectID": "cfg.html#sketch",
@@ -1076,6 +1468,461 @@
     "title": "7. Context Free Grammars",
     "section": "Solution",
     "text": "Solution\n\nfrom itertools import count # infinite iterator\nfrom itertools import combinations_with_replacement as cwr\n# define variables, so we can use them\nrules = (\n  lambda s : s.replace(\"E\", \"E+E\"),\n  lambda s : s.replace(\"E\", \"ExE\"), \n  lambda s : s.replace(\"E\", \"(E)\"), \n  lambda s : s.replace(\"E\", \"a\")\n)\ntrans = lambda fs, s: fs[0](trans(fs[1:], s)) if len(fs) else s\n\nG_2 = (trans(fs,'E') for n in count() for fs in cwr(rules, n))\n\nnext(G_2), next(G_2), next(G_2)\n\n('E', 'E+E', 'ExE')\n\n\n\nThis isn’t quite right. What’s wrong?"
+  },
+  {
+    "objectID": "accept.html#sketch",
+    "href": "accept.html#sketch",
+    "title": "13. Acceptance",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nAcceptance Problems\n\nDFAs\nNFAs"
+  },
+  {
+    "objectID": "accept.html#statement-of-theorem",
+    "href": "accept.html#statement-of-theorem",
+    "title": "13. Acceptance",
+    "section": "Statement of Theorem",
+    "text": "Statement of Theorem\n\\[\nA_{DFA} := \\{\\langle B, w \\rangle | B \\text{ is a DFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\n\nTheorem - \\(A_{DFA}\\) is decidable.\n\nEncoding doesn’t matter too much here.\nWe just want a TM that can tell if a DFA accepts a string.\n\nWe create TM \\(D_{A_{DFA}}\\)\n\nThe decider for the language of the DFA."
+  },
+  {
+    "objectID": "accept.html#d_a_dfa",
+    "href": "accept.html#d_a_dfa",
+    "title": "13. Acceptance",
+    "section": "\\(D_{A_{DFA}}\\)",
+    "text": "\\(D_{A_{DFA}}\\)\n\\(D_{A_{DFA}} =\\) “On input \\(w\\)\n\nCheck that \\(s\\) has form \\(\\langle B, w \\rangle\\)\n\n\nThis is should remind us of type checking.\n\n\nSimulate \\(B\\) over \\(W\\) using \\(D_{A_{DFA}}\\)’s tape and states.\nIf \\(B\\) accepts, then accept, else reject."
+  },
+  {
+    "objectID": "accept.html#schematic",
+    "href": "accept.html#schematic",
+    "title": "13. Acceptance",
+    "section": "Schematic",
+    "text": "Schematic\n\n\n\n\n\n\n\ng\n\n\n\nt\n\nQ\n\n0,1\n\nδ\n\nq_0\n\nF\n\n#\n\n0\n\n1\n\n1\n\n0\n\n1\n\n\n\nh\n\nh\n\n\n\nt-&gt;h"
+  },
+  {
+    "objectID": "accept.html#simplify",
+    "href": "accept.html#simplify",
+    "title": "13. Acceptance",
+    "section": "Simplify",
+    "text": "Simplify\n\nCan track the current state of the DFA on a work tape.\nCan track the current index in the string on a work tape.\nCan move either \\(B\\) or \\(w\\) to a work tape before we begin."
+  },
+  {
+    "objectID": "accept.html#notational-convenience",
+    "href": "accept.html#notational-convenience",
+    "title": "13. Acceptance",
+    "section": "Notational Convenience",
+    "text": "Notational Convenience\n\\(D_{A_{DFA}} =\\) “On input \\(\\langle B, w \\rangle\\)\n\nSimulate \\(B\\) over \\(W\\) using \\(D_{A_{DFA}}\\)’s tape and states.\nIf \\(B\\) accepts, then accept, else reject.\n\n\nThat is, pattern match in the initializer.\nIt is always appropriate to use a programing language here, e.g.\n\n\ndef d_a_dfa(B:DFA, w:str) -&gt; bool:\n  a_or_r = B(w)\n  return a_or_r"
+  },
+  {
+    "objectID": "accept.html#what-about-loops",
+    "href": "accept.html#what-about-loops",
+    "title": "13. Acceptance",
+    "section": "What about loops",
+    "text": "What about loops\n\n\\(B\\) is a DFA\nA DFA\n\nReads finite string\nProgresses monotonically\nIt must terminate"
+  },
+  {
+    "objectID": "accept.html#theorem-10",
+    "href": "accept.html#theorem-10",
+    "title": "13. Acceptance",
+    "section": "Theorem 10",
+    "text": "Theorem 10\n\\[\nA_{DFA} := \\{\\langle B, w \\rangle | B \\text{ is a DFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\nProof.\ndef d_a_dfa(B:DFA, w:str) -&gt; bool:\n  accept : bool\n  accept = B(w)\n  return accept"
+  },
+  {
+    "objectID": "accept.html#theorem-11",
+    "href": "accept.html#theorem-11",
+    "title": "13. Acceptance",
+    "section": "Theorem 11",
+    "text": "Theorem 11\n\\[\nA_{NFA} := \\{\\langle B, w \\rangle | B \\text{ is a NFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\n\nWe have a problem here.\n\nNFAs have legal \\(\\varepsilon\\) transitions\nA cycle through \\(\\varepsilon\\) transitions can repeat infinitely\nTherefore, progress is not guaranteed.\n\nMust be clever."
+  },
+  {
+    "objectID": "accept.html#theorem-2-nfa-dfa",
+    "href": "accept.html#theorem-2-nfa-dfa",
+    "title": "13. Acceptance",
+    "section": "Theorem 2: NFA → DFA",
+    "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "accept.html#theorem-11-1",
+    "href": "accept.html#theorem-11-1",
+    "title": "13. Acceptance",
+    "section": "Theorem 11",
+    "text": "Theorem 11\n\\[\nA_{NFA} := \\{\\langle B, w \\rangle | B \\text{ is a NFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\nProof.\nfrom theorem_02 import NFA_to_DFA\nfrom theorem_10 import d_a_dfa\n\ndef d_a_nfa(B:NFA, w:str) -&gt; bool:\n  B_prime : DFA\n  B_prime = NFA_to_DFA(B)\n  accept : bool\n  accept = d_a_dfa(B_prime, w)\n  return accept"
+  },
+  {
+    "objectID": "accept.html#theorem-12",
+    "href": "accept.html#theorem-12",
+    "title": "13. Acceptance",
+    "section": "Theorem 12",
+    "text": "Theorem 12\n\\[\nE_{DFA} := \\{\\langle B \\rangle | B \\text{ is a DFA and } L(B) = \\varnothing\\} \\in \\text{T-Decidable}\n\\]\n\nTerm this “the Emptiness Problem for DFAs”\nWe’ll make a TM \\(D_{E_{DFA}}\\)\nLet’s look for a path from \\(q_0\\) to \\(F\\)\n\nWhat do we know or not know about path algorithms\nI’d imagine a transitive closure over \\(\\delta\\)\nProf. Sipser used breadth-first search"
+  },
+  {
+    "objectID": "accept.html#understanding-check",
+    "href": "accept.html#understanding-check",
+    "title": "13. Acceptance",
+    "section": "Understanding check",
+    "text": "Understanding check\n\nCan I just run \\(B\\) over all strings?\nCan I just run \\(B\\) over all strings up to some length?\n\nSure! Just prove the length you choose is sufficient.\nThis is not easier!"
+  },
+  {
+    "objectID": "accept.html#dfa.py",
+    "href": "accept.html#dfa.py",
+    "title": "13. Acceptance",
+    "section": "DFA.py",
+    "text": "DFA.py\n# define q_n as a convenience\nq_1, q_2, q_3 = \"q_1\", \"q_2\", \"q_3\"\n# define M_1\nQ = {q_1, q_2, q_3}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1, 1:q_3 },\n    q_3 : { 0:q_3, 1:q_3 }\n}\nM_1 = (Q,S,d,q_1,{q_3})\nprint(M_1)"
+  },
+  {
+    "objectID": "accept.html#express-dfa-to-a-tm",
+    "href": "accept.html#express-dfa-to-a-tm",
+    "title": "13. Acceptance",
+    "section": "Express DFA to a TM",
+    "text": "Express DFA to a TM\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:"
+  },
+  {
+    "objectID": "accept.html#take-start-state",
+    "href": "accept.html#take-start-state",
+    "title": "13. Acceptance",
+    "section": "Take start state",
+    "text": "Take start state\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0"
+  },
+  {
+    "objectID": "accept.html#track-visited-states",
+    "href": "accept.html#track-visited-states",
+    "title": "13. Acceptance",
+    "section": "Track visited states",
+    "text": "Track visited states\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n\nIt is very important to keep those states in order…\n\nWhy?"
+  },
+  {
+    "objectID": "accept.html#reachable-states-from-q_0",
+    "href": "accept.html#reachable-states-from-q_0",
+    "title": "13. Acceptance",
+    "section": "Reachable states from q_0",
+    "text": "Reachable states from q_0\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n  transitions = d[d_0]\n  for transition in transitions:\n    pass # do something"
+  },
+  {
+    "objectID": "accept.html#quick-python-refresher",
+    "href": "accept.html#quick-python-refresher",
+    "title": "13. Acceptance",
+    "section": "Quick Python Refresher",
+    "text": "Quick Python Refresher\n\n# how does dict iteration work?\nq_1, q_2, q_3 = \"q_1\", \"q_2\", \"q_3\"\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1, 1:q_3 },\n    q_3 : { 0:q_3, 1:q_3 }\n}\nfor element in d[q_1]:\n    print(element)\n\n0\n1"
+  },
+  {
+    "objectID": "accept.html#reachable-states-from-q_0-1",
+    "href": "accept.html#reachable-states-from-q_0-1",
+    "title": "13. Acceptance",
+    "section": "Reachable states from q_0",
+    "text": "Reachable states from q_0\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n  transitions = d[d_0]\n  for symbol in transitions:\n    # we will get symbols, see where the symbols go\n    state = transitions[symbol]\n    # we will add that state to visted state\n    visted.append(state)\n\nThen what?"
+  },
+  {
+    "objectID": "accept.html#reachable-states-from-q_0-2",
+    "href": "accept.html#reachable-states-from-q_0-2",
+    "title": "13. Acceptance",
+    "section": "Reachable states from q_0",
+    "text": "Reachable states from q_0\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n  transitions = d[q_0]\n  count = 0 # track what states we've examined\n  while count &lt; len(visited): # stop if we run out\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      # we will get symbols, see where the symbols go\n      state = transitions[symbol]\n      # we will add that state to visted state\n      visted.append(state)\n\nIs using len cheating?\nWhat about for and while?"
+  },
+  {
+    "objectID": "accept.html#imagine",
+    "href": "accept.html#imagine",
+    "title": "13. Acceptance",
+    "section": "Imagine",
+    "text": "Imagine\n\n\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        visted.append(state)\n\n$D_{A_{DFA}} =$ \"On input $M$ \nTrack states on working tape 1\nUse head to track current state\nWhile current not blank\n  Place delta(current) on tape 2\n  Move head head 2 along delta\n    copy all state names to tape 3\n    read all of tape 1 for each state\n      if state is new, add to tape 1"
+  },
+  {
+    "objectID": "accept.html#accept",
+    "href": "accept.html#accept",
+    "title": "13. Acceptance",
+    "section": "Accept",
+    "text": "Accept\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        if state in F:\n          return True\n        visted.append(state)\n  return False\n\nCopy \\(F\\) to another tape, and check it before checking the visit tracker.\nThis halts as there are finite states"
+  },
+  {
+    "objectID": "accept.html#theorem-12-1",
+    "href": "accept.html#theorem-12-1",
+    "title": "13. Acceptance",
+    "section": "Theorem 12",
+    "text": "Theorem 12\n\\[\nE_{DFA} := \\{\\langle B \\rangle | L(B:\\text{DFA}) = \\varnothing\\} \\in \\text{T-Decidable}\n\\]\nProof.\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        if state in F:\n          return True\n        visted.append(state)\n  return False"
+  },
+  {
+    "objectID": "accept.html#equivalent-lemma",
+    "href": "accept.html#equivalent-lemma",
+    "title": "13. Acceptance",
+    "section": "Equivalent Lemma",
+    "text": "Equivalent Lemma\n\\[\nEQ_{DFA} := \\{\\langle A,B \\rangle | L(A:\\text{DFA}) = L(B:\\text{DFA})\\} \\in \\text{T-Decidable}\n\\]\nProof.\n\nNot too bad to make \\(TM_{EQ_{DFA}}\\)\nEmulate \\(A\\) on one track\nEmulate \\(B\\) on another track\nCreate synthetic \\(C\\):DFA which accepts if \\(A \\oplus B\\) accept\nApply Theorem 12 to synthetic DFA \\(C\\)"
+  },
+  {
+    "objectID": "accept.html#understanding-check-1",
+    "href": "accept.html#understanding-check-1",
+    "title": "13. Acceptance",
+    "section": "Understanding Check",
+    "text": "Understanding Check\n\\[\nEQ_{REX} := \\{\\langle R_1,R_2 \\rangle | R_1:\\text{Reg. Exp.}) = R_2:\\text{Reg. Exp.})\\}\n\\]\n\nIs this hard to prove?"
+  },
+  {
+    "objectID": "aims.html#announcements",
+    "href": "aims.html#announcements",
+    "title": "Aims of Education",
+    "section": "Announcements",
+    "text": "Announcements\n\nWelcome to residency of CSCI 5100: Theory of Computation!\nIt is a pleasure to launch the LaGrange College M.S. in Computer Science (MSCS) with you.\nYou should have:\n\nQuarto running.\nDGitHub pages set up."
+  },
+  {
+    "objectID": "aims.html#sketch",
+    "href": "aims.html#sketch",
+    "title": "Aims of Education",
+    "section": "Sketch",
+    "text": "Sketch\n\n\n20 minute intro\n20 guest lecture\n20 minute goal setting\nThen into Theory of Computatation"
+  },
+  {
+    "objectID": "aims.html#about-me",
+    "href": "aims.html#about-me",
+    "title": "Aims of Education",
+    "section": "About Me",
+    "text": "About Me\n\n\n\nAbout\nMe\n\n\n\n\nName:\nCalvin (Deutschbein)\n\n\nSay:\n(Professor) Calvin\n\n\nPronoun:\nthey/them\n\n\nOffice:\nDiscord calvin2501\n\n\nEmail:\nckdeutschbein@willamette.edu (@lagrange email Soon™)\n\n\nWebsite:\ncd-public.github.io"
+  },
+  {
+    "objectID": "aims.html#background",
+    "href": "aims.html#background",
+    "title": "Aims of Education",
+    "section": "Background",
+    "text": "Background\n\n\nThesis Title: Mining Secure Behavior of Hardware Designs\n\n\nSpecification mining can discover properties that can verify the secure behavior of closed-source CISC CPU designs, the temporal correctness of CPU designs, and hyperproperties for secure information flow in modules, SoCs, and CPUs."
+  },
+  {
+    "objectID": "aims.html#background-1",
+    "href": "aims.html#background-1",
+    "title": "Aims of Education",
+    "section": "Background",
+    "text": "Background\n\nPlain English:\nJust as there are bugs in code that make software, modern hardware is also written in code and therefore may contain bugs. I find these bugs.\n\nOf note: I found those bugs using computation theory specifically automata."
+  },
+  {
+    "objectID": "aims.html#course-description",
+    "href": "aims.html#course-description",
+    "title": "Aims of Education",
+    "section": "Course Description",
+    "text": "Course Description\n\nStudy of abstract models of computation, unsolvability, complexity theory, formal grammars and parsing, and other advanced topics in theoretical computer science.\n\n~25 contact hours on automata\n~15 contact hours on complexity"
+  },
+  {
+    "objectID": "aims.html#modality",
+    "href": "aims.html#modality",
+    "title": "Aims of Education",
+    "section": "Modality",
+    "text": "Modality\n\nAll of automata theory in residency, right now.\nAll of complexity theory in video recordings, over the next 8 weeks.\nI maintain a website with videos, slides, code, and problem sets.\nYou will maintain a website with completed problem sets."
+  },
+  {
+    "objectID": "aims.html#grading",
+    "href": "aims.html#grading",
+    "title": "Aims of Education",
+    "section": "Grading",
+    "text": "Grading\n\nWeekly problem sets that will lag (due to the residency) and catch up at the end.\nAll coursework as Python .qmd rendered in .html on GitHub pages.\n“Final” is having a theory of computation website."
+  },
+  {
+    "objectID": "aims.html#feedback-and-grading",
+    "href": "aims.html#feedback-and-grading",
+    "title": "Aims of Education",
+    "section": "Feedback and Grading",
+    "text": "Feedback and Grading\n\n“After some consideration, I’ve decided to move away from a traditional grading structure for this class. Rather than assign work with the intent of assessing student progress, assignments in this course will instead focus on fostering student learning. As a result, I intend to implement the following:”"
+  },
+  {
+    "objectID": "aims.html#group-exercise",
+    "href": "aims.html#group-exercise",
+    "title": "Aims of Education",
+    "section": "Group Exercise:",
+    "text": "Group Exercise:\n\nLet’s start the class off right away with an exercise designed for:\n\nGroups\n\nDiscussion\n\nDisagreement\n\nDeep critical thinking"
+  },
+  {
+    "objectID": "aims.html#aims-of-education",
+    "href": "aims.html#aims-of-education",
+    "title": "Aims of Education",
+    "section": "Aims of Education",
+    "text": "Aims of Education\n\nBefore starting my first degree, we went to a lecture titled “Aims of Education”\nI completed all remaining degrees during shutdowns/other crises!\nI remember it fondly.\nWe will watch “How open-source hardware is changing our future” by Amber Huffman.\n\nAnd then discuss."
+  },
+  {
+    "objectID": "aims.html#question-0",
+    "href": "aims.html#question-0",
+    "title": "Aims of Education",
+    "section": "Question 0",
+    "text": "Question 0\n\nWhat are the goals of an education in computer science?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-1",
+    "href": "aims.html#question-1",
+    "title": "Aims of Education",
+    "section": "Question 1",
+    "text": "Question 1\n\nHow does a scientist learn something new?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-2",
+    "href": "aims.html#question-2",
+    "title": "Aims of Education",
+    "section": "Question 2",
+    "text": "Question 2\n\nWhat do you reasonably expect to remember from your courses in 20 years?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-3",
+    "href": "aims.html#question-3",
+    "title": "Aims of Education",
+    "section": "Question 3",
+    "text": "Question 3\n\nWhat is the value of making mistakes in the learning process?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#question-4",
+    "href": "aims.html#question-4",
+    "title": "Aims of Education",
+    "section": "Question 4",
+    "text": "Question 4\n\nHow do we create a safe environment where risk-taking is encouraged and productive failure is valued?\n\n\nThink: about a possible answer individually.\n\nDiscuss: answers within the group.\n\nRecord: a summary of the discussion."
+  },
+  {
+    "objectID": "aims.html#closing-thoughts",
+    "href": "aims.html#closing-thoughts",
+    "title": "Aims of Education",
+    "section": "Closing Thoughts",
+    "text": "Closing Thoughts\n\nTry! Hard work leads to innovative thinking.\n\nFail! Don’t fear failure. Be ready to redo from scratch.\n\nCollaborate! Work with peers to succeed at this course and succeed at collaboration.\nEnjoy! Experience the fun of being a scientist through hard work and exploration."
+  },
+  {
+    "objectID": "cfgpda.html#sketch",
+    "href": "cfgpda.html#sketch",
+    "title": "9. CFG → PDA",
+    "section": "Sketch",
+    "text": "Sketch\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0S1 \\\\\n    &S \\rightarrow R \\\\\n    &R \\rightarrow \\varepsilon\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "cfgpda.html#sketch-1",
+    "href": "cfgpda.html#sketch-1",
+    "title": "9. CFG → PDA",
+    "section": "Sketch",
+    "text": "Sketch\n\nIf \\(A\\) is a CFL then some PDA recognizes \\(A\\).\n*We will convert \\(A\\)’s CFG to a PDA."
+  },
+  {
+    "objectID": "cfgpda.html#theorem-7",
+    "href": "cfgpda.html#theorem-7",
+    "title": "9. CFG → PDA",
+    "section": "Theorem 7",
+    "text": "Theorem 7\n\\[\n\\forall \\text{CFL}: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]"
+  },
+  {
+    "objectID": "cfgpda.html#on-alphabets",
+    "href": "cfgpda.html#on-alphabets",
+    "title": "9. CFG → PDA",
+    "section": "On Alphabets",
+    "text": "On Alphabets\n\n\\(P\\) begins by placing the first variable of the CFL on the stack.\nConsider \\(G_2\\)\n\n\n\\[\n\\begin{aligned}\n    &E \\rightarrow E+T \\quad | \\quad  T\\\\\n    &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n    &F \\rightarrow ( E ) \\quad | \\quad a\n\\end{aligned}\n\\]\n\n\nBegin by placing \\(E\\) on the stack."
+  },
+  {
+    "objectID": "cfgpda.html#a-note",
+    "href": "cfgpda.html#a-note",
+    "title": "9. CFG → PDA",
+    "section": "A Note",
+    "text": "A Note\n\nPlacing \\(E\\), a variable, on stack suggests that \\(E\\) is part of the stack alphabet \\(\\Gamma\\).\n\\(E\\) is necessarily not part of the input alphabet \\(\\Sigma\\)\nThis is a good example of how (and why) these languages may differ.\nWe make no claims (yet) about whether the input alphabet appears on the stack (or not)."
+  },
+  {
+    "objectID": "cfgpda.html#a-note-cont.",
+    "href": "cfgpda.html#a-note-cont.",
+    "title": "9. CFG → PDA",
+    "section": "A Note, Cont.",
+    "text": "A Note, Cont.\n\n# We note we can use a stack language of {!} for an input language of {0,1}\nq_1 = lambda s, stack : [stack.append('!'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) &gt; 1 else [stack.pop(), q_2(s[1:], stack)][-1]\nq_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) &gt; 1 else q_n(s, stack)\nq_n = lambda s, stack : s == '1' and len(stack) == 1\nq_1('000111', []), q_1('00111', []), q_1('00011', [])\n\n(True, False, False)"
+  },
+  {
+    "objectID": "cfgpda.html#strategy",
+    "href": "cfgpda.html#strategy",
+    "title": "9. CFG → PDA",
+    "section": "Strategy",
+    "text": "Strategy\n\nUtilize non-determinism.\nReplace the start symbol \\(S\\)\n\nNondeterminististically, so we may assume we make the correct substitution.\n\nLet’s follow through for a moment.\nWe target \\(a+a\\times a\\) with \\(G_2\\)"
+  },
+  {
+    "objectID": "cfgpda.html#maintaining-the-stack",
+    "href": "cfgpda.html#maintaining-the-stack",
+    "title": "9. CFG → PDA",
+    "section": "Maintaining the Stack",
+    "text": "Maintaining the Stack\n\n\n\nGoal: \\(a+a\\times a\\)\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\nPythonic notation\n['E']\n['E','+','T']\n['T','+','T']\n['T','+','T']\n['T','+','T','×','F']\nBAD/WRONG!!!"
+  },
+  {
+    "objectID": "cfgpda.html#a-stack",
+    "href": "cfgpda.html#a-stack",
+    "title": "9. CFG → PDA",
+    "section": "A Stack",
+    "text": "A Stack\n\nA stack has only push and pop operations.\nWe can, say, pop \\(E\\) then push \\(T\\)\n\nPython tail pops, so [::1].\n\n\n\n\ns = ['E','+','T'][::-1]\ns.pop()\ns.append('T')\nprint(s[::-1])\n\n['T', '+', 'T']"
+  },
+  {
+    "objectID": "cfgpda.html#a-stack-1",
+    "href": "cfgpda.html#a-stack-1",
+    "title": "9. CFG → PDA",
+    "section": "A Stack",
+    "text": "A Stack\n\nSay we then pop \\(T\\) and push \\(T\\times F\\)\n\n\n\ns = ['T','+','T'][::-1]\ns.pop()\n[s.append(a) for a in ['T','×','F'][::-1]]\nprint(s[::-1])\n\n['T', '×', 'F', '+', 'T']\n\n\n\n\nIt replaced the first $T\nNow the operators are in the wrong arrangement.\n\n\\(\\times\\) before \\(+\\)"
+  },
+  {
+    "objectID": "cfgpda.html#what-to-do",
+    "href": "cfgpda.html#what-to-do",
+    "title": "9. CFG → PDA",
+    "section": "What to do?",
+    "text": "What to do?\n\nOnly push and pop to the top of the stack.\nThat said, if we didn’t have to do that, our proof would work.\n\nIf we can access below, that is random access memory (!!!)\nEquivalent to general computing\n\nTuring Machine / Church’s Lambda Calculus\nGödel’s General Recursion"
+  },
+  {
+    "objectID": "cfgpda.html#a-workaround",
+    "href": "cfgpda.html#a-workaround",
+    "title": "9. CFG → PDA",
+    "section": "A Workaround",
+    "text": "A Workaround\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\nWe needn’t need to work with the bottom of the stack.\nThat T at the top will ultimately turn into a terminal \\(a\\)\nSimply do that first.\n\nThis is easy to do nondeterministically."
+  },
+  {
+    "objectID": "cfgpda.html#reorder-substitutions",
+    "href": "cfgpda.html#reorder-substitutions",
+    "title": "9. CFG → PDA",
+    "section": "Reorder Substitutions",
+    "text": "Reorder Substitutions\n\nSimply do the leftmost/topmost operations first.\nCopy the output to the tape\nThe stack will contain no leading terminals.\n\n\n['E'],         \"\"\n['E','+','T'], \"\"\n['T','+','T'], \"\"\n['F','+','T'], \"\"\n['a','+','T'], \"\"\n['+','T'],     \"a\"\n['T'],         \"a+\""
+  },
+  {
+    "objectID": "cfgpda.html#new-strategy",
+    "href": "cfgpda.html#new-strategy",
+    "title": "9. CFG → PDA",
+    "section": "New Strategy",
+    "text": "New Strategy\n\nAggressively resolve to terminal symbols\nCopy terminals to the tape\nOnly work on the top of the stack."
+  },
+  {
+    "objectID": "cfgpda.html#theorem-7-1",
+    "href": "cfgpda.html#theorem-7-1",
+    "title": "9. CFG → PDA",
+    "section": "Theorem 7",
+    "text": "Theorem 7\n\\[\n\\forall \\text{CFL}: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]\nProof\n\nTake \\(\\Sigma\\) to be the terminals\nTake \\(\\Gamma\\) to be the terminals \\(\\cup\\) variables\nTake \\(\\delta\\) to…\n\nWrite CFL’s \\(S\\) to stack from \\(q_0\\)\nWrite stack terminals to the tape\nImplement all rules"
+  },
+  {
+    "objectID": "cfgpda.html#adjacent-results",
+    "href": "cfgpda.html#adjacent-results",
+    "title": "9. CFG → PDA",
+    "section": "Adjacent Results",
+    "text": "Adjacent Results\n\nIt is the case the PDAs may be converted to CFLs, but it is non-trivial.\n\nIt is sufficient to know it is the case.\n\nEvery regular language is a context free language.\n\nConvert to automata.\nIgnore stacks."
+  },
+  {
+    "objectID": "cfgpda.html#summary-of-results",
+    "href": "cfgpda.html#summary-of-results",
+    "title": "9. CFG → PDA",
+    "section": "Summary of Results",
+    "text": "Summary of Results\n\n\n\n\nRecognizer\nGenerator\n\n\n\n\nRegular language\n*FA\nRegular Expression\n\n\nContext Free lanuage\nPDA\nContext Free Grammar"
+  },
+  {
+    "objectID": "cfgpda.html#relation-between-results",
+    "href": "cfgpda.html#relation-between-results",
+    "title": "9. CFG → PDA",
+    "section": "Relation Between Results",
+    "text": "Relation Between Results\n\n\n\n\n\n\n\n\n\n\n\n\n\nCan be fun to view as a Venn diagram.\nMany more PDA than *FA languages\n\nHow many more?\n\nThings bigger than PDA, of course."
+  },
+  {
+    "objectID": "cfgpda.html#code-reveal",
+    "href": "cfgpda.html#code-reveal",
+    "title": "9. CFG → PDA",
+    "section": "Code Reveal",
+    "text": "Code Reveal\n\n\n\n\n\n\n\n\n\n\n\n\nimport matplotlib.pyplot as plt\nfrom matplotlib_venn import venn2\n\n\n\nv = venn2(subsets = (4, 0, 1), set_labels=(\"PDA\", \"*FA\",))\n\nfor idx, subset in enumerate(v.subset_labels):\n    v.subset_labels[idx].set_visible(False)\n\nplt"
+  },
+  {
+    "objectID": "cfgpda.html#faq-0",
+    "href": "cfgpda.html#faq-0",
+    "title": "9. CFG → PDA",
+    "section": "FAQ 0",
+    "text": "FAQ 0\n\nWhy do we restrict ourselves to a stack?\n\nThe PDA happens to be equivalent to CFG when using a stack.\nWe like automata as many of the proofs are easier with automata."
+  },
+  {
+    "objectID": "cfgpda.html#faq-1",
+    "href": "cfgpda.html#faq-1",
+    "title": "9. CFG → PDA",
+    "section": "FAQ 1",
+    "text": "FAQ 1\n\nWhy use “weaker” models without e.g. random access memory.\n\nIt is possible to prove properties of *FAs/PDAs which cannot be proved of other models.\n*FA/CFG are quite powerful and capture many applications."
+  },
+  {
+    "objectID": "cfgpda.html#faq-2",
+    "href": "cfgpda.html#faq-2",
+    "title": "9. CFG → PDA",
+    "section": "FAQ 2",
+    "text": "FAQ 2\n\nDo we need nondeterminism?\n\nNondeterministic PDA and deterministic PDA are not equivalent.\nNo deterministic PDA recognizes \\(B = \\{ww^\\mathcal{R} | w \\in \\{0,1\\}*\\}\\)"
   },
   {
     "objectID": "closures.html#sketch",
@@ -1295,6 +2142,167 @@
     "text": "Theorem 4\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1)\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
+    "objectID": "empty.html#sketch",
+    "href": "empty.html#sketch",
+    "title": "14. Emptiness",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nCFGs\n\nAcceptance\nEmptiness\nEquivalence\n\nTMs\n\nAcceptance"
+  },
+  {
+    "objectID": "empty.html#statement-of-theorem",
+    "href": "empty.html#statement-of-theorem",
+    "title": "14. Emptiness",
+    "section": "Statement of Theorem",
+    "text": "Statement of Theorem\n\\[\n\\text{Decidable}(A_{CFG} := \\{\\langle G, w \\rangle \\space | \\space w \\in G:\\text{CFG}\\})\n\\]\n\nAs with NFAs, we might have infinite loops here.\nRemember - rules can return an empty string!\nCan’t go forward or backward.\nWe introduce CNF - “Chomsky Normal Form”"
+  },
+  {
+    "objectID": "empty.html#chomsky-normal-form-cnf",
+    "href": "empty.html#chomsky-normal-form-cnf",
+    "title": "14. Emptiness",
+    "section": "Chomsky Normal Form (CNF)",
+    "text": "Chomsky Normal Form (CNF)\n\nTwo legal forms\n\n\\(A \\rightarrow BC \\space | \\space \\{A,B,C\\} \\subset V\\)\n\\(A \\rightarrow a \\space | \\space A \\in V \\land a \\in \\Sigma\\)\n\nThis enforces uniformity."
+  },
+  {
+    "objectID": "empty.html#original-grammar",
+    "href": "empty.html#original-grammar",
+    "title": "14. Emptiness",
+    "section": "Original Grammar",
+    "text": "Original Grammar\n\n\n\n\nTwo legal forms\n\n\\(A \\rightarrow BC \\space | \\space \\{A,B,C\\} \\subset V\\)\n\\(A \\rightarrow a \\space | \\space A \\in V \\land a \\in \\Sigma\\)\n\n\n\n\n\n\\(S \\rightarrow AB \\space | \\space a\\)\n\\(A \\rightarrow \\varepsilon \\space | \\space b\\)\n\\(B \\rightarrow c \\space | \\space AB\\)"
+  },
+  {
+    "objectID": "empty.html#eliminate-epsilon",
+    "href": "empty.html#eliminate-epsilon",
+    "title": "14. Emptiness",
+    "section": "Eliminate Epsilon",
+    "text": "Eliminate Epsilon\n\n\n\n\n\\(S \\rightarrow AB \\space | \\space a\\)\n\\(A \\rightarrow \\varepsilon \\space | \\space b\\)\n\\(B \\rightarrow c \\space | \\space AB\\)\n\n\n\n\n\\(S \\rightarrow bB \\space | \\space a \\space | \\space B\\)\n\\(B \\rightarrow c \\space | \\space bB \\space | \\space b\\)"
+  },
+  {
+    "objectID": "empty.html#eliminate-v-times-v",
+    "href": "empty.html#eliminate-v-times-v",
+    "title": "14. Emptiness",
+    "section": "Eliminate \\(V \\times V\\)",
+    "text": "Eliminate \\(V \\times V\\)\n\n\n\n\n\\(S \\rightarrow bB \\space | \\space a \\space | \\space B\\)\n\\(B \\rightarrow c \\space | \\space bB \\space | \\space b\\)\n\n\n\n\n\\(S \\rightarrow bB \\space | \\space a \\space | \\space c \\space | \\space b\\)\n\\(B \\rightarrow c \\space | \\space bB \\space | \\space b\\)"
+  },
+  {
+    "objectID": "empty.html#eliminate-long-rhs",
+    "href": "empty.html#eliminate-long-rhs",
+    "title": "14. Emptiness",
+    "section": "Eliminate Long RHS",
+    "text": "Eliminate Long RHS\n\n\n\n\n\\(S \\rightarrow bB \\space | \\space a \\space | \\space c \\space | \\space b\\)\n\\(B \\rightarrow c \\space | \\space bB \\space | \\space b\\)\n\n\n\n\n\\(S \\rightarrow XB \\space | \\space a \\space | \\space c \\space | \\space b\\)\n\\(B \\rightarrow c \\space | \\space XB \\space | \\space b\\)\n\\(X \\rightarrow b\\)"
+  },
+  {
+    "objectID": "empty.html#reorder",
+    "href": "empty.html#reorder",
+    "title": "14. Emptiness",
+    "section": "Reorder",
+    "text": "Reorder\n\n\n\n\n\\(S \\rightarrow XB \\space | \\space a \\space | \\space c \\space | \\space b\\)\n\\(B \\rightarrow c \\space | \\space XB \\space | \\space b\\)\n\\(X \\rightarrow b\\)\n\n\n\n\n\\(S \\rightarrow XB \\space | \\space a \\space | \\space b \\space | \\space c\\)\n\\(B \\rightarrow XB \\space | \\space b \\space | \\space c\\)\n\\(X \\rightarrow b\\)"
+  },
+  {
+    "objectID": "empty.html#lemma",
+    "href": "empty.html#lemma",
+    "title": "14. Emptiness",
+    "section": "Lemma",
+    "text": "Lemma\n\n\\(w \\in L(H:\\text{CNF})\\) takes \\(2|w| - 1\\) steps\nLeft as an exercise.\n\nNot too bad - think about the two rule types."
+  },
+  {
+    "objectID": "empty.html#theorem-14",
+    "href": "empty.html#theorem-14",
+    "title": "14. Emptiness",
+    "section": "Theorem 14",
+    "text": "Theorem 14\n\\[\n\\text{Decidable}(A_{CFG} := \\{\\langle G, w \\rangle \\space | \\space w \\in G:\\text{CFG}\\})\n\\]\n\nConvert to CNF\nTest all derivations of length \\(2|w| - 1\\)"
+  },
+  {
+    "objectID": "empty.html#corolarry",
+    "href": "empty.html#corolarry",
+    "title": "14. Emptiness",
+    "section": "Corolarry",
+    "text": "Corolarry\n\nWe not that this also captures context free languages.\nBut a wrinkle!\n\nFrom a CFL, we needn’t necessarily know the CFG\nWe don’t need it! It suffices on exists by definition\nWe only claim something is decidable, not that we know how to decide!"
+  },
+  {
+    "objectID": "empty.html#understanding-check",
+    "href": "empty.html#understanding-check",
+    "title": "14. Emptiness",
+    "section": "Understanding check",
+    "text": "Understanding check\n\nIs \\(A_{PDA}\\) decidable.\n\nJust convert."
+  },
+  {
+    "objectID": "empty.html#statement-of-theorem-1",
+    "href": "empty.html#statement-of-theorem-1",
+    "title": "14. Emptiness",
+    "section": "Statement of Theorem",
+    "text": "Statement of Theorem\n\\[\n\\text{Decidable}(EQ_{CFG} := \\{\\langle G, H \\rangle \\space | \\space L(G:\\text{CFG}) = L(H:\\text{CFG}) \\})\n\\]\n\nProbably not gonna fly to try every string.\nWhat about closures, well…\nThis is undecidable\nWe will return to this with more robust proof techniques."
+  },
+  {
+    "objectID": "empty.html#statement-of-theorem-2",
+    "href": "empty.html#statement-of-theorem-2",
+    "title": "14. Emptiness",
+    "section": "Statement of Theorem",
+    "text": "Statement of Theorem\n\\[\n\\text{Decidable}(AMBIG_{CFG} := \\{\\langle G\\rangle \\space | \\space G:\\text{CFG is not ambigious}\\})\n\\]\n\nThis is undecidable"
+  },
+  {
+    "objectID": "empty.html#understanding-check-1",
+    "href": "empty.html#understanding-check-1",
+    "title": "14. Emptiness",
+    "section": "Understanding Check",
+    "text": "Understanding Check\n\nWhy can we \\(EQ_{DFA}\\) but not \\(EQ_{CFG}\\)?\n\nWe lack closures we need."
+  },
+  {
+    "objectID": "empty.html#statement-of-theorem-3",
+    "href": "empty.html#statement-of-theorem-3",
+    "title": "14. Emptiness",
+    "section": "Statement of Theorem",
+    "text": "Statement of Theorem\n\\[\n\\text{Decidable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]\n\nThis turns out not to be true.\nHowever, an incrementally weaker result:\n\n\n\\[\n\\text{Recognizable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]\n\n\nWe are able to show this now."
+  },
+  {
+    "objectID": "empty.html#theorem-15",
+    "href": "empty.html#theorem-15",
+    "title": "14. Emptiness",
+    "section": "Theorem 15",
+    "text": "Theorem 15\n\\[\n\\text{Recognizable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]\n\nIntuition:\n\nTake machine \\(U\\)\n\\(U\\) simulates \\(M\\) on one of its tapes.\n\\(U\\) accepts if \\(M\\) accepts\n\\(U\\) rejects if \\(M\\) rejects"
+  },
+  {
+    "objectID": "empty.html#problem",
+    "href": "empty.html#problem",
+    "title": "14. Emptiness",
+    "section": "Problem",
+    "text": "Problem\n\nThere is no guarantee that \\(M\\) (and \\(\\therefore U\\)) halt!\nHow to deal with this?\n\nCan we say “if \\(M\\) doesn’t halt?”\nHow would we know!\n\nTo recognize, we need only accept those accepting \\(w\\)\n\nIt doesn’t matter if \\(U\\) halts."
+  },
+  {
+    "objectID": "empty.html#theorem-15-1",
+    "href": "empty.html#theorem-15-1",
+    "title": "14. Emptiness",
+    "section": "Theorem 15",
+    "text": "Theorem 15\n\\[\n\\text{Recognizable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]\n\nIntuition:\n\nTake machine \\(U\\)\n\\(U\\) simulates \\(M\\) on one of its tapes.\n\\(U\\) accepts if \\(M\\) accepts\n\\(U\\) rejects if \\(M\\) rejects\nConsider anything else a rejection."
+  },
+  {
+    "objectID": "empty.html#u",
+    "href": "empty.html#u",
+    "title": "14. Emptiness",
+    "section": "U",
+    "text": "U\n\n\\(U\\) was the name Turing gave the original “universal computing machine”\n\nIt was the subject of many latter results in:\n\nComputing\nInformation\nMathematics\nPhilosophy\nLinguistics"
+  },
+  {
+    "objectID": "empty.html#example-of-u",
+    "href": "empty.html#example-of-u",
+    "title": "14. Emptiness",
+    "section": "Example of U",
+    "text": "Example of U\n\nWe use \\(U\\) to denote a machine that can compute anything.\n\nIt has some combination of states and symbols.\nOne such is:\n\n\na 7-state 4-symbol universal Turing machine in 1962 using 2-tag systems. (Marvin Minksy)"
+  },
+  {
+    "objectID": "empty.html#use-of-u",
+    "href": "empty.html#use-of-u",
+    "title": "14. Emptiness",
+    "section": "Use of U",
+    "text": "Use of U\n\nWe use the term \\(U\\) in our proof to refer to a machine that could do anything.\nA Universal machine.\nThe development of \\(U\\) is out-of-scope for this class, but with familiar with modern devices like stored memory computers and RISC processors."
+  },
+  {
+    "objectID": "empty.html#theorem-15-2",
+    "href": "empty.html#theorem-15-2",
+    "title": "14. Emptiness",
+    "section": "Theorem 15",
+    "text": "Theorem 15\n\\[\n\\text{Recognizable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]\nProof.\n\nTake machine \\(U\\)\n\n\\(U\\) simulates \\(M\\) on one of its tapes.\n\\(U\\) accepts if \\(M\\) accepts"
+  },
+  {
     "objectID": "pda.html#sketch",
     "href": "pda.html#sketch",
     "title": "8. Pushdown Automata",
@@ -1411,7 +2419,7 @@
     "href": "regexp.html#sketch",
     "title": "2. Regular Expressions",
     "section": "Sketch",
-    "text": "Sketch\n\n\nRegular Operations\n\nUnion\nConcatenation\nStar\n\nRegular Expressions"
+    "text": "Sketch\n\n\nRegular Operations\n\nUnion\nConcatenation\nStar\n\nRegular Expressions\n\nNOT “regex”"
   },
   {
     "objectID": "regexp.html#union",
@@ -1530,7 +2538,7 @@
     "href": "regexp.html#theorem-1",
     "title": "2. Regular Expressions",
     "section": "Theorem 1",
-    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2), \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_1(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "regexp.html#exercise",
@@ -1659,535 +2667,332 @@
     "text": "Schematic View"
   },
   {
-    "objectID": "cfgpda.html#sketch-1",
-    "href": "cfgpda.html#sketch-1",
-    "title": "9. CFG → PDA",
-    "section": "Sketch",
-    "text": "Sketch\n\nIf \\(A\\) is a CFL then some PDA recognizes \\(A\\).\n*We will convert \\(A\\)’s CFG to a PDA."
+    "objectID": "sunday.html#aims-of-education",
+    "href": "sunday.html#aims-of-education",
+    "title": "Review 2",
+    "section": "Aims of Education",
+    "text": "Aims of Education\n\nAmber Huffman, a Principal Engineer at Google, has spent her career defining standards for the hardware industry. Now with the rapid growth of AI the demand and uses for Open Source Hardware have never been higher. Learn what Open Source Hardware is and why it is important to all of us."
   },
   {
-    "objectID": "cfgpda.html#theorem-7",
-    "href": "cfgpda.html#theorem-7",
-    "title": "9. CFG → PDA",
-    "section": "Theorem 7",
-    "text": "Theorem 7\n\\[\n\\forall \\text{CFL}: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]"
+    "objectID": "sunday.html#finite-automata",
+    "href": "sunday.html#finite-automata",
+    "title": "Review 2",
+    "section": "Finite Automata",
+    "text": "Finite Automata\nA 5-tuple \\(M = (Q, \\Sigma, \\delta, q_0, F)\\):\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
   },
   {
-    "objectID": "cfgpda.html#first-strategy",
-    "href": "cfgpda.html#first-strategy",
-    "title": "9. CFG → PDA",
-    "section": "First Strategy",
-    "text": "First Strategy\n\nUtilize non-determinism.\n\\(P\\) begins by placing the first variable of the CFL on the stack.\nConsider \\(G_2\\)\n\n\n\\[\n\\begin{aligned}\n    &E \\rightarrow E+T \\quad | \\quad  T\\\\\n    &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n    &F \\rightarrow ( E ) \\quad | \\quad a\n\\end{aligned}\n\\]\n\n\nBegin by placing \\(E\\) on the stack."
+    "objectID": "sunday.html#theorem-1-union-closure",
+    "href": "sunday.html#theorem-1-union-closure",
+    "title": "Review 2",
+    "section": "Theorem 1: Union Closure",
+    "text": "Theorem 1: Union Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "cfgpda.html#a-note",
-    "href": "cfgpda.html#a-note",
-    "title": "9. CFG → PDA",
-    "section": "A Note",
-    "text": "A Note\n\nPlacing \\(E\\), a variable, on stack suggests that \\(E\\) is part of the stack alphabet \\(\\Gamma\\).\n\\(E\\) is necessarily not part of the input alphabet \\(\\Sigma\\)\nThis is a good example of how (and why) these languages may differ.\nWe make no claims (yet) about whether the input alphabet appears on the stack (or not)."
+    "objectID": "sunday.html#theorem-2-nfa-dfa",
+    "href": "sunday.html#theorem-2-nfa-dfa",
+    "title": "Review 2",
+    "section": "Theorem 2: NFA → DFA",
+    "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "cfgpda.html#a-note-cont.",
-    "href": "cfgpda.html#a-note-cont.",
-    "title": "9. CFG → PDA",
-    "section": "A Note, Cont.",
-    "text": "A Note, Cont.\n\n# We note we can use a stack language of {!} for an input language of {0,1}\nq_1 = lambda s, stack : [stack.append('!'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) &gt; 1 else [stack.pop(), q_2(s[1:], stack)][-1]\nq_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) &gt; 1 else q_n(s, stack)\nq_n = lambda s, stack : s == '1' and len(stack) == 1\nq_1('000111', []), q_1('00111', []), q_1('00011', [])\n\n(True, False, False)"
+    "objectID": "sunday.html#theorem-3-concat-closure",
+    "href": "sunday.html#theorem-3-concat-closure",
+    "title": "Review 2",
+    "section": "Theorem 3: Concat Closure",
+    "text": "Theorem 3: Concat Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_2\\} | f \\in F_1 \\} \\\\\n&q_1, \\\\\n&F_2)\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "cfgpda.html#on-alphabets",
-    "href": "cfgpda.html#on-alphabets",
-    "title": "9. CFG → PDA",
-    "section": "On Alphabets",
-    "text": "On Alphabets\n\n\\(P\\) begins by placing the first variable of the CFL on the stack.\nConsider \\(G_2\\)\n\n\n\\[\n\\begin{aligned}\n    &E \\rightarrow E+T \\quad | \\quad  T\\\\\n    &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n    &F \\rightarrow ( E ) \\quad | \\quad a\n\\end{aligned}\n\\]\n\n\nBegin by placing \\(E\\) on the stack."
+    "objectID": "sunday.html#theorem-4-star-closure",
+    "href": "sunday.html#theorem-4-star-closure",
+    "title": "Review 2",
+    "section": "Theorem 4: Star Closure",
+    "text": "Theorem 4: Star Closure\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1)\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "cfgpda.html#strategy",
-    "href": "cfgpda.html#strategy",
-    "title": "9. CFG → PDA",
-    "section": "Strategy",
-    "text": "Strategy\n\nUtilize non-determinism.\nReplace the start symbol \\(S\\)\n\nNondeterminististically, so we may assume we make the correct substitution.\n\nLet’s follow through for a moment.\nWe target \\(a+a\\times a\\) with \\(G_2\\)"
+    "objectID": "sunday.html#gnfas",
+    "href": "sunday.html#gnfas",
+    "title": "Review 2",
+    "section": "GNFAs",
+    "text": "GNFAs\n\nIt is simple enough to argue for GNFAs\n\nEvery operation can be an NFA\nAny NFA node can be replaced with an NFA\n\nEssentially the closure options.\n\nTherefore, a GNFA is equivalently expressive to NFA\n\nThe complete proof is left as an exercise to the interested student."
   },
   {
-    "objectID": "cfgpda.html#maintaining-the-stack",
-    "href": "cfgpda.html#maintaining-the-stack",
-    "title": "9. CFG → PDA",
-    "section": "Maintaining the Stack",
-    "text": "Maintaining the Stack\n\n\n\nGoal: \\(a+a\\times a\\)\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\nPythonic notation\n['E']\n['E','+','T']\n['T','+','T']\n['T','+','T']\n['T','+','T','×','F']\nBAD/WRONG!!!"
+    "objectID": "sunday.html#atomicity-lemma",
+    "href": "sunday.html#atomicity-lemma",
+    "title": "Review 2",
+    "section": "Atomicity Lemma",
+    "text": "Atomicity Lemma\n\\[\n\\begin{aligned}\n\\exists M_1, M_2, M_3 :\\\\\nL(M_1) &= a \\in \\Sigma \\\\\nL(M_2) &= \\Sigma^0 \\\\\nL(M_2) &= \\varnothing\n\\end{aligned}\n\\]\nProof\n\\[\n\\begin{aligned}\nM_1 &= (\\{q_0,q_1\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_2 &= (\\{q_0\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_3 &= (\\{q_0\\}, &\\Sigma, &\\varnothing,  &q_0, &\\{q_1\\}) \\\\\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "cfgpda.html#a-stack",
-    "href": "cfgpda.html#a-stack",
-    "title": "9. CFG → PDA",
-    "section": "A Stack",
-    "text": "A Stack\n\nA stack has only push and pop operations.\nWe can, say, pop \\(E\\) then push \\(T\\)\n\nPython tail pops, so [::1].\n\n\n\n\ns = ['E','+','T'][::-1]\ns.pop()\ns.append('T')\nprint(s[::-1])\n\n['T', '+', 'T']"
+    "objectID": "sunday.html#theorem-5",
+    "href": "sunday.html#theorem-5",
+    "title": "Review 2",
+    "section": "Theorem 5:",
+    "text": "Theorem 5:\n\\[\n\\forall R : \\exists M : R = L(M)\n\\]\nProof\n\nAtomic \\(R\\) follows from Atomicity Lemma\nComposite \\(R\\) follows from Closure properties (Theorems 1-4)"
   },
   {
-    "objectID": "cfgpda.html#a-stack-1",
-    "href": "cfgpda.html#a-stack-1",
-    "title": "9. CFG → PDA",
-    "section": "A Stack",
-    "text": "A Stack\n\nSay we then pop \\(T\\) and push \\(T\\times F\\)\n\n\n\ns = ['T','+','T'][::-1]\ns.pop()\n[s.append(a) for a in ['T','×','F'][::-1]]\nprint(s[::-1])\n\n['T', '×', 'F', '+', 'T']\n\n\n\n\nIt replaced the first $T\nNow the operators are in the wrong arrangement.\n\n\\(\\times\\) before \\(+\\)"
+    "objectID": "sunday.html#base-lemma",
+    "href": "sunday.html#base-lemma",
+    "title": "Review 2",
+    "section": "Base Lemma",
+    "text": "Base Lemma\n\\[\n\\forall |G| = 2 := (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\}) : \\exists R : R = L(G)\n\\]\nProof\n\nBy definition, \\(G = (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\})\\)\nBy definition, \\(\\delta = \\{ (q_0, R') \\rightarrow q_1 \\}\\)\nLet \\(R = R'\\)\n\\(\\blacksquare\\)"
   },
   {
-    "objectID": "cfgpda.html#what-to-do",
-    "href": "cfgpda.html#what-to-do",
-    "title": "9. CFG → PDA",
-    "section": "What to do?",
-    "text": "What to do?\n\nOnly push and pop to the top of the stack.\nThat said, if we didn’t have to do that, our proof would work.\n\nIf we can access below, that is random access memory (!!!)\nEquivalent to general computing\n\nTuring Machine / Church’s Lambda Calculus\nGödel’s General Recursion"
+    "objectID": "sunday.html#inductive-lemma",
+    "href": "sunday.html#inductive-lemma",
+    "title": "Review 2",
+    "section": "Inductive Lemma",
+    "text": "Inductive Lemma\n\\[\n\\forall |G| = (k &gt; 2) : \\exists |G| = (k - 1) : L(G) = L(G')\n\\]\nProof\n\nBy definition, \\(G = (Q,\\Sigma,\\delta,q_0,\\{q_n\\})\\)\nSelect arbitrary \\(q_i \\in Q \\setminus \\{q_0, q_n\\}\\)\nTake \\(G' = (Q \\setminus \\{q_i\\},\\Sigma,\\delta_{-i},q_0,\\{q_n\\})\\)"
   },
   {
-    "objectID": "cfgpda.html#a-workaround",
-    "href": "cfgpda.html#a-workaround",
-    "title": "9. CFG → PDA",
-    "section": "A Workaround",
-    "text": "A Workaround\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nT\n\n\n\n1-&gt;4\n\n\n\n\n\n5\nT\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nT\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nF\n\n\n\n4-&gt;8\n\n\n\n\n\n9\nF\n\n\n\n5-&gt;9\n\n\n\n\n\nA\nF\n\n\n\n6-&gt;A\n\n\n\n\n\nB\na\n\n\n\n8-&gt;B\n\n\n\n\n\nC\na\n\n\n\n9-&gt;C\n\n\n\n\n\nD\na\n\n\n\nA-&gt;D\n\n\n\n\n\n\n\n\n\n\n\n\nWe needn’t need to work with the bottom of the stack.\nThat T at the top will ultimately turn into a terminal \\(a\\)\nSimply do that first.\n\nThis is easy to do nondeterministically."
+    "objectID": "sunday.html#theorem-6",
+    "href": "sunday.html#theorem-6",
+    "title": "Review 2",
+    "section": "Theorem 6",
+    "text": "Theorem 6\n\\[\n\\forall M : \\exists R : R = L(M)\n\\]\nProof\n\n\\(\\forall |G| = 2 := (\\{q_0,q_1\\},\\Sigma,\\delta,q_0,\\{q_1\\}) : \\exists R : R = L(G)\\)\n\\(\\forall |G| = (k &gt; 2) : \\exists |G| = (k - 1) : L(G) = L(G')\\)\nBy induction, \\(\\forall M : \\exists R : R = L(M)\\)"
   },
   {
-    "objectID": "cfgpda.html#reorder-substitutions",
-    "href": "cfgpda.html#reorder-substitutions",
-    "title": "9. CFG → PDA",
-    "section": "Reorder Substitutions",
-    "text": "Reorder Substitutions\n\nSimply do the leftmost/topmost operations first.\nCopy the output to the tape\nThe stack will contain no leading terminals.\n\n\n['E'],         \"\"\n['E','+','T'], \"\"\n['T','+','T'], \"\"\n['F','+','T'], \"\"\n['a','+','T'], \"\"\n['+','T'],     \"a\"\n['T'],         \"a+\""
+    "objectID": "sunday.html#pumping-lemma",
+    "href": "sunday.html#pumping-lemma",
+    "title": "Review 2",
+    "section": "Pumping Lemma",
+    "text": "Pumping Lemma\n\n\\(s \\in A \\land |s| &gt; p\\) requires\n\n\\(xy^nz \\in A\\)\n\\(|y| &gt; 0\\)\n\\(|xy| \\leq p\\)\n\n\nProof\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz"
   },
   {
-    "objectID": "cfgpda.html#new-strategy",
-    "href": "cfgpda.html#new-strategy",
-    "title": "9. CFG → PDA",
-    "section": "New Strategy",
-    "text": "New Strategy\n\nAggressively resolve to terminal symbols\nCopy terminals to the tape\nOnly work on the top of the stack."
+    "objectID": "sunday.html#cfgs",
+    "href": "sunday.html#cfgs",
+    "title": "Review 2",
+    "section": "CFGs",
+    "text": "CFGs\n\nRule: Statements of form Variable → (string of symbols and terminals)\nVariable: Those symbols on the left-hand side (LHS) of a → in a rule\nTerminals: Those symbols which appear in only on the right-hand side (RHS)\nStarting variable: The topmost symbol."
   },
   {
-    "objectID": "cfgpda.html#theorem-7-1",
-    "href": "cfgpda.html#theorem-7-1",
-    "title": "9. CFG → PDA",
+    "objectID": "sunday.html#ambiguity",
+    "href": "sunday.html#ambiguity",
+    "title": "Review 2",
+    "section": "Ambiguity",
+    "text": "Ambiguity\n\\[\n\\begin{align*}\nG_2& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+T \\quad | \\quad  T\\\\\n        &T \\rightarrow T\\times F \\quad | \\quad  F \\\\\n        &F \\rightarrow ( E ) \\quad | \\quad a\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\\[\n\\begin{align*}\nG_3& \\\\\n&\\left.\n    \\begin{aligned}\n        &E \\rightarrow E+E \\quad | \\quad  E \\times E \\quad | \\quad  ( E ) \\quad | \\quad  a\\\\\n    \\end{aligned}\n\\right.\n\\end{align*}\n\\]\n\nThese represent the same language (\\(L(G_2) = L(G_3)\\))!\nBut \\(G_3\\) is ambigious!"
+  },
+  {
+    "objectID": "sunday.html#pdas",
+    "href": "sunday.html#pdas",
+    "title": "Review 2",
+    "section": "PDAs",
+    "text": "PDAs\nA PDA is a 6-tuple \\((Q, \\Sigma, \\Gamma, \\delta, q_0, F)\\)\n\n\\(\\delta : Q \\times (\\Sigma_{\\varepsilon} \\cup \\Gamma_{\\varepsilon}) \\rightarrow \\mathcal{P} (Q \\times \\Gamma_{\\varepsilon})\\)\n\nGiven a state, letter, and stack symbol\nGet a set of states and stack symbols.\n\\(\\delta(q, a, c) = {(r_1, d), (r_2, e)}\\)\n\nIn state \\(q\\), reading \\(a\\) on tape and \\(c\\) on stack, either write \\(d\\) and go to state \\(r_1\\) or write \\(e\\) and go to state \\(r_2\\)"
+  },
+  {
+    "objectID": "sunday.html#schematic-view",
+    "href": "sunday.html#schematic-view",
+    "title": "Review 2",
+    "section": "Schematic View",
+    "text": "Schematic View"
+  },
+  {
+    "objectID": "sunday.html#theorem-7",
+    "href": "sunday.html#theorem-7",
+    "title": "Review 2",
     "section": "Theorem 7",
     "text": "Theorem 7\n\\[\n\\forall \\text{CFL}: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]\nProof\n\nTake \\(\\Sigma\\) to be the terminals\nTake \\(\\Gamma\\) to be the terminals \\(\\cup\\) variables\nTake \\(\\delta\\) to…\n\nWrite CFL’s \\(S\\) to stack from \\(q_0\\)\nWrite stack terminals to the tape\nImplement all rules"
   },
   {
-    "objectID": "cfgpda.html#adjacent-results",
-    "href": "cfgpda.html#adjacent-results",
-    "title": "9. CFG → PDA",
-    "section": "Adjacent Results",
-    "text": "Adjacent Results\n\nIt is the case the PDAs may be converted to CFLs, but it is non-trivial.\n\nIt is sufficient to know it is the case.\n\nEvery regular language is a context free language.\n\nConvert to automata.\nIgnore stacks."
-  },
-  {
-    "objectID": "cfgpda.html#summary-of-results",
-    "href": "cfgpda.html#summary-of-results",
-    "title": "9. CFG → PDA",
-    "section": "Summary of Results",
-    "text": "Summary of Results\n\n\n\n\nRecognizer\nGenerator\n\n\n\n\nRegular language\n*FA\nRegular Expression\n\n\nContext Free lanuage\nPDA\nContext Free Grammar"
-  },
-  {
-    "objectID": "cfgpda.html#relation-between-results",
-    "href": "cfgpda.html#relation-between-results",
-    "title": "9. CFG → PDA",
-    "section": "Relation Between Results",
-    "text": "Relation Between Results\n\n\n\n\n\n\n\n\n\n\n\n\n\nCan be fun to view as a Venn diagram.\nMany more PDA than *FA languages\n\nHow many more?\n\nThings bigger than PDA, of course."
-  },
-  {
-    "objectID": "cfgpda.html#code-reveal",
-    "href": "cfgpda.html#code-reveal",
-    "title": "9. CFG → PDA",
-    "section": "Code Reveal",
-    "text": "Code Reveal\n\n\n\n\n\n\n\n\n\n\n\n\nimport matplotlib.pyplot as plt\nfrom matplotlib_venn import venn2\n\n\n\nv = venn2(subsets = (4, 0, 1), set_labels=(\"PDA\", \"*FA\",))\n\nfor idx, subset in enumerate(v.subset_labels):\n    v.subset_labels[idx].set_visible(False)\n\nplt"
-  },
-  {
-    "objectID": "cfgpda.html#faq",
-    "href": "cfgpda.html#faq",
-    "title": "9. CFG → PDA",
-    "section": "FAQ",
-    "text": "FAQ\n\nWhy do we restrict ourselves to a stack?\n\nThe PDA happens to be equivalent to CFG when using a stack.\nWe like automata as many of the proofs are easier with automata.\n\nWhy use “weaker” models without e.g. random access memory.\n\nIt is possible to prove properties of *FAs/PDAs which cannot be proved of other models.\n*FA/CFG are quite powerful and capture many applications.\n\nDo we need nondeterminism?\n\nNondeterministic PDA and deterministic PDA are not equivalent."
-  },
-  {
-    "objectID": "cfgpda.html#faq-0",
-    "href": "cfgpda.html#faq-0",
-    "title": "9. CFG → PDA",
-    "section": "FAQ 0",
-    "text": "FAQ 0\n\nWhy do we restrict ourselves to a stack?\n\nThe PDA happens to be equivalent to CFG when using a stack.\nWe like automata as many of the proofs are easier with automata."
-  },
-  {
-    "objectID": "cfgpda.html#faq-1",
-    "href": "cfgpda.html#faq-1",
-    "title": "9. CFG → PDA",
-    "section": "FAQ 1",
-    "text": "FAQ 1\n\nWhy use “weaker” models without e.g. random access memory.\n\nIt is possible to prove properties of *FAs/PDAs which cannot be proved of other models.\n*FA/CFG are quite powerful and capture many applications."
-  },
-  {
-    "objectID": "cfgpda.html#faq-2",
-    "href": "cfgpda.html#faq-2",
-    "title": "9. CFG → PDA",
-    "section": "FAQ 2",
-    "text": "FAQ 2\n\nDo we need nondeterminism?\n\nNondeterministic PDA and deterministic PDA are not equivalent.\nNo deterministic PDA recognizes \\(B = \\{ww^\\mathcal{R} | w \\in \\{0,1\\}*\\}\\)"
-  },
-  {
-    "objectID": "cfpump.html#sketch",
-    "href": "cfpump.html#sketch",
-    "title": "10. Context Free Pumping",
-    "section": "Sketch",
-    "text": "Sketch\n\n\nCF Pumping Lemma\n\nStatement\nExamples"
-  },
-  {
-    "objectID": "cfpump.html#avoid-this-trap",
-    "href": "cfpump.html#avoid-this-trap",
-    "title": "10. Context Free Pumping",
-    "section": "Avoid this trap",
-    "text": "Avoid this trap\n\nSuppose we wish to prove a language is not a context free language\nWe must prove there is no CFG/PDA that recognizes the language.\nIt may be tempting to conclude:\n\nI thought about it really hard.\nI could find no PDA/CFG\nTherefore the language is not a context free language."
-  },
-  {
-    "objectID": "cfpump.html#example",
-    "href": "cfpump.html#example",
-    "title": "10. Context Free Pumping",
-    "section": "Example",
-    "text": "Example\n\nTake \\(\\Sigma = \\{0,1,2\\}\\)\nTake \\(B = \\{0^k1^k2^k| k \\in \\mathbb{N}\\}\\)\nThis language is not a context free language.\n\nIf you had a stack, match 0‘s with 1’\nHow to deal with 2’s?\nNot a proof, but an intuition."
-  },
-  {
-    "objectID": "cfpump.html#statement-of-lemma",
-    "href": "cfpump.html#statement-of-lemma",
-    "title": "10. Context Free Pumping",
-    "section": "Statement of Lemma",
-    "text": "Statement of Lemma\n\\[\n\\begin{aligned}\n&\\forall A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\] - That is, \\(\\{xz, xyz, xyyz\\} \\in A\\)\n\nWe “pump up” the number of occurances of y"
-  },
-  {
-    "objectID": "cfpump.html#definitions",
-    "href": "cfpump.html#definitions",
-    "title": "10. Context Free Pumping",
-    "section": "Definitions",
-    "text": "Definitions\n\nTake \\(M | L(M) = A\\)\nTake \\(p = |M| = |Q|\\)\nTake \\(s \\in A = xyz : |s| \\geq p\\)"
-  },
-  {
-    "objectID": "cfpump.html#sketch-of-proof",
-    "href": "cfpump.html#sketch-of-proof",
-    "title": "10. Context Free Pumping",
-    "section": "Sketch of Proof",
-    "text": "Sketch of Proof\n\nWe imagine an arbitrarily long string.\n\nWe’ll be precise latter.\n\nThe parse tree of a long string is very high.\n\nRecall parse trees:\n\n\n\n\n\n\n\n\n\n\nfinite_automata\n\n\n\n1\nE\n\n\n\n2\nE\n\n\n\n1-&gt;2\n\n\n\n\n\n3\n+\n\n\n\n1-&gt;3\n\n\n\n\n\n4\nE\n\n\n\n1-&gt;4\n\n\n\n\n\n5\na\n\n\n\n2-&gt;5\n\n\n\n\n\n6\nE\n\n\n\n4-&gt;6\n\n\n\n\n\n7\n×\n\n\n\n4-&gt;7\n\n\n\n\n\n8\nE\n\n\n\n4-&gt;8"
-  },
-  {
-    "objectID": "cfpump.html#find-xyz",
-    "href": "cfpump.html#find-xyz",
-    "title": "10. Context Free Pumping",
-    "section": "Find x,y,z",
-    "text": "Find x,y,z\n\nLet \\(x = (a_o,\\ldots,a_i)\\)\n\n\\(M\\) is in state \\(s_*j*\\) after reading \\(x\\)\n\nLet \\(y = (a_i,\\ldots,a_{j-1})\\)\n\n\\(M\\) is in state \\(s_j\\) after reading \\(y\\) when beginning in \\(s_i\\)\n\\(s_i = s_j\\)\n\nLet \\(z = (a_{j-1},\\ldots,a_p)\\)\n\n\\(M\\) accepts after reading \\(z\\) when beginning in \\(s_j\\)"
-  },
-  {
-    "objectID": "cfpump.html#pump-on-y",
-    "href": "cfpump.html#pump-on-y",
-    "title": "10. Context Free Pumping",
-    "section": "Pump on \\(y\\)",
-    "text": "Pump on \\(y\\)\n\nWe note\n\n\\(xz\\) is accepted by \\((q_0,s_1,\\ldots,s_i,s_{j+1},\\ldots,s_p)\\)\n\nDenote as \\([0,i][j+1,p]\\)\n\n\\(xyz\\) is accepted by \\((q_0,s_1,\\ldots,s_p)\\)\n\nDenote as \\([0,p] = [0,i][i+1,j][j+1,p]\\)\n\n\\(xyyz\\) is accepted by \\((q_0,s_1,\\ldots,s_i+1,\\ldots,s_{j-1},s_i\\ldots,s_j, s_{j+1},\\ldots, s_p)\\)\n\nDenote as \\([0,i][i+1,j][i+1,j][j+1,p]\\)\n\n\\(xy^nz\\) is accepted by \\([0,i][i+1,j]^n[j+1,p]\\)"
-  },
-  {
-    "objectID": "cfpump.html#python",
-    "href": "cfpump.html#python",
-    "title": "10. Context Free Pumping",
-    "section": "Python",
-    "text": "Python\n# assume S as a list of states.\nS : List[states]\nx : str\ny : str\nz : str\nassert(states(x + z)         == S[:i]+S[j:]) \nassert(states(x + y + z)     == S  == S[:i]+S[i:j]+S[j:])\nassert(states(x + y + y + z) == S[:i] + S[i:j] + S[i:j] + S[j:])\nassert(states(x + y * 2 + z) == S[:i] + S[i:j] * 2      + S[j:])\n# This can't run - it's infinite\nassert(all((states(x+y*n+z) == A[:i]+A[i:j]*n+A[j:]) for n in count()))\n\nMuch easier with Pythonic slices."
-  },
-  {
-    "objectID": "cfpump.html#graphically",
-    "href": "cfpump.html#graphically",
-    "title": "10. Context Free Pumping",
-    "section": "Graphically",
-    "text": "Graphically\ndigraph G {\n    rankdir=LR;\n    node [shape=plaintext];\n    S -&gt; u;\n    S -&gt; v;\n    S -&gt; x;\n    S -&gt; y;\n    S -&gt; z;\n    E -&gt; R;\n    E -&gt; R;\n    R -&gt; R;\n}"
-  },
-  {
-    "objectID": "cfpump.html#show-s_is_j",
-    "href": "cfpump.html#show-s_is_j",
-    "title": "10. Context Free Pumping",
-    "section": "Show \\(s_i=s_j\\)",
-    "text": "Show \\(s_i=s_j\\)\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\n?\n\n\n\nqi-&gt;qi\n\n\n?\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\n?"
-  },
-  {
-    "objectID": "cfpump.html#label-edges",
-    "href": "cfpump.html#label-edges",
-    "title": "10. Context Free Pumping",
-    "section": "Label Edges",
-    "text": "Label Edges\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz\n\n\n\n\n\n\n\n\n\nThis is valid GNFA that reduces to a DFA."
-  },
-  {
-    "objectID": "cfpump.html#pumping-lemma-1",
-    "href": "cfpump.html#pumping-lemma-1",
-    "title": "10. Context Free Pumping",
-    "section": "Pumping Lemma",
-    "text": "Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\]\nProof\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqi\n\ns\ni\n\n\n\nq0-&gt;qi\n\n\nx\n\n\n\nqi-&gt;qi\n\n\ny\n\n\n\nqn\n\n\nq\nn\n\n\n\nqi-&gt;qn\n\n\nz"
-  },
-  {
-    "objectID": "cfpump.html#easy-to-read",
-    "href": "cfpump.html#easy-to-read",
-    "title": "10. Context Free Pumping",
-    "section": "Easy to read",
-    "text": "Easy to read\n\n\\(s \\in A \\land |s| &gt; p\\) requires\n\n\\(xy^nz \\in A\\)\n\\(|y| &gt; 0\\)\n\\(|xy| \\leq p\\)"
-  },
-  {
-    "objectID": "cfpump.html#irregular-0",
-    "href": "cfpump.html#irregular-0",
-    "title": "10. Context Free Pumping",
-    "section": "Irregular 0",
-    "text": "Irregular 0\n\nTake \\(D = \\{ 0^k1^k | k \\in \\mathbb{N}\\}\\)\nShow \\(D\\) is not regular.\nWe proceed by contradiction.\n\nAssume \\(D\\) is regular.\nApply the pumping lemma.\nDerive a contradiction."
-  },
-  {
-    "objectID": "cfpump.html#strategy",
-    "href": "cfpump.html#strategy",
-    "title": "10. Context Free Pumping",
-    "section": "Strategy",
-    "text": "Strategy\n\nWe take string \\(s = 0^p1^p\\)\nPumping lemma requires \\(\\exists xy : |xy| \\leq p\\)\n\\(\\forall xy \\not\\exists 1 \\in xy\\)\nSo \\(xz = 0^{p-|y|}1^p\\)\nPumping lemma requires \\(|y| &gt; 0\\)\n\\(D\\) requires \\(p - |y| = p\\)\nContradiction \\(\\blacksquare\\)"
-  },
-  {
-    "objectID": "cfpump.html#on-graphics",
-    "href": "cfpump.html#on-graphics",
-    "title": "10. Context Free Pumping",
-    "section": "On Graphics",
-    "text": "On Graphics\n\nWe note we cannot show this graphically.\nWe have proven no DFA accepts \\(D\\)\nHow could we draw a DFA!\nThis is also why we can’t really on graphics!"
-  },
-  {
-    "objectID": "cfpump.html#irregular-1",
-    "href": "cfpump.html#irregular-1",
-    "title": "10. Context Free Pumping",
-    "section": "Irregular 1",
-    "text": "Irregular 1\n\nTake \\(F = \\{ ww | w\\ \\in \\Sigma*\\}\\)\nShow \\(F\\) is not regular.\nWe proceed by contradiction.\n\nAssume \\(F\\) is regular.\nApply the pumping lemma.\nDerive a contradiction."
-  },
-  {
-    "objectID": "cfpump.html#avoid-this",
-    "href": "cfpump.html#avoid-this",
-    "title": "10. Context Free Pumping",
-    "section": "Avoid this",
-    "text": "Avoid this\n\nSay we chose \\(0^p0^p\\)\nWe take, say, \\(x = y = 0^(p/2 - 1)\\)\nWell we actually can pump \\(y\\) if \\(|y|\\) is odd.\nHave to be careful!"
-  },
-  {
-    "objectID": "cfpump.html#strategy-1",
-    "href": "cfpump.html#strategy-1",
-    "title": "10. Context Free Pumping",
-    "section": "Strategy",
-    "text": "Strategy\n\nWe take string $s = \\(0^p10^p1\\)\nPumping lemma requires \\(\\exists xy : |xy| \\leq p\\)\n\\(\\forall xy \\not\\exists 1 \\in x\\)\nSo \\(xz = 0^{p-|y|}10^p1\\)\nPumping lemma requires \\(|y| &gt; 0\\)\n\\(F\\) requires \\(p - |y| = p\\)\nContradiction \\(\\blacksquare\\)"
-  },
-  {
-    "objectID": "cfpump.html#combined-tactics",
-    "href": "cfpump.html#combined-tactics",
-    "title": "10. Context Free Pumping",
-    "section": "Combined Tactics",
-    "text": "Combined Tactics\n\nWe have used the assumptions of the pumping lemma.\nWe have proven other results!\nWe now explore a result using closure properties (Theorems 1-4)"
-  },
-  {
-    "objectID": "cfpump.html#irregular-2",
-    "href": "cfpump.html#irregular-2",
-    "title": "10. Context Free Pumping",
-    "section": "Irregular 2",
-    "text": "Irregular 2\n\nRecall \\(B\\)\n\n“…equal numbers of 0s and 1s”\n\nAssume by contradiction \\(B\\) is regular.\nSince \\(B\\) is regular, \\(B \\cap 0*1*\\) is regular\n\nClosure under intersection\n\nWe note that \\(D = B \\cap 0*1*\\)\n\n\\(D\\) is irregular!\n\n\\(B\\) is irregular.\n\\(\\blacksquare\\)"
-  },
-  {
-    "objectID": "cfpump.html#regular-pumping-lemma",
-    "href": "cfpump.html#regular-pumping-lemma",
-    "title": "10. Context Free Pumping",
-    "section": "Regular Pumping Lemma",
-    "text": "Regular Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall A:\\exists p \\in \\mathbb{N} : \\\\\n&\\exists xyz \\in A : |xyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : xy^iz \\in A \\land \\\\\n&|y| &gt; 0 \\land \\\\\n&|xy| \\leq p\n\\end{aligned}\n\\]\n\nThat is, \\(\\{xz, xyz, xyyz\\} \\in A\\)\nWe “pump up” the number of occurances of y"
-  },
-  {
-    "objectID": "cfpump.html#context-free-pumping-lemma",
-    "href": "cfpump.html#context-free-pumping-lemma",
-    "title": "10. Context Free Pumping",
-    "section": "Context Free Pumping Lemma",
-    "text": "Context Free Pumping Lemma\n\\[\n\\begin{aligned}\n&\\forall \\text{ CFL } A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists s = uvxyz \\in A : |uvxyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : uv^ixy^iz \\in A \\land \\\\\n&|vy| &gt; 0 \\land \\\\\n&|vxy| \\leq p\n\\end{aligned}\n\\]\n\nThat is, \\(\\{uxz, uvxyz, uvvxyyz\\} \\in A\\)\nWe “pump up” occurances of v and y"
-  },
-  {
-    "objectID": "cfpump.html#checkin",
-    "href": "cfpump.html#checkin",
-    "title": "10. Context Free Pumping",
-    "section": "Checkin",
-    "text": "Checkin\n\nCan a string of length 1 million be made my a parse tree of height 1?\n\nHow about all multiple of 1 million?\n\nWe’ll quantify this shortly.\n\n\n\\[\n\\begin{aligned}\n    &S \\rightarrow 0^{10^6} \\\\\n\\end{aligned}\n\\]"
-  },
-  {
-    "objectID": "cfpump.html#given-a-tall-tree",
-    "href": "cfpump.html#given-a-tall-tree",
-    "title": "10. Context Free Pumping",
-    "section": "Given a tall tree",
-    "text": "Given a tall tree\n\nLet’s assume the tall tree\nEach step in the tree involves variable substitution\nSo as soon as height is greater than the size of set of variables, we necessarily repeat some variable."
-  },
-  {
-    "objectID": "cfpump.html#graphically-1",
-    "href": "cfpump.html#graphically-1",
-    "title": "10. Context Free Pumping",
-    "section": "Graphically",
-    "text": "Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nd0\n\n\n\n\nq0\n\nq\n0\n\n\n\nd0-&gt;q0\n\n\n\n\n\nqn\n\n\nq\nn\n\n\n\nq0-&gt;qn\n\n\n?"
-  },
-  {
-    "objectID": "cfpump.html#intro",
-    "href": "cfpump.html#intro",
-    "title": "10. Context Free Pumping",
-    "section": "Intro",
-    "text": "Intro\nHere is a TikZ picture\n\n\\begin{tikzpicture}\n \\draw (0,0) circle (1cm);\n % \\draw (0,0) circle (2cm);\n\\end{tikzpicture}"
-  },
-  {
-    "objectID": "cfpump.html#tikz",
-    "href": "cfpump.html#tikz",
-    "title": "10. Context Free Pumping",
-    "section": "Tikz",
-    "text": "Tikz\n\nI’m going to use a new tool to show the next bit: Tikz!\n\nPart of LaTeX\nSeems to run well inside of R\n\nCredit LaTeX Graphics using TikZ\nCredit JBGruber"
-  },
-  {
-    "objectID": "cfpump.html#example-1",
-    "href": "cfpump.html#example-1",
-    "title": "10. Context Free Pumping",
-    "section": "Example",
-    "text": "Example\n\n\\begin{tikzpicture}\n \\draw (0,0) circle (1cm);\n\\end{tikzpicture}"
-  },
-  {
-    "objectID": "cfpump.html#proof-by-picture",
-    "href": "cfpump.html#proof-by-picture",
-    "title": "10. Context Free Pumping",
-    "section": "Proof by Picture",
-    "text": "Proof by Picture"
-  },
-  {
-    "objectID": "cfpump.html#s-is-long",
-    "href": "cfpump.html#s-is-long",
-    "title": "10. Context Free Pumping",
-    "section": "\\(s\\) is long",
-    "text": "\\(s\\) is long"
-  },
-  {
-    "objectID": "cfpump.html#parse-tree",
-    "href": "cfpump.html#parse-tree",
-    "title": "10. Context Free Pumping",
-    "section": "Parse Tree",
-    "text": "Parse Tree"
-  },
-  {
-    "objectID": "cfpump.html#begin-with-e",
-    "href": "cfpump.html#begin-with-e",
-    "title": "10. Context Free Pumping",
-    "section": "Begin with \\(E\\)",
-    "text": "Begin with \\(E\\)"
-  },
-  {
-    "objectID": "cfpump.html#tree-is-tall",
-    "href": "cfpump.html#tree-is-tall",
-    "title": "10. Context Free Pumping",
-    "section": "Tree is tall",
-    "text": "Tree is tall"
-  },
-  {
-    "objectID": "cfpump.html#take-a-derivation",
-    "href": "cfpump.html#take-a-derivation",
-    "title": "10. Context Free Pumping",
-    "section": "Take a Derivation",
-    "text": "Take a Derivation"
-  },
-  {
-    "objectID": "cfpump.html#necessary-repition",
-    "href": "cfpump.html#necessary-repition",
-    "title": "10. Context Free Pumping",
-    "section": "Necessary Repition",
-    "text": "Necessary Repition"
-  },
-  {
-    "objectID": "cfpump.html#necessary-repetition",
-    "href": "cfpump.html#necessary-repetition",
-    "title": "10. Context Free Pumping",
-    "section": "Necessary Repetition",
-    "text": "Necessary Repetition"
-  },
-  {
-    "objectID": "cfpump.html#r-to-s",
-    "href": "cfpump.html#r-to-s",
-    "title": "10. Context Free Pumping",
-    "section": "\\(R\\) to \\(s\\)",
-    "text": "\\(R\\) to \\(s\\)"
-  },
-  {
-    "objectID": "cfpump.html#s-to-uvxyz",
-    "href": "cfpump.html#s-to-uvxyz",
-    "title": "10. Context Free Pumping",
-    "section": "\\(s\\) to \\(uvxyz\\)",
-    "text": "\\(s\\) to \\(uvxyz\\)"
-  },
-  {
-    "objectID": "cfpump.html#s-to-uvvxyyz",
-    "href": "cfpump.html#s-to-uvvxyyz",
-    "title": "10. Context Free Pumping",
-    "section": "\\(s\\) to \\(uvvxyyz\\)",
-    "text": "\\(s\\) to \\(uvvxyyz\\)"
-  },
-  {
-    "objectID": "cfpump.html#display-the-lowest-r",
-    "href": "cfpump.html#display-the-lowest-r",
-    "title": "10. Context Free Pumping",
-    "section": "Display the lowest \\(R\\)…",
-    "text": "Display the lowest \\(R\\)…"
-  },
-  {
-    "objectID": "cfpump.html#display-the-lowest-r-1",
-    "href": "cfpump.html#display-the-lowest-r-1",
-    "title": "10. Context Free Pumping",
-    "section": "Display the lowest \\(R\\)…",
-    "text": "Display the lowest \\(R\\)…"
-  },
-  {
-    "objectID": "cfpump.html#with-the-higher-r",
-    "href": "cfpump.html#with-the-higher-r",
-    "title": "10. Context Free Pumping",
-    "section": "With the higher \\(R\\)…",
-    "text": "With the higher \\(R\\)…"
-  },
-  {
-    "objectID": "cfpump.html#side-by-side",
-    "href": "cfpump.html#side-by-side",
-    "title": "10. Context Free Pumping",
-    "section": "Side by side",
-    "text": "Side by side\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the left we have \\(s = uvxyz\\)\nOn the right we have \\(s = uvvxyz = uv^2xy^2z\\)\nProcess is repeatable."
-  },
-  {
-    "objectID": "cfpump.html#side-by-side-1",
-    "href": "cfpump.html#side-by-side-1",
-    "title": "10. Context Free Pumping",
-    "section": "Side by side",
-    "text": "Side by side\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the left we have \\(s = uvxyz\\)\nOn the right we have \\(s = uvvxyz = uv^2xy^2z\\)\nProcess is repeatable."
-  },
-  {
-    "objectID": "cfpump.html#deskew",
-    "href": "cfpump.html#deskew",
-    "title": "10. Context Free Pumping",
-    "section": "Deskew",
-    "text": "Deskew"
-  },
-  {
-    "objectID": "cfpump.html#code-reveal",
-    "href": "cfpump.html#code-reveal",
-    "title": "10. Context Free Pumping",
-    "section": "Code Reveal",
-    "text": "Code Reveal\n\n\n\\begin{tikzpicture}\n\\fill[darkgray!40!black] (0,0) rectangle (10,7);\n\\draw[white] (2,2) -- node[below,cyan] {u} ++(1,0)  -- node[below,cyan] {v} ++(1,0) ;\n\\draw[white] (4,2) -- node[below,cyan] {x} ++(2,0);\n\\draw[white] (6,2) -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1,0);\n\n\\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0) ;\n\n\\draw[white] (5,4.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,3.5) -- node[below,cyan] {R} ++(0,0) ;\n\n\\draw[white] (2,2) -- (5,5) ;\n\\draw[white] (5,5) -- (8,2) ;\n\n\\draw[white] (3,2) -- (5,4) ;\n\\draw[white] (5,4) -- (7,2) ;\n\n\\draw[white] (4,2) -- (5,3) ;\n\\draw[white] (5,3) -- (6,2) ;\n\n\\end{tikzpicture}\n\n\\begin{tikzpicture}\n\\fill[darkgray!40!black] (0,0) rectangle (10,7);\n\\draw[white] (2,2) -- node[below,cyan] {u} ++(1,0)  -- node[below,cyan] {v} ++(1,0) ;\n\\draw[white] (6,2) -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1,0);\n\n\\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0) ;\n\n\\draw[white] (5,4.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,3.5) -- node[below,cyan] {R} ++(0,0) ;\n\\draw[white] (5,2.5) -- node[below,cyan] {R} ++(0,0) ;\n\n\\draw[white] (2,2) -- (5,5) ;\n\\draw[white] (5,5) -- (8,2) ;\n\n\\draw[white] (3,2) -- (5,4) ;\n\\draw[white] (5,4) -- (7,2) ;\n\n\\draw[white] (3,1) -- (5,3) ;\n\\draw[white] (5,3) -- (7,1) ;\n\n\\draw[white] (4,1) -- (5,2) ;\n\\draw[white] (5,2) -- (6,1) ;\n\n\\draw[white] (3,1) -- node[below,cyan] {v} ++(1,0) -- node[below,cyan] {x} ++(2,0) -- node[below,cyan] {y} ++(1,0) ;\n\n\\end{tikzpicture}"
-  },
-  {
-    "objectID": "cfpump.html#uxz",
-    "href": "cfpump.html#uxz",
-    "title": "10. Context Free Pumping",
-    "section": "\\(uxz\\)",
-    "text": "\\(uxz\\)"
-  },
-  {
-    "objectID": "cfpump.html#context-free-pumping-lemma-1",
-    "href": "cfpump.html#context-free-pumping-lemma-1",
-    "title": "10. Context Free Pumping",
+    "objectID": "sunday.html#context-free-pumping-lemma",
+    "href": "sunday.html#context-free-pumping-lemma",
+    "title": "Review 2",
     "section": "Context Free Pumping Lemma",
     "text": "Context Free Pumping Lemma\n\n\n\\[\n\\begin{aligned}\n&\\forall \\text{ CFL } A :\\exists p \\in \\mathbb{N} : \\\\\n&\\exists s = uvxyz \\in A : |uvxyz| \\geq p \\implies\n\\\\\n&\\forall i \\in \\mathbb{N} : uv^ixy^iz \\in A \\land \\\\\n&|vy| &gt; 0 \\land \\\\\n&|vxy| \\leq p\n\\end{aligned}\n\\]\n\nProof"
   },
   {
-    "objectID": "cfpump.html#details",
-    "href": "cfpump.html#details",
-    "title": "10. Context Free Pumping",
-    "section": "Details",
-    "text": "Details\n\nTake \\(b\\) maximum branch size\nTake \\(h\\) height parse tree\nNeed \\(|s| &lt; b^h\\)\nLet \\(p = b^{|V|}\\)\n\n\\(V\\) is the set of variables."
+    "objectID": "sunday.html#a-turing-machine",
+    "href": "sunday.html#a-turing-machine",
+    "title": "Review 2",
+    "section": "A Turing Machine",
+    "text": "A Turing Machine\n\\[\nM := (Q, \\Sigma, \\Gamma, \\delta, q_0, q_{acc}, q_{rej})\n\\]\n\n\\(\\Sigma\\): The input alphabet\n\\(\\Gamma\\): The tape alphabet, we note \\(\\Sigma \\subset \\Gamma\\)\n\\(\\delta: Q \\times \\Gamma \\rightarrow Q \\times \\Gamma \\times \\{L, R\\} \\quad (L = \\text{Left}, R = \\text{Right})\\)\n\\(\\delta(q, a) = (r, b, R)\\)"
   },
   {
-    "objectID": "cfpump.html#all-conditions",
-    "href": "cfpump.html#all-conditions",
-    "title": "10. Context Free Pumping",
-    "section": "All conditions",
-    "text": "All conditions\n\n\\(iv^ixy^iz \\in A \\forall i \\in \\mathbb{N}\\)\n\nCut and paste\n\n\\(vy \\neq \\varepsilon\\)\n\nTake smallest possible tree.\n\n\\(|vxy| \\leq p\\)\n\nPick lowest \\(R\\)"
+    "objectID": "sunday.html#theorem-8",
+    "href": "sunday.html#theorem-8",
+    "title": "Review 2",
+    "section": "Theorem 8",
+    "text": "Theorem 8\n\n\n\\(A\\) is \\(T-recognizable\\) iff some multi-tape TM recognizes \\(A\\)\n\n\nProof.\n\n\n\n\n\n\n\ng\n\n\n\nt\n\na\n\na\n\nb̀\n\nb\n\n#\n\n1\n\n0̀\n\n1\n\n1\n\n#\n\nc̀\n\nc\n\nc\n\na\n\n_\n\n\n\nh\n\nh\n\n\n\nt:thr-&gt;h"
   },
   {
-    "objectID": "cfpump.html#example-2",
-    "href": "cfpump.html#example-2",
-    "title": "10. Context Free Pumping",
+    "objectID": "sunday.html#theorem-9",
+    "href": "sunday.html#theorem-9",
+    "title": "Review 2",
+    "section": "Theorem 9",
+    "text": "Theorem 9\n\n\n\\(A\\) is \\(T-recognizable\\) iff some NTM recognizes \\(A\\)\n\n\nProof.\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\nq_i\n\none\n\n`a`\n\nodd\n\neven\n\nq_j\n\n\n\nt4\n\nq_j\n\none\n\n`a`\n\nodd\n\neven\n\nq_k\n\n\n\nt3:odd-&gt;t4:q_j"
+  },
+  {
+    "objectID": "sunday.html#church-turing-thesis",
+    "href": "sunday.html#church-turing-thesis",
+    "title": "Review 2",
+    "section": "Church-Turing Thesis",
+    "text": "Church-Turing Thesis\n\nEvery effectively calculable function is a computable function\n\n\nRobin Gandy, 1980"
+  },
+  {
+    "objectID": "sunday.html#theorem-10",
+    "href": "sunday.html#theorem-10",
+    "title": "Review 2",
+    "section": "Theorem 10",
+    "text": "Theorem 10\n\\[\n\\text{Decidable}(A_{DFA} := \\{\\langle B, w \\rangle | w \\in L(B: \\text{DFA})\\})\n\\]\nProof.\ndef d_a_dfa(B:DFA, w:str) -&gt; bool:\n  accept : bool\n  accept = B(w)\n  return accept"
+  },
+  {
+    "objectID": "sunday.html#theorem-11",
+    "href": "sunday.html#theorem-11",
+    "title": "Review 2",
+    "section": "Theorem 11",
+    "text": "Theorem 11\n\\[\n\\text{Decidable}(A_{NFA} := \\{\\langle B, w \\rangle | w \\in L(B: \\text{NFA})\\})\n\\]\nProof.\nfrom theorem_02 import NFA_to_DFA\nfrom theorem_10 import d_a_dfa\n\ndef d_a_nfa(B:NFA, w:str) -&gt; bool:\n  B_prime : DFA\n  B_prime = NFA_to_DFA(B)\n  accept : bool\n  accept = d_a_dfa(B_prime, w)\n  return accept"
+  },
+  {
+    "objectID": "sunday.html#theorem-12",
+    "href": "sunday.html#theorem-12",
+    "title": "Review 2",
+    "section": "Theorem 12",
+    "text": "Theorem 12\n\\[\n\\text{Decidable}(E_{DFA} := \\{\\langle B \\rangle | L(B:\\text{DFA}) = \\varnothing\\})\n\\]\nProof.\n# import \"bread_first_search\" or \"transitive_closure\" or \n\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        if state in F:\n          return True\n        visted.append(state)\n  return False"
+  },
+  {
+    "objectID": "sunday.html#theorem-13",
+    "href": "sunday.html#theorem-13",
+    "title": "Review 2",
+    "section": "Theorem 13",
+    "text": "Theorem 13\n\\[\nEQ_{DFA} := \\{\\langle A,B \\rangle | L(A:\\text{DFA}) = L(B:\\text{DFA})\\} \\in \\text{T-Decidable}\n\\]\nProof.\n\nNot too bad to make \\(TM_{EQ_{DFA}}\\)\nEmulate \\(A\\) on one track\nEmulate \\(B\\) on another track\nCreate synthetic \\(C\\):DFA which accepts if \\(A \\oplus B\\) accept\nApply Theorem 12 to synthetic DFA \\(C\\)"
+  },
+  {
+    "objectID": "sunday.html#theorem-14",
+    "href": "sunday.html#theorem-14",
+    "title": "Review 2",
+    "section": "Theorem 14",
+    "text": "Theorem 14\n\\[\nEQ_{DFA} := \\{\\langle A,B \\rangle | L(A:\\text{DFA}) = L(B:\\text{DFA})\\} \\in \\text{T-Decidable}\n\\]\nProof.\n\nNot too bad to make \\(TM_{EQ_{DFA}}\\)\nEmulate \\(A\\) on one track\nEmulate \\(B\\) on another track\nCreate synthetic \\(C\\):DFA which accepts if \\(A \\oplus B\\) accept\nApply Theorem 12 to synthetic DFA \\(C\\)"
+  },
+  {
+    "objectID": "sunday.html#chomsky-normal-form-cnf-for-cfg",
+    "href": "sunday.html#chomsky-normal-form-cnf-for-cfg",
+    "title": "Review 2",
+    "section": "Chomsky Normal Form (CNF) for CFG",
+    "text": "Chomsky Normal Form (CNF) for CFG\n\nTwo legal forms\n\n\\(A \\rightarrow BC \\space | \\space \\{A,B,C\\} \\subset V\\)\n\\(A \\rightarrow a \\space | \\space A \\in V \\land a \\in \\Sigma\\)\n\nThis enforces uniformity."
+  },
+  {
+    "objectID": "sunday.html#theorm-14",
+    "href": "sunday.html#theorm-14",
+    "title": "Review 2",
+    "section": "Theorm 14",
+    "text": "Theorm 14\n\\[\n\\text{Decidable}(A_{CFG} := \\{\\langle G, w \\rangle \\space | \\space w \\in G:\\text{CFG}\\})\n\\]\n\nConvert to CNF\nTest all derivations of length \\(2|w| - 1\\)"
+  },
+  {
+    "objectID": "tm.html#sketch",
+    "href": "tm.html#sketch",
+    "title": "11. Turing Machines",
+    "section": "Sketch",
+    "text": "Sketch\n\n\nTuring Machines\n\nIntroduction\nSchematic\nFormal Definition"
+  },
+  {
+    "objectID": "tm.html#completed",
+    "href": "tm.html#completed",
+    "title": "11. Turing Machines",
+    "section": "Completed:",
+    "text": "Completed:\n\nAutomata and Language Theory (12.5 hours)\n\n\nSLO 1: Define and differentiate between finite automata (DFA, NFA, GNFA) and reg- ular expressions, and demonstrate the equivalence between these models.\nSLO 2: Describe the capabilities and limitations of push-down automata (PDA) and context-free grammars (CFG), and apply the pumping lemma to prove that certain languages are not context-free."
+  },
+  {
+    "objectID": "tm.html#shift",
+    "href": "tm.html#shift",
+    "title": "11. Turing Machines",
+    "section": "Shift",
+    "text": "Shift\n\nThis lecture marks a shift\nWe move from Automata theory to Computability theory\nWe essentially introduced automata to understand the Turing Machine\nThe Turing Machine models all computation."
+  },
+  {
+    "objectID": "tm.html#turing-machines-tm-1936",
+    "href": "tm.html#turing-machines-tm-1936",
+    "title": "11. Turing Machines",
+    "section": "Turing Machines “TM” (1936)",
+    "text": "Turing Machines “TM” (1936)\n\nEquivalent to:\n\nAlonzo Church’s Lambda Calculus (1930)\n\nI really like the Lambda Calculus\nNo one else does 😂\n\nKurt Gödel’s General Recursion (1933)\n\nGödel claimed the TM was just better\n\nEmil Post’s model (1936)\n\nBasically a TM"
+  },
+  {
+    "objectID": "tm.html#how-i-imagine-a-tm",
+    "href": "tm.html#how-i-imagine-a-tm",
+    "title": "11. Turing Machines",
+    "section": "How I imagine a TM",
+    "text": "How I imagine a TM\n\n\n\n\n\\(q_1\\) in head denotes the internal, finite state a la *FA/PDA\nThe array denotes the tape, a la schematic model\nThe 0 denotes a special “blank” symbol."
+  },
+  {
+    "objectID": "tm.html#describing-a-tm",
+    "href": "tm.html#describing-a-tm",
+    "title": "11. Turing Machines",
+    "section": "Describing a TM",
+    "text": "Describing a TM\n\n\n\n\nInternal state: \\(q_1\\), basically the current *FA/PDA state\nNon-blank tape symbols ['1','1','B']\nThe head position, say, -1 as it is before the symbols"
+  },
+  {
+    "objectID": "tm.html#thinking-about-a-tm",
+    "href": "tm.html#thinking-about-a-tm",
+    "title": "11. Turing Machines",
+    "section": "Thinking about a TM",
+    "text": "Thinking about a TM\n\n\n\n\nHead can read and write\nHead is two-way\nTape is infinite\nInfinitely many blanks(0) follow input\nCan accept/reject at any time"
+  },
+  {
+    "objectID": "tm.html#example",
+    "href": "tm.html#example",
+    "title": "11. Turing Machines",
     "section": "Example",
-    "text": "Example\n\nTake \\(B = \\{0^k1^k2^k|k\\in\\mathbb{N}\\}\\)\n\nCan’t divide into 5 parts\nCan’t pump anything\nNot in CFL"
+    "text": "Example\n\\[\nB = \\{a^kb^kc^k|k\\in\\mathbb{N}\\}\n\\]\n\nBegin leftmost\nScan right until 0 while \\(s \\in a^ib^jc^k\\)\nLoop\n\n\nReturn head to leftmost position.\nCross off one each of a, b, c or reject\nAccept on all blank"
+  },
+  {
+    "objectID": "tm.html#understanding-check",
+    "href": "tm.html#understanding-check",
+    "title": "11. Turing Machines",
+    "section": "Understanding Check",
+    "text": "Understanding Check\n\nWhat does cross off mean?\n\nHow does it affect the alphabet?"
+  },
+  {
+    "objectID": "tm.html#a-turing-machine",
+    "href": "tm.html#a-turing-machine",
+    "title": "11. Turing Machines",
+    "section": "A Turing Machine",
+    "text": "A Turing Machine\n\\[\nM := (Q, \\Sigma, \\Gamma, \\delta, q_0, q_{acc}, q_{rej})\n\\]\n\n\\(\\Sigma\\): The input alphabet\n\\(\\Gamma\\): The tape alphabet, we note \\(\\Sigma \\subset \\Gamma\\)\n\\(\\delta: Q \\times \\Gamma \\rightarrow Q \\times \\Gamma \\times \\{L, R\\} \\quad (L = \\text{Left}, R = \\text{Right})\\)\n\\(\\delta(q, a) = (r, b, R)\\)"
+  },
+  {
+    "objectID": "tm.html#a-turing-machine-1",
+    "href": "tm.html#a-turing-machine-1",
+    "title": "11. Turing Machines",
+    "section": "A Turing Machine",
+    "text": "A Turing Machine\n\\[\nM := (Q, \\Sigma, \\Gamma, \\delta, q_0, q_{acc}, q_{rej})\n\\]\n\nTerm: Halt - a Turing Machine \\(M\\) “halts” by entering \\(q_{acc}\\) or \\(q_{rej}\\)\nTerm: Loop - set complement of halt.\nThree possible outcomes for \\(M\\) on \\(w\\)\n\nAccept \\(w\\) by halting in \\(q_{acc}\\)\nReject \\(w\\) by halting in \\(q_{rej}\\)\nReject \\(w\\) by looping"
+  },
+  {
+    "objectID": "tm.html#understanding-check-1",
+    "href": "tm.html#understanding-check-1",
+    "title": "11. Turing Machines",
+    "section": "Understanding Check",
+    "text": "Understanding Check\n\nIs this deterministic, or not?\n\nHow to make it the other?"
+  },
+  {
+    "objectID": "tm.html#recognize-oplus-decide",
+    "href": "tm.html#recognize-oplus-decide",
+    "title": "11. Turing Machines",
+    "section": "Recognize \\(\\oplus\\) Decide",
+    "text": "Recognize \\(\\oplus\\) Decide\n\nIntroduce term Turing-recognizable\n\nLet \\(M\\) by a TM.\nLet \\(L(M) = \\{w | M(w) \\rightarrow q_{acc} \\}\\)\n\nSay “\\(M\\) recognizes \\(L\\)” if \\(A = L(M)\\)\n\\(A\\) is Turing-recognizable if \\(\\exists M : A = L(M)\\)"
+  },
+  {
+    "objectID": "tm.html#recognize-oplus-decide-1",
+    "href": "tm.html#recognize-oplus-decide-1",
+    "title": "11. Turing Machines",
+    "section": "Recognize \\(\\oplus\\) Decide",
+    "text": "Recognize \\(\\oplus\\) Decide\n\nSay \\(M\\) is a decider if \\(M\\) always halts\n\n\\(\\forall w : M(w) \\rightarrow \\{ q_{acc}, q_{rej} \\}\\)\n\nSay \\(M\\) decides \\(A\\) if \\(\\exists M : A = L(M)\\) and \\(M\\) is a decider.\nThere exist things that are recognizable but not decidable."
+  },
+  {
+    "objectID": "tm.html#sets-and-subsets",
+    "href": "tm.html#sets-and-subsets",
+    "title": "11. Turing Machines",
+    "section": "Sets and Subsets",
+    "text": "Sets and Subsets"
+  },
+  {
+    "objectID": "tm.html#terms",
+    "href": "tm.html#terms",
+    "title": "11. Turing Machines",
+    "section": "Terms",
+    "text": "Terms\n\nSee also:\n\nA recursively enumerable language is a way of referring to a Turing-recognizable language without using someone’s name (debatably poor form)\nA recursive language is the same, for Turing-decidable\n\nIn practice, I use these terms (usually as “RE”) except when teaching a course on Turing Machines."
+  },
+  {
+    "objectID": "tm.html#sets-and-subsets-1",
+    "href": "tm.html#sets-and-subsets-1",
+    "title": "11. Turing Machines",
+    "section": "Sets and Subsets",
+    "text": "Sets and Subsets"
   }
 ]

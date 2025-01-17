@@ -1,7 +1,7 @@
 ---
 title: "Review"
 author: Prof. Calvin
-subtitle: "25 Jan 08 AM"
+subtitle: "25 Jan"
 institute: CSCI 5100
 format: 
     revealjs: 

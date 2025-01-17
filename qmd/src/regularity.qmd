@@ -1,7 +1,7 @@
 ---
 title: "5. Regularity"
 author: Prof. Calvin
-subtitle: "24 Jan 02 PM"
+subtitle: "24 Jan 02:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 

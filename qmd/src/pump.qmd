@@ -1,7 +1,7 @@
 ---
 title: "6. Pumping Lemma"
 author: Prof. Calvin
-subtitle: "24 Jan 03 PM"
+subtitle: "24 Jan 03:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 

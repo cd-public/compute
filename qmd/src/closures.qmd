@@ -1,7 +1,7 @@
 ---
 title: "4. Closures"
 author: Prof. Calvin
-subtitle: "23 Jan 01 PM"
+subtitle: "23 Jan 01:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 

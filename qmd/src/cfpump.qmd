@@ -1,7 +1,7 @@
 ---
 title: "10. Context Free Pumping"
 author: Prof. Calvin
-subtitle: "25 Jan 10 AM"
+subtitle: "25 Jan 11:30 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -348,35 +348,7 @@ $$
 ```
 :::
 
-## Display the lowest $R$...
-
-:::{.r-stack}
-```{r, engine = 'tikz'}
-#| echo: false
-\begin{tikzpicture}
-\fill[darkgray!40!black] (0,0) rectangle (10,6);
-\draw[white] (1,2) -- node[below,cyan] {u} ++(1.6,0)  -- node[below,cyan] {v} ++(1.7,0) ;
-\draw[white] (6.1,2)  -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1.9,0);
-\draw[white] (1,2) -- (5,5) ;
-\draw[white] (5,5) -- (9,2) ;
-\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0)  ;
-
-\draw[white] (4.85,4.2) -- node[below,cyan] {R} ++(0,0) ;
-\draw[white] (5.25,3.2) -- node[below,cyan] {R} ++(0,0) ;
-
-
-\draw[white] (2.4,2) -- (4.85,3.8) ;
-\draw[white] (4.85,3.8) -- (7,2) ;
-
-
-\draw[white] (4.3,2) -- (5.25,2.8) ;
-\draw[white] (5.25,2.8) -- (6.1,2) ;
-
-\end{tikzpicture}
-```
-:::
-
-## Display the lowest $R$...
+## Displace the lowest $R$...
 
 :::{.r-stack}
 ```{r, engine = 'tikz'}
@@ -797,19 +769,20 @@ $$
 
 ## All conditions
 
-- $iv^ixy^iz \in A \forall i \in \mathbb{N}$
+1. $uv^ixy^iz \in A \forall i \in \mathbb{N}$
   -  Cut and paste
-- $vy \neq \varepsilon$
+2. $vy \neq \varepsilon$
   - Take smallest possible tree.
-- $|vxy| \leq p$
+3. $|vxy| \leq p$
   - Pick lowest $R$
 
 ## Example
 
 - Take $B = \{0^k1^k2^k|k\in\mathbb{N}\}$
-  - Can't divide into 5 parts
-  - Can't pump anything
-  - Not in CFL
+  - Need `0`, `1`, and `2` in $vxy$
+    - $|vxy| \leq p$
+  - Pumping anything leads to unequal.
+  - Not in CFL by condition 3.
 
 <!-- https://www.youtube.com/watch?v=IycOPFmEQk8&t=2311s -->
 

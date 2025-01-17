@@ -391,7 +391,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">2. Regular Expressions</h1>
-  <p class="subtitle">23 Jan 10 AM</p>
+  <p class="subtitle">24 Jan 10:30 AM</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -415,7 +415,10 @@ Prof.&nbsp;Calvin
 <li>Concatenation</li>
 <li>Star</li>
 </ul></li>
-<li>Regular Expressions</li>
+<li>Regular Expressions
+<ul>
+<li><strong>NOT</strong> “regex”</li>
+</ul></li>
 </ul>
 </div>
 </section>
@@ -765,14 +768,14 @@ Q_3 = Q_2 \times Q_2 = { (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 }
 <section id="theorem-1" class="slide level2">
 <h2>Theorem 1</h2>
 <p><span class="math display">\[
-\forall L(M_1), L(M_2), \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
 \]</span></p>
 <p><em>Proof</em></p>
 <p><span class="math display">\[
 \begin{aligned}
 L(&amp;Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
 L(&amp;Q_1 \times Q_2, \Sigma, \\
-&amp;(\delta_1(q,a), \delta_1(q',a)), \\
+&amp;(\delta_1(q,a), \delta_2(q',a)), \\
 &amp;(q_1, q_2), \\
 &amp;\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
 \end{aligned}
