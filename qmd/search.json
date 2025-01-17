@@ -1638,11 +1638,11 @@
     "text": "Theorem 12\n\\[\nE_{DFA} := \\{\\langle B \\rangle | L(B:\\text{DFA}) = \\varnothing\\} \\in \\text{T-Decidable}\n\\]\nProof.\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        if state in F:\n          return True\n        visted.append(state)\n  return False"
   },
   {
-    "objectID": "accept.html#equivalent-lemma",
-    "href": "accept.html#equivalent-lemma",
+    "objectID": "accept.html#theorem-13",
+    "href": "accept.html#theorem-13",
     "title": "13. Acceptance",
-    "section": "Equivalent Lemma",
-    "text": "Equivalent Lemma\n\\[\nEQ_{DFA} := \\{\\langle A,B \\rangle | L(A:\\text{DFA}) = L(B:\\text{DFA})\\} \\in \\text{T-Decidable}\n\\]\nProof.\n\nNot too bad to make \\(TM_{EQ_{DFA}}\\)\nEmulate \\(A\\) on one track\nEmulate \\(B\\) on another track\nCreate synthetic \\(C\\):DFA which accepts if \\(A \\oplus B\\) accept\nApply Theorem 12 to synthetic DFA \\(C\\)"
+    "section": "Theorem 13",
+    "text": "Theorem 13\n\\[\nEQ_{DFA} := \\{\\langle A,B \\rangle | L(A:\\text{DFA}) = L(B:\\text{DFA})\\} \\in \\text{T-Decidable}\n\\]\nProof.\n\nNot too bad to make \\(TM_{EQ_{DFA}}\\)\nEmulate \\(A\\) on one track\nEmulate \\(B\\) on another track\nCreate synthetic \\(C\\):DFA which accepts if \\(A \\oplus B\\) accept\nApply Theorem 12 to synthetic DFA \\(C\\)"
   },
   {
     "objectID": "accept.html#understanding-check-1",
