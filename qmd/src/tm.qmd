@@ -1,0 +1,234 @@
+---
+title: "Turing Machines"
+author: Prof. Calvin
+subtitle: "25 Jan 01:30 PM"
+institute: CSCI 5100
+format: 
+    revealjs: 
+        incremental: true
+        theme: dark
+        mainfont: monospace
+        slide-number: true
+        show-slide-number: all
+        width: 1050
+        height: 700
+        footer: "[Home](../index.html)"
+  
+execute:
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render
+
+---
+
+## Sketch
+
+::: {.nonincremental}
+- Turing Machines
+  - Introduction
+  - Schematic
+  - Formal Definition
+:::
+
+# Turing Machines
+
+## Completed:
+
+1. Automata and Language Theory (12.5 hours)
+  * **SLO 1**: Define and differentiate between finite automata (DFA, NFA, GNFA) and reg-
+ular expressions, and demonstrate the equivalence between these models.
+  * **SLO 2**: Describe the capabilities and limitations of push-down automata (PDA) and
+context-free grammars (CFG), and apply the pumping lemma to prove that certain
+languages are not context-free.
+
+## Shift
+
+- This lecture marks a shift
+- We move from *Automata* theory to *Computability* theory
+- We essentially introduced automata to understand the Turing Machine
+- The Turing Machine models *all* computation.
+
+## Turing Machines "TM" (1936)
+
+- Equivalent to:
+  - Alonzo Church's Lambda Calculus (1930)
+    - I really like the Lambda Calculus
+    - No one else does 😂
+  - Kurt Gödel's General Recursion (1933)
+    - Gödel claimed the TM was just better
+  - Emil Post's model (1936)
+    - Basically a TM
+
+# Schematic
+
+## How I imagine a TM
+
+:::{.r-stack}
+<a style="filter:invert(1)" title="Nynexman4464 at the English Wikipedia, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Turing_machine_2b.svg"><img width="512" alt="Turing machine 2b" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Turing_machine_2b.svg/512px-Turing_machine_2b.svg.png?20100627114200"></a>
+:::
+
+- $q_1$ in head denotes the internal, finite state a la *FA/PDA
+- The array denotes the tape, a la schematic model
+- The `0` denotes a special "blank" symbol.
+
+## Describing a TM
+
+:::{.r-stack}
+<a style="filter:invert(1)" title="Nynexman4464 at the English Wikipedia, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Turing_machine_2b.svg"><img width="512" alt="Turing machine 2b" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Turing_machine_2b.svg/512px-Turing_machine_2b.svg.png?20100627114200"></a>
+:::
+
+- Internal state: $q_1$, basically the current *FA/PDA state
+- Non-blank tape symbols `['1','1','B']`
+- The head position, say, `-1` as it is before the symbols
+
+## Thinking about a TM
+
+:::{.r-stack}
+<a style="filter:invert(1)" title="Nynexman4464 at the English Wikipedia, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Turing_machine_2b.svg"><img width="512" alt="Turing machine 2b" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Turing_machine_2b.svg/512px-Turing_machine_2b.svg.png?20100627114200"></a>
+:::
+
+1. Head can *read and write*
+2. Head is *two-way*
+3. Tape is *infinite*
+4. Infinitely many blanks(`0`) follow input
+5. Can accept/reject *at any time*
+
+## Example
+
+$$
+B = \{a^kb^kc^k|k\in\mathbb{N}\}
+$$
+
+0. Begin leftmost
+1. Scan right until `0` while  $s \in a^ib^jc^k$
+2. Loop
+  - Return head to leftmost position.
+  - Cross off one each of `a`, `b`, `c` or reject
+  - Accept on all blank
+
+## Understanding Check
+
+- What does cross off mean?
+  - How does it affect the alphabet?
+
+# Formal Definition
+
+## A Turing Machine
+
+$$
+M := (Q, \Sigma, \Gamma, \delta, q_0, q_{acc}, q_{rej})
+$$
+
+- $\Sigma$: The input alphabet
+- $\Gamma$: The tape alphabet, we note $\Sigma \subset \Gamma$
+- $\delta: Q \times \Gamma \rightarrow Q \times \Gamma \times \{L, R\} \quad (L = \text{Left}, R = \text{Right})$
+- $\delta(q, a) = (r, b, R)$
+
+## A Turing Machine
+
+$$
+M := (Q, \Sigma, \Gamma, \delta, q_0, q_{acc}, q_{rej})
+$$
+
+
+- Term: *Halt* - a Turing Machine $M$ "halts" by entering $q_{acc}$ or $q_{rej}$
+- Term: *Loop* - set complement of halt.
+- Three possible outcomes for $M$ on $w$
+  1. Accept $w$ by halting in $q_{acc}$
+  2. Reject $w$ by halting in $q_{rej}$
+  3. Reject $w$ by looping
+
+
+## Understanding Check
+
+- Is this deterministic, or not?
+  - How to make it the other?
+
+## Recognize $\oplus$ Decide
+
+- Introduce term *Turing-recognizable*
+  - Let $M$ by a TM.
+  - Let $L(M) = \{w | M(w) \rightarrow q_{acc} \}$
+- Say "$M$ *recognizes* $L$" if $A = L(M)$
+- $A$ is *Turing-recognizable* if $\exists M : A = L(M)$
+
+## Recognize $\oplus$ Decide
+
+- Say $M$ is a *decider* if $M$ always halts
+  - $\forall w : M(w) \rightarrow \{ q_{acc}, q_{rej} \}$
+- Say $M$ *decides* $A$ if $\exists M : A = L(M)$ and $M$ is a decider.
+- There exist things that are recognizable but not decidable.
+
+## Sets and Subsets
+
+:::{.r-stack}
+```{r, engine = 'tikz'}
+#| echo: false
+\begin{tikzpicture}
+    \tikzset{
+        every ellipse/.style={draw, thick},
+        turing/.style={fill=gray!20},
+        decidable/.style={fill=gray!40},
+        context-free/.style={fill=gray!60},
+        regular/.style={fill=gray!80}
+    }
+
+    % Draw ellipses
+    \fill[darkgray!40!black] (-5,-3) rectangle (10,8);
+    \draw[turing] (3,3) ellipse (5 and 4);
+    \draw[decidable] (4,3) ellipse (4 and 3);
+    \draw[context-free] (5,3) ellipse (3 and 2);
+    \draw[regular] (6,3) ellipse (2 and 1) node {Regular}; 
+
+    % Labels
+    \draw(-1,3) -- node[above]{Turing} ++(0,0)  ;
+    \draw(-1,3) -- node[below]{Recognizable} ++(0,0)  ;
+    \draw(1,3) -- node[above]{Turing} ++(0,0)  ;
+    \draw(1,3) -- node[below]{Decidable} ++(0,0)  ;
+    \draw(3,3) -- node[above]{Context} ++(0,0)  ;
+    \draw(3,3) -- node[below]{Free} ++(0,0)  ;
+\end{tikzpicture}
+```
+:::
+
+## Terms
+
+- See also:
+  - A *recursively enumerable* language is a way of referring to a Turing-recognizable language without using someone's name (debatably poor form)
+  - A *recursive* language is the same, for Turing-decidable
+- In practice, I use these terms (usually as "RE") except when teaching a course on Turing Machines.
+
+## Sets and Subsets
+
+:::{.r-stack}
+```{r, engine = 'tikz'}
+#| echo: false
+\begin{tikzpicture}
+    \tikzset{
+        every ellipse/.style={draw, thick},
+        turing/.style={fill=gray!20},
+        decidable/.style={fill=gray!40},
+        context-free/.style={fill=gray!60},
+        regular/.style={fill=gray!80}
+    }
+
+    % Draw ellipses
+    \fill[darkgray!40!black] (-5,-3) rectangle (10,8);
+    \draw[turing] (3,3) ellipse (5 and 4);
+    \draw[decidable] (4,3) ellipse (4 and 3);
+    \draw[context-free] (5,3) ellipse (3 and 2);
+    \draw[regular] (6,3) ellipse (2 and 1) node {Regular}; 
+
+    % Labels
+    \draw(-1,3) -- node[above]{Recursively} ++(0,0)  ;
+    \draw(-1,3) -- node[below]{Enumerable} ++(0,0)  ;
+    \draw(1,3) -- node{Recursive} ++(0,0)  ;
+    \draw(3,3) -- node[above]{Context} ++(0,0)  ;
+    \draw(3,3) -- node[below]{Free} ++(0,0)  ;
+\end{tikzpicture}
+```
+:::
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

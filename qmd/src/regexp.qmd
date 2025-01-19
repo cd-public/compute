@@ -1,5 +1,5 @@
 ---
-title: "2. Regular Expressions"
+title: "Regular Expressions"
 author: Prof. Calvin
 subtitle: "24 Jan 10:30 AM"
 institute: CSCI 5100

@@ -2,392 +2,392 @@
   {
     "objectID": "variants.html#sketch",
     "href": "variants.html#sketch",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Sketch",
     "text": "Sketch\n\n\nTuring Machines\n\nRehash\nMulti-tape\nNon-deterministic"
   },
   {
     "objectID": "variants.html#questions",
     "href": "variants.html#questions",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Questions",
     "text": "Questions\n\nWhy use this model?\n\nAll models equivalent in power\nHerding toward TM by people writing proofs\nSeem to be easiest for most people"
   },
   {
     "objectID": "variants.html#motivation",
     "href": "variants.html#motivation",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Motivation",
     "text": "Motivation\n\nPDA had a stack, why can’t TMs write two places!\nWe already have a place TMs can write!\nI want my TM to have multiple tapes!\nMy device has multiple SSD/HDDs."
   },
   {
     "objectID": "variants.html#minimal-model",
     "href": "variants.html#minimal-model",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Minimal model",
     "text": "Minimal model\n\nTake a TM\nAdd any number \\(n\\) of “work tapes”\n“work tapes” are intially blank.\nTM can read write to any tape,\nTM maintains its head position on all tapes."
   },
   {
     "objectID": "variants.html#theorem",
     "href": "variants.html#theorem",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Theorem",
     "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some multi-tape TM recognizes \\(A\\)\nIt is trivial for a multi-tape machine to emulate a single tape machine.\n\nLeave all work tapes blank with no head movement."
   },
   {
     "objectID": "variants.html#theorem-1",
     "href": "variants.html#theorem-1",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Theorem",
     "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some multi-tape TM recognizes \\(A\\)\nWe will show we can convert multi-tape to single tape."
   },
   {
     "objectID": "variants.html#statement",
     "href": "variants.html#statement",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Statement",
     "text": "Statement\n\n\\(S\\) single tape, \\(M\\) multi-tape\n\\(S\\) simulates \\(M\\) by storing contents of multiple tapes in blocks.\n\\(S\\) introduces novel “tape break” symbol.\n\nLike EOF\n\n\\(S\\) introduces a novel “head here” symbol"
   },
   {
     "objectID": "variants.html#statement-1",
     "href": "variants.html#statement-1",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Statement",
     "text": "Statement\n\n\\(S\\) single tape, \\(M\\) multi-tape\n\\(S\\) simulates \\(M\\) by storing contents of multiple tapes in blocks.\n\\(S\\) introduces novel “tape break” symbol.\n\nLike EOF\n\n\\(S\\) introduces a novel “head here” symbol"
   },
   {
     "objectID": "variants.html#graphically",
     "href": "variants.html#graphically",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Graphically",
     "text": "Graphically\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nt2\n\n1\n\n0\n\n1\n\n_\n\n_\n\n_\n\n_\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_"
   },
   {
     "objectID": "variants.html#single-tape",
     "href": "variants.html#single-tape",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Single Tape",
     "text": "Single Tape\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nt\n\na\n\na\n\nb\n\nb\n\n#\n\n1\n\n0\n\n1\n\n#\n\nc\n\nc\n\nc\n\na\n\n_\n\n\n\nt1-&gt;t\n\n\n\n\n\nt2\n\n1\n\n0\n\n1\n\n_\n\n_\n\n_\n\n_\n\n\n\nt2-&gt;t\n\n\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_\n\n\n\nt3-&gt;t"
   },
   {
     "objectID": "variants.html#show-heads",
     "href": "variants.html#show-heads",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Show heads",
     "text": "Show heads\n\n\n\n\n\n\n\ng\n\n\n\nh1\n\nh1\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nh1-&gt;t1:here\n\n\n\n\n\nh2\n\nh2\n\n\n\nt2\n\n1\n\n0\n\n1\n\n1\n\n_\n\n_\n\n_\n\n\n\nh2-&gt;t2:here\n\n\n\n\n\nh3\n\nh3\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_\n\n\n\nh3-&gt;t3:here\n\n\n\n\n\nt\n\na\n\na\n\nb\n\nb\n\n#\n\n1\n\n0\n\n1\n\n1\n\n#\n\nc\n\nc\n\nc\n\na\n\n_\n\n\n\nt1-&gt;t:one\n\n\n\n\n\nt2-&gt;t:two\n\n\n\n\n\nt3-&gt;t:thr\n\n\n\n\n\nh\n\nh\n\n\n\nt:thr-&gt;h"
   },
   {
     "objectID": "variants.html#extend-alphabet",
     "href": "variants.html#extend-alphabet",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Extend Alphabet",
     "text": "Extend Alphabet\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\na\n\na\n\nb\n\nb\n\n_\n\n_\n\n_\n\n\n\nt\n\na\n\na\n\nb̀\n\nb\n\n#\n\n1\n\n0̀\n\n1\n\n1\n\n#\n\nc̀\n\nc\n\nc\n\na\n\n_\n\n\n\nt1-&gt;t:one\n\n\n\n\n\nt2\n\n1\n\n0\n\n1\n\n1\n\n_\n\n_\n\n_\n\n\n\nt2-&gt;t:two\n\n\n\n\n\nt3\n\nc\n\nc\n\nc\n\na\n\n_\n\n_\n\n_\n\n\n\nt3-&gt;t:thr\n\n\n\n\n\nh\n\nh\n\n\n\nt:thr-&gt;h"
   },
   {
     "objectID": "variants.html#in-practice",
     "href": "variants.html#in-practice",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "In Practice",
     "text": "In Practice\n\n\\(S\\) reads the whole tape before making any read/write.\n\\(S\\) maintains head location in every case\n\\(S\\) has to extend tape space by copying or correctly guessing work space needed.\n\nThis is curiously similar to how e.g. a Python dictionary is implemented."
   },
   {
     "objectID": "variants.html#theorem-8",
     "href": "variants.html#theorem-8",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Theorem 8",
     "text": "Theorem 8\n\n\n\\(A\\) is \\(T-recognizable\\) iff some multi-tape TM recognizes \\(A\\)\n\n\nProof.\n\n\n\n\n\n\n\ng\n\n\n\nt\n\na\n\na\n\nb̀\n\nb\n\n#\n\n1\n\n0̀\n\n1\n\n1\n\n#\n\nc̀\n\nc\n\nc\n\na\n\n_\n\n\n\nh\n\nh\n\n\n\nt:thr-&gt;h"
   },
   {
     "objectID": "variants.html#definition",
     "href": "variants.html#definition",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Definition",
     "text": "Definition\n\nA Nondeterministic TM (TM) is the same 7-tuple, just\nNo longer this transition relation:\n\n\\(\\delta: Q \\times \\Gamma \\rightarrow Q \\times \\Gamma \\times \\{L, R\\} \\quad (L = \\text{Left}, R = \\text{Right})\\)\n\nUtilize power set:\n\n\\(\\delta: Q \\times \\Gamma \\rightarrow \\mathcal{P} (Q \\times \\Gamma \\times \\{L, R\\})\\)"
   },
   {
     "objectID": "variants.html#recall",
     "href": "variants.html#recall",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Recall",
     "text": "Recall\n\nThe NFA and the DFA are equivalent in power\nThe PDA and the deterministic PDA are not equivalent in power\nThe NTM and TM are equivalent in power."
   },
   {
     "objectID": "variants.html#theorem-2",
     "href": "variants.html#theorem-2",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Theorem",
     "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some NTM recognizes \\(A\\)\nIt is trivial for an NTM to emulate a TM\n\nImpose the restriction that sets mapped in \\(\\delta\\) have cardinality =1"
   },
   {
     "objectID": "variants.html#theorem-3",
     "href": "variants.html#theorem-3",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Theorem",
     "text": "Theorem\n\n\\(A\\) is \\(T-recognizable\\) iff some NTM recognizes \\(A\\)\nWe will show we can convert an NTM to a TM."
   },
   {
     "objectID": "variants.html#insight",
     "href": "variants.html#insight",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Insight",
     "text": "Insight\n\nFor any computation, we can view the set of possible computations as a tree.\nConsider fast exponentiation by squares:\n\n\ndef exp_by_squaring(a, n):\n    if n == 0:\n        return 1\n    elif n == 1:\n        return a\n    elif n % 2 == 0:\n        return exp_by_squaring(a * a, n / 2)\n    else:\n        return a * exp_by_squaring(a * a, (n - 1) / 2)"
   },
   {
     "objectID": "variants.html#insight-1",
     "href": "variants.html#insight-1",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Insight",
     "text": "Insight\n\nIt would be much faster to ignore checks.\n\n\ndef exp(a, n, magic):\n    return [1,a,exp(a * a, n / 2),a * exp(a * a, (n - 1) / 2)][magic]"
   },
   {
     "objectID": "variants.html#insight-2",
     "href": "variants.html#insight-2",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Insight",
     "text": "Insight\n\nImagine a growing tree\n\n\ndef exp(a, n, magic):\n    return [1,a,[1,a,exp(a ** 4, n / 4),a * exp(a ** 4, (n - 1) / 4)],a * exp(a * a, (n - 1) / 2)][magic]"
   },
   {
     "objectID": "variants.html#nondeterministic",
     "href": "variants.html#nondeterministic",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Nondeterministic",
     "text": "Nondeterministic\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe"
   },
   {
     "objectID": "variants.html#recurse",
     "href": "variants.html#recurse",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Recurse",
     "text": "Recurse\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\none\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n'a'\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\nodd\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\neven\n\n\n\noo-&gt;te"
   },
   {
     "objectID": "variants.html#recurse-everywhere",
     "href": "variants.html#recurse-everywhere",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Recurse everywhere",
     "text": "Recurse everywhere\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\none\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n'a'\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\nodd\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\neven\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\none\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n'a'\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\nodd\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\neven\n\n\n\noe-&gt;se"
   },
   {
     "objectID": "variants.html#recurse-recursively",
     "href": "variants.html#recurse-recursively",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Recurse recursively",
     "text": "Recurse recursively\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\none\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n'a'\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\nodd\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\neven\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\none\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n'a'\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\nodd\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\neven\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\none\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n'a'\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\nodd\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\neven\n\n\n\noe-&gt;se\n\n\n\n\n\nu\n\none\n\n\n\nto-&gt;u\n\n\n\n\n\nua\n\n'a'\n\n\n\nto-&gt;ua\n\n\n\n\n\nuo\n\nodd\n\n\n\nto-&gt;uo\n\n\n\n\n\nue\n\neven\n\n\n\nto-&gt;ue"
   },
   {
     "objectID": "variants.html#its-tree",
     "href": "variants.html#its-tree",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "It’s tree",
     "text": "It’s tree\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\n\n\n\noe-&gt;se\n\n\n\n\n\nu\n\n\n\n\nto-&gt;u\n\n\n\n\n\nua\n\n\n\n\nto-&gt;ua\n\n\n\n\n\nuo\n\n\n\n\nto-&gt;uo\n\n\n\n\n\nue\n\n\n\n\nto-&gt;ue"
   },
   {
     "objectID": "variants.html#take-one-path",
     "href": "variants.html#take-one-path",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Take one path",
     "text": "Take one path\n\n\n\n\n\n\n\ng\n\n\n\ns\n\n\n\n\no\n\n\n\n\ns-&gt;o\n\n\n\n\n\noa\n\n\n\n\ns-&gt;oa\n\n\n\n\n\noo\n\n\n\n\ns-&gt;oo\n\n\n\n\n\noe\n\n\n\n\ns-&gt;oe\n\n\n\n\n\nt\n\n\n\n\noo-&gt;t\n\n\n\n\n\nta\n\n\n\n\noo-&gt;ta\n\n\n\n\n\nto\n\n\n\n\noo-&gt;to\n\n\n\n\n\nte\n\n\n\n\noo-&gt;te\n\n\n\n\n\nss\n\n\n\n\noe-&gt;ss\n\n\n\n\n\nsa\n\n\n\n\noe-&gt;sa\n\n\n\n\n\nso\n\n\n\n\noe-&gt;so\n\n\n\n\n\nse\n\n\n\n\noe-&gt;se\n\n\n\n\n\nu\n\n\n\n\nto-&gt;u\n\n\n\n\n\nua\n\n\n\n\nto-&gt;ua\n\n\n\n\n\nuo\n\n\n\n\nto-&gt;uo\n\n\n\n\n\nue\n\n\n\n\nto-&gt;ue"
   },
   {
     "objectID": "variants.html#multi-tape-1",
     "href": "variants.html#multi-tape-1",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Multi-tape",
     "text": "Multi-tape\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\n#\n\none\n\n`a`\n\nodd\n\neven\n\n#"
   },
   {
     "objectID": "variants.html#store-state-as-separator",
     "href": "variants.html#store-state-as-separator",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Store state as separator",
     "text": "Store state as separator\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\nq_i\n\none\n\n`a`\n\nodd\n\neven\n\nq_j"
   },
   {
     "objectID": "variants.html#create-new-tape-on-branch",
     "href": "variants.html#create-new-tape-on-branch",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Create new tape on branch",
     "text": "Create new tape on branch\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\nq_i\n\none\n\n`a`\n\nodd\n\neven\n\nq_j\n\n\n\nt4\n\nq_j\n\none\n\n`a`\n\nodd\n\neven\n\nq_k\n\n\n\nt3:odd-&gt;t4:q_j"
   },
   {
     "objectID": "variants.html#theorem-9",
     "href": "variants.html#theorem-9",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Theorem 9",
     "text": "Theorem 9\n\n\n\\(A\\) is \\(T-recognizable\\) iff some NTM recognizes \\(A\\)\n\n\nProof.\n\n\n\n\n\n\n\ng\n\n\n\nt1\n\none\n\n\n\nt2\n\n'a'\n\n\n\nt3\n\nodd\n\nq_i\n\none\n\n`a`\n\nodd\n\neven\n\nq_j\n\n\n\nt4\n\nq_j\n\none\n\n`a`\n\nodd\n\neven\n\nq_k\n\n\n\nt3:odd-&gt;t4:q_j"
   },
   {
     "objectID": "variants.html#aside",
     "href": "variants.html#aside",
-    "title": "11. Turing Machines",
+    "title": "12. Variants",
     "section": "Aside",
     "text": "Aside\n\nThere exists a formulation called a “Turing Enumerator”\nIt is a generator rather than a recognizer.\nLeft as an exercise."
   },
   {
     "objectID": "thesis.html#sketch",
     "href": "thesis.html#sketch",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Sketch",
     "text": "Sketch\n\n\nThe Church-Turing Thesis\nThe 10th Hilbert Problem"
   },
   {
     "objectID": "thesis.html#the-thesis",
     "href": "thesis.html#the-thesis",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "The Thesis",
     "text": "The Thesis\nThe Church-Turing thesis concerns the concept of an effective or systematic or mechanical method, as used in logic, mathematics and computer science. “Effective” and its synonyms “systematic” and “mechanical” are terms of art in these disciplines: they do not carry their everyday meaning. A method, or procedure, \\(M\\), for achieving some desired result is called “effective” (or “systematic” or “mechanical”) just in case:"
   },
   {
     "objectID": "thesis.html#the-thesis-1",
     "href": "thesis.html#the-thesis-1",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "The Thesis",
     "text": "The Thesis\n\n\\(M\\) is set out in terms of a finite number of exact instructions (each instruction being expressed by means of a finite number of symbols);\n\\(M\\) will, if carried out without error, produce the desired result in a finite number of steps;"
   },
   {
     "objectID": "thesis.html#the-thesis-2",
     "href": "thesis.html#the-thesis-2",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "The Thesis",
     "text": "The Thesis\n\n\\(M\\) can (in practice or in principle) be carried out by a human being unaided by any machinery except paper and pencil;\n\\(M\\) demands no insight, intuition, or ingenuity, on the part of the human being carrying out the method."
   },
   {
     "objectID": "thesis.html#credit",
     "href": "thesis.html#credit",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Credit",
     "text": "Credit\n\nhttps://plato.stanford.edu/entries/church-turing/"
   },
   {
     "objectID": "thesis.html#other-formulations",
     "href": "thesis.html#other-formulations",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Other Formulations",
     "text": "Other Formulations\n\nWe shall use the expression “computable function” to mean a function calculable by a machine, and let “effectively calculable” refer to the intuitive idea without particular identification with any one of these definitions.\n\n\nTuring, 1938"
   },
   {
     "objectID": "thesis.html#other-formulations-1",
     "href": "thesis.html#other-formulations-1",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Other Formulations",
     "text": "Other Formulations\n\nNo computational procedure will be considered as an algorithm unless it can be represented as a Turing Machine\n\n\nChurch, apocryphal"
   },
   {
     "objectID": "thesis.html#other-formulations-2",
     "href": "thesis.html#other-formulations-2",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Other Formulations",
     "text": "Other Formulations\n\nIt was stated … that “a function is effectively calculable if its values can be found by some purely mechanical process”. We may take this literally, understanding that by a purely mechanical process one which could be carried out by a machine. The development … leads to … an identification of computability with effective calculability.\n\n\nTuring, 1938"
   },
   {
     "objectID": "thesis.html#other-formulations-3",
     "href": "thesis.html#other-formulations-3",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Other Formulations",
     "text": "Other Formulations\n\nEvery effectively calculable function is a computable function\n\n\nRobin Gandy, 1980"
   },
   {
     "objectID": "thesis.html#the-lambda-calculus",
     "href": "thesis.html#the-lambda-calculus",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "The Lambda Calculus",
     "text": "The Lambda Calculus"
   },
   {
     "objectID": "thesis.html#lambda-calculus",
     "href": "thesis.html#lambda-calculus",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Lambda Calculus",
     "text": "Lambda Calculus\n\\[\n\\Lambda := \\{ \\lambda x.M \\mid x \\in V, M \\in \\Lambda \\} \\cup \\{ x \\mid x \\in V \\}\n\\]\n\n\\(\\lambda x.x\\) represents the identity function.\nTerm \\(x\\) a variable in set of variables \\(V\\)\nTerm \\(\\lambda x. M\\) an abstraction (definition)\nTerm \\(M\\space N\\) an application (invocation/call)\nIt took Church 6 years and Turing’s help to get this logically consistent."
   },
   {
     "objectID": "thesis.html#hilbert-problems",
     "href": "thesis.html#hilbert-problems",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Hilbert problems",
     "text": "Hilbert problems\n\n\\(\\exists A : |\\mathbb{N}| \\lt |A| \\lt |\\mathbb{R}|\\)\n\n\nReduces to continuum hypothesis\n\n\nConsistency of Axioms of Mathematics\n\n\nProvably impossible to prove via Gödel’s incompleteness\n\n\n…\nDetermine Solvability of a Diophantine equation"
   },
   {
     "objectID": "thesis.html#diophantine-equation",
     "href": "thesis.html#diophantine-equation",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Diophantine Equation",
     "text": "Diophantine Equation\n\nA polynomial. \\[\n\\sum_{k=0}^n a_k x^k\n\\]\nDoes it have a solution. \\[\n\\sum_{k=0}^n a_k x^k = 0\n\\]"
   },
   {
     "objectID": "thesis.html#diophantine-equation-1",
     "href": "thesis.html#diophantine-equation-1",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Diophantine Equation",
     "text": "Diophantine Equation\n\nFor which all terms are integers \\[\n\\forall k &lt; n : a_k \\in \\mathbb{Z} : \\sum_{k=0}^n a_k x^k = 0 :\n\\]"
   },
   {
     "objectID": "thesis.html#results",
     "href": "thesis.html#results",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Results",
     "text": "Results\n\n1900\n\nProblem proposed\nNot defined\n\n1937\n\nChurch-Turing Thesis\n\n1970\n\nMatiyasevich proves undecidability\n\nNote: It is recognizable\n\nLeft to the student."
   },
   {
     "objectID": "thesis.html#notation-convenience",
     "href": "thesis.html#notation-convenience",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Notation convenience",
     "text": "Notation convenience\n\nSay we wish to express a polynomial\nWe note the polynomial is equivalent to a sequence of values\n\nThat is, an ordered collection\n\nWe note that numerical values are expressible in finite symbols.\n\nFor example, \\(\\{0, 1\\}^n\\)"
   },
   {
     "objectID": "thesis.html#we-encode-as-strings",
     "href": "thesis.html#we-encode-as-strings",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "We encode as strings",
     "text": "We encode as strings\n\nTake \\(O\\) some object, like a number, TM state, or anything else.\n\nCould be a polynomial!\nCould be a Turing Machine!\n\nDenote \\(\\langle O \\rangle\\) the encoding of \\(O\\) into a string.\n\nDenote \\(\\langle O_1,O_2,\\ldots,O_K \\rangle\\) a list of objects in a string"
   },
   {
     "objectID": "thesis.html#understanding-check",
     "href": "thesis.html#understanding-check",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Understanding check",
     "text": "Understanding check\n\nSuppose two strings, \\(x\\) and \\(y\\)\nIs \\(xy = \\langle x,y \\rangle\\)\nWhy or why not"
   },
   {
     "objectID": "thesis.html#revist-b",
     "href": "thesis.html#revist-b",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Revist \\(B\\)",
     "text": "Revist \\(B\\)\n\\[\nB = \\{a^kb^kc^k|k\\in\\mathbb{N}\\}\n\\]\n\nCheck if \\(w \\in a^ib^jc^k\\)\nCount each of a, b, c\nAccept on equal counts."
   },
   {
     "objectID": "thesis.html#rules-of-thumb",
     "href": "thesis.html#rules-of-thumb",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Rules of thumb",
     "text": "Rules of thumb\n\nEnsure that any step is possible\nEnsure that any step is finite\nEnsure than any step halts\nEnsure you can implement any step in e.g. Python"
   },
   {
     "objectID": "thesis.html#outcomes",
     "href": "thesis.html#outcomes",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Outcomes",
     "text": "Outcomes\n\nThree possible outcomes for \\(M\\) on \\(w\\)\n\nAccept \\(w\\) by halting in \\(q_{acc}\\)\nReject \\(w\\) by halting in \\(q_{rej}\\)\nReject \\(w\\) by looping"
   },
   {
     "objectID": "thesis.html#recognize-oplus-decide",
     "href": "thesis.html#recognize-oplus-decide",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Recognize \\(\\oplus\\) Decide",
     "text": "Recognize \\(\\oplus\\) Decide\n\nTuring-recognizable\n\n\\(\\exists M : L(M) = \\{w | M(w) \\rightarrow q_{acc} \\}\\)\n\nTuring-decidable\n\n\\(\\exists M : L(M) = \\{w | M(w) \\rightarrow q_{acc} \\land \\forall w: M(w) \\rightarrow \\{q_{acc},q_{req}\\}\\}\\)"
   },
   {
     "objectID": "thesis.html#strings",
     "href": "thesis.html#strings",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Strings",
     "text": "Strings\n\n\\(\\langle x,y \\rangle\\) is the string of list x,y\n\\(\\langle x\\rangle, \\langle y \\rangle\\) is the list of strings of x and y"
   },
   {
     "objectID": "thesis.html#denotation",
     "href": "thesis.html#denotation",
-    "title": "12. Church-Turing",
+    "title": "13. Church-Turing",
     "section": "Denotation",
     "text": "Denotation\n\\(M =\\) “On input \\(w\\)\n\nAlgorithm first step\nAlgorithm next step"
   },
@@ -1094,30 +1094,30 @@
   {
     "objectID": "diagonal.html#sketch",
     "href": "diagonal.html#sketch",
-    "title": "15. Diagonalization",
+    "title": "16. Diagonalization",
     "section": "Sketch",
     "text": "Sketch\n\nDiagonalization\n\n(It’s non-trivial)"
   },
   {
     "objectID": "diagonal.html#goal",
     "href": "diagonal.html#goal",
-    "title": "15. Diagonalization",
+    "title": "16. Diagonalization",
     "section": "Goal",
-    "text": "Goal\n\\[\n\\neg\\text{Decidable}(A_{CFG} := \\{\\langle G, w \\rangle \\space | \\space w \\in G:\\text{CFG}\\})\n\\]\n\nWe need some way to say this.\nWe term this notion undecidability\nWe introduce a technique diagonalization first.\n\nIt is the only known technique to show undecidability."
+    "text": "Goal\n\\[\n\\neg\\text{Decidable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]\n\nWe need some way to say this.\nWe term this notion undecidability\nWe introduce a technique diagonalization first.\n\nIt is the only known technique to show undecidability."
   },
   {
     "objectID": "diagonal.html#set-theory",
     "href": "diagonal.html#set-theory",
-    "title": "15. Diagonalization",
+    "title": "16. Diagonalization",
     "section": "Set Theory",
     "text": "Set Theory\n\nDiagonalization emerged from set and number theory.\n\nMy first diagonalization, and perhaps yours, was over \\(\\mathbb{R}\\)\n\nFirst deployed by Georg Cantor in 1891\n\nShowing \\(|\\mathbb{N}| \\lt |\\mathbb{R}|\\)\n\nFamously showed Gödel’s incompleteness\nFamously (as here) showed Turing’s Entscheidungsproblem"
   },
   {
     "objectID": "diagonal.html#functions",
     "href": "diagonal.html#functions",
-    "title": "15. Diagonalization",
+    "title": "16. Diagonalization",
     "section": "Functions",
-    "text": "Functions\nhttps://www.youtube.com/watch?v=3PzuSPQPEU4"
+    "text": "Functions\n\nOne way to show infinite sets have the same or different sizes is using functions.\nWe claim that a set of infinite size is of the same infinite size as some other set if there exists some function that is:\n\none-to-one, and\nonto."
   },
   {
     "objectID": "cfpump.html#sketch",
@@ -1472,182 +1472,182 @@
   {
     "objectID": "accept.html#sketch",
     "href": "accept.html#sketch",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Sketch",
     "text": "Sketch\n\n\nAcceptance Problems\n\nDFAs\nNFAs"
   },
   {
     "objectID": "accept.html#statement-of-theorem",
     "href": "accept.html#statement-of-theorem",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Statement of Theorem",
     "text": "Statement of Theorem\n\\[\nA_{DFA} := \\{\\langle B, w \\rangle | B \\text{ is a DFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\n\nTheorem - \\(A_{DFA}\\) is decidable.\n\nEncoding doesn’t matter too much here.\nWe just want a TM that can tell if a DFA accepts a string.\n\nWe create TM \\(D_{A_{DFA}}\\)\n\nThe decider for the language of the DFA."
   },
   {
     "objectID": "accept.html#d_a_dfa",
     "href": "accept.html#d_a_dfa",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "\\(D_{A_{DFA}}\\)",
     "text": "\\(D_{A_{DFA}}\\)\n\\(D_{A_{DFA}} =\\) “On input \\(w\\)\n\nCheck that \\(s\\) has form \\(\\langle B, w \\rangle\\)\n\n\nThis is should remind us of type checking.\n\n\nSimulate \\(B\\) over \\(W\\) using \\(D_{A_{DFA}}\\)’s tape and states.\nIf \\(B\\) accepts, then accept, else reject."
   },
   {
     "objectID": "accept.html#schematic",
     "href": "accept.html#schematic",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Schematic",
     "text": "Schematic\n\n\n\n\n\n\n\ng\n\n\n\nt\n\nQ\n\n0,1\n\nδ\n\nq_0\n\nF\n\n#\n\n0\n\n1\n\n1\n\n0\n\n1\n\n\n\nh\n\nh\n\n\n\nt-&gt;h"
   },
   {
     "objectID": "accept.html#simplify",
     "href": "accept.html#simplify",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Simplify",
     "text": "Simplify\n\nCan track the current state of the DFA on a work tape.\nCan track the current index in the string on a work tape.\nCan move either \\(B\\) or \\(w\\) to a work tape before we begin."
   },
   {
     "objectID": "accept.html#notational-convenience",
     "href": "accept.html#notational-convenience",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Notational Convenience",
     "text": "Notational Convenience\n\\(D_{A_{DFA}} =\\) “On input \\(\\langle B, w \\rangle\\)\n\nSimulate \\(B\\) over \\(W\\) using \\(D_{A_{DFA}}\\)’s tape and states.\nIf \\(B\\) accepts, then accept, else reject.\n\n\nThat is, pattern match in the initializer.\nIt is always appropriate to use a programing language here, e.g.\n\n\ndef d_a_dfa(B:DFA, w:str) -&gt; bool:\n  a_or_r = B(w)\n  return a_or_r"
   },
   {
     "objectID": "accept.html#what-about-loops",
     "href": "accept.html#what-about-loops",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "What about loops",
     "text": "What about loops\n\n\\(B\\) is a DFA\nA DFA\n\nReads finite string\nProgresses monotonically\nIt must terminate"
   },
   {
     "objectID": "accept.html#theorem-10",
     "href": "accept.html#theorem-10",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Theorem 10",
     "text": "Theorem 10\n\\[\nA_{DFA} := \\{\\langle B, w \\rangle | B \\text{ is a DFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\nProof.\ndef d_a_dfa(B:DFA, w:str) -&gt; bool:\n  accept : bool\n  accept = B(w)\n  return accept"
   },
   {
     "objectID": "accept.html#theorem-11",
     "href": "accept.html#theorem-11",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Theorem 11",
     "text": "Theorem 11\n\\[\nA_{NFA} := \\{\\langle B, w \\rangle | B \\text{ is a NFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\n\nWe have a problem here.\n\nNFAs have legal \\(\\varepsilon\\) transitions\nA cycle through \\(\\varepsilon\\) transitions can repeat infinitely\nTherefore, progress is not guaranteed.\n\nMust be clever."
   },
   {
     "objectID": "accept.html#theorem-2-nfa-dfa",
     "href": "accept.html#theorem-2-nfa-dfa",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Theorem 2: NFA → DFA",
     "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "accept.html#theorem-11-1",
     "href": "accept.html#theorem-11-1",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Theorem 11",
     "text": "Theorem 11\n\\[\nA_{NFA} := \\{\\langle B, w \\rangle | B \\text{ is a NFA and } B \\text{ accepts } w\\} \\in \\text{T-Decidable}\n\\]\nProof.\nfrom theorem_02 import NFA_to_DFA\nfrom theorem_10 import d_a_dfa\n\ndef d_a_nfa(B:NFA, w:str) -&gt; bool:\n  B_prime : DFA\n  B_prime = NFA_to_DFA(B)\n  accept : bool\n  accept = d_a_dfa(B_prime, w)\n  return accept"
   },
   {
     "objectID": "accept.html#theorem-12",
     "href": "accept.html#theorem-12",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Theorem 12",
     "text": "Theorem 12\n\\[\nE_{DFA} := \\{\\langle B \\rangle | B \\text{ is a DFA and } L(B) = \\varnothing\\} \\in \\text{T-Decidable}\n\\]\n\nTerm this “the Emptiness Problem for DFAs”\nWe’ll make a TM \\(D_{E_{DFA}}\\)\nLet’s look for a path from \\(q_0\\) to \\(F\\)\n\nWhat do we know or not know about path algorithms\nI’d imagine a transitive closure over \\(\\delta\\)\nProf. Sipser used breadth-first search"
   },
   {
     "objectID": "accept.html#understanding-check",
     "href": "accept.html#understanding-check",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Understanding check",
     "text": "Understanding check\n\nCan I just run \\(B\\) over all strings?\nCan I just run \\(B\\) over all strings up to some length?\n\nSure! Just prove the length you choose is sufficient.\nThis is not easier!"
   },
   {
     "objectID": "accept.html#dfa.py",
     "href": "accept.html#dfa.py",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "DFA.py",
     "text": "DFA.py\n# define q_n as a convenience\nq_1, q_2, q_3 = \"q_1\", \"q_2\", \"q_3\"\n# define M_1\nQ = {q_1, q_2, q_3}\nS = {0, 1}\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1, 1:q_3 },\n    q_3 : { 0:q_3, 1:q_3 }\n}\nM_1 = (Q,S,d,q_1,{q_3})\nprint(M_1)"
   },
   {
     "objectID": "accept.html#express-dfa-to-a-tm",
     "href": "accept.html#express-dfa-to-a-tm",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Express DFA to a TM",
     "text": "Express DFA to a TM\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:"
   },
   {
     "objectID": "accept.html#take-start-state",
     "href": "accept.html#take-start-state",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Take start state",
     "text": "Take start state\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0"
   },
   {
     "objectID": "accept.html#track-visited-states",
     "href": "accept.html#track-visited-states",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Track visited states",
     "text": "Track visited states\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n\nIt is very important to keep those states in order…\n\nWhy?"
   },
   {
     "objectID": "accept.html#reachable-states-from-q_0",
     "href": "accept.html#reachable-states-from-q_0",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Reachable states from q_0",
     "text": "Reachable states from q_0\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n  transitions = d[d_0]\n  for transition in transitions:\n    pass # do something"
   },
   {
     "objectID": "accept.html#quick-python-refresher",
     "href": "accept.html#quick-python-refresher",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Quick Python Refresher",
     "text": "Quick Python Refresher\n\n# how does dict iteration work?\nq_1, q_2, q_3 = \"q_1\", \"q_2\", \"q_3\"\nd = {\n    q_1 : { 0:q_1, 1:q_2 },\n    q_2 : { 0:q_1, 1:q_3 },\n    q_3 : { 0:q_3, 1:q_3 }\n}\nfor element in d[q_1]:\n    print(element)\n\n0\n1"
   },
   {
     "objectID": "accept.html#reachable-states-from-q_0-1",
     "href": "accept.html#reachable-states-from-q_0-1",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Reachable states from q_0",
     "text": "Reachable states from q_0\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n  transitions = d[d_0]\n  for symbol in transitions:\n    # we will get symbols, see where the symbols go\n    state = transitions[symbol]\n    # we will add that state to visted state\n    visted.append(state)\n\nThen what?"
   },
   {
     "objectID": "accept.html#reachable-states-from-q_0-2",
     "href": "accept.html#reachable-states-from-q_0-2",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Reachable states from q_0",
     "text": "Reachable states from q_0\n# We use strings for states and ints for letters\ndef d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -&gt; bool:\n  current = q_0\n  visited = [q_0]\n  transitions = d[q_0]\n  count = 0 # track what states we've examined\n  while count &lt; len(visited): # stop if we run out\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      # we will get symbols, see where the symbols go\n      state = transitions[symbol]\n      # we will add that state to visted state\n      visted.append(state)\n\nIs using len cheating?\nWhat about for and while?"
   },
   {
     "objectID": "accept.html#imagine",
     "href": "accept.html#imagine",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Imagine",
     "text": "Imagine\n\n\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        visted.append(state)\n\n$D_{A_{DFA}} =$ \"On input $M$ \nTrack states on working tape 1\nUse head to track current state\nWhile current not blank\n  Place delta(current) on tape 2\n  Move head head 2 along delta\n    copy all state names to tape 3\n    read all of tape 1 for each state\n      if state is new, add to tape 1"
   },
   {
     "objectID": "accept.html#accept",
     "href": "accept.html#accept",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Accept",
     "text": "Accept\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        if state in F:\n          return True\n        visted.append(state)\n  return False\n\nCopy \\(F\\) to another tape, and check it before checking the visit tracker.\nThis halts as there are finite states"
   },
   {
     "objectID": "accept.html#theorem-12-1",
     "href": "accept.html#theorem-12-1",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Theorem 12",
     "text": "Theorem 12\n\\[\nE_{DFA} := \\{\\langle B \\rangle | L(B:\\text{DFA}) = \\varnothing\\} \\in \\text{T-Decidable}\n\\]\nProof.\ndef d_e_dfa(Q, S, d, q_0, F):\n  visited = [q_0]\n  count = 0\n  while count &lt; len(visited):\n    transitions = d[visited[count]]\n    for symbol in transitions:\n      state = transitions[symbol]\n      if state not in visted:\n        if state in F:\n          return True\n        visted.append(state)\n  return False"
   },
   {
     "objectID": "accept.html#theorem-13",
     "href": "accept.html#theorem-13",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Theorem 13",
     "text": "Theorem 13\n\\[\nEQ_{DFA} := \\{\\langle A,B \\rangle | L(A:\\text{DFA}) = L(B:\\text{DFA})\\} \\in \\text{T-Decidable}\n\\]\nProof.\n\nNot too bad to make \\(TM_{EQ_{DFA}}\\)\nEmulate \\(A\\) on one track\nEmulate \\(B\\) on another track\nCreate synthetic \\(C\\):DFA which accepts if \\(A \\oplus B\\) accept\nApply Theorem 12 to synthetic DFA \\(C\\)"
   },
   {
     "objectID": "accept.html#understanding-check-1",
     "href": "accept.html#understanding-check-1",
-    "title": "13. Acceptance",
+    "title": "14. Acceptance",
     "section": "Understanding Check",
     "text": "Understanding Check\n\\[\nEQ_{REX} := \\{\\langle R_1,R_2 \\rangle | R_1:\\text{Reg. Exp.}) = R_2:\\text{Reg. Exp.})\\}\n\\]\n\nIs this hard to prove?"
   },
@@ -2994,5 +2994,285 @@
     "title": "11. Turing Machines",
     "section": "Sets and Subsets",
     "text": "Sets and Subsets"
+  },
+  {
+    "objectID": "empty.html#corollary",
+    "href": "empty.html#corollary",
+    "title": "14. Emptiness",
+    "section": "Corollary",
+    "text": "Corollary\n\nWe not that this also captures context free languages.\nBut a wrinkle!\n\nFrom a CFL, we needn’t necessarily know the CFG\nWe don’t need it! It suffices on exists by definition\nWe only claim something is decidable, not that we know how to decide!"
+  },
+  {
+    "objectID": "diagonal.html#notation",
+    "href": "diagonal.html#notation",
+    "title": "16. Diagonalization",
+    "section": "Notation",
+    "text": "Notation\n\nWe introduce notations \\(f : A \\rightarrow B\\)\n\nThis is logicially equivalent to \\(f : A \\times B\\), but\nCaptures a different meaning."
+  },
+  {
+    "objectID": "diagonal.html#injectivity",
+    "href": "diagonal.html#injectivity",
+    "title": "16. Diagonalization",
+    "section": "Injectivity",
+    "text": "Injectivity\n\nWe term a one-to-one function to be injective:\nSaid function:\n\n\n\nmaps distinct elements of its domain to distinct elements of its codomain\n\n\n\n\\(\\forall x_1, x_2 : x_1 \\neq x_2 \\implies f(x_1) \\neq f(x_2)\\)"
+  },
+  {
+    "objectID": "diagonal.html#injectivity-1",
+    "href": "diagonal.html#injectivity-1",
+    "title": "16. Diagonalization",
+    "section": "Injectivity",
+    "text": "Injectivity\n\nEvery element of the function’s codomain\n\nAlso called “set of destination”\n\\(\\{B | f: A \\rightarrow B\\}\\)\n\nIs the image\n\nThe image of value \\(x \\in A\\) is the single value \\(f(x) \\in B\\)\n\nOf at most one element of the domain\n\nThe set of inputs,\n\\(\\{A | f: A \\rightarrow B\\}\\)"
+  },
+  {
+    "objectID": "diagonal.html#examples",
+    "href": "diagonal.html#examples",
+    "title": "16. Diagonalization",
+    "section": "Examples",
+    "text": "Examples\n\n\\(f(x) = x^2 : \\mathbb{N} \\rightarrow \\mathbb{N}\\)\n\\(f(x) = x^3 : \\mathbb{R} \\rightarrow \\mathbb{R}\\)\nPython ord which takes a finite set of printable characters to \\(\\mathbb{N}\\)\n\n\n\n[ord(a) for a in 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()'][::5]\n\n[97, 102, 107, 112, 117, 122, 37, 41]\n\n\n\n\nSocial security number is a injection from people with them to numbers."
+  },
+  {
+    "objectID": "diagonal.html#nonexamples",
+    "href": "diagonal.html#nonexamples",
+    "title": "16. Diagonalization",
+    "section": "Nonexamples",
+    "text": "Nonexamples\n\n\\(f(x) = x^2 : \\mathbb{R} \\rightarrow \\mathbb{R}\\)\n\n\n\n[x*x for x in range(-1,2)]\n\n[1, 0, 1]\n\n\n\n\n\\(f(x) = x^2 - x : \\mathbb{N} \\rightarrow \\mathbb{Z}\\)\n\n\n\n[x*x-x for x in range(3)]\n\n[0, 0, 2]\n\n\n\n\nEmails-to-humans, e.g. I have:\n\n\ncdeutschbein@lagrange.edu\ncalvindeu@gmail.com"
+  },
+  {
+    "objectID": "diagonal.html#surjectivity",
+    "href": "diagonal.html#surjectivity",
+    "title": "16. Diagonalization",
+    "section": "Surjectivity",
+    "text": "Surjectivity\n\nWe term a function to be surjective if:\n\n\n\nfor every element \\(y\\) of the function’s codomain, there exists at least one element \\(x\\) in the function’s domain such that \\(f(x) = y\\)\n\n\n\n\\(\\forall y \\in B : \\exists x \\in A : y = f(x)\\)"
+  },
+  {
+    "objectID": "diagonal.html#properties-of-surjectivity",
+    "href": "diagonal.html#properties-of-surjectivity",
+    "title": "16. Diagonalization",
+    "section": "Properties of Surjectivity",
+    "text": "Properties of Surjectivity\n\nEvery element of the function’s codomain\n\nAlso called ‘set of destination’\n\\(\\{B | f: A \\rightarrow B\\}\\)\n\nIs the image of at least one element of the domain\n\nThe set of inputs,\n\\(\\{A | f: A \\rightarrow B\\}\\)"
+  },
+  {
+    "objectID": "diagonal.html#examples-1",
+    "href": "diagonal.html#examples-1",
+    "title": "16. Diagonalization",
+    "section": "Examples",
+    "text": "Examples\n\n\\(f(x) = |x| : \\mathbb{Z} \\rightarrow \\mathbb{N}\\)\n\\(f(x) = \\ln(x) : \\mathbb{R} \\rightarrow \\mathbb{R}\\)\nPython chr which takes a finite subset of infinite numerical values but maps to every printing character.\n\n\n\n[chr(a) for a in range(0,10000,1000)]\n\n['\\x00', 'Ϩ', 'ߐ', 'ஸ', 'ྠ', 'ᎈ', 'ᝰ', '᭘', 'ὀ', '⌨']\n\n\n\n\nNames are surjections - every name a person, not unique."
+  },
+  {
+    "objectID": "diagonal.html#non-examples",
+    "href": "diagonal.html#non-examples",
+    "title": "15. Diagonalization",
+    "section": "Non-Examples",
+    "text": "Non-Examples\n\n\\(f(x) = sin(x) : \\mathbb{R} \\rightarrow \\mathbb{R}\\) The sine function does not map all real numbers to its codomain, so it is not surjective.\n\\(f(x) = x^2 : \\mathbb{R} \\rightarrow [0, \\infty)\\) The function only maps non-negative real numbers to its codomain, so it is not surjective."
+  },
+  {
+    "objectID": "diagonal.html#properties-of-surjectivity-1",
+    "href": "diagonal.html#properties-of-surjectivity-1",
+    "title": "16. Diagonalization",
+    "section": "Properties of Surjectivity",
+    "text": "Properties of Surjectivity\n\nCan also say\n\nThe codmain\n\n\\(\\{B | f: A \\rightarrow B\\}\\)\n\nIs the image\n\nDifferent meaning!\nImage of a set, not an element.\n“The image of \\(A\\) under \\(f\\)” is the set \\(\\{f(x) \\in B | x \\in A\\}\\)"
+  },
+  {
+    "objectID": "diagonal.html#nonexamples-1",
+    "href": "diagonal.html#nonexamples-1",
+    "title": "16. Diagonalization",
+    "section": "Nonexamples",
+    "text": "Nonexamples\n\n\\(f(x) = x^2 : \\mathbb{R} \\rightarrow \\mathbb{R}\\)\n\nNo value such that \\(f(x) = -1 \\in \\mathbb{R}\\)\n\n\\(f(x) = 2x  : \\mathbb{N} \\rightarrow \\mathbb{N}\\)\n\nNo value such that \\(f(x) = 3\\)\n\nEnglish words to Latin character spellings\n\nThere exists no English word xxxyzx"
+  },
+  {
+    "objectID": "diagonal.html#bijective",
+    "href": "diagonal.html#bijective",
+    "title": "16. Diagonalization",
+    "section": "Bijective",
+    "text": "Bijective\n\nA function is bijective if it is injective and surjective.\n\n\\(\\forall x_1, x_2 : x_1 \\neq x_2 \\implies f(x_1) \\neq f(x_2)\\)\n\\(\\forall y \\in B : \\exists x \\in A : y = f(x)\\)\n\nOr perhaps, the bijective functions are the intersection of the injective and surjective functions."
+  },
+  {
+    "objectID": "diagonal.html#graphically",
+    "href": "diagonal.html#graphically",
+    "title": "16. Diagonalization",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\nz\n\nz\n\n\n\n3-&gt;z\n\n\n\n\n\ny\n\ny"
+  },
+  {
+    "objectID": "diagonal.html#graphically-1",
+    "href": "diagonal.html#graphically-1",
+    "title": "16. Diagonalization",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\ny\n\ny\n\n\n\n3-&gt;y\n\n\n\n\n\n4\n\n4\n\n\n\n4-&gt;y"
+  },
+  {
+    "objectID": "diagonal.html#graphically-2",
+    "href": "diagonal.html#graphically-2",
+    "title": "16. Diagonalization",
+    "section": "Graphically",
+    "text": "Graphically\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\ny\n\ny\n\n\n\n3-&gt;y\n\n\n\n\n\n4\n\n4\n\n\n\nz\n\nz\n\n\n\n4-&gt;z"
+  },
+  {
+    "objectID": "diagonal.html#in-general.",
+    "href": "diagonal.html#in-general.",
+    "title": "15. Diagonalization",
+    "section": "In general.",
+    "text": "In general.\n\n\n\n\n\n\nSurjective\n\n\nNot\n\n\n\n\n\n\nInjective\n\n\nBijective\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\ny\n\ny\n\n\n\n3-&gt;y\n\n\n\n\n\n4\n\n4\n\n\n\nz\n\nz\n\n\n\n4-&gt;z\n\n\n\n\n\n\n\n\n\n\n\n\nInjective\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\nz\n\nz\n\n\n\n3-&gt;z\n\n\n\n\n\ny\n\ny\n\n\n\n\n\n\n\n\n\n\n\n\nNot\n\n\nSurjective\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\ny\n\ny\n\n\n\n3-&gt;y\n\n\n\n\n\n4\n\n4\n\n\n\n4-&gt;y"
+  },
+  {
+    "objectID": "diagonal.html#section",
+    "href": "diagonal.html#section",
+    "title": "16. Diagonalization",
+    "section": "",
+    "text": "Bijective\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\ny\n\ny\n\n\n\n3-&gt;y\n\n\n\n\n\n4\n\n4\n\n\n\nz\n\nz\n\n\n\n4-&gt;z\n\n\n\n\n\n\n\n\n\n\n\n\nInjective\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\nz\n\nz\n\n\n\n3-&gt;z\n\n\n\n\n\ny\n\ny\n\n\n\n\n\n\n\n\n\n\n\n\nSurjective\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_Y\n\nB\n\n\ncluster_X\n\nA\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\ny\n\ny\n\n\n\n3-&gt;y\n\n\n\n\n\n4\n\n4\n\n\n\n4-&gt;y\n\n\n\n\n\n\n\n\n\n\n\n\nNeither\n\n\n\n\n\n\n\nfinite_automata\n\n\ncluster_X\n\nA\n\n\ncluster_Y\n\nB\n\n\n\n1\n\n1\n\n\n\nw\n\nw\n\n\n\n1-&gt;w\n\n\n\n\n\n2\n\n2\n\n\n\nx\n\nx\n\n\n\n2-&gt;x\n\n\n\n\n\n3\n\n3\n\n\n\nz\n\nz\n\n\n\n3-&gt;z\n\n\n\n\n\n4\n\n4\n\n\n\n4-&gt;z\n\n\n\n\n\ny\n\ny"
+  },
+  {
+    "objectID": "diagonal.html#terms",
+    "href": "diagonal.html#terms",
+    "title": "16. Diagonalization",
+    "section": "Terms",
+    "text": "Terms\n\nBijective functions are also called bijections\nAlso called “one-to-one correspondence”\n\nI avoid this term as an injective function is a one-to-one function\nI just use the unambigious terms when at all possible."
+  },
+  {
+    "objectID": "diagonal.html#examples-2",
+    "href": "diagonal.html#examples-2",
+    "title": "16. Diagonalization",
+    "section": "Examples",
+    "text": "Examples\n\n\\(f(x) = x : \\mathbb{R} \\rightarrow \\mathbb{R}\\)\n\\(f(x) = x^3 : \\mathbb{R} \\rightarrow \\mathbb{R}\\)\nThis for \\(\\mathbb{N} \\rightarrow \\mathbb{Z}\\)\n\n\n\nfrom itertools import count\nf = lambda x: x // 2 * (x % 2 * 2 - 1)\nZ = (f(x) for x in count(1))\n[next(Z) for _ in range(10)]\n\n[0, -1, 1, -2, 2, -3, 3, -4, 4, -5]\n\n\n\n\nWait a minute!"
+  },
+  {
+    "objectID": "diagonal.html#size-of-infinity",
+    "href": "diagonal.html#size-of-infinity",
+    "title": "16. Diagonalization",
+    "section": "Size of infinity",
+    "text": "Size of infinity\n\nfrom itertools import count\nf = lambda x: x // 2 * (x % 2 * 2 - 1)\nZ = (f(x) for x in count(1))\n[next(Z) for _ in range(10)]\n\n[0, -1, 1, -2, 2, -3, 3, -4, 4, -5]\n\n\n\n\\(\\forall n \\in \\mathbb{N}, n \\in \\mathbb{Z}\\)\n\n\\(\\mathbb{N} \\subseteq \\mathbb{Z}\\)\n\n\\(\\exists x \\in \\mathbb{Z} : x \\notin \\mathbb{N}\\)\n\n\\(\\mathbb{N} \\subset \\mathbb{Z}\\)\n\n\\(\\exists \\text{ bijection } f: \\mathbb{N} \\rightarrow \\mathbb{Z}\\)\n\\(|\\mathbb{N}| = |\\mathbb{Z}|\\)"
+  },
+  {
+    "objectID": "diagonal.html#countability",
+    "href": "diagonal.html#countability",
+    "title": "16. Diagonalization",
+    "section": "Countability",
+    "text": "Countability\n\n\\(|\\mathbb{N}| = |\\mathbb{Z}| = |\\mathbb{Q}|\\)\nWe term these countably infinite.\n\nSee Pythonic count\n\n\\(\\mathbb{Q}\\) is non-trivial, I’m not aware of a close form.\n\nWe’ll write it out real quick."
+  },
+  {
+    "objectID": "diagonal.html#section-1",
+    "href": "diagonal.html#section-1",
+    "title": "15. Diagonalization",
+    "section": "||",
+    "text": "||\n\nRestrict to"
+  },
+  {
+    "objectID": "diagonal.html#mathbbq",
+    "href": "diagonal.html#mathbbq",
+    "title": "16. Diagonalization",
+    "section": "\\(\\mathbb{Q}\\)",
+    "text": "\\(\\mathbb{Q}\\)\n\n\n\nRestrict to \\(\\mathbb{Q^+} = \\{ \\dfrac{m}{n} | m,n \\in \\mathbb{N}\\}\\)\nSet the fractions out within a table.\n\n\n\n\n\n\n\n1\n2\n3\n4\n\\(\\ldots\\)\n\n\n\n\n1\n\\(\\dfrac{1}{1}\\)\n\\(\\dfrac{1}{2}\\)\n\\(\\dfrac{1}{3}\\)\n\\(\\dfrac{1}{4}\\)\n\n\n\n2\n\\(\\dfrac{2}{1}\\)\n\\(\\dfrac{2}{2}\\)\n\\(\\dfrac{2}{3}\\)\n\\(\\dfrac{2}{4}\\)\n\n\n\n3\n\\(\\dfrac{3}{1}\\)\n\\(\\dfrac{3}{2}\\)\n\\(\\dfrac{3}{3}\\)\n\\(\\dfrac{3}{4}\\)\n\n\n\n4\n\\(\\dfrac{4}{1}\\)\n\\(\\dfrac{4}{2}\\)\n\\(\\dfrac{4}{3}\\)\n\\(\\dfrac{4}{4}\\)"
+  },
+  {
+    "objectID": "diagonal.html#mathbbq-1",
+    "href": "diagonal.html#mathbbq-1",
+    "title": "16. Diagonalization",
+    "section": "\\(\\mathbb{Q}\\)",
+    "text": "\\(\\mathbb{Q}\\)\n\n\n\nPopulate a set.\nCareful with duplicates!\nCareful with placing infinite many values before another value!\n\n\n\n\n\n\n\n1\n2\n3\n4\n\\(\\ldots\\)\n\n\n\n\n1\n\\(\\dfrac{1}{1}\\)\n\\(\\dfrac{1}{2}\\)\n\\(\\dfrac{1}{3}\\)\n\\(\\dfrac{1}{4}\\)\n\n\n\n2\n\\(\\dfrac{2}{1}\\)\n\\(\\dfrac{2}{2}\\)\n\\(\\dfrac{2}{3}\\)\n\\(\\dfrac{2}{4}\\)\n\n\n\n3\n\\(\\dfrac{3}{1}\\)\n\\(\\dfrac{3}{2}\\)\n\\(\\dfrac{3}{3}\\)\n\\(\\dfrac{3}{4}\\)\n\n\n\n4\n\\(\\dfrac{4}{1}\\)\n\\(\\dfrac{4}{2}\\)\n\\(\\dfrac{4}{3}\\)\n\\(\\dfrac{4}{4}\\)"
+  },
+  {
+    "objectID": "diagonal.html#mathbbq-2",
+    "href": "diagonal.html#mathbbq-2",
+    "title": "16. Diagonalization",
+    "section": "\\(\\mathbb{Q}\\)",
+    "text": "\\(\\mathbb{Q}\\)\n\n\n\npair = lambda i,j: (i+j-2)*(i+j-1)//2+j\nfor i in range(1,5):\n  print([pair(i,j) for j in range(1,5)])\n\n[1, 3, 6, 10]\n[2, 5, 9, 14]\n[4, 8, 13, 19]\n[7, 12, 18, 25]\n\n\n\nBasically just load the fractions into a stack\nCheck they aren’t in the ordering yet\nAdd them if they aren’t.\n\n\n\n\n\n\n\n1\n2\n3\n4\n\n\n\n\n1\n\\(\\dfrac{1}{1}\\)\n\\(\\dfrac{1}{2}\\)\n\\(\\dfrac{1}{3}\\)\n\\(\\dfrac{1}{4}\\)\n\n\n2\n\\(\\dfrac{2}{1}\\)\n\n\\(\\dfrac{2}{3}\\)\n\n\n\n3\n\\(\\dfrac{3}{1}\\)\n\\(\\dfrac{3}{2}\\)\n\n\\(\\dfrac{3}{4}\\)\n\n\n4\n\\(\\dfrac{4}{1}\\)\n\n\\(\\dfrac{4}{3}\\)"
+  },
+  {
+    "objectID": "diagonal.html#countability-lemma",
+    "href": "diagonal.html#countability-lemma",
+    "title": "16. Diagonalization",
+    "section": "Countability Lemma",
+    "text": "Countability Lemma\n\\[\n|\\mathbb{N}| = |\\mathbb{Z}| = |\\mathbb{Q}|\n\\]\nProof.\n\n\n\n\n1\n2\n3\n4\n\n\n\n\n1\n\\(\\dfrac{1}{1}\\)\n\\(\\dfrac{1}{2}\\)\n\\(\\dfrac{1}{3}\\)\n\\(\\dfrac{1}{4}\\)\n\n\n2\n\\(\\dfrac{2}{1}\\)\n\n\\(\\dfrac{2}{3}\\)\n\n\n\n3\n\\(\\dfrac{3}{1}\\)\n\\(\\dfrac{3}{2}\\)\n\n\\(\\dfrac{3}{4}\\)\n\n\n4\n\\(\\dfrac{4}{1}\\)\n\n\\(\\dfrac{4}{3}\\)"
+  },
+  {
+    "objectID": "diagonal.html#diagonalization-lemma",
+    "href": "diagonal.html#diagonalization-lemma",
+    "title": "16. Diagonalization",
+    "section": "Diagonalization Lemma",
+    "text": "Diagonalization Lemma\n\\[\n|\\mathbb{R}| \\gt |\\mathbb{N}|\n\\]\n\nWe will assume \\(\\mathbb{R}\\) is countable and find a contradiction.\nWe note that e.g., \\(3.14159 \\in \\mathbb{R} \\cap \\mathbb{Q}\\)\nWe note that e.g., \\(3.14159\\ldots = \\pi \\in \\mathbb{R} \\setminus \\mathbb{Q}\\)"
+  },
+  {
+    "objectID": "diagonal.html#a-bijection",
+    "href": "diagonal.html#a-bijection",
+    "title": "16. Diagonalization",
+    "section": "A bijection",
+    "text": "A bijection\n\nLet’s take all the real numbers in \\(\\mathbb{R}\\)\n\nWe note that are the numbers expressible with potential infinite strings.\nDecimal or binary is fine."
+  },
+  {
+    "objectID": "diagonal.html#a-listing",
+    "href": "diagonal.html#a-listing",
+    "title": "16. Diagonalization",
+    "section": "A listing",
+    "text": "A listing\n\n\n\n\\(n\\)\n\\(f(n): \\mathbb{N} \\rightarrow \\mathbb{R}\\)\n\n\n\n\n1\n\n\n\n2\n\n\n\n3\n\n\n\n4\n\n\n\n\n\nIf there is some bijection to \\(\\mathbb{N}\\), we can make such a listing!\nYou are welcome to try!"
+  },
+  {
+    "objectID": "diagonal.html#a-listing-1",
+    "href": "diagonal.html#a-listing-1",
+    "title": "16. Diagonalization",
+    "section": "A listing",
+    "text": "A listing\n\n\n\n\n\n\\(n\\)\n\\(f(n): \\mathbb{N} \\rightarrow \\mathbb{R}\\)\n\n\n\n\n1\n\\(\\pi = 3.14159\\ldots\\)\n\n\n2\n\\(e = 2.71828\\ldots\\)\n\n\n3\n\\(0 = 0.00000\\ldots\\)\n\n\n4\n\\(x = 1.41421\\ldots\\)\n\n\n5\n\\(y = 0.14286\\ldots\\)\n\n\n6\n\\(z = 0.20788\\ldots\\)\n\n\n7\n\\(v = 1.23456\\ldots\\)\n\n\n\n\n\nMissing:\n\n4…\n4.8…\n4.81…\n4.815…\n4.8159…\n4.81599…\n4.815998…"
+  },
+  {
+    "objectID": "diagonal.html#diagonalization-lemma-1",
+    "href": "diagonal.html#diagonalization-lemma-1",
+    "title": "16. Diagonalization",
+    "section": "Diagonalization Lemma",
+    "text": "Diagonalization Lemma\n\\[\n|\\mathbb{R}| \\gt |\\mathbb{N}|\n\\]\n\\(Proof.\\)\n\n4.815998…\nThat is, take an proposed bijection, and differ in the \\(i\\)’th digit from the \\(i\\)’th value.\nIn fact, \\(|\\mathbb{R} = |2^\\mathbb{N}|\\)"
+  },
+  {
+    "objectID": "diagonal.html#previews-of-coming-attractions",
+    "href": "diagonal.html#previews-of-coming-attractions",
+    "title": "15. Diagonalization",
+    "section": "Previews of Coming Attractions",
+    "text": "Previews of Coming Attractions\n\nThat is all for now!\n\nBut… we treated \\(\\mathbb{R}\\) (strings) as bigger than \\(\\mathbb{N}\\) (lists) from a language based argument!\nWe have been storing computers as strings!\nWe have been writing computers that study strings!\n\n\n\n\\[\n\\neg\\text{Decidable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]"
+  },
+  {
+    "objectID": "diagonal.html#coming-attractions",
+    "href": "diagonal.html#coming-attractions",
+    "title": "16. Diagonalization",
+    "section": "Coming Attractions",
+    "text": "Coming Attractions\n\nThat is all for now!\n\nBut… we treated \\(\\mathbb{R}\\) (strings) as bigger than \\(\\mathbb{N}\\) (lists) from a language based argument!\nWe have been storing computers as strings!\nWe have been writing computers that study strings!\n\n\n\n\\[\n\\neg\\text{Decidable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]"
+  },
+  {
+    "objectID": "undecide.html#sketch",
+    "href": "undecide.html#sketch",
+    "title": "Diagonalization",
+    "section": "Sketch",
+    "text": "Sketch\n\nUndecidability\n\n(It’s non-trivial)"
+  },
+  {
+    "objectID": "undecide.html#goal",
+    "href": "undecide.html#goal",
+    "title": "Diagonalization",
+    "section": "Goal",
+    "text": "Goal\n\\[\n\\neg\\text{Decidable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]\n\nWe term this notion undecidability\nReview diagonalization first."
+  },
+  {
+    "objectID": "undecide.html#set-theory",
+    "href": "undecide.html#set-theory",
+    "title": "Diagonalization",
+    "section": "Set Theory",
+    "text": "Set Theory\n\nDiagonalization emerged from set and number theory.\nOne way to show infinite sets have the same or different sizes is using bijections"
+  },
+  {
+    "objectID": "undecide.html#countability-lemma",
+    "href": "undecide.html#countability-lemma",
+    "title": "Diagonalization",
+    "section": "Countability Lemma",
+    "text": "Countability Lemma\n\\[\n|\\mathbb{N}| = |\\mathbb{Z}| = |\\mathbb{Q}|\n\\]\nProof.\n\n\n\n\n1\n2\n3\n4\n\n\n\n\n1\n\\(\\dfrac{1}{1}\\)\n\\(\\dfrac{1}{2}\\)\n\\(\\dfrac{1}{3}\\)\n\\(\\dfrac{1}{4}\\)\n\n\n2\n\\(\\dfrac{2}{1}\\)\n\n\\(\\dfrac{2}{3}\\)\n\n\n\n3\n\\(\\dfrac{3}{1}\\)\n\\(\\dfrac{3}{2}\\)\n\n\\(\\dfrac{3}{4}\\)\n\n\n4\n\\(\\dfrac{4}{1}\\)\n\n\\(\\dfrac{4}{3}\\)"
+  },
+  {
+    "objectID": "undecide.html#diagonalization-lemma",
+    "href": "undecide.html#diagonalization-lemma",
+    "title": "Diagonalization",
+    "section": "Diagonalization Lemma",
+    "text": "Diagonalization Lemma\n\\[\n|\\mathbb{R}| \\gt |\\mathbb{N}|\n\\]\n\\(Proof.\\)\n\n4.815998…\nThat is, take an proposed bijection, and differ in the \\(i\\)’th digit from the \\(i\\)’th value.\nIn fact, \\(|\\mathbb{R} = |2^\\mathbb{N}|\\)"
+  },
+  {
+    "objectID": "undecide.html#coming-attractions",
+    "href": "undecide.html#coming-attractions",
+    "title": "Diagonalization",
+    "section": "Coming Attractions",
+    "text": "Coming Attractions\n\nWe have been storing computers as strings!\nWe have been writing computers that study strings!\n\n\n\\[\n\\neg\\text{Decidable}(A_{TM} := \\{\\langle M,w \\rangle \\space | \\space w \\in M:\\text{TM}\\})\n\\]"
   }
 ]

@@ -1,5 +1,5 @@
 ---
-title: "10. Context Free Pumping"
+title: "Context Free Pumping"
 author: Prof. Calvin
 subtitle: "25 Jan 11:30 AM"
 institute: CSCI 5100

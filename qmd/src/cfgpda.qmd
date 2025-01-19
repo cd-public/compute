@@ -1,5 +1,5 @@
 ---
-title: "9. CFG &rarr; PDA"
+title: "CFG &rarr; PDA"
 author: Prof. Calvin
 subtitle: "25 Jan 10:30 AM"
 institute: CSCI 5100

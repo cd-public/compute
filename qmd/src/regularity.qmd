@@ -1,5 +1,5 @@
 ---
-title: "5. Regularity"
+title: "Regularity"
 author: Prof. Calvin
 subtitle: "24 Jan 02:30 PM"
 institute: CSCI 5100

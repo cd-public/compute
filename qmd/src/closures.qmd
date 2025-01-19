@@ -1,5 +1,5 @@
 ---
-title: "4. Closures"
+title: "Closures"
 author: Prof. Calvin
 subtitle: "23 Jan 01:30 PM"
 institute: CSCI 5100

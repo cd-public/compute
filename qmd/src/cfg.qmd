@@ -1,5 +1,5 @@
 ---
-title: "7. Context Free Grammars"
+title: "Context Free Grammars"
 author: Prof. Calvin
 subtitle: "24 Jan 04:30 PM"
 institute: CSCI 5100
@@ -792,6 +792,7 @@ next(G_2), next(G_2), next(G_2)
 - This isn't quite right. What's wrong?
 
 
-# Stretch Break
 
-- [Home](https://cd-public.github.io/compute/)
+# End of Day :)
+
+- Good work!

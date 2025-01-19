@@ -1,0 +1,517 @@
+---
+title: "Review 2"
+author: Prof. Calvin
+subtitle: "26 Jan"
+institute: CSCI 5100
+format: 
+    revealjs: 
+        theme: dark
+        mainfont: monospace
+        slide-number: true
+        show-slide-number: all
+        width: 1050
+        height: 700
+        footer: "[Home](../index.html)"
+  
+execute:
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render
+---
+
+# Friday
+
+## Aims of Education
+
+> Amber Huffman, a Principal Engineer at Google, has spent her career defining standards for the hardware industry. Now with the rapid growth of AI the demand and uses for Open Source Hardware have never been higher. Learn what Open Source Hardware is and why it is important to all of us.
+
+
+## Finite Automata
+
+A 5-*tuple* $M = (Q, \Sigma, \delta, q_0, F)$:
+
+- **$Q$** A finite, non-empty *set* of states.
+- **$\Sigma$:** A finite, non-empty *set* of input symbols called the alphabet.
+- **$\delta$:** The transition function, a mapping 
+    -   $\delta : Q \times \sigma \rightarrow Q$ 
+- **$q_0$:** The initial state, where $q_0$ ∈ Q.
+- **$F$:** A set of accepting states (or final states), where $F \subset Q$.
+
+## Theorem 1: Union Closure
+
+$$
+\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
+ L(&Q_1 \times Q_2, \Sigma, \\
+&(\delta_1(q,a), \delta_2(q',a)), \\
+&(q_1, q_2), \\
+&\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
+\end{aligned}
+$$
+
+## Theorem 2: NFA &rarr; DFA
+
+$$
+\forall M_{NFA}: \exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA})) 
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+M_{NFA}(&Q, \Sigma, \delta, q_1, F_1) = \\
+M_{DFA}(&\mathcal{P} (Q), \Sigma, \delta, \{q_1\}, \\
+        & \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \})\blacksquare
+\end{aligned}
+$$
+
+## Theorem 3: Concat Closure
+
+$$
+\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1)L(M_2)
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+L(&Q_1, \Sigma, \delta_1, q_1, F_1)L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
+ L(&Q_1 \sqcup Q_2, \\
+ &\Sigma, \\
+&\delta_1 \sqcup \delta_2 \cup \{ (f, \varnothing) \rightarrow \{q_2\} | f \in F_1 \} \\
+&q_1, \\
+&F_2)\blacksquare
+\end{aligned}
+$$
+
+## Theorem 4: Star Closure
+
+$$
+\forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+L(&Q_1, \Sigma, \delta_1, q_1, F_1)* = \\
+ L(&Q_1 \cup \{q_0\}, \\
+ &\Sigma, \\
+&\delta_1 \cup \{ (f, \varnothing) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
+&q_0, \\
+&F_1)\blacksquare
+\end{aligned}
+$$
+
+## GNFAs
+
+-   It is simple enough to argue for GNFAs
+    -   Every operation can be an NFA
+    -   Any NFA node can be replaced with an NFA
+        -   Essentially the closure options.
+    -   Therefore, a GNFA is equivalently expressive to NFA
+-   The complete proof is left as an exercise to the interested student.
+
+## Atomicity Lemma
+
+$$
+\begin{aligned}
+\exists M_1, M_2, M_3 :\\
+ L(M_1) &= a \in \Sigma \\
+L(M_2) &= \Sigma^0 \\
+L(M_2) &= \varnothing
+\end{aligned}
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+M_1 &= (\{q_0,q_1\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
+M_2 &= (\{q_0\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
+M_3 &= (\{q_0\}, &\Sigma, &\varnothing,  &q_0, &\{q_1\}) \\
+\end{aligned}
+$$
+
+## Theorem 5: 
+
+$$
+\forall R : \exists M : R = L(M)
+$$
+
+*Proof*
+
+-   Atomic $R$ follows from Atomicity Lemma
+-   Composite $R$ follows from Closure properties (Theorems 1-4)
+
+## Base Lemma
+
+$$
+\forall |G| = 2 := (\{q_0,q_1\},\Sigma,\delta,q_0,\{q_1\}) : \exists R : R = L(G)
+$$
+
+*Proof*
+
+- By definition, $G = (\{q_0,q_1\},\Sigma,\delta,q_0,\{q_1\})$
+
+- By definition, $\delta = \{ (q_0, R') \rightarrow q_1 \}$
+
+- Let $R = R'$
+
+- $\blacksquare$
+
+## Inductive Lemma
+
+$$
+\forall |G| = (k > 2) : \exists |G| = (k - 1) : L(G) = L(G')
+$$
+
+*Proof*
+
+- By definition, $G = (Q,\Sigma,\delta,q_0,\{q_n\})$
+
+- Select arbitrary $q_i \in Q \setminus \{q_0, q_n\}$
+
+- Take $G' = (Q \setminus \{q_i\},\Sigma,\delta_{-i},q_0,\{q_n\})$
+
+## Theorem 6
+
+$$
+\forall M : \exists R : R = L(M)
+$$
+
+*Proof*
+
+- $\forall |G| = 2 := (\{q_0,q_1\},\Sigma,\delta,q_0,\{q_1\}) : \exists R : R = L(G)$
+- $\forall |G| = (k > 2) : \exists |G| = (k - 1) : L(G) = L(G')$
+- By induction, $\forall M : \exists R : R = L(M)$
+
+## Pumping Lemma
+
+- $s \in A \land |s| > p$ requires
+  - $xy^nz \in A$
+  - $|y| > 0$
+  - $|xy| \leq p$
+
+*Proof*
+
+```{dot}
+// | echo: false
+// | fig-height: 200px
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qi [label=<<I>s<SUB>i</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qi [label="x"];
+  qi -> qi [label="y"];
+  qi -> qn [label="z"];
+}
+
+```
+
+## CFGs
+
+- *Rule*: Statements of form *Variable* &rarr; (string of symbols and terminals)
+- *Variable*: Those symbols on the left-hand side (LHS) of a &rarr; in a rule
+- *Terminals*: Those symbols which appear in only on the right-hand side (RHS)
+- *Starting* variable: The topmost symbol.
+
+## Ambiguity
+
+$$
+\begin{align*}
+G_2& \\
+ &\left.
+    \begin{aligned}
+        &E \rightarrow E+T \quad | \quad  T\\
+        &T \rightarrow T\times F \quad | \quad  F \\
+        &F \rightarrow ( E ) \quad | \quad a
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+$$
+\begin{align*}
+G_3& \\
+ &\left.
+    \begin{aligned}
+        &E \rightarrow E+E \quad | \quad  E \times E \quad | \quad  ( E ) \quad | \quad  a\\
+    \end{aligned}
+\right.
+\end{align*}
+$$
+
+- These represent the same language ($L(G_2) = L(G_3)$)!
+- But $G_3$ is ambigious!
+
+## PDAs
+
+A PDA is a 6-*tuple* $(Q, \Sigma, \Gamma, \delta, q_0, F)$
+
+- $\delta : Q \times (\Sigma_{\varepsilon} \cup \Gamma_{\varepsilon}) \rightarrow \mathcal{P} (Q \times \Gamma_{\varepsilon})$
+    - Given a state, letter, and stack symbol
+    - Get a set of states and stack symbols.
+    - $\delta(q, a, c) = {(r_1, d), (r_2, e)}$
+      - In state $q$, reading $a$ on tape and $c$ on stack, either write $d$ and go to state $r_1$ or write $e$ and go to state $r_2$
+
+## Schematic View
+
+<img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg">
+
+# Saturday
+
+## Theorem 7
+
+$$
+\forall \text{CFL}: \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = \text{CFL}
+$$
+
+*Proof*
+
+- Take $\Sigma$ to be the terminals
+- Take $\Gamma$ to be the terminals $\cup$ variables
+- Take $\delta$ to...
+  - Write CFL's $S$ to stack from $q_0$
+  - Write stack terminals to the tape
+  - Implement all rules
+
+## Context Free Pumping Lemma
+
+::::{.columns}
+
+:::{.column}
+
+$$
+\begin{aligned}
+&\forall \text{ CFL } A :\exists p \in \mathbb{N} : \\
+&\exists s = uvxyz \in A : |uvxyz| \geq p \implies
+\\
+&\forall i \in \mathbb{N} : uv^ixy^iz \in A \land \\
+&|vy| > 0 \land \\
+&|vxy| \leq p
+\end{aligned}
+$$
+
+
+:::
+
+:::{.column}
+
+*Proof*
+
+:::{.r-stack}
+```{r, engine = 'tikz'}
+#| echo: false
+\begin{tikzpicture}
+\fill[darkgray!40!black] (0,0) rectangle (10,7);
+\draw[white] (2,2) -- node[below,cyan] {u} ++(1,0)  -- node[below,cyan] {v} ++(1,0) ;
+\draw[white] (6,2) -- node[below,cyan] {y} ++(1,0) -- node[below,cyan] {z} ++(1,0);
+
+\draw[white] (5,5.5) -- node[below,cyan] {E} ++(0,0) ;
+
+\draw[white] (5,4.5) -- node[below,cyan] {R} ++(0,0) ;
+\draw[white] (5,3.5) -- node[below,cyan] {R} ++(0,0) ;
+\draw[white] (5,2.5) -- node[below,cyan] {R} ++(0,0) ;
+
+\draw[white] (2,2) -- (5,5) ;
+\draw[white] (5,5) -- (8,2) ;
+
+\draw[white] (3,2) -- (5,4) ;
+\draw[white] (5,4) -- (7,2) ;
+
+\draw[white] (3,1) -- (5,3) ;
+\draw[white] (5,3) -- (7,1) ;
+
+\draw[white] (4,1) -- (5,2) ;
+\draw[white] (5,2) -- (6,1) ;
+
+\draw[white] (3,1) -- node[below,cyan] {v} ++(1,0) -- node[below,cyan] {x} ++(2,0) -- node[below,cyan] {y} ++(1,0) ;
+
+\end{tikzpicture}
+```
+:::
+
+:::
+
+::::
+
+## A Turing Machine
+
+$$
+M := (Q, \Sigma, \Gamma, \delta, q_0, q_{acc}, q_{rej})
+$$
+
+- $\Sigma$: The input alphabet
+- $\Gamma$: The tape alphabet, we note $\Sigma \subset \Gamma$
+- $\delta: Q \times \Gamma \rightarrow Q \times \Gamma \times \{L, R\} \quad (L = \text{Left}, R = \text{Right})$
+- $\delta(q, a) = (r, b, R)$
+
+## Theorem 8
+
+
+::: {.nonincremental}
+
+- $A$ is $T-recognizable$ iff some multi-tape TM recognizes $A$
+
+:::
+
+*Proof.*
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t  [label="a | a | b̀ | b | # | 1 | 0̀ | 1 | 1 | # | c̀ | c | c | a | _ "]
+  h
+
+  t:thr ->h [dir=back];
+}
+```
+
+## Theorem 9
+
+:::{.nonincremental}
+- $A$ is $T-recognizable$ iff some NTM recognizes $A$
+:::
+
+*Proof.*
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t1 [label="one "]
+  t2 [label="'a' "]
+  t3 [label="odd | q_i | one | `a` | <odd> odd | even | q_j "]
+  t4 [label="<q_j> q_j | one | `a` | odd | even | q_k "]
+
+  t3:odd -> t4:q_j
+}
+```
+
+## Church-Turing Thesis
+
+> Every effectively calculable function is a computable function
+
+- Robin Gandy, 1980
+
+## Theorem 10
+
+$$
+\text{Decidable}(A_{DFA} := \{\langle B, w \rangle | w \in L(B: \text{DFA})\})
+$$
+
+*Proof.*
+
+```py
+def d_a_dfa(B:DFA, w:str) -> bool:
+  accept : bool
+  accept = B(w)
+  return accept
+```
+
+## Theorem 11
+
+$$
+\text{Decidable}(A_{NFA} := \{\langle B, w \rangle | w \in L(B: \text{NFA})\})
+$$
+
+*Proof.*
+
+```py
+from theorem_02 import NFA_to_DFA
+from theorem_10 import d_a_dfa
+
+def d_a_nfa(B:NFA, w:str) -> bool:
+  B_prime : DFA
+  B_prime = NFA_to_DFA(B)
+  accept : bool
+  accept = d_a_dfa(B_prime, w)
+  return accept
+```
+
+## Theorem 12
+
+$$
+\text{Decidable}(E_{DFA} := \{\langle B \rangle | L(B:\text{DFA}) = \varnothing\})
+$$
+
+*Proof.*
+
+```py
+# import "bread_first_search" or "transitive_closure" or 
+
+def d_e_dfa(Q, S, d, q_0, F):
+  visited = [q_0]
+  count = 0
+  while count < len(visited):
+    transitions = d[visited[count]]
+    for symbol in transitions:
+      state = transitions[symbol]
+      if state not in visted:
+        if state in F:
+          return True
+        visted.append(state)
+  return False
+```
+
+## Theorem 13
+
+$$
+EQ_{DFA} := \{\langle A,B \rangle | L(A:\text{DFA}) = L(B:\text{DFA})\} \in \text{T-Decidable}
+$$
+
+*Proof.*
+
+  - Not too bad to make $TM_{EQ_{DFA}}$
+  - Emulate $A$ on one track
+  - Emulate $B$ on another track
+  - Create synthetic $C$:DFA which accepts if $A \oplus B$ accept
+  - Apply Theorem 12 to synthetic DFA $C$
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

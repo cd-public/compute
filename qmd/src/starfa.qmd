@@ -1,5 +1,5 @@
 ---
-title: "1. Finite Automata"
+title: "Finite Automata"
 author: Prof. Calvin
 subtitle: "24 Jan 09:30 AM"
 institute: CSCI 5100
@@ -104,7 +104,7 @@ execute:
 
 ::: {.column width="50%"}
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 500px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -189,7 +189,7 @@ digraph finite_automata {
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;

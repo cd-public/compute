@@ -1,5 +1,5 @@
 ---
-title: "3. NFAs"
+title: "NFAs"
 author: Prof. Calvin
 subtitle: "24 Jan 11:30 AM"
 institute: CSCI 5100
