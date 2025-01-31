@@ -296,7 +296,7 @@ $M_2$
 ::: {.column width="50%"}
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 300px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -320,7 +320,7 @@ digraph finite_automata {
 ::: {.column width="50%"}
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 300px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
