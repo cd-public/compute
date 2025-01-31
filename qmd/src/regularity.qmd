@@ -1,7 +1,7 @@
 ---
 title: "Regularity"
 author: Prof. Calvin
-subtitle: "24 Jan 02:30 PM"
+subtitle: "31 Jan 02:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -45,14 +45,14 @@ $$
 
 ::: {.fragment}
 $$
-\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
+\forall M_1, M_2: \exists M_3 : L(M_3) = L(M_1) \cup L(M_2)
 $$
 
 :::
 
 ::: {.fragment}
 $$
-\forall L(M_1), L(M_2): \exists M_3 : L(M_3) = L(M_1)L(M_2)
+\forall M_1, M_2: \exists M_3 : L(M_3) = L(M_1)L(M_2)
 $$
 
 :::
@@ -60,7 +60,7 @@ $$
 ::: {.fragment}
 
 $$
-\forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
+\forall M_1: \exists M_2 : L(M_2) = L(M_1)*
 $$
 
 :::
@@ -71,7 +71,7 @@ $$
 -   Built from:
     -   $\Sigma$, the letters of the alphabet
     -   $\varnothing$, the empty set / empty language.
-    -   $\Sigma^0$, the empty string
+    -   $\Sigma^0 = \sigma$, the empty string
 -   Built with:
     -   $\cup$, union
     -   $\cdot$, concatenation
@@ -329,7 +329,7 @@ digraph finite_automata {
     -   Have a single accept state $|F| = 1$
     -   Connections all states but $q_0 \land q_i \in F$
         -   Unrelated states via empty language $\varnothing$
-            -   GNFA $\varnothing$ label refers to empty langauge (labels are languages)
+            -   GNFA $\varnothing$ label refers to empty language (labels are languages)
             -   NFA $\varnothing$ label refers to the empty string (labels are strings)
 
 
@@ -402,7 +402,7 @@ $$
 
 ## State Exclusion
 
-- Arbitrary select state $q_i : q_i \neq q_0 \land q_i \notin F$
+- Arbitrarily select state $q_i : q_i \neq q_0 \land q_i \notin F$
 - Work over $\delta$
   - Let $\delta_{i,0} = \{R : ((q_x, R) \rightarrow q_i) \in \delta \}$
   - Let $\delta_{i,1} = \{R : ((q_i, R) \rightarrow q_y) \in \delta \}$ 

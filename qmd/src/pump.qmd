@@ -1,7 +1,7 @@
 ---
 title: "Pumping Lemma"
 author: Prof. Calvin
-subtitle: "24 Jan 03:30 PM"
+subtitle: "31 Jan 03:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -84,12 +84,12 @@ $$
 
 ## Find x,y,z
 
-- Let $x = (a_o,\ldots,a_i)$
-  - $M$ is in state $s_*j*$ after reading $x$
+- Let $x = (a_o,\ldots,a_{i-1})$
+  - $M$ is in state $s_j$ after reading $x$
 - Let $y = (a_i,\ldots,a_{j-1})$
   - $M$ is in state $s_j$ after reading $y$ when beginning in $s_i$
   - $s_i = s_j$
-- Let $z = (a_{j-1},\ldots,a_p)$
+- Let $z = (a_{j},\ldots,a_p)$
   - $M$ accepts after reading $z$ when beginning in $s_j$
 
 ## Pump on $y$
@@ -99,7 +99,12 @@ $$
     - Denote as $[0,i][j+1,p]$
   - $xyz$ is accepted by $(q_0,s_1,\ldots,s_p)$
     - Denote as $[0,p] = [0,i][i+1,j][j+1,p]$
-  - $xyyz$ is accepted by $(q_0,s_1,\ldots,s_i+1,\ldots,s_{j-1},s_i\ldots,s_j, s_{j+1},\ldots, s_p)$
+
+  
+## Pump on $y$
+
+- We note
+  - $xyyz$ is accepted by $(q_0,s_1,\ldots,s_{i+1},\ldots,s_{j-1},s_i\ldots,s_j, s_{j+1},\ldots, s_p)$
     - Denote as $[0,i][i+1,j][i+1,j][j+1,p]$
   - $xy^nz$ is accepted by $[0,i][i+1,j]^n[j+1,p]$
 
@@ -112,8 +117,8 @@ S : List[states]
 x : str
 y : str
 z : str
-assert(states(x + z)         == S[:i]+S[j:]) 
-assert(states(x + y + z)     == S  == S[:i]+S[i:j]+S[j:])
+assert(states(x + z)         == S[:i] + S[j:]) 
+assert(states(x + y + z)     == S    == S[:i]+S[i:j]+S[j:])
 assert(states(x + y + y + z) == S[:i] + S[i:j] + S[i:j] + S[j:])
 assert(states(x + y * 2 + z) == S[:i] + S[i:j] * 2      + S[j:])
 # This can't run - it's infinite
@@ -256,7 +261,7 @@ digraph finite_automata {
 - We note we cannot show this graphically.
 - We have proven no DFA accepts $D$
 - How could we draw a DFA!
-- This is also why we can't really on graphics!
+- This is also why we can't rely on graphics!
 
 ## Irregular 1
 
@@ -270,15 +275,15 @@ digraph finite_automata {
 ## Avoid this
 
 - Say we chose $0^p0^p$
-- We take, say, $x = y = 0^(p/2 - 1)$
+- We take, say, $x = y = 0^{\frac{p}{2} - 1}$
 - Well we actually can pump $y$ if $|y|$ is odd.
 - Have to be careful!
 
 ## Strategy
 
-- We take string $s = $0^p10^p1$
+- We take string $s = 0^p10^p1$
 - Pumping lemma requires $\exists xy : |xy| \leq p$
-- $\forall xy \not\exists 1 \in x$
+- $\forall xy \:\not\exists 1 \in x$
 - So $xz = 0^{p-|y|}10^p1$
 - Pumping lemma requires $|y| > 0$
 - $F$ requires $p - |y| = p$
@@ -298,6 +303,7 @@ digraph finite_automata {
 - Since $B$ is regular, $B \cap 0*1*$ is regular
   -  Closure under intersection
 - We note that $D = B \cap 0*1*$
+  - $D = \{ 0^k1^k | k \in \mathbb{N}\}$
   - $D$ is irregular!
 - $B$ is irregular.
 - $\blacksquare$

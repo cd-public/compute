@@ -1,7 +1,7 @@
 ---
 title: "Regular Expressions"
 author: Prof. Calvin
-subtitle: "24 Jan 10:30 AM"
+subtitle: "31 Jan 10:30 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -86,7 +86,7 @@ next(astar), next(astar), next(astar)
 ## Exercise 0
 
 - Write a Python generator expression.
-    -   Over `A = {'0', '010'}`
+    -   Over `A = {'0', '10'}`
     -   That defines $A*$
     -   Check out `itertools` or write your own.
 
@@ -213,7 +213,7 @@ digraph finite_automata {
 
 ## Closure under $\cup$
 
--   Our set is the languages recognized FA/FSMs.
+-   Our set is the languages recognized by FA/FSMs.
 -   Our operation is $\cup$
 -   We wish to show the union of any two regular languages is, itself, a regular language.
 
@@ -239,7 +239,7 @@ $$
 
 :::{.fragment}
 $$
-Q_3 = Q_2 \times Q_2 = { (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 }
+Q_3 = Q_2 \times Q_2 = \{ (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 \}
 $$
 :::
 
@@ -248,9 +248,9 @@ $$
 -   $M_1, M_2  = (Q_1, \Sigma, \delta_1, q_1, F_1), (Q_2, \Sigma, \delta_2, q_2, F_2)$
 -   $Q_3 = Q_2 \times Q_2 = \{ (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 \}$
 -   $q_0 = (q_1, q_2)$
--   $\delta(q,q'),a) = (\delta_1(q,a), \delta_1(q',a))$
+-   $\delta((q,q'),a) = (\delta_1(q,a), \delta_1(q',a))$
 -   $F \neq F_1 \times F_2$
-    -   $F = \{ (q,q') | q \in F_1 \lor q` \in F_2 \}$
+    -   $F = \{ (q,q') | q \in F_1 \lor q' \in F_2 \}$
     -   $F = \{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \}$
 
 ## Theorem 1

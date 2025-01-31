@@ -1,7 +1,7 @@
 ---
 title: "Context Free Grammars"
 author: Prof. Calvin
-subtitle: "24 Jan 04:30 PM"
+subtitle: "31 Jan 04:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -27,7 +27,7 @@ execute:
   - Rules
   - Formal Definition
   - Examples
-  - Amibuity
+  - Ambiguity
 :::
 
 # Rules
@@ -48,6 +48,9 @@ G_1& \\
 $$
 
 - We use $\varepsilon$ to denote the empty string.
+
+## Rules
+
 - Term these "rules"
 - They are of form:
     - Symbol
@@ -335,7 +338,7 @@ $$
 - $u \overset{*}{\Rightarrow} v := \exists u_1, u_2, ... u_n : \underset{i \leq n}{\Rightarrow} u_i = v$
   -  $\overset{*}{\Rightarrow}$ is the transitive closure of $\Rightarrow$
   -  Term this a *derivation* of $v$ from $u$
-  -  If %u = $S$ term this the *derivation* of $v$
+  -  If $u = S$ term this the *derivation* of $v$
 - $L(G) = \{ w | w \in \Sigma* \land S \overset{*}{\Rightarrow} w \}$
 
 ## Check in

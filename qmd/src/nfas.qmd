@@ -1,7 +1,7 @@
 ---
 title: "NFAs"
 author: Prof. Calvin
-subtitle: "24 Jan 11:30 AM"
+subtitle: "31 Jan 11:30 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -380,10 +380,10 @@ digraph finite_automata {
 
 ```python
 # setup
-state = str
-letter = str
-dfa = tuple
-nfa = tuple
+state : str
+letter : str
+dfa : tuple
+nfa : tuple
 
 def q_next_dfa(m:dfa, q:state, a:letter) -> state:
     d = m[2] # dict of state:dict of letter:state
@@ -401,9 +401,9 @@ def q_next_nfa(m:nfa, qs:set, a:letter) -> set:
 *Or put the lambdas in the &ast;FA*
 
 ```python
-q_next_dfa = lambda m, q, a : m[2]d[q][a]
+q_next_dfa = lambda m, q, a : m[2][q][a]
 
-q_next_dfa = lambda m, qs, a : {q_n for q in d[q][a] for q in qs}
+q_next_dfa = lambda m, qs, a : {q_n for q in m[2][q][a] for q in qs}
 ```
 
 # Conversion
@@ -427,14 +427,14 @@ q_next_dfa = lambda m, qs, a : {q_n for q in d[q][a] for q in qs}
     -   How can we represent it?
 -   We note $\Sigma$ is unaltered.
 
-## DFA $\delta`$
+## DFA $\delta'$
 
 -   We note $\Sigma$ is unaltered.
 -   We note NFA $\delta$:
     -   Accepts $\mathcal{P} (Q)$ and a letter
     -   Produces $\mathcal{P} (Q)$
     -   That the states $Q'$ of the DFA are $\mathcal{P} (Q)$ 
--   $\delta$ = $\delta`$
+-   $\delta$ = $\delta'$
 
 ## DFA $F$
 
@@ -460,6 +460,6 @@ $$
 
 - We take some minor liberties with precisely defining the type of $\delta$.
 
-# Stretch Break
+# Lunch Break
 
 - [Home](https://cd-public.github.io/compute/)

@@ -1,7 +1,7 @@
 ---
 title: "Closures"
 author: Prof. Calvin
-subtitle: "23 Jan 01:30 PM"
+subtitle: "31 Jan 01:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -59,8 +59,9 @@ $$
 
 ## New Technique
 
--   We can equivalent argue take both $M_1$ and $M_2$
--   We non-deterministically read into both simultaneously
+-   We can equivalently argue:
+-   Take both $M_1$ and $M_2$
+-   Non-deterministically read into both simultaneously
 -   We begin with the first edge from the first state.
 
 ## New $Q$
@@ -315,7 +316,7 @@ digraph finite_automata {
 
 -   Essentially just the two machines running in parallel.
 
-## Use $\varnothing$ edges.
+## Use $\sigma$ edges.
 
 
 ```{dot filename="Finite Automata"}
@@ -336,8 +337,8 @@ digraph finite_automata {
   q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
 
   r0 -> q0
-  q0 -> r1 [label="{}"];
-  q0 -> q1 [label="{}"];
+  q0 -> r1 [label="σ"];
+  q0 -> q1 [label="σ"];
   q1 -> q1 [label="{0}"];
   q1 -> q2 [label="{1}"];
   q2 -> q1 [label="{0}"];
@@ -378,7 +379,7 @@ $$
 L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
  L(&Q_1 \sqcup Q_2 \cup \{q_0\}, \\
  &\Sigma, \\
-&\delta_1 \sqcup \delta_2 \cup ((q_0, \varnothing) \rightarrow \{q_1, q_2\} \\
+&\delta_1 \sqcup \delta_2 \cup ((q_0, \sigma) \rightarrow \{q_1, q_2\} \\
 &q_0, \\
 & F_1 \sqcup F_2)\blacksquare
 \end{aligned}
@@ -401,11 +402,11 @@ $$
 
 -   As with union, so with concatenation.
 -   $\delta_3 = \delta_1 \sqcup \delta_2$
--   Additional need to get from $M_1$ to $M_2$
-    -   Add $\varnothing$ paths
+-   Additionally need to get from $M_1$ to $M_2$
+    -   Add $\sigma$ (empty string) paths
     -   From $q_n \in F_1$
     -   To $q_2$
-$\delta_3 = \delta_1 \sqcup \delta_2 \cup \{ (f, \varnothing) \rightarrow \{q_2\} | f \in F_1 \}$
+$\delta_3 = \delta_1 \sqcup \delta_2 \cup \{ (f, \sigma) \rightarrow \{q_2\} | f \in F_1 \}$
 
 ## $q_0, F$
 
@@ -530,8 +531,8 @@ digraph finite_automata {
   r1 -> r1 [label="{0}"];
   r1 -> r2 [label="{1}"];
   r2 -> r1 [label="{0}"];
-  r1 -> q1 [label="{}"];
-  r2 -> q1 [label="{}"];
+  r1 -> q1 [label="σ"];
+  r2 -> q1 [label="σ"];
 }
 ```
 
@@ -550,7 +551,7 @@ $$
 L(&Q_1, \Sigma, \delta_1, q_1, F_1)L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
  L(&Q_1 \sqcup Q_2, \\
  &\Sigma, \\
-&\delta_1 \sqcup \delta_2 \cup \{ (f, \varnothing) \rightarrow \{q_2\} | f \in F_1 \} \\
+&\delta_1 \sqcup \delta_2 \cup \{ (f, \sigma) \rightarrow \{q_2\} | f \in F_1 \} \\
 &q_1, \\
 &F_2)\blacksquare
 \end{aligned}
@@ -564,7 +565,7 @@ $$
 \forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
 $$
 
--   We note that the empty string `""` $\in A* \forall A$
+-   We note that the empty string $\sigma \in A* \forall A$
 
 ## New $Q$
 
@@ -573,11 +574,11 @@ $$
 
 ## New $\delta$
 -   Need to get from $F$ to $q_1$
-    -   Add $\varnothing$ paths
+    -   Add $\sigma$ paths
     -   From $q_n \in F_1$
     -   To $q_1$
     -   And $q_0$ to $q_1$
-- $\delta_2 = \delta_1 \cup \{ (f, \varnothing) \rightarrow \{q_2\}| f \in F_1 \cup \{q_0\} \}$
+- $\delta_2 = \delta_1 \cup \{ (f, \sigma) \rightarrow \{q_2\}| f \in F_1 \cup \{q_0\} \}$
 
 ## $q_0, F$
 
@@ -626,7 +627,7 @@ digraph finite_automata {
   q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
 
   d0 -> q0
-  q0 -> q1 [label="{}"];
+  q0 -> q1 [label="σ"];
   q1 -> q1 [label="{0}"];
   q1 -> q2 [label="{1}"];
   q2 -> q1 [label="{0}"];
@@ -652,13 +653,13 @@ digraph finite_automata {
   q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
 
   d0 -> q0
-  q0 -> q1 [label="{}"];
+  q0 -> q1 [label="σ"];
   q1 -> q1 [label="{0}"];
   q1 -> q2 [label="{1}"];
   q2 -> q1 [label="{0}"];
   q2 -> q3 [label="{1}"];
   q3 -> q3 [label="{0,1}"];
-  q3 -> q1 [label="{}"];
+  q3 -> q1 [label="σ"];
 }
 ```
 
@@ -675,7 +676,7 @@ $$
 L(&Q_1, \Sigma, \delta_1, q_1, F_1)* = \\
  L(&Q_1 \cup \{q_0\}, \\
  &\Sigma, \\
-&\delta_1 \cup \{ (f, \varnothing) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
+&\delta_1 \cup \{ (f, \sigma) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
 &q_0, \\
 &F_1)\blacksquare
 \end{aligned}

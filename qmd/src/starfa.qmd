@@ -1,7 +1,7 @@
 ---
 title: "Finite Automata"
 author: Prof. Calvin
-subtitle: "24 Jan 09:30 AM"
+subtitle: "31 Jan 09:30 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -44,14 +44,14 @@ execute:
 -   Say we:
     -   Have a computer, or formal definition thereof.
     -   Have a sorting algorithm.
-    -   Having a sorting specificaiton.
+    -   Having a sorting specification.
 -   Can we determine:
     -   If the sorting algorithm meets a specification?
 -   Turns out: **impossible**.
 
 ## Example 1
 -   Say we:
-    -   Have a really, really optimized LLM, like Gemini.
+    -   Have a really, really optimized LLM, like DeepSeek.
     -   Have a program we'd like to run, but aren't sure we have enough compute.
 -   Can we determine:
     -   Whether the program will ever finish running?
@@ -60,6 +60,8 @@ execute:
 ## Some Previews
 -   Finite Automata
     -   Today
+-   Context Free Grammars
+    -   Today and Tomorrow
 -   Turing Machines
     -   In residence
 
@@ -230,7 +232,7 @@ digraph finite_automata {
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -270,7 +272,7 @@ digraph finite_automata {
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -310,7 +312,7 @@ digraph finite_automata {
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -350,7 +352,7 @@ digraph finite_automata {
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -390,7 +392,7 @@ digraph finite_automata {
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -430,7 +432,7 @@ assert(M_1([0, 1, 1, 0, 1]) # M_1 as a function from bit strings to booleans.
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -470,7 +472,7 @@ digraph finite_automata {
 ```
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 800px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;
@@ -488,16 +490,16 @@ digraph finite_automata {
 
   node [shape=circle];
   q0 [label="",shape=point]; 
-  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
-  q2 [label=<<I>q<SUB>2</SUB></I>>, color="orange"];
-  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
 
-  q0 -> q1 [color="orange"]
-  q1 -> q1 [label="{0}", color="orange"];
-  q1 -> q2 [label="{1}", color="orange"];
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
   q2 -> q1 [label="{0}"];
-  q2 -> q3 [label="{1}", color="orange"];
-  q3 -> q3 [label="{0,1}", color="orange"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
 }
 ```
 
@@ -509,7 +511,7 @@ digraph finite_automata {
     -   $A = L(M_1)$
 - We note:
 $$
-w \in A \implies \exists i,j < |w| : w_i = 1 \land w_j = 1\}
+w \in A \implies \exists i < |w| - 1 : w_i = 1 \land w_{i+1} = 1 
 $$
 
 :::{.fragment}
@@ -525,7 +527,10 @@ assert('11' in w)
 
 ## Finite Automaton
 
-- A **finite automaton** (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols. 
+> A **finite automaton** (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols. 
+    
+
+## Finite Automaton    
     - In class: "finite automaton"
     - Real life: mostly say "state machine"
     - I used the notation *FA to denote these are not a specific kind of FA
@@ -546,7 +551,7 @@ A finite automaton is formally defined as a 5-*tuple*:
 
 * **States ($Q$):** Possible internal configurations - like computer memory.
 * **Alphabet ($\Sigma$):** Possible inputs - machine binary or computer I/O.
-* **Transition Function (\delta$):** How the FA's state is updated on read.
+* **Transition Function ($\delta$):** How the FA's state is updated on read.
 * **Initial State ($q_0$):** This is the state where the automaton begins its operation.
 * **Accepting States ($F$):** These determine if the FA outputs $0$ or $1$.
 
