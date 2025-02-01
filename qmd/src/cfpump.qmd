@@ -1,7 +1,7 @@
 ---
 title: "Context Free Pumping"
 author: Prof. Calvin
-subtitle: "25 Jan 11:30 AM"
+subtitle: "Sat 11:30 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -45,8 +45,8 @@ execute:
 - Take $\Sigma = \{0,1,2\}$
 - Take $B = \{0^k1^k2^k| k \in \mathbb{N}\}$
 - This language is not a context free language.
-  - If you had a stack, match `0`'s with `1`'
-  - How to deal with `2`'s?
+  - If you had a stack, match `0`s with `1`s
+  - How to deal with `2`s?
   - Not a proof, but an intuition.
 
 # Pumping Lemma
@@ -130,7 +130,7 @@ digraph finite_automata {
 ## Checkin
 
 - Can a string of length 1 million be made my a parse tree of height 1?
-  - How about all multiple of 1 million?
+  - How about all factors of 1 million?
 - We'll quantify this shortly.
 
 :::{.fragment}
@@ -708,7 +708,8 @@ $$
 $$
 \begin{aligned}
 &\forall \text{ CFL } A :\exists p \in \mathbb{N} : \\
-&\exists s = uvxyz \in A : |uvxyz| \geq p \implies
+&\exists s = uvxyz \in A : \\
+& |uvxyz| \geq p \implies
 \\
 &\forall i \in \mathbb{N} : uv^ixy^iz \in A \land \\
 &|vy| > 0 \land \\
@@ -769,11 +770,11 @@ $$
 
 ## All conditions
 
-1. $uv^ixy^iz \in A \forall i \in \mathbb{N}$
+- $uv^ixy^iz \in A \forall i \in \mathbb{N}$
   -  Cut and paste
-2. $vy \neq \varepsilon$
+- $vy \neq \varepsilon$
   - Take smallest possible tree.
-3. $|vxy| \leq p$
+- $|vxy| \leq p$
   - Pick lowest $R$
 
 ## Example

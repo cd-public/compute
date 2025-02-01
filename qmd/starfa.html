@@ -1220,9 +1220,11 @@ w \in A \implies \exists i &lt; |w| - 1 : w_i = 1 \land w_{i+1} = 1
 </section>
 <section id="finite-automaton-1" class="slide level2">
 <h2>Finite Automaton</h2>
-<pre><code>- In class: "finite automaton"
-- Real life: mostly say "state machine"
-- I used the notation *FA to denote these are not a specific kind of FA</code></pre>
+<ul>
+<li class="fragment">In class: “finite automaton”</li>
+<li class="fragment">Real life: mostly say “state machine”</li>
+<li class="fragment">I used the notation *FA to denote these are not a specific kind of FA</li>
+</ul>
 </section>
 <section id="formal-definition-1" class="slide level2">
 <h2>Formal Definition</h2>
@@ -1234,7 +1236,7 @@ w \in A \implies \exists i &lt; |w| - 1 : w_i = 1 \land w_{i+1} = 1
 <ul>
 <li class="fragment"><span class="math inline">\(\delta : Q \times \sigma \rightarrow Q\)</span></li>
 </ul></li>
-<li class="fragment"><strong><span class="math inline">\(q_0\)</span>:</strong> The initial state, where <span class="math inline">\(q_0\)</span> ∈ Q.</li>
+<li class="fragment"><strong><span class="math inline">\(q_0\)</span>:</strong> The initial state, where <span class="math inline">\(q_0 \in Q\)</span>.</li>
 <li class="fragment"><strong><span class="math inline">\(F\)</span>:</strong> A set of accepting states (or final states), where <span class="math inline">\(F \subset Q\)</span>.</li>
 </ul>
 </section>
@@ -1290,18 +1292,18 @@ w \in A \implies \exists i &lt; |w| - 1 : w_i = 1 \land w_{i+1} = 1
 <section id="python" class="slide level2">
 <h2>Python</h2>
 <div id="4f28a1b6" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="co"># define q_n as a convenience</span></span>
-<span id="cb11-2"><a></a>q_1, q_2, q_3 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span>, <span class="st">"q_3"</span></span>
-<span id="cb11-3"><a></a><span class="co"># define M_1</span></span>
-<span id="cb11-4"><a></a>Q <span class="op">=</span> {q_1, q_2, q_3}</span>
-<span id="cb11-5"><a></a>S <span class="op">=</span> {<span class="dv">0</span>, <span class="dv">1</span>}</span>
-<span id="cb11-6"><a></a>d <span class="op">=</span> {</span>
-<span id="cb11-7"><a></a>    q_1 : { <span class="dv">0</span>:q_1, <span class="dv">1</span>:q_2 },</span>
-<span id="cb11-8"><a></a>    q_2 : { <span class="dv">0</span>:q_1, <span class="dv">1</span>:q_3 },</span>
-<span id="cb11-9"><a></a>    q_3 : { <span class="dv">0</span>:q_3, <span class="dv">1</span>:q_3 }</span>
-<span id="cb11-10"><a></a>}</span>
-<span id="cb11-11"><a></a>M_1 <span class="op">=</span> (Q,S,d,q_1,{q_3})</span>
-<span id="cb11-12"><a></a><span class="bu">print</span>(M_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="co"># define q_n as a convenience</span></span>
+<span id="cb10-2"><a></a>q_1, q_2, q_3 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span>, <span class="st">"q_3"</span></span>
+<span id="cb10-3"><a></a><span class="co"># define M_1</span></span>
+<span id="cb10-4"><a></a>Q <span class="op">=</span> {q_1, q_2, q_3}</span>
+<span id="cb10-5"><a></a>S <span class="op">=</span> {<span class="dv">0</span>, <span class="dv">1</span>}</span>
+<span id="cb10-6"><a></a>d <span class="op">=</span> {</span>
+<span id="cb10-7"><a></a>    q_1 : { <span class="dv">0</span>:q_1, <span class="dv">1</span>:q_2 },</span>
+<span id="cb10-8"><a></a>    q_2 : { <span class="dv">0</span>:q_1, <span class="dv">1</span>:q_3 },</span>
+<span id="cb10-9"><a></a>    q_3 : { <span class="dv">0</span>:q_3, <span class="dv">1</span>:q_3 }</span>
+<span id="cb10-10"><a></a>}</span>
+<span id="cb10-11"><a></a>M_1 <span class="op">=</span> (Q,S,d,q_1,{q_3})</span>
+<span id="cb10-12"><a></a><span class="bu">print</span>(M_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>({'q_3', 'q_1', 'q_2'}, {0, 1}, {'q_1': {0: 'q_1', 1: 'q_2'}, 'q_2': {0: 'q_1', 1: 'q_3'}, 'q_3': {0: 'q_3', 1: 'q_3'}}, 'q_1', {'q_3'})</code></pre>
 </div>

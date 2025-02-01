@@ -88,7 +88,7 @@ Nondeterministic Finite Automata (NFA)
 ::: {.column width="50%"}
 
 ```{dot filename="DFA"}
-//| fig-width: 50%
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -112,7 +112,7 @@ digraph finite_automata {
 ::: {.column width="50%"}
 
 ```{dot filename="NFA"}
-//| fig-width: 50%
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -152,7 +152,7 @@ Find a string accepted by the NFA that is rejected by the DFA.
 ::: {.column width="50%"}
 
 ```{dot filename="DFA"}
-//| fig-width: 50%
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -176,7 +176,7 @@ digraph finite_automata {
 ::: {.column width="50%"}
 
 ```{dot filename="NFA"}
-//| fig-width: 50%
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -217,7 +217,7 @@ digraph finite_automata {
 ::: {.column width="50%"}
 
 ```{dot filename="NFA"}
-//| fig-width: 50%
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -345,7 +345,7 @@ d_nfa = {
 ::: {.column width="50%"}
 
 ```{dot filename="NFA"}
-//| fig-width: 50%
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -445,7 +445,7 @@ q_next_dfa = lambda m, qs, a : {q_n for q in m[2][q][a] for q in qs}
 ## Theorem 2
 
 $$
-\forall M_{NFA}: \exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA})) 
+\forall M_{NFA}: \exists M_{DFA} : L(M_{NFA})) = L(M_{DFA})) 
 $$
 
 *Proof*

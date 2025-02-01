@@ -79,7 +79,7 @@ $$
   - We make no claims about which states.
 - Define sequence of states $S = (q_0,s_1,s_2,\ldots,s_i,s_{i+1},\ldots,s_p)$
 - $\forall s_i \in S : s_i \in Q$
-- $|P| > |Q|$
+- $p = |S| > |Q|$
 - $\therefore \exists i,j : s_i = s_j$
 
 ## Find x,y,z

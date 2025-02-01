@@ -236,7 +236,7 @@ $$
 \begin{aligned}
 M_1 &= (\{q_0,q_1\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
 M_2 &= (\{q_0\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
-M_3 &= (\{q_0\}, &\Sigma, &\varnothing,  &q_0, &\{q_1\}) \\
+M_3 &= (\{q_0\}, &\Sigma, &\varnothing,  &q_0, &\{q_0\}) \\
 \end{aligned}
 $$
 
@@ -403,23 +403,10 @@ $$
 ## State Exclusion
 
 - Arbitrarily select state $q_i : q_i \neq q_0 \land q_i \notin F$
-- Work over $\delta$
-  - Let $\delta_{i,0} = \{R : ((q_x, R) \rightarrow q_i) \in \delta \}$
-  - Let $\delta_{i,1} = \{R : ((q_i, R) \rightarrow q_y) \in \delta \}$ 
-  - Let $S : ((q_i, S) \rightarrow q_i) \in \delta$
-  
-## Delta Reconstruction
-
-- We synthesize new relations out of $\bigcup\limits_{[-1,1]}\delta_{i,n}$
-- Recall there is an edge between all nodes!
-  - With the special exception of edges back into start and out of accept.
-
-## New Transitions
-
 - Take $R_{i,j} = ((q_i, R) \rightarrow q_j)$
-  - We note going from $q_x$ to $q_y$ through $q_i$ is given as $R_{x,i}R_{i,i}R_{i,y}$
+  - We note going from $q_x$ to $q_y$ through $q_i$ is given as $R_{x,i}R_{i,i}*R_{i,y}$
 - Unionize with existing relation $R_{x,y}$
-- Denote $R'_{x,y} = R_{x,y} \cup R_{x,i}R_{i,i}R_{i,y}$
+- Denote $R'_{x,y} = R_{x,y} \cup R_{x,i}R_{i,i}*R_{i,y}$
 - Let $\delta_{-i} = \{ (q_x, R'_{x,y})  \rightarrow q_y | q_y, q_x \in Q \}$
 
 ## Inductive Lemma
@@ -494,7 +481,7 @@ digraph finite_automata {
   node [shape=circle];
   d0 [label="",shape=point]; 
   q0 [label=<<I>q<SUB>0</SUB></I>>];
-  r [label="RST",shape=plaintext];
+  r [label="RS*T",shape=plaintext];
   qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
 
   d0 -> q0
@@ -517,7 +504,7 @@ digraph finite_automata {
   qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
 
   d0 -> q0
-  q0 -> qn [label="RST"];
+  q0 -> qn [label="RS*T"];
   q0 -> qn [label="V"];
 }
 ```
@@ -537,7 +524,7 @@ digraph finite_automata {
   qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
 
   d0 -> q0
-  q0 -> qn [label="RST∪V"];
+  q0 -> qn [label="RS*T∪V"];
 }
 ```
 

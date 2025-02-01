@@ -131,7 +131,7 @@ M = (Q,S,d,q_1,Q)
 ::: {.fragment}
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 50%
+//| fig-width: 400px
 //| echo: true
 //| eval: false
 //| code-overflow: scroll
@@ -167,7 +167,7 @@ digraph finite_automata {
 
   node [shape=circle];
   q0 [label="",shape=point]; 
-  q1 [label=<<I>q<SUB>1</SUB></I>>, shape=doublecircle];
+  q1 [label=<<I>q<SUB>1</SUB></I>>] ;
   q2 [label=<<I>q<SUB>2</SUB></I>>, shape=doublecircle]; 
 
   q0 -> q1 []
@@ -239,14 +239,14 @@ $$
 
 :::{.fragment}
 $$
-Q_3 = Q_2 \times Q_2 = \{ (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 \}
+Q_3 = Q_1 \times Q_2 = \{ (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 \}
 $$
 :::
 
 ## $M_3$
 
 -   $M_1, M_2  = (Q_1, \Sigma, \delta_1, q_1, F_1), (Q_2, \Sigma, \delta_2, q_2, F_2)$
--   $Q_3 = Q_2 \times Q_2 = \{ (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 \}$
+-   $Q_3 = Q_1 \times Q_2 = \{ (q_1, q_2) | q_1 \in Q_1 \land q_2 \in Q_2 \}$
 -   $q_0 = (q_1, q_2)$
 -   $\delta((q,q'),a) = (\delta_1(q,a), \delta_1(q',a))$
 -   $F \neq F_1 \times F_2$
@@ -296,7 +296,7 @@ $M_2$
 ::: {.column width="50%"}
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 300px
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
@@ -320,7 +320,7 @@ digraph finite_automata {
 ::: {.column width="50%"}
 
 ```{dot filename="Finite Automata"}
-//| fig-width: 300px
+//| fig-width: 400px
 //| echo: false
 digraph finite_automata {
   rankdir=LR;

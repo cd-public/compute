@@ -1,7 +1,7 @@
 ---
 title: "Diagonalization"
 author: Prof. Calvin
-subtitle: "26 Jan 10:30 AM"
+subtitle: "Sun 10:30 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -255,7 +255,7 @@ digraph finite_automata {
 ## Properties of Surjectivity
 
 - Can also say
-  - The codmain
+  - The codomain
     - $\{B | f: A \rightarrow B\}$
   - Is the image
     - Different meaning! 
@@ -770,7 +770,7 @@ $$
 ## A bijection
 
 - Let's take all the real numbers in $\mathbb{R}$
-  - We note that are the numbers expressible with potential infinite strings.
+  - We note that are the numbers expressible with potentially infinite strings.
   - Decimal or binary is fine.
 
 ## A listing
@@ -850,6 +850,6 @@ $$
 
 # Thank you!
 
-- Next lecture, on undecidability, posted Jan 27 to YouTube!
-- Homework 1, on automata, due Feb 03.
+- Next lecture, on undecidability, posted Monday to YouTube!
+- Homework 1, on automata, the Monday after
   - Assuming my flight etc etc

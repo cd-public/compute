@@ -1,7 +1,7 @@
 ---
 title: "Variants"
 author: Prof. Calvin
-subtitle: "25 Jan 02:30 PM"
+subtitle: "Sat 02:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -200,11 +200,19 @@ digraph g {
       fontcolor = "#ffffff"
   ]
 
+  h1
+  h2
+  h3
   t1 [label="a | a | <here> b | b | _ | _ | _ "]
   t2 [label="1 | <here> 0 | 1 | 1 | _ | _ | _ "]
   t3 [label="<here> c | c | c | a | _ | _ | _ "]
   t  [label="a | a | b̀ | b | # | 1 | 0̀ | 1 | 1 | # | c̀ | c | c | a | _ "]
   h
+
+
+  h1->t1:here;
+  h2->t2:here;
+  h3->t3:here;
 
   t1-> t:one
   t2-> t:two

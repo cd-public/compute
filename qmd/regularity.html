@@ -424,7 +424,7 @@ L(M_2) &amp;= \varnothing
 \begin{aligned}
 M_1 &amp;= (\{q_0,q_1\}, &amp;\Sigma, &amp;\{ (q_0, a) \rightarrow \{q_1\} \}, &amp;q_0, &amp;\{q_1\}) \\
 M_2 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\{ (q_0, a) \rightarrow \{q_1\} \}, &amp;q_0, &amp;\{q_1\}) \\
-M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
+M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_0\}) \\
 \end{aligned}
 \]</span></p>
 </section>
@@ -568,7 +568,7 @@ M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
 <ul>
 <li class="fragment">Unrelated states via empty language <span class="math inline">\(\varnothing\)</span>
 <ul>
-<li class="fragment">GNFA <span class="math inline">\(\varnothing\)</span> label refers to empty langauge (labels are languages)</li>
+<li class="fragment">GNFA <span class="math inline">\(\varnothing\)</span> label refers to empty language (labels are languages)</li>
 <li class="fragment">NFA <span class="math inline">\(\varnothing\)</span> label refers to the empty string (labels are strings)</li>
 </ul></li>
 </ul></li>
@@ -690,34 +690,13 @@ M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
 <section id="state-exclusion" class="slide level2">
 <h2>State Exclusion</h2>
 <ul>
-<li class="fragment">Arbitrary select state <span class="math inline">\(q_i : q_i \neq q_0 \land q_i \notin F\)</span></li>
-<li class="fragment">Work over <span class="math inline">\(\delta\)</span>
-<ul>
-<li class="fragment">Let <span class="math inline">\(\delta_{i,0} = \{R : ((q_x, R) \rightarrow q_i) \in \delta \}\)</span></li>
-<li class="fragment">Let <span class="math inline">\(\delta_{i,1} = \{R : ((q_i, R) \rightarrow q_y) \in \delta \}\)</span></li>
-<li class="fragment">Let <span class="math inline">\(S : ((q_i, S) \rightarrow q_i) \in \delta\)</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="delta-reconstruction" class="slide level2">
-<h2>Delta Reconstruction</h2>
-<ul>
-<li class="fragment">We synthesize new relations out of <span class="math inline">\(\bigcup\limits_{[-1,1]}\delta_{i,n}\)</span></li>
-<li class="fragment">Recall there is an edge between all nodes!
-<ul>
-<li class="fragment">With the special exception of edges back into start and out of accept.</li>
-</ul></li>
-</ul>
-</section>
-<section id="new-transitions" class="slide level2">
-<h2>New Transitions</h2>
-<ul>
+<li class="fragment">Arbitrarily select state <span class="math inline">\(q_i : q_i \neq q_0 \land q_i \notin F\)</span></li>
 <li class="fragment">Take <span class="math inline">\(R_{i,j} = ((q_i, R) \rightarrow q_j)\)</span>
 <ul>
-<li class="fragment">We note going from <span class="math inline">\(q_x\)</span> to <span class="math inline">\(q_y\)</span> through <span class="math inline">\(q_i\)</span> is given as <span class="math inline">\(R_{x,i}R_{i,i}R_{i,y}\)</span></li>
+<li class="fragment">We note going from <span class="math inline">\(q_x\)</span> to <span class="math inline">\(q_y\)</span> through <span class="math inline">\(q_i\)</span> is given as <span class="math inline">\(R_{x,i}R_{i,i}*R_{i,y}\)</span></li>
 </ul></li>
 <li class="fragment">Unionize with existing relation <span class="math inline">\(R_{x,y}\)</span></li>
-<li class="fragment">Denote <span class="math inline">\(R'_{x,y} = R_{x,y} \cup R_{x,i}R_{i,i}R_{i,y}\)</span></li>
+<li class="fragment">Denote <span class="math inline">\(R'_{x,y} = R_{x,y} \cup R_{x,i}R_{i,i}*R_{i,y}\)</span></li>
 <li class="fragment">Let <span class="math inline">\(\delta_{-i} = \{ (q_x, R'_{x,y})  \rightarrow q_y | q_y, q_x \in Q \}\)</span></li>
 </ul>
 </section>
@@ -938,7 +917,7 @@ M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
 <!-- r -->
 <g id="node3" class="node">
 <title>r</title>
-<text text-anchor="middle" x="27" y="-58.49" font-family="Times,serif" font-size="14.00" fill="#ffffff">RST</text>
+<text text-anchor="middle" x="27" y="-58.49" font-family="Times,serif" font-size="14.00" fill="#ffffff">RS*T</text>
 </g>
 </g>
 </svg>
@@ -955,10 +934,10 @@ M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="960" height="480" viewbox="0.00 0.00 201.05 57.39" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="960" height="480" viewbox="0.00 0.00 208.05 57.39" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 53.39)">
 <title>finite_automata</title>
-<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-53.39 197.05,-53.39 197.05,4 -4,4"></polygon>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-53.39 204.05,-53.39 204.05,4 -4,4"></polygon>
 <!-- d0 -->
 <g id="node1" class="node">
 <title>d0</title>
@@ -980,24 +959,24 @@ M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
 <!-- qn -->
 <g id="node3" class="node">
 <title>qn</title>
-<ellipse fill="none" stroke="#ffffff" cx="168.36" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
-<ellipse fill="none" stroke="#ffffff" cx="168.36" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
-<text text-anchor="start" x="161.36" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
-<text text-anchor="start" x="168.36" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
+<ellipse fill="none" stroke="#ffffff" cx="175.36" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="175.36" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="168.36" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="175.36" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
 </g>
 <!-- q0&#45;&gt;qn -->
 <g id="edge2" class="edge">
 <title>q0-&gt;qn</title>
-<path fill="none" stroke="#ffffff" d="M82.05,-24.69C96.53,-24.69 116.52,-24.69 133.52,-24.69"></path>
-<polygon fill="#ffffff" stroke="#ffffff" points="133.64,-28.19 143.64,-24.69 133.64,-21.19 133.64,-28.19"></polygon>
-<text text-anchor="middle" x="112.82" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">RST</text>
+<path fill="none" stroke="#ffffff" d="M82.07,-24.69C98.19,-24.69 121.32,-24.69 140.39,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="140.5,-28.19 150.5,-24.69 140.5,-21.19 140.5,-28.19"></polygon>
+<text text-anchor="middle" x="116.32" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">RS*T</text>
 </g>
 <!-- q0&#45;&gt;qn -->
 <g id="edge3" class="edge">
 <title>q0-&gt;qn</title>
-<path fill="none" stroke="#ffffff" d="M78.79,-13.23C85.12,-9.48 92.6,-5.8 99.99,-3.89 111.04,-1.05 114.56,-1.28 125.66,-3.89 129.62,-4.83 133.64,-6.2 137.53,-7.8"></path>
-<polygon fill="#ffffff" stroke="#ffffff" points="136.32,-11.09 146.87,-12.12 139.27,-4.74 136.32,-11.09"></polygon>
-<text text-anchor="middle" x="112.82" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">V</text>
+<path fill="none" stroke="#ffffff" d="M78.79,-13.23C85.12,-9.48 92.6,-5.8 99.99,-3.89 114.05,-0.27 118.53,-0.56 132.66,-3.89 136.62,-4.83 140.64,-6.2 144.53,-7.8"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="143.32,-11.09 153.87,-12.12 146.27,-4.74 143.32,-11.09"></polygon>
+<text text-anchor="middle" x="116.32" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">V</text>
 </g>
 </g>
 </svg>
@@ -1014,10 +993,10 @@ M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="960" height="480" viewbox="0.00 0.00 221.66 57.39" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="960" height="480" viewbox="0.00 0.00 228.66 57.39" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 53.39)">
 <title>finite_automata</title>
-<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-53.39 217.66,-53.39 217.66,4 -4,4"></polygon>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-53.39 224.66,-53.39 224.66,4 -4,4"></polygon>
 <!-- d0 -->
 <g id="node1" class="node">
 <title>d0</title>
@@ -1039,17 +1018,17 @@ M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
 <!-- qn -->
 <g id="node3" class="node">
 <title>qn</title>
-<ellipse fill="none" stroke="#ffffff" cx="188.97" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
-<ellipse fill="none" stroke="#ffffff" cx="188.97" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
-<text text-anchor="start" x="181.97" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
-<text text-anchor="start" x="188.97" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
+<ellipse fill="none" stroke="#ffffff" cx="195.97" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="195.97" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="188.97" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="195.97" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
 </g>
 <!-- q0&#45;&gt;qn -->
 <g id="edge2" class="edge">
 <title>q0-&gt;qn</title>
-<path fill="none" stroke="#ffffff" d="M82.21,-24.69C101.41,-24.69 130.87,-24.69 153.82,-24.69"></path>
-<polygon fill="#ffffff" stroke="#ffffff" points="153.85,-28.19 163.85,-24.69 153.85,-21.19 153.85,-28.19"></polygon>
-<text text-anchor="middle" x="123.13" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">RST∪V</text>
+<path fill="none" stroke="#ffffff" d="M82.16,-24.69C102.9,-24.69 135.84,-24.69 160.78,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="160.92,-28.19 170.92,-24.69 160.92,-21.19 160.92,-28.19"></polygon>
+<text text-anchor="middle" x="126.63" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">RS*T∪V</text>
 </g>
 </g>
 </svg>

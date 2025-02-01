@@ -530,10 +530,11 @@ assert('11' in w)
 > A **finite automaton** (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols. 
     
 
-## Finite Automaton    
-    - In class: "finite automaton"
-    - Real life: mostly say "state machine"
-    - I used the notation *FA to denote these are not a specific kind of FA
+## Finite Automaton  
+  
+- In class: "finite automaton"
+- Real life: mostly say "state machine"
+- I used the notation *FA to denote these are not a specific kind of FA
 
 
 ## Formal Definition
@@ -544,7 +545,7 @@ A finite automaton is formally defined as a 5-*tuple*:
 - **$\Sigma$:** A finite, non-empty *set* of input symbols called the alphabet.
 - **$\delta$:** The transition function, a mapping 
     -   $\delta : Q \times \sigma \rightarrow Q$ 
-- **$q_0$:** The initial state, where $q_0$ ∈ Q.
+- **$q_0$:** The initial state, where $q_0 \in Q$.
 - **$F$:** A set of accepting states (or final states), where $F \subset Q$.
 
 ## Explanation:

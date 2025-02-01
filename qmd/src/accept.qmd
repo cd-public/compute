@@ -1,7 +1,7 @@
 ---
 title: "Acceptance"
 author: Prof. Calvin
-subtitle: "25 Jan 04:30 PM"
+subtitle: "Sat 04:30 PM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -143,7 +143,7 @@ $$
 ## Theorem 2: NFA &rarr; DFA
 
 $$
-\forall M_{NFA}: \exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA})) 
+\forall M_{NFA}: \exists M_{DFA} : L(M_{NFA})) = L(M_{DFA})) 
 $$
 
 *Proof*

@@ -666,7 +666,7 @@ digraph finite_automata {
 ## Theorem 4 
 
 $$
-\forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
+\forall L(M_1): \exists M_2 : L(M_2) = L(M_1)*
 $$
 
 *Proof*

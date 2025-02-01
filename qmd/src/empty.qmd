@@ -1,7 +1,7 @@
 ---
 title: "Emptiness"
 author: Prof. Calvin
-subtitle: "26 Jan 09:30 AM"
+subtitle: "Sun 09:30 AM"
 institute: CSCI 5100
 format: 
     revealjs: 
@@ -207,10 +207,10 @@ $$
 
 ## Corollary
 
-- We not that this also captures context free languages.
+- We note that this also captures context free languages.
 - But a wrinkle!
   - From a CFL, we needn't necessarily know the CFG
-  - We don't need it! It suffices on exists by definition
+  - We don't need it! It suffices to exist by definition
   - We only claim something *is* decidable, not that we know how to decide!
 
 ## Understanding check
@@ -299,7 +299,7 @@ $$
   - <s>$U$ rejects if $M$ rejects</s>
   - Consider anything else a rejection.
 
-## U
+## $U$
 
 - $U$ was the name Turing gave the original "universal computing machine"
   - It was the subject of many latter results in:
@@ -309,15 +309,19 @@ $$
     - Philosophy
     - Linguistics
 
-## Example of U
+## Example of $U$
 
 - We use $U$ to denote a machine that can compute anything.
   - It has some combination of states and symbols.
   - One such is:
 
-  > [a 7-state 4-symbol universal Turing machine in 1962 using 2-tag systems. (Marvin Minksy)](https://en.wikipedia.org/wiki/Universal_Turing_machine#Smallest_machines)
+:::{.fragment}
 
-## Use of U
+  > [a 7-state 4-symbol universal Turing machine in 1962 using 2-tag systems. (Marvin Minksy)](https://en.wikipedia.org/wiki/Universal_Turing_machine#Smallest_machines)
+:::
+
+
+## Use of $U$
 
 - We use the term $U$ in our proof to refer to a machine that could do anything.
 - A **U**niversal machine.
@@ -338,7 +342,7 @@ $$
 # Summary
 
 - $A_{DFA}, A_{NFA}, E_{DFA}, EQ_{DFA}, A_{CFG}, E_{CFG}$ are decidable.
-- $A_{TM} is recognizable.
+- $A_{TM}$ is recognizable.
 
 # Stretch Break
 
