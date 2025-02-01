@@ -31,7 +31,7 @@ A 5-*tuple* $M = (Q, \Sigma, \delta, q_0, F)$:
 - **$Q$** A finite, non-empty *set* of states.
 - **$\Sigma$:** A finite, non-empty *set* of input symbols called the alphabet.
 - **$\delta$:** The transition function, a mapping 
-    -   $\delta : Q \times \sigma \rightarrow Q$ 
+    -   $\delta : Q \times \varepsilon \rightarrow Q$ 
 - **$q_0$:** The initial state, where $q_0$ ∈ Q.
 - **$F$:** A set of accepting states (or final states), where $F \subset Q$.
 
@@ -47,7 +47,7 @@ $$
 \begin{aligned}
 L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
  L(&Q_1 \times Q_2, \Sigma, \\
-&(\delta_1(q,a), \delta_2(q',a)), \\
+&\delta((q,q')a),\rightarrow (\delta_1(q,a), \delta_2(q',a)), \\
 &(q_1, q_2), \\
 &\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
 \end{aligned}
@@ -103,7 +103,7 @@ L(&Q_1, \Sigma, \delta_1, q_1, F_1)* = \\
  &\Sigma, \\
 &\delta_1 \cup \{ (f, \varnothing) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
 &q_0, \\
-&F_1)\blacksquare
+&f \in F_1 \cup \{q_0\})\blacksquare
 \end{aligned}
 $$
 
@@ -255,20 +255,6 @@ $$
 
 - These represent the same language ($L(G_2) = L(G_3)$)!
 - But $G_3$ is ambigious!
-
-## PDAs
-
-A PDA is a 6-*tuple* $(Q, \Sigma, \Gamma, \delta, q_0, F)$
-
-- $\delta : Q \times (\Sigma_{\varepsilon} \cup \Gamma_{\varepsilon}) \rightarrow \mathcal{P} (Q \times \Gamma_{\varepsilon})$
-    - Given a state, letter, and stack symbol
-    - Get a set of states and stack symbols.
-    - $\delta(q, a, c) = {(r_1, d), (r_2, e)}$
-      - In state $q$, reading $a$ on tape and $c$ on stack, either write $d$ and go to state $r_1$ or write $e$ and go to state $r_2$
-
-## Schematic View
-
-<img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg">
 
 # Stretch Break
 

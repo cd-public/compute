@@ -32,6 +32,12 @@ execute:
 
 # Schematic View
 
+## Vs CFG
+
+- CFGs Pāṇini ~2500 years ago
+- Formalized 1950s (Chomsky)
+- Then PDAs 1960s (Chomsky)
+
 ## Overview
 
 - We *abstract* the automata into a unit called the "Finite Control"

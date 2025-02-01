@@ -182,7 +182,7 @@ Prof.&nbsp;Calvin
 \begin{aligned}
 L(&amp;Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
 L(&amp;Q_1 \times Q_2, \Sigma, \\
-&amp;(\delta_1(q,a), \delta_2(q',a)), \\
+&amp;\delta((q,q')a),\rightarrow (\delta_1(q,a), \delta_2(q',a)), \\
 &amp;(q_1, q_2), \\
 &amp;\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
 \end{aligned}
@@ -851,8 +851,8 @@ L(&amp;Q_1 \times Q_2, \Sigma, \\
 <li class="fragment">Essentially just the two machines running in parallel.</li>
 </ul>
 </section>
-<section id="use-sigma-edges." class="slide level2">
-<h2>Use <span class="math inline">\(\sigma\)</span> edges.</h2>
+<section id="use-varepsilon-edges." class="slide level2">
+<h2>Use <span class="math inline">\(\varepsilon\)</span> edges.</h2>
 <div class="cell" data-fig-width="50%" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -1021,7 +1021,7 @@ M_{DFA}(&amp;\mathcal{P} (Q), \Sigma, \delta, \{q_1\}, \\
 L(&amp;Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
 L(&amp;Q_1 \sqcup Q_2 \cup \{q_0\}, \\
 &amp;\Sigma, \\
-&amp;\delta_1 \sqcup \delta_2 \cup ((q_0, \sigma) \rightarrow \{q_1, q_2\} \\
+&amp;\delta_1 \sqcup \delta_2 \cup ((q_0, \varepsilon) \rightarrow \{q_1, q_2\} \\
 &amp;q_0, \\
 &amp; F_1 \sqcup F_2)\blacksquare
 \end{aligned}
@@ -1052,9 +1052,9 @@ L(&amp;Q_1 \sqcup Q_2 \cup \{q_0\}, \\
 <li class="fragment"><span class="math inline">\(\delta_3 = \delta_1 \sqcup \delta_2\)</span></li>
 <li class="fragment">Additionally need to get from <span class="math inline">\(M_1\)</span> to <span class="math inline">\(M_2\)</span>
 <ul>
-<li class="fragment">Add <span class="math inline">\(\sigma\)</span> (empty string) paths</li>
+<li class="fragment">Add <span class="math inline">\(\varepsilon\)</span> (empty string) paths</li>
 <li class="fragment">From <span class="math inline">\(q_n \in F_1\)</span></li>
-<li class="fragment">To <span class="math inline">\(q_2\)</span> <span class="math inline">\(\delta_3 = \delta_1 \sqcup \delta_2 \cup \{ (f, \sigma) \rightarrow \{q_2\} | f \in F_1 \}\)</span></li>
+<li class="fragment">To <span class="math inline">\(q_2\)</span> <span class="math inline">\(\delta_3 = \delta_1 \sqcup \delta_2 \cup \{ (f, \varepsilon) \rightarrow \{q_2\} | f \in F_1 \}\)</span></li>
 </ul></li>
 </ul>
 </section>
@@ -1596,7 +1596,7 @@ L(&amp;Q_1 \sqcup Q_2 \cup \{q_0\}, \\
 L(&amp;Q_1, \Sigma, \delta_1, q_1, F_1)L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
 L(&amp;Q_1 \sqcup Q_2, \\
 &amp;\Sigma, \\
-&amp;\delta_1 \sqcup \delta_2 \cup \{ (f, \sigma) \rightarrow \{q_2\} | f \in F_1 \} \\
+&amp;\delta_1 \sqcup \delta_2 \cup \{ (f, \varepsilon) \rightarrow \{q_2\} | f \in F_1 \} \\
 &amp;q_1, \\
 &amp;F_2)\blacksquare
 \end{aligned}
@@ -1613,7 +1613,7 @@ L(&amp;Q_1 \sqcup Q_2, \\
 \forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
 \]</span></p>
 <ul>
-<li class="fragment">We note that the empty string <span class="math inline">\(\sigma \in A* \forall A\)</span></li>
+<li class="fragment">We note that the empty string <span class="math inline">\(\varepsilon \in A* \forall A\)</span></li>
 </ul>
 </section>
 <section id="new-q-2" class="slide level2">
@@ -1628,12 +1628,12 @@ L(&amp;Q_1 \sqcup Q_2, \\
 <ul>
 <li class="fragment">Need to get from <span class="math inline">\(F\)</span> to <span class="math inline">\(q_1\)</span>
 <ul>
-<li class="fragment">Add <span class="math inline">\(\sigma\)</span> paths</li>
+<li class="fragment">Add <span class="math inline">\(\varepsilon\)</span> paths</li>
 <li class="fragment">From <span class="math inline">\(q_n \in F_1\)</span></li>
 <li class="fragment">To <span class="math inline">\(q_1\)</span></li>
 <li class="fragment">And <span class="math inline">\(q_0\)</span> to <span class="math inline">\(q_1\)</span></li>
 </ul></li>
-<li class="fragment"><span class="math inline">\(\delta_2 = \delta_1 \cup \{ (f, \sigma) \rightarrow \{q_2\}| f \in F_1 \cup \{q_0\} \}\)</span></li>
+<li class="fragment"><span class="math inline">\(\delta_2 = \delta_1 \cup \{ (f, \varepsilon) \rightarrow \{q_2\}| f \in F_1 \cup \{q_0\} \}\)</span></li>
 </ul>
 </section>
 <section id="q_0-f-2" class="slide level2">
@@ -1945,7 +1945,7 @@ L(&amp;Q_1 \sqcup Q_2, \\
 <section id="theorem-4" class="slide level2">
 <h2>Theorem 4</h2>
 <p><span class="math display">\[
-\forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
+\forall L(M_1): \exists M_2 : L(M_2) = L(M_1)*
 \]</span></p>
 <p><em>Proof</em></p>
 <p><span class="math display">\[
@@ -1953,9 +1953,9 @@ L(&amp;Q_1 \sqcup Q_2, \\
 L(&amp;Q_1, \Sigma, \delta_1, q_1, F_1)* = \\
 L(&amp;Q_1 \cup \{q_0\}, \\
 &amp;\Sigma, \\
-&amp;\delta_1 \cup \{ (f, \sigma) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
+&amp;\delta_1 \cup \{ (f, \varepsilon) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
 &amp;q_0, \\
-&amp;F_1)\blacksquare
+&amp;F_1 \cup \{q_0\})\blacksquare
 \end{aligned}
 \]</span></p>
 </section></section>

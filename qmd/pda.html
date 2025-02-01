@@ -223,6 +223,14 @@ Prof.&nbsp;Calvin
 <h1>Schematic View</h1>
 
 </section>
+<section id="vs-cfg" class="slide level2">
+<h2>Vs CFG</h2>
+<ul>
+<li class="fragment">CFGs Pāṇini ~2500 years ago</li>
+<li class="fragment">Formalized 1950s (Chomsky)</li>
+<li class="fragment">Then PDAs 1960s (Chomsky)</li>
+</ul>
+</section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
 <ul>
@@ -281,7 +289,7 @@ Prof.&nbsp;Calvin
 <li class="fragment">Think the stack abstract data structure.</li>
 </ul>
 <div class="fragment">
-<div id="b37bca0e" class="cell" data-execution_count="1">
+<div id="b37bca0e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>stack <span class="op">=</span> []</span>
 <span id="cb1-2"><a></a>stack.append(<span class="st">'a'</span>)</span>
 <span id="cb1-3"><a></a>stack.append(<span class="st">'b'</span>)</span>
@@ -315,7 +323,7 @@ Prof.&nbsp;Calvin
 </section>
 <section id="solution" class="slide level2">
 <h2>Solution</h2>
-<div id="dce96694" class="cell" data-execution_count="2">
+<div id="dce96694" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>q_1 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.append(<span class="st">'0'</span>), q_1(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'0'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> [stack.pop(), q_2(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb3-2"><a></a>q_2 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.pop(), q_2(s[<span class="dv">1</span>:],stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> q_n(s, stack)</span>
 <span id="cb3-3"><a></a>q_n <span class="op">=</span> <span class="kw">lambda</span> s, stack : s <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(stack) <span class="op">==</span> <span class="dv">1</span></span>
@@ -371,7 +379,7 @@ Prof.&nbsp;Calvin
 <li class="fragment">Easiest to define with Python.</li>
 </ul>
 <div class="fragment">
-<div id="93148e71" class="cell" data-execution_count="3">
+<div id="93148e71" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>superscript_r <span class="op">=</span> <span class="kw">lambda</span> w : w[::<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb5-2"><a></a>w <span class="op">=</span> <span class="st">"stressed"</span></span>
 <span id="cb5-3"><a></a><span class="bu">print</span>(<span class="st">'w ='</span>, w, <span class="st">'w^R ='</span>, superscript_r(w))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

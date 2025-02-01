@@ -1943,7 +1943,7 @@
     "href": "closures.html#recall-theorem-1",
     "title": "Closures",
     "section": "Recall: Theorem 1",
-    "text": "Recall: Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Recall: Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&\\delta((q,q')a),\\rightarrow (\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "closures.html#new-technique",
@@ -2020,7 +2020,7 @@
     "href": "closures.html#theorem-1",
     "title": "Closures",
     "section": "Theorem 1",
-    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup ((q_0, \\sigma) \\rightarrow \\{q_1, q_2\\} \\\\\n&q_0, \\\\\n& F_1 \\sqcup F_2)\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 1\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup ((q_0, \\varepsilon) \\rightarrow \\{q_1, q_2\\} \\\\\n&q_0, \\\\\n& F_1 \\sqcup F_2)\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "closures.html#goal",
@@ -2041,7 +2041,7 @@
     "href": "closures.html#new-delta-1",
     "title": "Closures",
     "section": "New \\(\\delta\\)",
-    "text": "New \\(\\delta\\)\n\nAs with union, so with concatenation.\n\\(\\delta_3 = \\delta_1 \\sqcup \\delta_2\\)\nAdditionally need to get from \\(M_1\\) to \\(M_2\\)\n\nAdd \\(\\sigma\\) (empty string) paths\nFrom \\(q_n \\in F_1\\)\nTo \\(q_2\\) \\(\\delta_3 = \\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\sigma) \\rightarrow \\{q_2\\} | f \\in F_1 \\}\\)"
+    "text": "New \\(\\delta\\)\n\nAs with union, so with concatenation.\n\\(\\delta_3 = \\delta_1 \\sqcup \\delta_2\\)\nAdditionally need to get from \\(M_1\\) to \\(M_2\\)\n\nAdd \\(\\varepsilon\\) (empty string) paths\nFrom \\(q_n \\in F_1\\)\nTo \\(q_2\\) \\(\\delta_3 = \\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\varepsilon) \\rightarrow \\{q_2\\} | f \\in F_1 \\}\\)"
   },
   {
     "objectID": "closures.html#q_0-f-1",
@@ -2083,14 +2083,14 @@
     "href": "closures.html#theorem-3",
     "title": "Closures",
     "section": "Theorem 3",
-    "text": "Theorem 3\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\sigma) \\rightarrow \\{q_2\\} | f \\in F_1 \\} \\\\\n&q_1, \\\\\n&F_2)\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 3\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\sqcup Q_2, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\sqcup \\delta_2 \\cup \\{ (f, \\varepsilon) \\rightarrow \\{q_2\\} | f \\in F_1 \\} \\\\\n&q_1, \\\\\n&F_2)\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "closures.html#goal-1",
     "href": "closures.html#goal-1",
     "title": "Closures",
     "section": "Goal",
-    "text": "Goal\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\n\nWe note that the empty string \\(\\sigma \\in A* \\forall A\\)"
+    "text": "Goal\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\n\nWe note that the empty string \\(\\varepsilon \\in A* \\forall A\\)"
   },
   {
     "objectID": "closures.html#new-q-2",
@@ -2104,7 +2104,7 @@
     "href": "closures.html#new-delta-2",
     "title": "Closures",
     "section": "New \\(\\delta\\)",
-    "text": "New \\(\\delta\\)\n\nNeed to get from \\(F\\) to \\(q_1\\)\n\nAdd \\(\\sigma\\) paths\nFrom \\(q_n \\in F_1\\)\nTo \\(q_1\\)\nAnd \\(q_0\\) to \\(q_1\\)\n\n\\(\\delta_2 = \\delta_1 \\cup \\{ (f, \\sigma) \\rightarrow \\{q_2\\}| f \\in F_1 \\cup \\{q_0\\} \\}\\)"
+    "text": "New \\(\\delta\\)\n\nNeed to get from \\(F\\) to \\(q_1\\)\n\nAdd \\(\\varepsilon\\) paths\nFrom \\(q_n \\in F_1\\)\nTo \\(q_1\\)\nAnd \\(q_0\\) to \\(q_1\\)\n\n\\(\\delta_2 = \\delta_1 \\cup \\{ (f, \\varepsilon) \\rightarrow \\{q_2\\}| f \\in F_1 \\cup \\{q_0\\} \\}\\)"
   },
   {
     "objectID": "closures.html#q_0-f-2",
@@ -2139,7 +2139,7 @@
     "href": "closures.html#theorem-4",
     "title": "Closures",
     "section": "Theorem 4",
-    "text": "Theorem 4\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\sigma) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1)\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 4\n\\[\n\\forall L(M_1): \\exists M_2 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varepsilon) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1 \\cup \\{q_0\\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "empty.html#sketch",
@@ -2559,21 +2559,21 @@
     "href": "saturday.html#finite-automata",
     "title": "Review",
     "section": "Finite Automata",
-    "text": "Finite Automata\nA 5-tuple \\(M = (Q, \\Sigma, \\delta, q_0, F)\\):\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
+    "text": "Finite Automata\nA 5-tuple \\(M = (Q, \\Sigma, \\delta, q_0, F)\\):\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\varepsilon \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
   },
   {
     "objectID": "saturday.html#theorem-1-union-closure",
     "href": "saturday.html#theorem-1-union-closure",
     "title": "Review",
     "section": "Theorem 1: Union Closure",
-    "text": "Theorem 1: Union Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 1: Union Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&\\delta((q,q')a),\\rightarrow (\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "saturday.html#theorem-2-nfa-dfa",
     "href": "saturday.html#theorem-2-nfa-dfa",
     "title": "Review",
     "section": "Theorem 2: NFA → DFA",
-    "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(M_{NFA})) = L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "saturday.html#theorem-3-concat-closure",
@@ -2587,7 +2587,7 @@
     "href": "saturday.html#theorem-4-star-closure",
     "title": "Review",
     "section": "Theorem 4: Star Closure",
-    "text": "Theorem 4: Star Closure\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1)\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 4: Star Closure\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&f \\in F_1 \\cup \\{q_0\\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "saturday.html#gnfas",
@@ -3302,5 +3302,19 @@
     "title": "Context Free Grammars",
     "section": "3 Rules",
     "text": "3 Rules\n\n\\(S \\rightarrow 0S1\\)\n\\(S \\rightarrow R\\)\n\\(R \\rightarrow \\varepsilon\\)"
+  },
+  {
+    "objectID": "pda.html#vs-cfg",
+    "href": "pda.html#vs-cfg",
+    "title": "Pushdown Automata",
+    "section": "Vs CFG",
+    "text": "Vs CFG\n\nCFGs Pāṇini ~2500 years ago\nFormalized 1950s (Chomsky)\nThen PDAs 1960s (Chomsky)"
+  },
+  {
+    "objectID": "closures.html#use-varepsilon-edges.",
+    "href": "closures.html#use-varepsilon-edges.",
+    "title": "Closures",
+    "section": "Use \\(\\varepsilon\\) edges.",
+    "text": "Use \\(\\varepsilon\\) edges.\n\n\n\n\n\n\n\nfinite_automata\n\n\n\nr0\n\n\n\n\nq0\n\nq\n0\n\n\n\nr0-&gt;q0\n\n\n\n\n\nr1\n\n\nr\n1\n\n\n\nr1-&gt;r1\n\n\n{0}\n\n\n\nr2\n\n\nr\n2\n\n\n\nr1-&gt;r2\n\n\n{1}\n\n\n\nr2-&gt;r1\n\n\n{0}\n\n\n\nq0-&gt;r1\n\n\nσ\n\n\n\nq1\n\nq\n1\n\n\n\nq0-&gt;q1\n\n\nσ\n\n\n\nq1-&gt;q1\n\n\n{0}\n\n\n\nq2\n\nq\n2\n\n\n\nq1-&gt;q2\n\n\n{1}\n\n\n\nq2-&gt;q1\n\n\n{0}\n\n\n\nq3\n\n\nq\n3\n\n\n\nq2-&gt;q3\n\n\n{1}\n\n\n\nq3-&gt;q3\n\n\n{0,1}"
   }
 ]

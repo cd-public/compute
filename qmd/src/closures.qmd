@@ -51,7 +51,7 @@ $$
 \begin{aligned}
 L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
  L(&Q_1 \times Q_2, \Sigma, \\
-&(\delta_1(q,a), \delta_2(q',a)), \\
+&\delta((q,q')a),\rightarrow (\delta_1(q,a), \delta_2(q',a)), \\
 &(q_1, q_2), \\
 &\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
 \end{aligned}
@@ -316,7 +316,7 @@ digraph finite_automata {
 
 -   Essentially just the two machines running in parallel.
 
-## Use $\sigma$ edges.
+## Use $\varepsilon$ edges.
 
 
 ```{dot filename="Finite Automata"}
@@ -379,7 +379,7 @@ $$
 L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
  L(&Q_1 \sqcup Q_2 \cup \{q_0\}, \\
  &\Sigma, \\
-&\delta_1 \sqcup \delta_2 \cup ((q_0, \sigma) \rightarrow \{q_1, q_2\} \\
+&\delta_1 \sqcup \delta_2 \cup ((q_0, \varepsilon) \rightarrow \{q_1, q_2\} \\
 &q_0, \\
 & F_1 \sqcup F_2)\blacksquare
 \end{aligned}
@@ -403,10 +403,10 @@ $$
 -   As with union, so with concatenation.
 -   $\delta_3 = \delta_1 \sqcup \delta_2$
 -   Additionally need to get from $M_1$ to $M_2$
-    -   Add $\sigma$ (empty string) paths
+    -   Add $\varepsilon$ (empty string) paths
     -   From $q_n \in F_1$
     -   To $q_2$
-$\delta_3 = \delta_1 \sqcup \delta_2 \cup \{ (f, \sigma) \rightarrow \{q_2\} | f \in F_1 \}$
+$\delta_3 = \delta_1 \sqcup \delta_2 \cup \{ (f, \varepsilon) \rightarrow \{q_2\} | f \in F_1 \}$
 
 ## $q_0, F$
 
@@ -551,7 +551,7 @@ $$
 L(&Q_1, \Sigma, \delta_1, q_1, F_1)L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
  L(&Q_1 \sqcup Q_2, \\
  &\Sigma, \\
-&\delta_1 \sqcup \delta_2 \cup \{ (f, \sigma) \rightarrow \{q_2\} | f \in F_1 \} \\
+&\delta_1 \sqcup \delta_2 \cup \{ (f, \varepsilon) \rightarrow \{q_2\} | f \in F_1 \} \\
 &q_1, \\
 &F_2)\blacksquare
 \end{aligned}
@@ -565,7 +565,7 @@ $$
 \forall L(M_1): \exists M_3 : L(M_2) = L(M_1)*
 $$
 
--   We note that the empty string $\sigma \in A* \forall A$
+-   We note that the empty string $\varepsilon \in A* \forall A$
 
 ## New $Q$
 
@@ -574,11 +574,11 @@ $$
 
 ## New $\delta$
 -   Need to get from $F$ to $q_1$
-    -   Add $\sigma$ paths
+    -   Add $\varepsilon$ paths
     -   From $q_n \in F_1$
     -   To $q_1$
     -   And $q_0$ to $q_1$
-- $\delta_2 = \delta_1 \cup \{ (f, \sigma) \rightarrow \{q_2\}| f \in F_1 \cup \{q_0\} \}$
+- $\delta_2 = \delta_1 \cup \{ (f, \varepsilon) \rightarrow \{q_2\}| f \in F_1 \cup \{q_0\} \}$
 
 ## $q_0, F$
 
@@ -676,9 +676,9 @@ $$
 L(&Q_1, \Sigma, \delta_1, q_1, F_1)* = \\
  L(&Q_1 \cup \{q_0\}, \\
  &\Sigma, \\
-&\delta_1 \cup \{ (f, \sigma) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
+&\delta_1 \cup \{ (f, \varepsilon) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
 &q_0, \\
-&F_1)\blacksquare
+&F_1 \cup \{q_0\})\blacksquare
 \end{aligned}
 $$
 
