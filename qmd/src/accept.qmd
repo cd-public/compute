@@ -404,7 +404,7 @@ $$
 ## Understanding Check
 
 $$
-EQ_{REX} := \{\langle R_1,R_2 \rangle | R_1:\text{Reg. Exp.}) = R_2:\text{Reg. Exp.})\}
+EQ_{REX} := \{\langle R_1,R_2 \rangle | (R_1:\text{Reg. Exp.} = R_2:\text{Reg. Exp.})\}
 $$
 
 - Is this hard to prove?

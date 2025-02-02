@@ -578,7 +578,7 @@
     "href": "regularity.html#theorems-on-fas",
     "title": "Regularity",
     "section": "Theorems on *FAs",
-    "text": "Theorems on *FAs\n\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\n\n\n\\[\n\\forall M_1, M_2: \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\n\n\n\\[\n\\forall M_1, M_2: \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\n\n\n\\[\n\\forall M_1: \\exists M_2 : L(M_2) = L(M_1)*\n\\]"
+    "text": "Theorems on *FAs\n\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(M_{NFA})) = L(M_{DFA}))\n\\]\n\n\n\\[\n\\forall M_1, M_2: \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\n\n\n\\[\n\\forall M_1, M_2: \\exists M_3 : L(M_3) = L(M_1)L(M_2)\n\\]\n\n\n\\[\n\\forall M_1: \\exists M_2 : L(M_2) = L(M_1)*\n\\]"
   },
   {
     "objectID": "regularity.html#regular-expressions",
@@ -1649,7 +1649,7 @@
     "href": "accept.html#understanding-check-1",
     "title": "Acceptance",
     "section": "Understanding Check",
-    "text": "Understanding Check\n\\[\nEQ_{REX} := \\{\\langle R_1,R_2 \\rangle | R_1:\\text{Reg. Exp.}) = R_2:\\text{Reg. Exp.})\\}\n\\]\n\nIs this hard to prove?"
+    "text": "Understanding Check\n\\[\nEQ_{REX} := \\{\\langle R_1,R_2 \\rangle | (R_1:\\text{Reg. Exp.} = R_2:\\text{Reg. Exp.})\\}\n\\]\n\nIs this hard to prove?"
   },
   {
     "objectID": "aims.html#announcements",
@@ -1789,7 +1789,7 @@
     "href": "cfgpda.html#theorem-7",
     "title": "CFG → PDA",
     "section": "Theorem 7",
-    "text": "Theorem 7\n\\[\n\\forall G: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]"
+    "text": "Theorem 7\n\\[\n\\forall G:\\text{CFL}, \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = G\n\\]"
   },
   {
     "objectID": "cfgpda.html#on-alphabets",
@@ -2013,7 +2013,7 @@
     "href": "closures.html#recall-theorem-2",
     "title": "Closures",
     "section": "Recall: Theorem 2",
-    "text": "Recall: Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Recall: Theorem 2\n\\[\n\\forall M_{NFA}, \\exists M_{DFA} : L(M_{NFA})) = L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "closures.html#theorem-1",
@@ -2678,21 +2678,21 @@
     "href": "sunday.html#finite-automata",
     "title": "Review 2",
     "section": "Finite Automata",
-    "text": "Finite Automata\nA 5-tuple \\(M = (Q, \\Sigma, \\delta, q_0, F)\\):\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\sigma \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
+    "text": "Finite Automata\nA 5-tuple \\(M = (Q, \\Sigma, \\delta, q_0, F)\\):\n\n\\(Q\\) A finite, non-empty set of states.\n\\(\\Sigma\\): A finite, non-empty set of input symbols called the alphabet.\n\\(\\delta\\): The transition function, a mapping\n\n\\(\\delta : Q \\times \\varepsilon \\rightarrow Q\\)\n\n\\(q_0\\): The initial state, where \\(q_0\\) ∈ Q.\n\\(F\\): A set of accepting states (or final states), where \\(F \\subset Q\\)."
   },
   {
     "objectID": "sunday.html#theorem-1-union-closure",
     "href": "sunday.html#theorem-1-union-closure",
     "title": "Review 2",
     "section": "Theorem 1: Union Closure",
-    "text": "Theorem 1: Union Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&(\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 1: Union Closure\n\\[\n\\forall L(M_1), L(M_2): \\exists M_3 : L(M_3) = L(M_1) \\cup L(M_2)\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1) \\cup L(Q_2, \\Sigma, \\delta_2, q_2, F_2) = \\\\\nL(&Q_1 \\times Q_2, \\Sigma, \\\\\n&\\delta((q,q')a),\\rightarrow (\\delta_1(q,a), \\delta_2(q',a)), \\\\\n&(q_1, q_2), \\\\\n&\\{ (F_1 \\times Q_2) \\cup (Q_1 \\times F_2) \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "sunday.html#theorem-2-nfa-dfa",
     "href": "sunday.html#theorem-2-nfa-dfa",
     "title": "Review 2",
     "section": "Theorem 2: NFA → DFA",
-    "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 2: NFA → DFA\n\\[\n\\forall M_{NFA}: \\exists M_{DFA} : L(M_{NFA})) = L(M_{DFA}))\n\\]\nProof\n\\[\n\\begin{aligned}\nM_{NFA}(&Q, \\Sigma, \\delta, q_1, F_1) = \\\\\nM_{DFA}(&\\mathcal{P} (Q), \\Sigma, \\delta, \\{q_1\\}, \\\\\n        & \\{ R \\in \\mathcal{P} (Q) | R \\cap F \\neq \\varnothing \\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "sunday.html#theorem-3-concat-closure",
@@ -2706,7 +2706,7 @@
     "href": "sunday.html#theorem-4-star-closure",
     "title": "Review 2",
     "section": "Theorem 4: Star Closure",
-    "text": "Theorem 4: Star Closure\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&F_1)\\blacksquare\n\\end{aligned}\n\\]"
+    "text": "Theorem 4: Star Closure\n\\[\n\\forall L(M_1): \\exists M_3 : L(M_2) = L(M_1)*\n\\]\nProof\n\\[\n\\begin{aligned}\nL(&Q_1, \\Sigma, \\delta_1, q_1, F_1)* = \\\\\nL(&Q_1 \\cup \\{q_0\\}, \\\\\n&\\Sigma, \\\\\n&\\delta_1 \\cup \\{ (f, \\varnothing) \\rightarrow \\{q_1\\} | f \\in F_1 \\cup \\{q_0\\} \\} \\\\\n&q_0, \\\\\n&f \\in F_1 \\cup \\{q_0\\})\\blacksquare\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "sunday.html#gnfas",
@@ -2790,7 +2790,7 @@
     "href": "sunday.html#theorem-7",
     "title": "Review 2",
     "section": "Theorem 7",
-    "text": "Theorem 7\n\\[\n\\forall \\text{CFL}: \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = \\text{CFL}\n\\]\nProof\n\nTake \\(\\Sigma\\) to be the terminals\nTake \\(\\Gamma\\) to be the terminals \\(\\cup\\) variables\nTake \\(\\delta\\) to…\n\nWrite CFL’s \\(S\\) to stack from \\(q_0\\)\nWrite stack terminals to the tape\nImplement all rules"
+    "text": "Theorem 7\n\\[\n\\forall G:\\text{CFL}, \\exists P = (Q, \\Sigma, \\Gamma, \\delta, q_0, F) : L(P) = G\n\\]\nProof\n\nTake \\(\\Sigma\\) to be the terminals\nTake \\(\\Gamma\\) to be the terminals \\(\\cup\\) variables\nTake \\(\\delta\\) to…\n\nWrite CFL’s \\(S\\) to stack from \\(q_0\\)\nWrite stack terminals to the tape\nImplement all rules"
   },
   {
     "objectID": "sunday.html#context-free-pumping-lemma",

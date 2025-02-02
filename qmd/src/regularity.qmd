@@ -37,7 +37,7 @@ execute:
 ::: {.fragment}
 
 $$
-\forall M_{NFA}, \exists M_{DFA} : L(L(M_{NFA})) = L(L(M_{DFA})) 
+\forall M_{NFA}, \exists M_{DFA} : L(M_{NFA})) = L(M_{DFA})) 
 $$
 
 :::

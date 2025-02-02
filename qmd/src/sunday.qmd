@@ -33,7 +33,7 @@ A 5-*tuple* $M = (Q, \Sigma, \delta, q_0, F)$:
 - **$Q$** A finite, non-empty *set* of states.
 - **$\Sigma$:** A finite, non-empty *set* of input symbols called the alphabet.
 - **$\delta$:** The transition function, a mapping 
-    -   $\delta : Q \times \sigma \rightarrow Q$ 
+    -   $\delta : Q \times \varepsilon \rightarrow Q$ 
 - **$q_0$:** The initial state, where $q_0$ ∈ Q.
 - **$F$:** A set of accepting states (or final states), where $F \subset Q$.
 
@@ -49,7 +49,7 @@ $$
 \begin{aligned}
 L(&Q_1, \Sigma, \delta_1, q_1, F_1) \cup L(Q_2, \Sigma, \delta_2, q_2, F_2) = \\
  L(&Q_1 \times Q_2, \Sigma, \\
-&(\delta_1(q,a), \delta_2(q',a)), \\
+&\delta((q,q')a),\rightarrow (\delta_1(q,a), \delta_2(q',a)), \\
 &(q_1, q_2), \\
 &\{ (F_1 \times Q_2) \cup (Q_1 \times F_2) \})\blacksquare
 \end{aligned}
@@ -105,7 +105,7 @@ L(&Q_1, \Sigma, \delta_1, q_1, F_1)* = \\
  &\Sigma, \\
 &\delta_1 \cup \{ (f, \varnothing) \rightarrow \{q_1\} | f \in F_1 \cup \{q_0\} \} \\
 &q_0, \\
-&F_1)\blacksquare
+&f \in F_1 \cup \{q_0\})\blacksquare
 \end{aligned}
 $$
 
@@ -202,8 +202,8 @@ $$
 *Proof*
 
 ```{dot}
-// | echo: false
-// | fig-height: 200px
+//|echo: false
+//|fig-height: 200px
 digraph finite_automata {
   rankdir=LR; bgcolor="#191919";
   node [fontcolor = "#ffffff", color = "#ffffff"]
@@ -220,7 +220,6 @@ digraph finite_automata {
   qi -> qi [label="y"];
   qi -> qn [label="z"];
 }
-
 ```
 
 ## CFGs
@@ -259,6 +258,9 @@ $$
 - These represent the same language ($L(G_2) = L(G_3)$)!
 - But $G_3$ is ambigious!
 
+
+# Saturday
+
 ## PDAs
 
 A PDA is a 6-*tuple* $(Q, \Sigma, \Gamma, \delta, q_0, F)$
@@ -273,12 +275,11 @@ A PDA is a 6-*tuple* $(Q, \Sigma, \Gamma, \delta, q_0, F)$
 
 <img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg">
 
-# Saturday
 
 ## Theorem 7
 
 $$
-\forall \text{CFL}: \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = \text{CFL}
+\forall G:\text{CFL}, \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = G
 $$
 
 *Proof*

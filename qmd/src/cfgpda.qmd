@@ -54,7 +54,7 @@ $$
 ## Theorem 7
 
 $$
-\forall G: \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = \text{CFL}
+\forall G:\text{CFL}, \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = G
 $$
 
 ## On Alphabets
