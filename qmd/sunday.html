@@ -316,17 +316,17 @@ L(&amp;Q_1 \cup \{q_0\}, \\
 <p><span class="math display">\[
 \begin{aligned}
 \exists M_1, M_2, M_3 :\\
-L(M_1) &amp;= a \in \Sigma \\
-L(M_2) &amp;= \Sigma^0 \\
+L(M_1) &amp;= \{a\} : a \in \Sigma \\
+L(M_2) &amp;= \{\Sigma^0\} \\
 L(M_2) &amp;= \varnothing
 \end{aligned}
 \]</span></p>
 <p><em>Proof</em></p>
 <p><span class="math display">\[
 \begin{aligned}
-M_1 &amp;= (\{q_0,q_1\}, &amp;\Sigma, &amp;\{ (q_0, a) \rightarrow \{q_1\} \}, &amp;q_0, &amp;\{q_1\}) \\
-M_2 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\{ (q_0, a) \rightarrow \{q_1\} \}, &amp;q_0, &amp;\{q_1\}) \\
-M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing,  &amp;q_0, &amp;\{q_1\}) \\
+M_1 &amp;= (\{q_0,q_1\}, &amp;\Sigma, &amp;\{ (q_0, a) \rightarrow q_1 \}, &amp;q_0, &amp;\{q_1\}) \\
+M_2 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing, &amp;q_0, &amp;\{q_0\}) \\
+M_3 &amp;= (\{q_0\}, &amp;\Sigma, &amp;\varnothing, &amp;q_0, &amp;\varnothing) \\
 \end{aligned}
 \]</span></p>
 </section>

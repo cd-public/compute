@@ -123,8 +123,8 @@ $$
 $$
 \begin{aligned}
 \exists M_1, M_2, M_3 :\\
- L(M_1) &= a \in \Sigma \\
-L(M_2) &= \Sigma^0 \\
+ L(M_1) &= \{a\} : a \in \Sigma \\
+L(M_2) &= \{\Sigma^0\} \\
 L(M_2) &= \varnothing
 \end{aligned}
 $$
@@ -133,9 +133,9 @@ $$
 
 $$ 
 \begin{aligned}
-M_1 &= (\{q_0,q_1\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
-M_2 &= (\{q_0\}, &\Sigma, &\{ (q_0, a) \rightarrow \{q_1\} \}, &q_0, &\{q_1\}) \\
-M_3 &= (\{q_0\}, &\Sigma, &\varnothing,  &q_0, &\{q_1\}) \\
+M_1 &= (\{q_0,q_1\}, &\Sigma, &\{ (q_0, a) \rightarrow q_1 \}, &q_0, &\{q_1\}) \\
+M_2 &= (\{q_0\}, &\Sigma, &\varnothing, &q_0, &\{q_0\}) \\
+M_3 &= (\{q_0\}, &\Sigma, &\varnothing, &q_0, &\varnothing) \\
 \end{aligned}
 $$
 

@@ -2720,7 +2720,7 @@
     "href": "sunday.html#atomicity-lemma",
     "title": "Review 2",
     "section": "Atomicity Lemma",
-    "text": "Atomicity Lemma\n\\[\n\\begin{aligned}\n\\exists M_1, M_2, M_3 :\\\\\nL(M_1) &= a \\in \\Sigma \\\\\nL(M_2) &= \\Sigma^0 \\\\\nL(M_2) &= \\varnothing\n\\end{aligned}\n\\]\nProof\n\\[\n\\begin{aligned}\nM_1 &= (\\{q_0,q_1\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_2 &= (\\{q_0\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow \\{q_1\\} \\}, &q_0, &\\{q_1\\}) \\\\\nM_3 &= (\\{q_0\\}, &\\Sigma, &\\varnothing,  &q_0, &\\{q_1\\}) \\\\\n\\end{aligned}\n\\]"
+    "text": "Atomicity Lemma\n\\[\n\\begin{aligned}\n\\exists M_1, M_2, M_3 :\\\\\nL(M_1) &= \\{a\\} : a \\in \\Sigma \\\\\nL(M_2) &= \\{\\Sigma^0\\} \\\\\nL(M_2) &= \\varnothing\n\\end{aligned}\n\\]\nProof\n\\[\n\\begin{aligned}\nM_1 &= (\\{q_0,q_1\\}, &\\Sigma, &\\{ (q_0, a) \\rightarrow q_1 \\}, &q_0, &\\{q_1\\}) \\\\\nM_2 &= (\\{q_0\\}, &\\Sigma, &\\varnothing, &q_0, &\\{q_0\\}) \\\\\nM_3 &= (\\{q_0\\}, &\\Sigma, &\\varnothing, &q_0, &\\varnothing) \\\\\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "sunday.html#theorem-5",
