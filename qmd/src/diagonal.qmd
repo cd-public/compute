@@ -1,7 +1,7 @@
 ---
 title: "Diagonalization"
 author: Prof. Calvin
-subtitle: "Sun 10:30 AM"
+subtitle: "Week 0x2"
 institute: CSCI 5100
 format: 
     revealjs: 
