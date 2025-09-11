@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Calvin">
+
+<title>NFAs – Automata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04_closures.html" rel="next">
+<link href="./02_regexp.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_nfas.html">NFAs</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Automata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_aims.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aims of Education</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_starfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Finite Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_regexp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regular Expressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_nfas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">NFAs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regularity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pumping Lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_cfg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Grammars</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_pda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pushdown Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_cfgpda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CFG → PDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_cfpump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Pumping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_tm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Turing Machines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_variants.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_thesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Church-Turing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_accept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acceptance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_empty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Emptiness</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_diagonal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review 2</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sketch" id="toc-sketch" class="nav-link active" data-scroll-target="#sketch">Sketch</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a>
+  <ul class="collapse">
+  <li><a href="#closure-under-cdot" id="toc-closure-under-cdot" class="nav-link" data-scroll-target="#closure-under-cdot">Closure under <span class="math inline">\(\cdot\)</span></a></li>
+  <li><a href="#non-trivial" id="toc-non-trivial" class="nav-link" data-scroll-target="#non-trivial">Non-trivial</a></li>
+  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem">Problem</a></li>
+  </ul></li>
+  <li><a href="#nondeterminism" id="toc-nondeterminism" class="nav-link" data-scroll-target="#nondeterminism">Nondeterminism</a>
+  <ul class="collapse">
+  <li><a href="#new-features" id="toc-new-features" class="nav-link" data-scroll-target="#new-features">New Features</a></li>
+  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0">Exercise 0</a></li>
+  <li><a href="#solution-0" id="toc-solution-0" class="nav-link" data-scroll-target="#solution-0">Solution 0</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
+  <li><a href="#solution-1" id="toc-solution-1" class="nav-link" data-scroll-target="#solution-1">Solution 1</a></li>
+  <li><a href="#aside" id="toc-aside" class="nav-link" data-scroll-target="#aside">Aside</a></li>
+  <li><a href="#speculation" id="toc-speculation" class="nav-link" data-scroll-target="#speculation">Speculation</a></li>
+  <li><a href="#ways" id="toc-ways" class="nav-link" data-scroll-target="#ways">3 ways:</a></li>
+  <li><a href="#delta" id="toc-delta" class="nav-link" data-scroll-target="#delta"><span class="math inline">\(\delta\)</span></a></li>
+  <li><a href="#step-0" id="toc-step-0" class="nav-link" data-scroll-target="#step-0">Step 0</a></li>
+  <li><a href="#in-python" id="toc-in-python" class="nav-link" data-scroll-target="#in-python">In Python</a></li>
+  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1">Step 1</a></li>
+  <li><a href="#in-python-1" id="toc-in-python-1" class="nav-link" data-scroll-target="#in-python-1">In Python</a></li>
+  <li><a href="#lambda" id="toc-lambda" class="nav-link" data-scroll-target="#lambda">Lambda</a></li>
+  </ul></li>
+  <li><a href="#conversion" id="toc-conversion" class="nav-link" data-scroll-target="#conversion">Conversion</a>
+  <ul class="collapse">
+  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal">Goal</a></li>
+  <li><a href="#dfa-states" id="toc-dfa-states" class="nav-link" data-scroll-target="#dfa-states">DFA States</a></li>
+  <li><a href="#dfa-delta" id="toc-dfa-delta" class="nav-link" data-scroll-target="#dfa-delta">DFA <span class="math inline">\(\delta'\)</span></a></li>
+  <li><a href="#dfa-f" id="toc-dfa-f" class="nav-link" data-scroll-target="#dfa-f">DFA <span class="math inline">\(F\)</span></a></li>
+  <li><a href="#theorem-2" id="toc-theorem-2" class="nav-link" data-scroll-target="#theorem-2">Theorem 2</a></li>
+  </ul></li>
+  <li><a href="#lunch-break" id="toc-lunch-break" class="nav-link" data-scroll-target="#lunch-break">Lunch Break</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03_nfas.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">NFAs</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+<p class="subtitle lead">Automata</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Calvin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sketch" class="level2">
+<h2 class="anchored" data-anchor-id="sketch">Sketch</h2>
+<div class="nonincremental">
+<ul>
+<li>NFAs
+<ul>
+<li>Motivation</li>
+<li>Formal Definition</li>
+<li>Conversion to DFAs</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="motivation" class="level1">
+<h1>Motivation</h1>
+<section id="closure-under-cdot" class="level2">
+<h2 class="anchored" data-anchor-id="closure-under-cdot">Closure under <span class="math inline">\(\cdot\)</span></h2>
+<div class="fragment">
+<p><span class="math display">\[
+M_1 = (Q_1, \Sigma, \delta_1, q_1, F_1) \land M_2 = (Q_2, \Sigma, \delta_2, q_2, F_2) \implies
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\exists M_3 : L(M_3) = L(M_1) \cdot L(M_2) = L(M_1)L(M_2) = A_1A_2
+\]</span></p>
+</div>
+</section>
+<section id="non-trivial" class="level2">
+<h2 class="anchored" data-anchor-id="non-trivial">Non-trivial</h2>
+<ul>
+<li>A natural strategy
+<ul>
+<li>Take <span class="math inline">\(M_1\)</span></li>
+<li>Connect states in <span class="math inline">\(F_1\)</span> (<span class="math inline">\(M_1\)</span> accept)</li>
+<li>Add edges out of <span class="math inline">\(F_1\)</span></li>
+<li>Connect edges to <span class="math inline">\(q_2\)</span> (<span class="math inline">\(M_2\)</span> start)</li>
+</ul></li>
+</ul>
+</section>
+<section id="problem" class="level2">
+<h2 class="anchored" data-anchor-id="problem">Problem</h2>
+<ul>
+<li>How do we know if we <em>should</em> go to <span class="math inline">\(M_2\)</span> at a given time.
+<ul>
+<li>Suppose <span class="math inline">\(M_1\)</span> requires <code>0</code> appear in odd-length substrings <span class="math inline">\(\{0\}^{2n+1}\)</span>.</li>
+<li>Suppose <span class="math inline">\(M_2\)</span> requires <code>0</code> appear in even-length substrings <span class="math inline">\(\{0\}^{2n}\)</span>.</li>
+<li>Imagine seeing a <code>0</code> after a <code>1</code></li>
+<li>Do you leave <span class="math inline">\(M_1\)</span> into <span class="math inline">\(M_2\)</span> or not?</li>
+</ul></li>
+<li>Simply do both.</li>
+</ul>
+</section>
+</section>
+<section id="nondeterminism" class="level1">
+<h1>Nondeterminism</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Deterministic Finite Automata (DFA)</p>
+</div><div class="column" style="width:50%;">
+<p>Nondeterministic Finite Automata (NFA)</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-fig-width="400px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="400" height="480" viewbox="0.00 0.00 195.81 88.19" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84.19)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-84.19 191.81,-84.19 191.81,4 -4,4"></polygon>
+<!-- q0 -->
+<g id="node1" class="node">
+<title>q0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q1 -->
+<g id="node2" class="node">
+<title>q1</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- q0&#45;&gt;q1 -->
+<g id="edge1" class="edge">
+<title>q0-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- q1&#45;&gt;q1 -->
+<g id="edge2" class="edge">
+<title>q1-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M54.38,-44.6C53.42,-54.53 55.73,-63.39 61.29,-63.39 64.77,-63.39 66.98,-59.93 67.91,-54.91"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="71.42,-54.7 68.21,-44.6 64.42,-54.5 71.42,-54.7"></polygon>
+<text text-anchor="middle" x="61.29" y="-67.59" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+<!-- q2 -->
+<g id="node3" class="node">
+<title>q2</title>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="156.12" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="163.12" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- q1&#45;&gt;q2 -->
+<g id="edge3" class="edge">
+<title>q1-&gt;q2</title>
+<path fill="none" stroke="#ffffff" d="M82.02,-24.69C95.13,-24.69 112.69,-24.69 128.03,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="128.21,-28.19 138.21,-24.69 128.21,-21.19 128.21,-28.19"></polygon>
+<text text-anchor="middle" x="110.21" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{1}</text>
+</g>
+<!-- q2&#45;&gt;q1 -->
+<g id="edge4" class="edge">
+<title>q2-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M141.91,-11.71C129.86,-5.54 114.2,-0.23 99.99,-3.89 95.83,-4.96 91.65,-6.6 87.66,-8.49"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.96,-5.43 78.79,-13.23 89.26,-11.6 85.96,-5.43"></polygon>
+<text text-anchor="middle" x="110.21" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-fig-width="400px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="400" height="480" viewbox="0.00 0.00 195.81 88.19" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84.19)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-84.19 191.81,-84.19 191.81,4 -4,4"></polygon>
+<!-- q0 -->
+<g id="node1" class="node">
+<title>q0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q1 -->
+<g id="node2" class="node">
+<title>q1</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- q0&#45;&gt;q1 -->
+<g id="edge1" class="edge">
+<title>q0-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- q1&#45;&gt;q1 -->
+<g id="edge2" class="edge">
+<title>q1-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M54.38,-44.6C53.42,-54.53 55.73,-63.39 61.29,-63.39 64.77,-63.39 66.98,-59.93 67.91,-54.91"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="71.42,-54.7 68.21,-44.6 64.42,-54.5 71.42,-54.7"></polygon>
+<text text-anchor="middle" x="61.29" y="-67.59" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0,1}</text>
+</g>
+<!-- q2 -->
+<g id="node3" class="node">
+<title>q2</title>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="156.12" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="163.12" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- q1&#45;&gt;q2 -->
+<g id="edge3" class="edge">
+<title>q1-&gt;q2</title>
+<path fill="none" stroke="#ffffff" d="M82.02,-24.69C95.13,-24.69 112.69,-24.69 128.03,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="128.21,-28.19 138.21,-24.69 128.21,-21.19 128.21,-28.19"></polygon>
+<text text-anchor="middle" x="110.21" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{1}</text>
+</g>
+<!-- q2&#45;&gt;q1 -->
+<g id="edge4" class="edge">
+<title>q2-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M141.91,-11.71C129.86,-5.54 114.2,-0.23 99.99,-3.89 95.83,-4.96 91.65,-6.6 87.66,-8.49"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.96,-5.43 78.79,-13.23 89.26,-11.6 85.96,-5.43"></polygon>
+<text text-anchor="middle" x="110.21" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="new-features" class="level2">
+<h2 class="anchored" data-anchor-id="new-features">New Features</h2>
+<ul>
+<li>In DFAs, the <span class="math inline">\(\cap\)</span> of any pair of labels on outgoing edges must <span class="math inline">\(=\varnothing\)</span>.
+<ul>
+<li>Labels appear exactly once.</li>
+<li>NFAs - no such restriction.</li>
+</ul></li>
+<li>In NFAs, we can use <span class="math inline">\(\sigma\)</span> to move regardless of input.</li>
+<li>If NFAs, accept if any path reaches any accepting state.
+<ul>
+<li>That is, there may be multiple paths.</li>
+</ul></li>
+</ul>
+</section>
+<section id="exercise-0" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-0">Exercise 0</h2>
+<p>Find a string accepted by the NFA that is rejected by the DFA.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-fig-width="400px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="400" height="480" viewbox="0.00 0.00 195.81 88.19" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84.19)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-84.19 191.81,-84.19 191.81,4 -4,4"></polygon>
+<!-- q0 -->
+<g id="node1" class="node">
+<title>q0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q1 -->
+<g id="node2" class="node">
+<title>q1</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- q0&#45;&gt;q1 -->
+<g id="edge1" class="edge">
+<title>q0-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- q1&#45;&gt;q1 -->
+<g id="edge2" class="edge">
+<title>q1-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M54.38,-44.6C53.42,-54.53 55.73,-63.39 61.29,-63.39 64.77,-63.39 66.98,-59.93 67.91,-54.91"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="71.42,-54.7 68.21,-44.6 64.42,-54.5 71.42,-54.7"></polygon>
+<text text-anchor="middle" x="61.29" y="-67.59" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+<!-- q2 -->
+<g id="node3" class="node">
+<title>q2</title>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="156.12" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="163.12" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- q1&#45;&gt;q2 -->
+<g id="edge3" class="edge">
+<title>q1-&gt;q2</title>
+<path fill="none" stroke="#ffffff" d="M82.02,-24.69C95.13,-24.69 112.69,-24.69 128.03,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="128.21,-28.19 138.21,-24.69 128.21,-21.19 128.21,-28.19"></polygon>
+<text text-anchor="middle" x="110.21" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{1}</text>
+</g>
+<!-- q2&#45;&gt;q1 -->
+<g id="edge4" class="edge">
+<title>q2-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M141.91,-11.71C129.86,-5.54 114.2,-0.23 99.99,-3.89 95.83,-4.96 91.65,-6.6 87.66,-8.49"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.96,-5.43 78.79,-13.23 89.26,-11.6 85.96,-5.43"></polygon>
+<text text-anchor="middle" x="110.21" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-fig-width="400px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="400" height="480" viewbox="0.00 0.00 195.81 88.19" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84.19)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-84.19 191.81,-84.19 191.81,4 -4,4"></polygon>
+<!-- q0 -->
+<g id="node1" class="node">
+<title>q0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q1 -->
+<g id="node2" class="node">
+<title>q1</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- q0&#45;&gt;q1 -->
+<g id="edge1" class="edge">
+<title>q0-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- q1&#45;&gt;q1 -->
+<g id="edge2" class="edge">
+<title>q1-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M54.38,-44.6C53.42,-54.53 55.73,-63.39 61.29,-63.39 64.77,-63.39 66.98,-59.93 67.91,-54.91"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="71.42,-54.7 68.21,-44.6 64.42,-54.5 71.42,-54.7"></polygon>
+<text text-anchor="middle" x="61.29" y="-67.59" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0,1}</text>
+</g>
+<!-- q2 -->
+<g id="node3" class="node">
+<title>q2</title>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="156.12" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="163.12" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- q1&#45;&gt;q2 -->
+<g id="edge3" class="edge">
+<title>q1-&gt;q2</title>
+<path fill="none" stroke="#ffffff" d="M82.02,-24.69C95.13,-24.69 112.69,-24.69 128.03,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="128.21,-28.19 138.21,-24.69 128.21,-21.19 128.21,-28.19"></polygon>
+<text text-anchor="middle" x="110.21" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{1}</text>
+</g>
+<!-- q2&#45;&gt;q1 -->
+<g id="edge4" class="edge">
+<title>q2-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M141.91,-11.71C129.86,-5.54 114.2,-0.23 99.99,-3.89 95.83,-4.96 91.65,-6.6 87.66,-8.49"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.96,-5.43 78.79,-13.23 89.26,-11.6 85.96,-5.43"></polygon>
+<text text-anchor="middle" x="110.21" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution-0" class="level2">
+<h2 class="anchored" data-anchor-id="solution-0">Solution 0</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>[<span class="dv">1</span>,<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><span style="color:red;">REJECT</span>: <span class="math inline">\(q_1 \rightarrow q_2 \rightarrow \varnothing\)</span></li>
+<li><span style="color:red;">REJECT</span>: <span class="math inline">\(q_1 \rightarrow q_1 \rightarrow q_1\)</span></li>
+<li><span style="color:green;">ACCEPT</span>: <span class="math inline">\(q_1 \rightarrow q_1 \rightarrow q_2\)</span></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-fig-width="400px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="400" height="480" viewbox="0.00 0.00 195.81 88.19" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84.19)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-84.19 191.81,-84.19 191.81,4 -4,4"></polygon>
+<!-- q0 -->
+<g id="node1" class="node">
+<title>q0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q1 -->
+<g id="node2" class="node">
+<title>q1</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- q0&#45;&gt;q1 -->
+<g id="edge1" class="edge">
+<title>q0-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- q1&#45;&gt;q1 -->
+<g id="edge2" class="edge">
+<title>q1-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M54.38,-44.6C53.42,-54.53 55.73,-63.39 61.29,-63.39 64.77,-63.39 66.98,-59.93 67.91,-54.91"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="71.42,-54.7 68.21,-44.6 64.42,-54.5 71.42,-54.7"></polygon>
+<text text-anchor="middle" x="61.29" y="-67.59" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0,1}</text>
+</g>
+<!-- q2 -->
+<g id="node3" class="node">
+<title>q2</title>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="156.12" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="163.12" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- q1&#45;&gt;q2 -->
+<g id="edge3" class="edge">
+<title>q1-&gt;q2</title>
+<path fill="none" stroke="#ffffff" d="M82.02,-24.69C95.13,-24.69 112.69,-24.69 128.03,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="128.21,-28.19 138.21,-24.69 128.21,-21.19 128.21,-28.19"></polygon>
+<text text-anchor="middle" x="110.21" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{1}</text>
+</g>
+<!-- q2&#45;&gt;q1 -->
+<g id="edge4" class="edge">
+<title>q2-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M141.91,-11.71C129.86,-5.54 114.2,-0.23 99.99,-3.89 95.83,-4.96 91.65,-6.6 87.66,-8.49"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.96,-5.43 78.79,-13.23 89.26,-11.6 85.96,-5.43"></polygon>
+<text text-anchor="middle" x="110.21" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
+<ul>
+<li>Define an expression over <span class="math inline">\(\delta\)</span> that holds if a finite automata is deterministic.</li>
+<li>You may write it in formal mathematics or in Python.</li>
+</ul>
+</section>
+<section id="solution-1" class="level2">
+<h2 class="anchored" data-anchor-id="solution-1">Solution 1</h2>
+<ul>
+<li>We note that Python dictionaries can only be used for the <span class="math inline">\(\delta\)</span> of a DFA.</li>
+</ul>
+<div class="fragment">
+<div id="626dfe51" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># define q_n as a convenience</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>q_1, q_2 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># define d</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>d <span class="op">=</span> {</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    q_1 : { <span class="dv">0</span>:q_1, <span class="dv">1</span>:q_2 },</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    q_2 : { <span class="dv">0</span>:q_1 }</span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li>To implement an NFA, what would we do?</li>
+</ul>
+<div class="fragment">
+<div id="f52cfe2f" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">assert</span>(<span class="bu">all</span>((<span class="bu">type</span>(d[q])<span class="op">==</span><span class="bu">type</span>({}) <span class="cf">for</span> q <span class="kw">in</span> d)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="aside" class="level2">
+<h2 class="anchored" data-anchor-id="aside">Aside</h2>
+<ul>
+<li>Historically, nondeterminism not regarded as an actually physical existing device.</li>
+<li>In practice, speculative execution is exactly that.</li>
+<li>My automata research applied nondeterminism to x86-64 processors.</li>
+<li>Cloud computing, today, is quite similar.</li>
+</ul>
+</section>
+<section id="speculation" class="level2">
+<h2 class="anchored" data-anchor-id="speculation">Speculation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://imgs.xkcd.com/comics/meltdown_and_spectre.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="ways" class="level2">
+<h2 class="anchored" data-anchor-id="ways">3 ways:</h2>
+<ul>
+<li><p><strong>Computational</strong>: Fork new parallel thread and accept if any thread leads to an accept state.</p></li>
+<li><p><strong>Mathematical</strong>: Tree with branches. Accept if any branch leads to an accept state.</p></li>
+<li><p><strong>Magical</strong>: Guess at each nondeterministic step which way to go. Machine always makes the right guess that leads to accepting, if possible.</p></li>
+</ul>
+</section>
+<section id="delta" class="level2">
+<h2 class="anchored" data-anchor-id="delta"><span class="math inline">\(\delta\)</span></h2>
+<ul>
+<li>Versus DFAs, NFAs are unaltered except in <span class="math inline">\(\delta\)</span></li>
+<li>DFAs consider <em>individual</em> state and a letter.
+<ul>
+<li>NFA <span class="math inline">\(\delta\)</span> most work over <em>sets</em> of states.</li>
+</ul></li>
+</ul>
+</section>
+<section id="step-0" class="level2">
+<h2 class="anchored" data-anchor-id="step-0">Step 0</h2>
+<ul>
+<li>Alter <span class="math inline">\(\delta\)</span>’s codomain (set of destination)
+<ul>
+<li>DFA : <span class="math inline">\(\delta : Q \times \sigma \rightarrow Q\)</span></li>
+<li>NFA : <span class="math inline">\(\delta : Q \times \sigma \rightarrow \mathcal{P} (Q)\)</span>
+<ul>
+<li><span class="math inline">\(\mathcal{P} (Q)\)</span> is the power set of <span class="math inline">\(Q\)</span></li>
+<li><span class="math inline">\(\mathcal{P} (Q) = \{ R | R \subset Q \}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="in-python" class="level2">
+<h2 class="anchored" data-anchor-id="in-python">In Python</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>d_dfa <span class="op">=</span> {</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    q_1 : { </span>
+<span id="cb4-3"><a href="#cb4-3"></a>        <span class="dv">0</span>:q_1, </span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="dv">1</span>:q_2 <span class="co"># This is wrong</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>    },</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    q_2 : { </span>
+<span id="cb4-7"><a href="#cb4-7"></a>        <span class="dv">0</span>:q_1 </span>
+<span id="cb4-8"><a href="#cb4-8"></a>    }</span>
+<span id="cb4-9"><a href="#cb4-9"></a>}</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a>d_nfa <span class="op">=</span> {</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    q_1 : { </span>
+<span id="cb4-13"><a href="#cb4-13"></a>        <span class="dv">0</span>:{q_1}, </span>
+<span id="cb4-14"><a href="#cb4-14"></a>        <span class="dv">1</span>:{q_1, q_2}</span>
+<span id="cb4-15"><a href="#cb4-15"></a>    },</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    q_2 : { </span>
+<span id="cb4-17"><a href="#cb4-17"></a>        <span class="dv">0</span>:{q_1} </span>
+<span id="cb4-18"><a href="#cb4-18"></a>    }</span>
+<span id="cb4-19"><a href="#cb4-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-fig-width="400px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="400" height="480" viewbox="0.00 0.00 195.81 88.19" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84.19)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-84.19 191.81,-84.19 191.81,4 -4,4"></polygon>
+<!-- q0 -->
+<g id="node1" class="node">
+<title>q0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q1 -->
+<g id="node2" class="node">
+<title>q1</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- q0&#45;&gt;q1 -->
+<g id="edge1" class="edge">
+<title>q0-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- q1&#45;&gt;q1 -->
+<g id="edge2" class="edge">
+<title>q1-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M54.38,-44.6C53.42,-54.53 55.73,-63.39 61.29,-63.39 64.77,-63.39 66.98,-59.93 67.91,-54.91"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="71.42,-54.7 68.21,-44.6 64.42,-54.5 71.42,-54.7"></polygon>
+<text text-anchor="middle" x="61.29" y="-67.59" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0,1}</text>
+</g>
+<!-- q2 -->
+<g id="node3" class="node">
+<title>q2</title>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="163.12" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="156.12" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="163.12" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- q1&#45;&gt;q2 -->
+<g id="edge3" class="edge">
+<title>q1-&gt;q2</title>
+<path fill="none" stroke="#ffffff" d="M82.02,-24.69C95.13,-24.69 112.69,-24.69 128.03,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="128.21,-28.19 138.21,-24.69 128.21,-21.19 128.21,-28.19"></polygon>
+<text text-anchor="middle" x="110.21" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{1}</text>
+</g>
+<!-- q2&#45;&gt;q1 -->
+<g id="edge4" class="edge">
+<title>q2-&gt;q1</title>
+<path fill="none" stroke="#ffffff" d="M141.91,-11.71C129.86,-5.54 114.2,-0.23 99.99,-3.89 95.83,-4.96 91.65,-6.6 87.66,-8.49"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.96,-5.43 78.79,-13.23 89.26,-11.6 85.96,-5.43"></polygon>
+<text text-anchor="middle" x="110.21" y="-7.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">{0}</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-1" class="level2">
+<h2 class="anchored" data-anchor-id="step-1">Step 1</h2>
+<ul>
+<li>Alter <span class="math inline">\(\delta\)</span>’s domain (set of inputs)
+<ul>
+<li>DFA : <span class="math inline">\(\delta : Q \times \sigma \rightarrow Q\)</span></li>
+<li>NFA: <span class="math inline">\(\delta : \mathcal{P} (Q) \times \sigma \rightarrow \mathcal{P} (Q)\)</span>
+<ul>
+<li>In Python, this is simple set comprehension of the Step 0 <span class="math inline">\(\delta\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="in-python-1" class="level2">
+<h2 class="anchored" data-anchor-id="in-python-1">In Python</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># setup</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>state : <span class="bu">str</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>letter : <span class="bu">str</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>dfa : <span class="bu">tuple</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>nfa : <span class="bu">tuple</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="kw">def</span> q_next_dfa(m:dfa, q:state, a:letter) <span class="op">-&gt;</span> state:</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    d <span class="op">=</span> m[<span class="dv">2</span>] <span class="co"># dict of state:dict of letter:state</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="cf">return</span> d[q][a]</span>
+<span id="cb5-10"><a href="#cb5-10"></a></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="kw">def</span> q_next_nfa(m:nfa, qs:<span class="bu">set</span>, a:letter) <span class="op">-&gt;</span> <span class="bu">set</span>:</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    d <span class="op">=</span> m[<span class="dv">2</span>] <span class="co"># dict of state:dict of letter:set of state</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>    <span class="cf">return</span> {q_n <span class="cf">for</span> q <span class="kw">in</span> d[q][a] <span class="cf">for</span> q <span class="kw">in</span> qs}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Can do this with <code>lambda</code> (which I’d prefer) but then we lose type hints.</li>
+</ul>
+</section>
+<section id="lambda" class="level2">
+<h2 class="anchored" data-anchor-id="lambda">Lambda</h2>
+<p><em>Or put the lambdas in the *FA</em></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>q_next_dfa <span class="op">=</span> <span class="kw">lambda</span> m, q, a : m[<span class="dv">2</span>][q][a]</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>q_next_dfa <span class="op">=</span> <span class="kw">lambda</span> m, qs, a : {q_n <span class="cf">for</span> q <span class="kw">in</span> m[<span class="dv">2</span>][q][a] <span class="cf">for</span> q <span class="kw">in</span> qs}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="conversion" class="level1">
+<h1>Conversion</h1>
+<section id="goal" class="level2">
+<h2 class="anchored" data-anchor-id="goal">Goal</h2>
+<ul>
+<li>Wish to show any NFA language can be recognized by a DFA.</li>
+<li>Take an NFA
+<ul>
+<li><span class="math inline">\(M = (Q, \Sigma, \delta, q_0, F)\)</span></li>
+</ul></li>
+<li>Construct a DFA
+<ul>
+<li><span class="math inline">\(M = (Q', \Sigma, \delta', q'_0, F')\)</span></li>
+</ul></li>
+<li>We use the same insight as with <span class="math inline">\(\delta\)</span></li>
+</ul>
+</section>
+<section id="dfa-states" class="level2">
+<h2 class="anchored" data-anchor-id="dfa-states">DFA States</h2>
+<ul>
+<li>Let <span class="math inline">\(Q' = \mathcal{P} (Q)\)</span>
+<ul>
+<li>One deterministic state for all possible combinations</li>
+<li>How many is this?</li>
+<li>How can we represent it?</li>
+</ul></li>
+<li>We note <span class="math inline">\(\Sigma\)</span> is unaltered.</li>
+</ul>
+</section>
+<section id="dfa-delta" class="level2">
+<h2 class="anchored" data-anchor-id="dfa-delta">DFA <span class="math inline">\(\delta'\)</span></h2>
+<ul>
+<li>We note <span class="math inline">\(\Sigma\)</span> is unaltered.</li>
+<li>We note NFA <span class="math inline">\(\delta\)</span>:
+<ul>
+<li>Accepts <span class="math inline">\(\mathcal{P} (Q)\)</span> and a letter</li>
+<li>Produces <span class="math inline">\(\mathcal{P} (Q)\)</span></li>
+<li>That the states <span class="math inline">\(Q'\)</span> of the DFA are <span class="math inline">\(\mathcal{P} (Q)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\delta\)</span> = <span class="math inline">\(\delta'\)</span></li>
+</ul>
+</section>
+<section id="dfa-f" class="level2">
+<h2 class="anchored" data-anchor-id="dfa-f">DFA <span class="math inline">\(F\)</span></h2>
+<ul>
+<li>The DFA tracks a set of possible states.</li>
+<li>Only one state need be accepting.</li>
+<li><span class="math inline">\(F' = \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \}\)</span></li>
+</ul>
+</section>
+<section id="theorem-2" class="level2">
+<h2 class="anchored" data-anchor-id="theorem-2">Theorem 2</h2>
+<p><span class="math display">\[
+\forall M_{NFA}: \exists M_{DFA} : L(M_{NFA})) = L(M_{DFA}))
+\]</span></p>
+<p><em>Proof</em></p>
+<p><span class="math display">\[
+\begin{aligned}
+M_{NFA}(&amp;Q, \Sigma, \delta, q_1, F_1) = \\
+M_{DFA}(&amp;\mathcal{P} (Q), \Sigma, \delta, \{q_1\}, \\
+        &amp; \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \})\blacksquare
+\end{aligned}
+\]</span></p>
+<ul>
+<li>We take some minor liberties with precisely defining the type of <span class="math inline">\(\delta\)</span>.</li>
+</ul>
+</section>
+</section>
+<section id="lunch-break" class="level1">
+<h1>Lunch Break</h1>
+<ul>
+<li><a href="https://cd-public.github.io/compute/">Home</a></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02_regexp.html" class="pagination-link" aria-label="Regular Expressions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Regular Expressions</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_closures.html" class="pagination-link" aria-label="Closures">
+        <span class="nav-page-text">Closures</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="an">title:</span><span class="co"> "NFAs"</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">---</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="fu">## Sketch</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>::: {.nonincremental}</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="ss">- </span>NFAs</span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="ss">    -   </span>Motivation</span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="ss">    -   </span>Formal Definition</span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="ss">    -   </span>Conversion to DFAs</span>
+<span id="cb7-12"><a href="#cb7-12"></a>:::</span>
+<span id="cb7-13"><a href="#cb7-13"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="fu"># Motivation</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="fu">## Closure under $\cdot$</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a></span>
+<span id="cb7-18"><a href="#cb7-18"></a>:::{.fragment}</span>
+<span id="cb7-19"><a href="#cb7-19"></a></span>
+<span id="cb7-20"><a href="#cb7-20"></a>$$</span>
+<span id="cb7-21"><a href="#cb7-21"></a>M_1 = (Q_1, \Sigma, \delta_1, q_1, F_1) \land M_2 = (Q_2, \Sigma, \delta_2, q_2, F_2) \implies</span>
+<span id="cb7-22"><a href="#cb7-22"></a>$$</span>
+<span id="cb7-23"><a href="#cb7-23"></a></span>
+<span id="cb7-24"><a href="#cb7-24"></a>:::</span>
+<span id="cb7-25"><a href="#cb7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26"></a>:::{.fragment}</span>
+<span id="cb7-27"><a href="#cb7-27"></a></span>
+<span id="cb7-28"><a href="#cb7-28"></a>$$</span>
+<span id="cb7-29"><a href="#cb7-29"></a>\exists M_3 : L(M_3) = L(M_1) \cdot L(M_2) = L(M_1)L(M_2) = A_1A_2</span>
+<span id="cb7-30"><a href="#cb7-30"></a>$$</span>
+<span id="cb7-31"><a href="#cb7-31"></a></span>
+<span id="cb7-32"><a href="#cb7-32"></a>:::</span>
+<span id="cb7-33"><a href="#cb7-33"></a></span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="fu">## Non-trivial</span></span>
+<span id="cb7-35"><a href="#cb7-35"></a></span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="ss">-   </span>A natural strategy</span>
+<span id="cb7-37"><a href="#cb7-37"></a><span class="ss">    -   </span>Take $M_1$</span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="ss">    -   </span>Connect states in $F_1$ ($M_1$ accept)</span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="ss">    -   </span>Add edges out of $F_1$</span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="ss">    -   </span>Connect edges to $q_2$ ($M_2$ start)</span>
+<span id="cb7-41"><a href="#cb7-41"></a></span>
+<span id="cb7-42"><a href="#cb7-42"></a><span class="fu">## Problem</span></span>
+<span id="cb7-43"><a href="#cb7-43"></a><span class="ss">-   </span>How do we know if we *should* go to $M_2$ at a given time.</span>
+<span id="cb7-44"><a href="#cb7-44"></a><span class="ss">    -   </span>Suppose $M_1$ requires <span class="in">`0`</span> appear in odd-length substrings $<span class="sc">\{</span>0<span class="sc">\}</span>^{2n+1}$.</span>
+<span id="cb7-45"><a href="#cb7-45"></a><span class="ss">    -   </span>Suppose $M_2$ requires <span class="in">`0`</span> appear in even-length substrings $<span class="sc">\{</span>0<span class="sc">\}</span>^{2n}$.</span>
+<span id="cb7-46"><a href="#cb7-46"></a><span class="ss">    -   </span>Imagine seeing a <span class="in">`0`</span> after a <span class="in">`1`</span></span>
+<span id="cb7-47"><a href="#cb7-47"></a><span class="ss">    -   </span>Do you leave $M_1$ into $M_2$ or not?</span>
+<span id="cb7-48"><a href="#cb7-48"></a><span class="ss">-   </span>Simply do both.</span>
+<span id="cb7-49"><a href="#cb7-49"></a></span>
+<span id="cb7-50"><a href="#cb7-50"></a><span class="fu"># Nondeterminism</span></span>
+<span id="cb7-51"><a href="#cb7-51"></a></span>
+<span id="cb7-52"><a href="#cb7-52"></a>:::: {.columns}</span>
+<span id="cb7-53"><a href="#cb7-53"></a></span>
+<span id="cb7-54"><a href="#cb7-54"></a>::: {.column width="50%"}</span>
+<span id="cb7-55"><a href="#cb7-55"></a></span>
+<span id="cb7-56"><a href="#cb7-56"></a>Deterministic Finite Automata (DFA)</span>
+<span id="cb7-57"><a href="#cb7-57"></a></span>
+<span id="cb7-58"><a href="#cb7-58"></a>:::</span>
+<span id="cb7-59"><a href="#cb7-59"></a></span>
+<span id="cb7-60"><a href="#cb7-60"></a>::: {.column width="50%"}</span>
+<span id="cb7-61"><a href="#cb7-61"></a></span>
+<span id="cb7-62"><a href="#cb7-62"></a>Nondeterministic Finite Automata (NFA)</span>
+<span id="cb7-63"><a href="#cb7-63"></a></span>
+<span id="cb7-64"><a href="#cb7-64"></a>:::</span>
+<span id="cb7-65"><a href="#cb7-65"></a></span>
+<span id="cb7-66"><a href="#cb7-66"></a>::::</span>
+<span id="cb7-67"><a href="#cb7-67"></a></span>
+<span id="cb7-68"><a href="#cb7-68"></a>:::: {.columns}</span>
+<span id="cb7-69"><a href="#cb7-69"></a></span>
+<span id="cb7-70"><a href="#cb7-70"></a>::: {.column width="50%"}</span>
+<span id="cb7-71"><a href="#cb7-71"></a></span>
+<span id="cb7-72"><a href="#cb7-72"></a><span class="in">```{dot filename="DFA"}</span></span>
+<span id="cb7-73"><a href="#cb7-73"></a><span class="in">//| fig-width: 400px</span></span>
+<span id="cb7-74"><a href="#cb7-74"></a><span class="in">//| echo: false</span></span>
+<span id="cb7-75"><a href="#cb7-75"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb7-76"><a href="#cb7-76"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb7-77"><a href="#cb7-77"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb7-78"><a href="#cb7-78"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb7-79"><a href="#cb7-79"></a></span>
+<span id="cb7-80"><a href="#cb7-80"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb7-81"><a href="#cb7-81"></a><span class="in">  q0 [label="",shape=point]; </span></span>
+<span id="cb7-82"><a href="#cb7-82"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb7-83"><a href="#cb7-83"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb7-84"><a href="#cb7-84"></a></span>
+<span id="cb7-85"><a href="#cb7-85"></a><span class="in">  q0 -&gt; q1 []</span></span>
+<span id="cb7-86"><a href="#cb7-86"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-87"><a href="#cb7-87"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
+<span id="cb7-88"><a href="#cb7-88"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-89"><a href="#cb7-89"></a><span class="in">}</span></span>
+<span id="cb7-90"><a href="#cb7-90"></a><span class="in">```</span></span>
+<span id="cb7-91"><a href="#cb7-91"></a></span>
+<span id="cb7-92"><a href="#cb7-92"></a>:::</span>
+<span id="cb7-93"><a href="#cb7-93"></a></span>
+<span id="cb7-94"><a href="#cb7-94"></a>::: {.column width="50%"}</span>
+<span id="cb7-95"><a href="#cb7-95"></a></span>
+<span id="cb7-96"><a href="#cb7-96"></a><span class="in">```{dot filename="NFA"}</span></span>
+<span id="cb7-97"><a href="#cb7-97"></a><span class="in">//| fig-width: 400px</span></span>
+<span id="cb7-98"><a href="#cb7-98"></a><span class="in">//| echo: false</span></span>
+<span id="cb7-99"><a href="#cb7-99"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb7-100"><a href="#cb7-100"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb7-101"><a href="#cb7-101"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb7-102"><a href="#cb7-102"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb7-103"><a href="#cb7-103"></a></span>
+<span id="cb7-104"><a href="#cb7-104"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb7-105"><a href="#cb7-105"></a><span class="in">  q0 [label="",shape=point]; </span></span>
+<span id="cb7-106"><a href="#cb7-106"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb7-107"><a href="#cb7-107"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb7-108"><a href="#cb7-108"></a></span>
+<span id="cb7-109"><a href="#cb7-109"></a><span class="in">  q0 -&gt; q1 []</span></span>
+<span id="cb7-110"><a href="#cb7-110"></a><span class="in">  q1 -&gt; q1 [label="{0,1}"];</span></span>
+<span id="cb7-111"><a href="#cb7-111"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
+<span id="cb7-112"><a href="#cb7-112"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-113"><a href="#cb7-113"></a><span class="in">}</span></span>
+<span id="cb7-114"><a href="#cb7-114"></a><span class="in">```</span></span>
+<span id="cb7-115"><a href="#cb7-115"></a>:::</span>
+<span id="cb7-116"><a href="#cb7-116"></a></span>
+<span id="cb7-117"><a href="#cb7-117"></a>::::</span>
+<span id="cb7-118"><a href="#cb7-118"></a></span>
+<span id="cb7-119"><a href="#cb7-119"></a><span class="fu">## New Features</span></span>
+<span id="cb7-120"><a href="#cb7-120"></a></span>
+<span id="cb7-121"><a href="#cb7-121"></a><span class="ss">-   </span>In DFAs, the $\cap$ of any pair of labels on outgoing edges must $=\varnothing$.</span>
+<span id="cb7-122"><a href="#cb7-122"></a><span class="ss">    -   </span>Labels appear exactly once.</span>
+<span id="cb7-123"><a href="#cb7-123"></a><span class="ss">    -   </span>NFAs - no such restriction.</span>
+<span id="cb7-124"><a href="#cb7-124"></a><span class="ss">-   </span>In NFAs, we can use $\sigma$ to move regardless of input.</span>
+<span id="cb7-125"><a href="#cb7-125"></a><span class="ss">-   </span>If NFAs, accept if any path reaches any accepting state.</span>
+<span id="cb7-126"><a href="#cb7-126"></a><span class="ss">    -   </span>That is, there may be multiple paths.</span>
+<span id="cb7-127"><a href="#cb7-127"></a></span>
+<span id="cb7-128"><a href="#cb7-128"></a><span class="fu">## Exercise 0</span></span>
+<span id="cb7-129"><a href="#cb7-129"></a></span>
+<span id="cb7-130"><a href="#cb7-130"></a>Find a string accepted by the NFA that is rejected by the DFA.</span>
+<span id="cb7-131"><a href="#cb7-131"></a></span>
+<span id="cb7-132"><a href="#cb7-132"></a>:::: {.columns}</span>
+<span id="cb7-133"><a href="#cb7-133"></a></span>
+<span id="cb7-134"><a href="#cb7-134"></a>::: {.column width="50%"}</span>
+<span id="cb7-135"><a href="#cb7-135"></a></span>
+<span id="cb7-136"><a href="#cb7-136"></a><span class="in">```{dot filename="DFA"}</span></span>
+<span id="cb7-137"><a href="#cb7-137"></a><span class="in">//| fig-width: 400px</span></span>
+<span id="cb7-138"><a href="#cb7-138"></a><span class="in">//| echo: false</span></span>
+<span id="cb7-139"><a href="#cb7-139"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb7-140"><a href="#cb7-140"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb7-141"><a href="#cb7-141"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb7-142"><a href="#cb7-142"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb7-143"><a href="#cb7-143"></a></span>
+<span id="cb7-144"><a href="#cb7-144"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb7-145"><a href="#cb7-145"></a><span class="in">  q0 [label="",shape=point]; </span></span>
+<span id="cb7-146"><a href="#cb7-146"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb7-147"><a href="#cb7-147"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb7-148"><a href="#cb7-148"></a></span>
+<span id="cb7-149"><a href="#cb7-149"></a><span class="in">  q0 -&gt; q1 []</span></span>
+<span id="cb7-150"><a href="#cb7-150"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-151"><a href="#cb7-151"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
+<span id="cb7-152"><a href="#cb7-152"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-153"><a href="#cb7-153"></a><span class="in">}</span></span>
+<span id="cb7-154"><a href="#cb7-154"></a><span class="in">```</span></span>
+<span id="cb7-155"><a href="#cb7-155"></a></span>
+<span id="cb7-156"><a href="#cb7-156"></a>:::</span>
+<span id="cb7-157"><a href="#cb7-157"></a></span>
+<span id="cb7-158"><a href="#cb7-158"></a>::: {.column width="50%"}</span>
+<span id="cb7-159"><a href="#cb7-159"></a></span>
+<span id="cb7-160"><a href="#cb7-160"></a><span class="in">```{dot filename="NFA"}</span></span>
+<span id="cb7-161"><a href="#cb7-161"></a><span class="in">//| fig-width: 400px</span></span>
+<span id="cb7-162"><a href="#cb7-162"></a><span class="in">//| echo: false</span></span>
+<span id="cb7-163"><a href="#cb7-163"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb7-164"><a href="#cb7-164"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb7-165"><a href="#cb7-165"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb7-166"><a href="#cb7-166"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb7-167"><a href="#cb7-167"></a></span>
+<span id="cb7-168"><a href="#cb7-168"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb7-169"><a href="#cb7-169"></a><span class="in">  q0 [label="",shape=point]; </span></span>
+<span id="cb7-170"><a href="#cb7-170"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb7-171"><a href="#cb7-171"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb7-172"><a href="#cb7-172"></a></span>
+<span id="cb7-173"><a href="#cb7-173"></a><span class="in">  q0 -&gt; q1 []</span></span>
+<span id="cb7-174"><a href="#cb7-174"></a><span class="in">  q1 -&gt; q1 [label="{0,1}"];</span></span>
+<span id="cb7-175"><a href="#cb7-175"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
+<span id="cb7-176"><a href="#cb7-176"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-177"><a href="#cb7-177"></a><span class="in">}</span></span>
+<span id="cb7-178"><a href="#cb7-178"></a><span class="in">```</span></span>
+<span id="cb7-179"><a href="#cb7-179"></a>:::</span>
+<span id="cb7-180"><a href="#cb7-180"></a></span>
+<span id="cb7-181"><a href="#cb7-181"></a>::::</span>
+<span id="cb7-182"><a href="#cb7-182"></a></span>
+<span id="cb7-183"><a href="#cb7-183"></a><span class="fu">## Solution 0</span></span>
+<span id="cb7-184"><a href="#cb7-184"></a></span>
+<span id="cb7-185"><a href="#cb7-185"></a>:::: {.columns}</span>
+<span id="cb7-186"><a href="#cb7-186"></a></span>
+<span id="cb7-187"><a href="#cb7-187"></a>::: {.column width="50%"}</span>
+<span id="cb7-188"><a href="#cb7-188"></a></span>
+<span id="cb7-189"><a href="#cb7-189"></a><span class="in">```python</span></span>
+<span id="cb7-190"><a href="#cb7-190"></a>[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb7-191"><a href="#cb7-191"></a><span class="in">```</span></span>
+<span id="cb7-192"><a href="#cb7-192"></a></span>
+<span id="cb7-193"><a href="#cb7-193"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">REJECT</span><span class="co">]</span>{style="color:red;"}: $q_1 \rightarrow q_2 \rightarrow \varnothing$</span>
+<span id="cb7-194"><a href="#cb7-194"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">REJECT</span><span class="co">]</span>{style="color:red;"}: $q_1 \rightarrow q_1 \rightarrow q_1$</span>
+<span id="cb7-195"><a href="#cb7-195"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">ACCEPT</span><span class="co">]</span>{style="color:green;"}: $q_1 \rightarrow q_1 \rightarrow q_2$</span>
+<span id="cb7-196"><a href="#cb7-196"></a></span>
+<span id="cb7-197"><a href="#cb7-197"></a>:::</span>
+<span id="cb7-198"><a href="#cb7-198"></a></span>
+<span id="cb7-199"><a href="#cb7-199"></a>::: {.column width="50%"}</span>
+<span id="cb7-200"><a href="#cb7-200"></a></span>
+<span id="cb7-201"><a href="#cb7-201"></a><span class="in">```{dot filename="NFA"}</span></span>
+<span id="cb7-202"><a href="#cb7-202"></a><span class="in">//| fig-width: 400px</span></span>
+<span id="cb7-203"><a href="#cb7-203"></a><span class="in">//| echo: false</span></span>
+<span id="cb7-204"><a href="#cb7-204"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb7-205"><a href="#cb7-205"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb7-206"><a href="#cb7-206"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb7-207"><a href="#cb7-207"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb7-208"><a href="#cb7-208"></a></span>
+<span id="cb7-209"><a href="#cb7-209"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb7-210"><a href="#cb7-210"></a><span class="in">  q0 [label="",shape=point]; </span></span>
+<span id="cb7-211"><a href="#cb7-211"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb7-212"><a href="#cb7-212"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb7-213"><a href="#cb7-213"></a></span>
+<span id="cb7-214"><a href="#cb7-214"></a><span class="in">  q0 -&gt; q1 []</span></span>
+<span id="cb7-215"><a href="#cb7-215"></a><span class="in">  q1 -&gt; q1 [label="{0,1}"];</span></span>
+<span id="cb7-216"><a href="#cb7-216"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
+<span id="cb7-217"><a href="#cb7-217"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-218"><a href="#cb7-218"></a><span class="in">}</span></span>
+<span id="cb7-219"><a href="#cb7-219"></a><span class="in">```</span></span>
+<span id="cb7-220"><a href="#cb7-220"></a></span>
+<span id="cb7-221"><a href="#cb7-221"></a>:::</span>
+<span id="cb7-222"><a href="#cb7-222"></a></span>
+<span id="cb7-223"><a href="#cb7-223"></a>::::</span>
+<span id="cb7-224"><a href="#cb7-224"></a></span>
+<span id="cb7-225"><a href="#cb7-225"></a></span>
+<span id="cb7-226"><a href="#cb7-226"></a><span class="fu">## Exercise 1</span></span>
+<span id="cb7-227"><a href="#cb7-227"></a></span>
+<span id="cb7-228"><a href="#cb7-228"></a><span class="ss">-   </span>Define an expression over $\delta$ that holds if a finite automata is deterministic.</span>
+<span id="cb7-229"><a href="#cb7-229"></a><span class="ss">-   </span>You may write it in formal mathematics or in Python.</span>
+<span id="cb7-230"><a href="#cb7-230"></a></span>
+<span id="cb7-231"><a href="#cb7-231"></a><span class="fu">## Solution 1</span></span>
+<span id="cb7-232"><a href="#cb7-232"></a></span>
+<span id="cb7-233"><a href="#cb7-233"></a><span class="ss">-   </span>We note that Python dictionaries can only be used for the $\delta$ of a DFA.</span>
+<span id="cb7-234"><a href="#cb7-234"></a></span>
+<span id="cb7-235"><a href="#cb7-235"></a>::: {.fragment}</span>
+<span id="cb7-236"><a href="#cb7-236"></a></span>
+<span id="cb7-239"><a href="#cb7-239"></a><span class="in">```{python}</span></span>
+<span id="cb7-240"><a href="#cb7-240"></a><span class="co"># define q_n as a convenience</span></span>
+<span id="cb7-241"><a href="#cb7-241"></a>q_1, q_2 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span></span>
+<span id="cb7-242"><a href="#cb7-242"></a><span class="co"># define d</span></span>
+<span id="cb7-243"><a href="#cb7-243"></a>d <span class="op">=</span> {</span>
+<span id="cb7-244"><a href="#cb7-244"></a>    q_1 : { <span class="dv">0</span>:q_1, <span class="dv">1</span>:q_2 },</span>
+<span id="cb7-245"><a href="#cb7-245"></a>    q_2 : { <span class="dv">0</span>:q_1 }</span>
+<span id="cb7-246"><a href="#cb7-246"></a>}</span>
+<span id="cb7-247"><a href="#cb7-247"></a><span class="in">```</span></span>
+<span id="cb7-248"><a href="#cb7-248"></a></span>
+<span id="cb7-249"><a href="#cb7-249"></a>:::</span>
+<span id="cb7-250"><a href="#cb7-250"></a></span>
+<span id="cb7-251"><a href="#cb7-251"></a><span class="ss">-   </span>To implement an NFA, what would we do?</span>
+<span id="cb7-252"><a href="#cb7-252"></a></span>
+<span id="cb7-253"><a href="#cb7-253"></a>::: {.fragment}</span>
+<span id="cb7-254"><a href="#cb7-254"></a></span>
+<span id="cb7-257"><a href="#cb7-257"></a><span class="in">```{python}</span></span>
+<span id="cb7-258"><a href="#cb7-258"></a><span class="cf">assert</span>(<span class="bu">all</span>((<span class="bu">type</span>(d[q])<span class="op">==</span><span class="bu">type</span>({}) <span class="cf">for</span> q <span class="kw">in</span> d)))</span>
+<span id="cb7-259"><a href="#cb7-259"></a><span class="in">```</span></span>
+<span id="cb7-260"><a href="#cb7-260"></a></span>
+<span id="cb7-261"><a href="#cb7-261"></a>:::</span>
+<span id="cb7-262"><a href="#cb7-262"></a></span>
+<span id="cb7-263"><a href="#cb7-263"></a><span class="fu">## Aside</span></span>
+<span id="cb7-264"><a href="#cb7-264"></a></span>
+<span id="cb7-265"><a href="#cb7-265"></a><span class="ss">-   </span>Historically, nondeterminism not regarded as an actually physical existing device.</span>
+<span id="cb7-266"><a href="#cb7-266"></a><span class="ss">-   </span>In practice, speculative execution is exactly that.</span>
+<span id="cb7-267"><a href="#cb7-267"></a><span class="ss">-   </span>My automata research applied nondeterminism to x86-64 processors.</span>
+<span id="cb7-268"><a href="#cb7-268"></a><span class="ss">-   </span>Cloud computing, today, is quite similar.</span>
+<span id="cb7-269"><a href="#cb7-269"></a></span>
+<span id="cb7-270"><a href="#cb7-270"></a><span class="fu">## Speculation</span></span>
+<span id="cb7-271"><a href="#cb7-271"></a></span>
+<span id="cb7-272"><a href="#cb7-272"></a><span class="al">![](https://imgs.xkcd.com/comics/meltdown_and_spectre.png)</span>{fig-align="center"}</span>
+<span id="cb7-273"><a href="#cb7-273"></a></span>
+<span id="cb7-274"><a href="#cb7-274"></a><span class="fu">## 3 ways:</span></span>
+<span id="cb7-275"><a href="#cb7-275"></a></span>
+<span id="cb7-276"><a href="#cb7-276"></a><span class="ss">- </span>**Computational**:  Fork new parallel thread and</span>
+<span id="cb7-277"><a href="#cb7-277"></a>accept if any thread leads to an accept state.</span>
+<span id="cb7-278"><a href="#cb7-278"></a></span>
+<span id="cb7-279"><a href="#cb7-279"></a><span class="ss">- </span>**Mathematical**:  Tree with branches.</span>
+<span id="cb7-280"><a href="#cb7-280"></a>Accept if any branch leads to an accept state.</span>
+<span id="cb7-281"><a href="#cb7-281"></a></span>
+<span id="cb7-282"><a href="#cb7-282"></a><span class="ss">- </span>**Magical**:  Guess at each nondeterministic step</span>
+<span id="cb7-283"><a href="#cb7-283"></a>which way to go.  Machine always makes the</span>
+<span id="cb7-284"><a href="#cb7-284"></a>right guess that leads to accepting, if possible.</span>
+<span id="cb7-285"><a href="#cb7-285"></a></span>
+<span id="cb7-286"><a href="#cb7-286"></a></span>
+<span id="cb7-287"><a href="#cb7-287"></a><span class="fu">## $\delta$</span></span>
+<span id="cb7-288"><a href="#cb7-288"></a></span>
+<span id="cb7-289"><a href="#cb7-289"></a><span class="ss">-   </span>Versus DFAs, NFAs are unaltered except in $\delta$</span>
+<span id="cb7-290"><a href="#cb7-290"></a><span class="ss">-   </span>DFAs consider  *individual* state and a letter.</span>
+<span id="cb7-291"><a href="#cb7-291"></a><span class="ss">    -   </span>NFA $\delta$ most work over *sets* of states.</span>
+<span id="cb7-292"><a href="#cb7-292"></a></span>
+<span id="cb7-293"><a href="#cb7-293"></a><span class="fu">## Step 0</span></span>
+<span id="cb7-294"><a href="#cb7-294"></a></span>
+<span id="cb7-295"><a href="#cb7-295"></a><span class="ss">-   </span>Alter $\delta$'s codomain (set of destination)</span>
+<span id="cb7-296"><a href="#cb7-296"></a><span class="ss">    -   </span>DFA : $\delta : Q \times \sigma \rightarrow Q$ </span>
+<span id="cb7-297"><a href="#cb7-297"></a><span class="ss">    -   </span>NFA :  $\delta : Q \times \sigma \rightarrow \mathcal{P} (Q)$ </span>
+<span id="cb7-298"><a href="#cb7-298"></a><span class="ss">        -   </span>$\mathcal{P} (Q)$ is the power set of $Q$</span>
+<span id="cb7-299"><a href="#cb7-299"></a><span class="ss">        -   </span>$\mathcal{P} (Q) = <span class="sc">\{</span> R | R \subset Q <span class="sc">\}</span>$</span>
+<span id="cb7-300"><a href="#cb7-300"></a></span>
+<span id="cb7-301"><a href="#cb7-301"></a></span>
+<span id="cb7-302"><a href="#cb7-302"></a><span class="fu">## In Python</span></span>
+<span id="cb7-303"><a href="#cb7-303"></a></span>
+<span id="cb7-304"><a href="#cb7-304"></a>:::: {.columns}</span>
+<span id="cb7-305"><a href="#cb7-305"></a></span>
+<span id="cb7-306"><a href="#cb7-306"></a>::: {.column width="50%"}</span>
+<span id="cb7-307"><a href="#cb7-307"></a></span>
+<span id="cb7-308"><a href="#cb7-308"></a><span class="in">```python</span></span>
+<span id="cb7-309"><a href="#cb7-309"></a>d_dfa <span class="op">=</span> {</span>
+<span id="cb7-310"><a href="#cb7-310"></a>    q_1 : { </span>
+<span id="cb7-311"><a href="#cb7-311"></a>        <span class="dv">0</span>:q_1, </span>
+<span id="cb7-312"><a href="#cb7-312"></a>        <span class="dv">1</span>:q_2 <span class="co"># This is wrong</span></span>
+<span id="cb7-313"><a href="#cb7-313"></a>    },</span>
+<span id="cb7-314"><a href="#cb7-314"></a>    q_2 : { </span>
+<span id="cb7-315"><a href="#cb7-315"></a>        <span class="dv">0</span>:q_1 </span>
+<span id="cb7-316"><a href="#cb7-316"></a>    }</span>
+<span id="cb7-317"><a href="#cb7-317"></a>}</span>
+<span id="cb7-318"><a href="#cb7-318"></a></span>
+<span id="cb7-319"><a href="#cb7-319"></a>d_nfa <span class="op">=</span> {</span>
+<span id="cb7-320"><a href="#cb7-320"></a>    q_1 : { </span>
+<span id="cb7-321"><a href="#cb7-321"></a>        <span class="dv">0</span>:{q_1}, </span>
+<span id="cb7-322"><a href="#cb7-322"></a>        <span class="dv">1</span>:{q_1, q_2}</span>
+<span id="cb7-323"><a href="#cb7-323"></a>    },</span>
+<span id="cb7-324"><a href="#cb7-324"></a>    q_2 : { </span>
+<span id="cb7-325"><a href="#cb7-325"></a>        <span class="dv">0</span>:{q_1} </span>
+<span id="cb7-326"><a href="#cb7-326"></a>    }</span>
+<span id="cb7-327"><a href="#cb7-327"></a>}</span>
+<span id="cb7-328"><a href="#cb7-328"></a><span class="in">```</span></span>
+<span id="cb7-329"><a href="#cb7-329"></a>:::</span>
+<span id="cb7-330"><a href="#cb7-330"></a></span>
+<span id="cb7-331"><a href="#cb7-331"></a>::: {.column width="50%"}</span>
+<span id="cb7-332"><a href="#cb7-332"></a></span>
+<span id="cb7-333"><a href="#cb7-333"></a><span class="in">```{dot filename="NFA"}</span></span>
+<span id="cb7-334"><a href="#cb7-334"></a><span class="in">//| fig-width: 400px</span></span>
+<span id="cb7-335"><a href="#cb7-335"></a><span class="in">//| echo: false</span></span>
+<span id="cb7-336"><a href="#cb7-336"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb7-337"><a href="#cb7-337"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb7-338"><a href="#cb7-338"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb7-339"><a href="#cb7-339"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb7-340"><a href="#cb7-340"></a></span>
+<span id="cb7-341"><a href="#cb7-341"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb7-342"><a href="#cb7-342"></a><span class="in">  q0 [label="",shape=point]; </span></span>
+<span id="cb7-343"><a href="#cb7-343"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb7-344"><a href="#cb7-344"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb7-345"><a href="#cb7-345"></a></span>
+<span id="cb7-346"><a href="#cb7-346"></a><span class="in">  q0 -&gt; q1 []</span></span>
+<span id="cb7-347"><a href="#cb7-347"></a><span class="in">  q1 -&gt; q1 [label="{0,1}"];</span></span>
+<span id="cb7-348"><a href="#cb7-348"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
+<span id="cb7-349"><a href="#cb7-349"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
+<span id="cb7-350"><a href="#cb7-350"></a><span class="in">}</span></span>
+<span id="cb7-351"><a href="#cb7-351"></a><span class="in">```</span></span>
+<span id="cb7-352"><a href="#cb7-352"></a></span>
+<span id="cb7-353"><a href="#cb7-353"></a>:::</span>
+<span id="cb7-354"><a href="#cb7-354"></a></span>
+<span id="cb7-355"><a href="#cb7-355"></a>::::</span>
+<span id="cb7-356"><a href="#cb7-356"></a></span>
+<span id="cb7-357"><a href="#cb7-357"></a></span>
+<span id="cb7-358"><a href="#cb7-358"></a><span class="fu">## Step 1</span></span>
+<span id="cb7-359"><a href="#cb7-359"></a></span>
+<span id="cb7-360"><a href="#cb7-360"></a><span class="ss">-   </span>Alter $\delta$'s domain (set of inputs)</span>
+<span id="cb7-361"><a href="#cb7-361"></a><span class="ss">    -   </span>DFA : $\delta : Q \times \sigma \rightarrow Q$ </span>
+<span id="cb7-362"><a href="#cb7-362"></a><span class="ss">    -   </span>NFA:  $\delta : \mathcal{P} (Q) \times \sigma \rightarrow \mathcal{P} (Q)$ </span>
+<span id="cb7-363"><a href="#cb7-363"></a><span class="ss">        -   </span>In Python, this is simple set comprehension of the Step 0 $\delta$</span>
+<span id="cb7-364"><a href="#cb7-364"></a>    </span>
+<span id="cb7-365"><a href="#cb7-365"></a><span class="fu">## In Python</span></span>
+<span id="cb7-366"><a href="#cb7-366"></a></span>
+<span id="cb7-367"><a href="#cb7-367"></a><span class="in">```python</span></span>
+<span id="cb7-368"><a href="#cb7-368"></a><span class="co"># setup</span></span>
+<span id="cb7-369"><a href="#cb7-369"></a>state : <span class="bu">str</span></span>
+<span id="cb7-370"><a href="#cb7-370"></a>letter : <span class="bu">str</span></span>
+<span id="cb7-371"><a href="#cb7-371"></a>dfa : <span class="bu">tuple</span></span>
+<span id="cb7-372"><a href="#cb7-372"></a>nfa : <span class="bu">tuple</span></span>
+<span id="cb7-373"><a href="#cb7-373"></a></span>
+<span id="cb7-374"><a href="#cb7-374"></a><span class="kw">def</span> q_next_dfa(m:dfa, q:state, a:letter) <span class="op">-&gt;</span> state:</span>
+<span id="cb7-375"><a href="#cb7-375"></a>    d <span class="op">=</span> m[<span class="dv">2</span>] <span class="co"># dict of state:dict of letter:state</span></span>
+<span id="cb7-376"><a href="#cb7-376"></a>    <span class="cf">return</span> d[q][a]</span>
+<span id="cb7-377"><a href="#cb7-377"></a></span>
+<span id="cb7-378"><a href="#cb7-378"></a><span class="kw">def</span> q_next_nfa(m:nfa, qs:<span class="bu">set</span>, a:letter) <span class="op">-&gt;</span> <span class="bu">set</span>:</span>
+<span id="cb7-379"><a href="#cb7-379"></a>    d <span class="op">=</span> m[<span class="dv">2</span>] <span class="co"># dict of state:dict of letter:set of state</span></span>
+<span id="cb7-380"><a href="#cb7-380"></a>    <span class="cf">return</span> {q_n <span class="cf">for</span> q <span class="kw">in</span> d[q][a] <span class="cf">for</span> q <span class="kw">in</span> qs}</span>
+<span id="cb7-381"><a href="#cb7-381"></a><span class="in">```</span></span>
+<span id="cb7-382"><a href="#cb7-382"></a></span>
+<span id="cb7-383"><a href="#cb7-383"></a><span class="ss">-   </span>Can do this with <span class="in">`lambda`</span> (which I'd prefer) but then we lose type hints.</span>
+<span id="cb7-384"><a href="#cb7-384"></a></span>
+<span id="cb7-385"><a href="#cb7-385"></a><span class="fu">## Lambda</span></span>
+<span id="cb7-386"><a href="#cb7-386"></a></span>
+<span id="cb7-387"><a href="#cb7-387"></a>*Or put the lambdas in the &amp;ast;FA*</span>
+<span id="cb7-388"><a href="#cb7-388"></a></span>
+<span id="cb7-389"><a href="#cb7-389"></a><span class="in">```python</span></span>
+<span id="cb7-390"><a href="#cb7-390"></a>q_next_dfa <span class="op">=</span> <span class="kw">lambda</span> m, q, a : m[<span class="dv">2</span>][q][a]</span>
+<span id="cb7-391"><a href="#cb7-391"></a></span>
+<span id="cb7-392"><a href="#cb7-392"></a>q_next_dfa <span class="op">=</span> <span class="kw">lambda</span> m, qs, a : {q_n <span class="cf">for</span> q <span class="kw">in</span> m[<span class="dv">2</span>][q][a] <span class="cf">for</span> q <span class="kw">in</span> qs}</span>
+<span id="cb7-393"><a href="#cb7-393"></a><span class="in">```</span></span>
+<span id="cb7-394"><a href="#cb7-394"></a></span>
+<span id="cb7-395"><a href="#cb7-395"></a><span class="fu"># Conversion</span></span>
+<span id="cb7-396"><a href="#cb7-396"></a></span>
+<span id="cb7-397"><a href="#cb7-397"></a></span>
+<span id="cb7-398"><a href="#cb7-398"></a></span>
+<span id="cb7-399"><a href="#cb7-399"></a><span class="fu">## Goal</span></span>
+<span id="cb7-400"><a href="#cb7-400"></a></span>
+<span id="cb7-401"><a href="#cb7-401"></a><span class="ss">-   </span>Wish to show any NFA language can be recognized by a DFA.</span>
+<span id="cb7-402"><a href="#cb7-402"></a><span class="ss">-   </span>Take an NFA</span>
+<span id="cb7-403"><a href="#cb7-403"></a><span class="ss">    -  </span>$M = (Q, \Sigma, \delta, q_0, F)$</span>
+<span id="cb7-404"><a href="#cb7-404"></a><span class="ss">-   </span>Construct a DFA</span>
+<span id="cb7-405"><a href="#cb7-405"></a><span class="ss">    -  </span>$M = (Q', \Sigma, \delta', q'_0, F')$</span>
+<span id="cb7-406"><a href="#cb7-406"></a><span class="ss">-   </span>We use the same insight as with $\delta$</span>
+<span id="cb7-407"><a href="#cb7-407"></a></span>
+<span id="cb7-408"><a href="#cb7-408"></a><span class="fu">## DFA States</span></span>
+<span id="cb7-409"><a href="#cb7-409"></a></span>
+<span id="cb7-410"><a href="#cb7-410"></a><span class="ss">-   </span>Let $Q' = \mathcal{P} (Q)$</span>
+<span id="cb7-411"><a href="#cb7-411"></a><span class="ss">    -   </span>One deterministic state for all possible combinations</span>
+<span id="cb7-412"><a href="#cb7-412"></a><span class="ss">    -   </span>How many is this?</span>
+<span id="cb7-413"><a href="#cb7-413"></a><span class="ss">    -   </span>How can we represent it?</span>
+<span id="cb7-414"><a href="#cb7-414"></a><span class="ss">-   </span>We note $\Sigma$ is unaltered.</span>
+<span id="cb7-415"><a href="#cb7-415"></a></span>
+<span id="cb7-416"><a href="#cb7-416"></a><span class="fu">## DFA $\delta'$</span></span>
+<span id="cb7-417"><a href="#cb7-417"></a></span>
+<span id="cb7-418"><a href="#cb7-418"></a><span class="ss">-   </span>We note $\Sigma$ is unaltered.</span>
+<span id="cb7-419"><a href="#cb7-419"></a><span class="ss">-   </span>We note NFA $\delta$:</span>
+<span id="cb7-420"><a href="#cb7-420"></a><span class="ss">    -   </span>Accepts $\mathcal{P} (Q)$ and a letter</span>
+<span id="cb7-421"><a href="#cb7-421"></a><span class="ss">    -   </span>Produces $\mathcal{P} (Q)$</span>
+<span id="cb7-422"><a href="#cb7-422"></a><span class="ss">    -   </span>That the states $Q'$ of the DFA are $\mathcal{P} (Q)$ </span>
+<span id="cb7-423"><a href="#cb7-423"></a><span class="ss">-   </span>$\delta$ = $\delta'$</span>
+<span id="cb7-424"><a href="#cb7-424"></a></span>
+<span id="cb7-425"><a href="#cb7-425"></a><span class="fu">## DFA $F$</span></span>
+<span id="cb7-426"><a href="#cb7-426"></a></span>
+<span id="cb7-427"><a href="#cb7-427"></a><span class="ss">-   </span>The DFA tracks a set of possible states.</span>
+<span id="cb7-428"><a href="#cb7-428"></a><span class="ss">-   </span>Only one state need be accepting.</span>
+<span id="cb7-429"><a href="#cb7-429"></a><span class="ss">-   </span>$F' = <span class="sc">\{</span> R \in \mathcal{P} (Q) | R \cap F \neq \varnothing <span class="sc">\}</span>$</span>
+<span id="cb7-430"><a href="#cb7-430"></a></span>
+<span id="cb7-431"><a href="#cb7-431"></a><span class="fu">## Theorem 2</span></span>
+<span id="cb7-432"><a href="#cb7-432"></a></span>
+<span id="cb7-433"><a href="#cb7-433"></a>$$</span>
+<span id="cb7-434"><a href="#cb7-434"></a>\forall M_{NFA}: \exists M_{DFA} : L(M_{NFA})) = L(M_{DFA})) </span>
+<span id="cb7-435"><a href="#cb7-435"></a>$$</span>
+<span id="cb7-436"><a href="#cb7-436"></a></span>
+<span id="cb7-437"><a href="#cb7-437"></a>*Proof*</span>
+<span id="cb7-438"><a href="#cb7-438"></a></span>
+<span id="cb7-439"><a href="#cb7-439"></a>$$ </span>
+<span id="cb7-440"><a href="#cb7-440"></a>\begin{aligned}</span>
+<span id="cb7-441"><a href="#cb7-441"></a>M_{NFA}(&amp;Q, \Sigma, \delta, q_1, F_1) = <span class="sc">\\</span></span>
+<span id="cb7-442"><a href="#cb7-442"></a>M_{DFA}(&amp;\mathcal{P} (Q), \Sigma, \delta, <span class="sc">\{</span>q_1<span class="sc">\}</span>, <span class="sc">\\</span></span>
+<span id="cb7-443"><a href="#cb7-443"></a>        &amp; <span class="sc">\{</span> R \in \mathcal{P} (Q) | R \cap F \neq \varnothing <span class="sc">\}</span>)\blacksquare</span>
+<span id="cb7-444"><a href="#cb7-444"></a>\end{aligned}</span>
+<span id="cb7-445"><a href="#cb7-445"></a>$$</span>
+<span id="cb7-446"><a href="#cb7-446"></a></span>
+<span id="cb7-447"><a href="#cb7-447"></a><span class="ss">- </span>We take some minor liberties with precisely defining the type of $\delta$.</span>
+<span id="cb7-448"><a href="#cb7-448"></a></span>
+<span id="cb7-449"><a href="#cb7-449"></a><span class="fu"># Lunch Break</span></span>
+<span id="cb7-450"><a href="#cb7-450"></a></span>
+<span id="cb7-451"><a href="#cb7-451"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Home</span><span class="co">](https://cd-public.github.io/compute/)</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

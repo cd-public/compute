@@ -1,0 +1,37 @@
+project:
+    type: website
+    output-dir: ../
+
+website:
+    title: "Automata"
+    sidebar:
+        contents: auto
+    search: true
+    page-navigation: true
+
+subtitle: "Automata"
+author: "Prof. Calvin"
+
+format:
+    html:
+        toc: true
+        theme: darkly 
+        code-line-numbers: true
+        code-tools:
+            source: true
+            toggle: false
+            caption: none
+    revealjs: 
+        theme: dark
+        slide-number: true
+        show-slide-number: all
+        mainfont: monospace
+        width: 1050
+        height: 700
+        footer: "[Home](index.html)"
+        output-ext: rjs.html
+
+execute:
+    echo: true
+    cache: true
+    freeze: true  # never re-render during project render

@@ -1,0 +1,295 @@
+---
+title: "Pumping Lemma"
+---
+
+## Sketch
+
+::: {.nonincremental}
+- Pumping Lemma
+  - Statement
+  - Examples
+:::
+
+# Preface
+
+## Avoid this trap
+
+- Suppose we wish to prove a language is not regular.
+- We must prove there is no DFA that recognizes the language.
+- It may be tempting to conclude:
+  - I thought about it really hard.
+  - I could find no DFA.
+  - Therefore the language is irregular.
+
+## Example
+
+- Take $\Sigma = \{0,1\}$
+  - Take $B$ to be the language for which there are equal numbers of `0`s and `1`s
+  - Take $C$ to be the language for which there are equal numbers of `01`s and `10`s.
+    - `0101` $\notin C$
+    - `0110` $\in C$
+- One of these is regular.
+- Left as an exercise to the student.
+
+# Pumping Lemma
+
+## Statement of Lemma
+
+$$
+\begin{aligned}
+&\forall A :\exists p \in \mathbb{N} : \\
+&\exists xyz \in A : |xyz| \geq p \implies
+\\
+&\forall i \in \mathbb{N} : xy^iz \in A \land \\
+&|y| > 0 \land \\
+&|xy| \leq p
+\end{aligned}
+$$
+- That is, $\{xz, xyz, xyyz\} \in A$
+
+- We "pump up" the number of occurances of `y`
+
+## Definitions
+
+- Take $M | L(M) = A$
+- Take $p = |M| = |Q|$
+- Take $s \in A = xyz : |s| \geq p$
+
+## Sketch of Proof
+
+- We note that $s$ visits states $p$ times.
+  - We make no claims about which states.
+- Define sequence of states $S = (q_0,s_1,s_2,\ldots,s_i,s_{i+1},\ldots,s_p)$
+- $\forall s_i \in S : s_i \in Q$
+- $p = |S| > |Q|$
+- $\therefore \exists i,j : s_i = s_j$
+
+## Find x,y,z
+
+- Let $x = (a_o,\ldots,a_{i-1})$
+  - $M$ is in state $s_j$ after reading $x$
+- Let $y = (a_i,\ldots,a_{j-1})$
+  - $M$ is in state $s_j$ after reading $y$ when beginning in $s_i$
+  - $s_i = s_j$
+- Let $z = (a_{j},\ldots,a_p)$
+  - $M$ accepts after reading $z$ when beginning in $s_j$
+
+## Pump on $y$
+
+- We note
+  - $xz$ is accepted by $(q_0,s_1,\ldots,s_i,s_{j+1},\ldots,s_p)$
+    - Denote as $[0,i][j+1,p]$
+  - $xyz$ is accepted by $(q_0,s_1,\ldots,s_p)$
+    - Denote as $[0,p] = [0,i][i+1,j][j+1,p]$
+
+  
+## Pump on $y$
+
+- We note
+  - $xyyz$ is accepted by $(q_0,s_1,\ldots,s_{i+1},\ldots,s_{j-1},s_i\ldots,s_j, s_{j+1},\ldots, s_p)$
+    - Denote as $[0,i][i+1,j][i+1,j][j+1,p]$
+  - $xy^nz$ is accepted by $[0,i][i+1,j]^n[j+1,p]$
+
+## Python
+
+
+```python
+# assume S as a list of states.
+S : List[states]
+x : str
+y : str
+z : str
+assert(states(x + z)         == S[:i] + S[j:]) 
+assert(states(x + y + z)     == S    == S[:i]+S[i:j]+S[j:])
+assert(states(x + y + y + z) == S[:i] + S[i:j] + S[i:j] + S[j:])
+assert(states(x + y * 2 + z) == S[:i] + S[i:j] * 2      + S[j:])
+# This can't run - it's infinite
+assert(all((states(x+y*n+z) == A[:i]+A[i:j]*n+A[j:]) for n in count()))
+```
+
+- Much easier with Pythonic slices.
+
+## Graphically
+
+  ```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qn [label="?"];
+}
+```
+
+
+## Show $s_i=s_j$
+
+```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qi [label=<<I>s<SUB>i</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qi [label="?"];
+  qi -> qi [label="?"];
+  qi -> qn [label="?"];
+}
+```
+
+## Label Edges
+
+```{dot}
+//| echo: false
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qi [label=<<I>s<SUB>i</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qi [label="x"];
+  qi -> qi [label="y"];
+  qi -> qn [label="z"];
+}
+```
+- This is valid GNFA that reduces to a DFA.
+
+## Pumping Lemma
+
+$$
+\begin{aligned}
+&\forall A :\exists p \in \mathbb{N} : \\
+&\exists xyz \in A : |xyz| \geq p \implies
+\\
+&\forall i \in \mathbb{N} : xy^iz \in A \land \\
+&|y| > 0 \land \\
+&|xy| \leq p
+\end{aligned}
+$$
+
+*Proof*
+
+```{dot}
+//| echo: false
+//| fig-height: 200px
+digraph finite_automata {
+  rankdir=LR; bgcolor="#191919";
+  node [fontcolor = "#ffffff", color = "#ffffff"]
+  edge [color = "#ffffff",fontcolor = "#ffffff"]
+
+  node [shape=circle];
+  d0 [label="",shape=point]; 
+  q0 [label=<<I>q<SUB>0</SUB></I>>];
+  qi [label=<<I>s<SUB>i</SUB></I>>];
+  qn [label=<<I>q<SUB>n</SUB></I>>, shape=doublecircle]; 
+
+  d0 -> q0
+  q0 -> qi [label="x"];
+  qi -> qi [label="y"];
+  qi -> qn [label="z"];
+}
+```
+
+## Easy to read
+
+- $s \in A \land |s| > p$ requires
+  - $xy^nz \in A$
+  - $|y| > 0$
+  - $|xy| \leq p$
+
+# Examples
+
+## Irregular 0
+
+- Take $D = \{ 0^k1^k | k \in \mathbb{N}\}$
+- Show $D$ is not regular.
+- We proceed by contradiction.
+  - Assume $D$ is regular.
+  - Apply the pumping lemma.
+  - Derive a contradiction.
+
+## Strategy
+
+- We take string $s = 0^p1^p$
+- Pumping lemma requires $\exists xy : |xy| \leq p$
+- $\forall xy \not\exists 1 \in xy$
+- So $xz = 0^{p-|y|}1^p$
+- Pumping lemma requires $|y| > 0$
+- $D$ requires $p - |y| = p$
+- Contradiction $\blacksquare$
+
+## On Graphics
+
+- We note we cannot show this graphically.
+- We have proven no DFA accepts $D$
+- How could we draw a DFA!
+- This is also why we can't rely on graphics!
+
+## Irregular 1
+
+- Take $F = \{ ww | w\ \in \Sigma*\}$
+- Show $F$ is not regular.
+- We proceed by contradiction.
+  - Assume $F$ is regular.
+  - Apply the pumping lemma.
+  - Derive a contradiction.
+
+## Avoid this
+
+- Say we chose $0^p0^p$
+- We take, say, $x = y = 0^{\frac{p}{2} - 1}$
+- Well we actually can pump $y$ if $|y|$ is odd.
+- Have to be careful!
+
+## Strategy
+
+- We take string $s = 0^p10^p1$
+- Pumping lemma requires $\exists xy : |xy| \leq p$
+- $\forall xy \:\not\exists 1 \in x$
+- So $xz = 0^{p-|y|}10^p1$
+- Pumping lemma requires $|y| > 0$
+- $F$ requires $p - |y| = p$
+- Contradiction $\blacksquare$
+
+## Combined Tactics
+
+- We have used the assumptions of the pumping lemma.
+- We have proven other results!
+- We now explore a result using closure properties (Theorems 1-4)
+
+## Irregular 2
+
+- Recall $B$
+  - "...equal numbers of `0`s and `1`s"
+- Assume by contradiction $B$ is regular.
+- Since $B$ is regular, $B \cap 0*1*$ is regular
+  -  Closure under intersection
+- We note that $D = B \cap 0*1*$
+  - $D = \{ 0^k1^k | k \in \mathbb{N}\}$
+  - $D$ is irregular!
+- $B$ is irregular.
+- $\blacksquare$
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

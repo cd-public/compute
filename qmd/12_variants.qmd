@@ -1,0 +1,798 @@
+---
+title: "Variants"
+
+---
+
+## Sketch
+
+::: {.nonincremental}
+- Turing Machines
+  - Rehash
+  - Multi-tape
+  - Non-deterministic
+:::
+
+## Questions
+
+- Why use this model?
+  - All models equivalent in power
+  - Herding toward TM by people writing proofs
+  - Seem to be easiest for most people
+
+# Multi-tape
+
+## Motivation
+
+- PDA had a stack, why can't TMs write two places!
+- We already have a place TMs can write!
+- I want my TM to have multiple tapes!
+- My device has multiple SSD/HDDs.
+
+## Minimal model
+
+- Take a TM
+- Add any number $n$ of "work tapes"
+- "work tapes" are intially blank.
+- TM can read write to any tape, 
+- TM maintains its head position on all tapes.
+
+## Theorem
+
+- $A$ is $T-recognizable$ iff some multi-tape TM recognizes $A$
+
+- It is trivial for a multi-tape machine to emulate a single tape machine.
+  - Leave all work tapes blank with no head movement.
+
+## Theorem
+
+- $A$ is $T-recognizable$ iff some multi-tape TM recognizes $A$
+- We will show we can convert multi-tape to single tape.
+
+## Statement
+
+- $S$ single tape, $M$ multi-tape
+- $S$ simulates $M$ by storing contents of multiple tapes in blocks.
+- $S$ introduces novel "tape break" symbol.
+  - Like `EOF`
+- $S$ introduces a novel "head here" symbol
+
+## Statement
+
+- $S$ single tape, $M$ multi-tape
+- $S$ simulates $M$ by storing contents of multiple tapes in blocks.
+- $S$ introduces novel "tape break" symbol.
+  - Like `EOF`
+- $S$ introduces a novel "head here" symbol
+
+## Graphically
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t1 [label="a | a | b | b | _ | _ | _ "]
+  t2 [label="1 | 0 | 1 | _ | _ | _ | _ "]
+  t3 [label="c | c | c | a | _ | _ | _ "]
+}
+```
+
+## Single Tape
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t1 [label="a | a | b | b | _ | _ | _ "]
+  t2 [label="1 | 0 | 1 | _ | _ | _ | _ "]
+  t3 [label="c | c | c | a | _ | _ | _ "]
+  t  [label="a | a | b | b | # | 1 | 0 | 1 | # | c | c | c | a | _"]
+
+  t1-> t
+  t2-> t
+  t3-> t
+}
+```
+
+## Show heads
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  h1
+  h2
+  h3
+  t1 [label="a | a | <here> b | b | _ | _ | _ "]
+  t2 [label="1 | <here> 0 | 1 | 1 | _ | _ | _ "]
+  t3 [label="<here> c | c | c | a | _ | _ | _ "]
+  t  [label="a | a | <one> b | b | # | 1 | <two> 0 | 1 | 1 | # | <thr> c | c | c | a | _ "]
+  h
+
+  h1->t1:here;
+  h2->t2:here;
+  h3->t3:here;
+
+  t1-> t:one
+  t2-> t:two
+  t3-> t:thr
+
+  t:thr ->h [dir=back];
+}
+```
+
+## Extend Alphabet
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  h1
+  h2
+  h3
+  t1 [label="a | a | <here> b | b | _ | _ | _ "]
+  t2 [label="1 | <here> 0 | 1 | 1 | _ | _ | _ "]
+  t3 [label="<here> c | c | c | a | _ | _ | _ "]
+  t  [label="a | a | b̀ | b | # | 1 | 0̀ | 1 | 1 | # | c̀ | c | c | a | _ "]
+  h
+
+
+  h1->t1:here;
+  h2->t2:here;
+  h3->t3:here;
+
+  t1-> t:one
+  t2-> t:two
+  t3-> t:thr
+
+  t:thr ->h [dir=back];
+}
+```
+
+## In Practice
+
+- $S$ reads the whole tape before making any read/write.
+- $S$ maintains head location in every case
+- $S$ has to extend tape space by copying or correctly guessing work space needed.
+  - This is *curiously similar* to how e.g. a Python dictionary is implemented.
+
+## Theorem 8
+
+
+::: {.nonincremental}
+
+- $A$ is $T-recognizable$ iff some multi-tape TM recognizes $A$
+
+:::
+
+*Proof.*
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t  [label="a | a | b̀ | b | # | 1 | 0̀ | 1 | 1 | # | c̀ | c | c | a | _ "]
+  h
+
+  t:thr ->h [dir=back];
+}
+```
+
+# Nondetermistic
+
+## Definition
+
+- A *Nondeterministic TM* (TM) is the same 7-tuple, just
+- No longer this transition relation:
+  - $\delta: Q \times \Gamma \rightarrow Q \times \Gamma \times \{L, R\} \quad (L = \text{Left}, R = \text{Right})$
+- Utilize power set:
+  - $\delta: Q \times \Gamma \rightarrow \mathcal{P} (Q \times \Gamma \times \{L, R\})$
+
+
+## Recall
+
+- The NFA and the DFA are equivalent in power
+- The PDA and the deterministic PDA are not equivalent in power
+- The NTM and TM **are** equivalent in power.
+
+## Theorem
+
+- $A$ is $T-recognizable$ iff some NTM recognizes $A$
+
+- It is trivial for an NTM to emulate a TM
+  -  Impose the restriction that sets mapped in $\delta$ have cardinality `=1`
+
+
+## Theorem
+
+- $A$ is $T-recognizable$ iff some NTM recognizes $A$
+- We will show we can convert an NTM to a TM.
+
+## Insight
+
+- For any computation, we can view the set of possible computations as a tree.
+- Consider fast exponentiation by squares:
+
+:::{.fragment}
+
+```py
+def exp_by_squaring(a, n):
+    if n == 0:
+        return 1
+    elif n == 1:
+        return a
+    elif n % 2 == 0:
+        return exp_by_squaring(a * a, n / 2)
+    else:
+        return a * exp_by_squaring(a * a, (n - 1) / 2)
+```
+
+:::
+
+## Insight
+
+- It would be much faster to ignore checks.
+
+:::{.fragment}
+
+```py
+def exp(a, n, magic):
+    return [1,a,exp(a * a, n / 2),a * exp(a * a, (n - 1) / 2)][magic]
+```
+:::
+
+## Insight
+
+- Imagine a growing tree
+
+:::{.fragment}
+
+```py
+def exp(a, n, magic):
+    return [1,a,[1,a,exp(a ** 4, n / 4),a * exp(a ** 4, (n - 1) / 4)],a * exp(a * a, (n - 1) / 2)][magic]
+```
+:::
+
+
+## Nondeterministic
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  s [label="",shape=point]
+
+  o [label="one"]
+  oa [label="'a'"]
+  oo [label="odd"]
+  oe [label="even"]
+
+  s -> o 
+  s -> oa
+  s -> oo
+  s -> oe
+
+}
+```
+
+
+## Recurse
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  s [label="",shape=point]
+
+  o [label="one"]
+  oa [label="'a'"]
+  oo [label="odd"]
+  oe [label="even"]
+  
+  t [label="one"]
+  ta [label="'a'"]
+  to [label="odd"]
+  te [label="even"]
+
+    
+  s -> o 
+  s -> oa
+  s -> oo
+  s -> oe
+
+  oo -> t
+  oo -> ta
+  oo -> to
+  oo -> te
+
+
+}
+```
+
+## Recurse *everywhere*
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  s [label="",shape=point]
+
+  o [label="one"]
+  oa [label="'a'"]
+  oo [label="odd"]
+  oe [label="even"]
+  
+  t [label="one"]
+  ta [label="'a'"]
+  to [label="odd"]
+  te [label="even"]
+
+  
+  ss [label="one"]
+  sa [label="'a'"]
+  so [label="odd"]
+  se [label="even"]
+
+  
+  s -> o 
+  s -> oa
+  s -> oo
+  s -> oe
+
+  oo -> t
+  oo -> ta
+  oo -> to
+  oo -> te
+
+  oe -> ss
+  oe -> sa
+  oe -> so
+  oe -> se
+
+
+}
+```
+
+## Recurse *recursively*
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  s [label="",shape=point]
+
+  o [label="one"]
+  oa [label="'a'"]
+  oo [label="odd"]
+  oe [label="even"]
+  
+  t [label="one"]
+  ta [label="'a'"]
+  to [label="odd"]
+  te [label="even"]
+
+  
+  ss [label="one"]
+  sa [label="'a'"]
+  so [label="odd"]
+  se [label="even"]
+
+  
+  u [label="one"]
+  ua [label="'a'"]
+  uo [label="odd"]
+  ue [label="even"]
+
+  
+  s -> o 
+  s -> oa
+  s -> oo
+  s -> oe
+
+  oo -> t
+  oo -> ta
+  oo -> to
+  oo -> te
+
+  oe -> ss
+  oe -> sa
+  oe -> so
+  oe -> se
+
+  to -> u
+  to -> ua
+  to -> uo
+  to -> ue
+
+
+}
+```
+
+## It's tree
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=point,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  s [label="",shape=point]
+
+  o  [label=""]
+  oa [label=""]
+  oo [label=""]
+  oe [label=""]
+  
+  t  [label=""]
+  ta [label=""]
+  to [label=""]
+  te [label=""]
+
+  
+  ss [label=""]
+  sa [label=""]
+  so [label=""]
+  se [label=""]
+
+  
+  u  [label=""]
+  ua [label=""]
+  uo [label=""]
+  ue [label=""]
+
+  
+  s -> o 
+  s -> oa
+  s -> oo
+  s -> oe
+
+  oo -> t
+  oo -> ta
+  oo -> to
+  oo -> te
+
+  oe -> ss
+  oe -> sa
+  oe -> so
+  oe -> se
+
+  to -> u
+  to -> ua
+  to -> uo
+  to -> ue
+
+}
+```
+
+## Take one path
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=point,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  s [label="",color="orange"]
+
+  o  [label=""]
+  oa [label=""]
+  oo [label="",color="orange"]
+  oe [label=""]
+  
+  t  [label=""]
+  ta [label=""]
+  to [label="",color="orange"]
+  te [label=""]
+
+  
+  ss [label=""]
+  sa [label=""]
+  so [label=""]
+  se [label=""]
+
+  
+  u  [label=""]
+  ua [label="",color="orange"]
+  uo [label=""]
+  ue [label=""]
+
+  
+  s -> o 
+  s -> oa
+  s -> oo [color="orange"]
+  s -> oe
+
+  oo -> t
+  oo -> ta
+  oo -> to [color="orange"]
+  oo -> te
+
+  oe -> ss
+  oe -> sa
+  oe -> so
+  oe -> se
+
+  to -> u
+  to -> ua [color="orange"]
+  to -> uo
+  to -> ue
+
+}
+```
+
+## Multi-tape
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t1 [label="one "]
+  t2 [label="'a' "]
+  t3 [label="odd | # | one | `a` | odd | even | # "]
+}
+```
+
+## Store state as separator
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t1 [label="one "]
+  t2 [label="'a' "]
+  t3 [label="odd | q_i | one | `a` | odd | even | q_j "]
+}
+```
+
+## Create new tape on branch
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t1 [label="one "]
+  t2 [label="'a' "]
+  t3 [label="odd | q_i | one | `a` | <odd> odd | even | q_j "]
+  t4 [label="<q_j> q_j | one | `a` | odd | even | q_k "]
+
+  t3:odd -> t4:q_j
+}
+```
+
+## Theorem 9
+
+:::{.nonincremental}
+- $A$ is $T-recognizable$ iff some NTM recognizes $A$
+:::
+
+*Proof.*
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t1 [label="one "]
+  t2 [label="'a' "]
+  t3 [label="odd | q_i | one | `a` | <odd> odd | even | q_j "]
+  t4 [label="<q_j> q_j | one | `a` | odd | even | q_k "]
+
+  t3:odd -> t4:q_j
+}
+```
+
+## Aside
+
+- There exists a formulation called a "Turing Enumerator"
+- It is a generator rather than a recognizer.
+- Left as an exercise.
+
+<!-- https://youtu.be/TTArY7ojshU?si=Dd7Gcscog84Lsgg5 -->
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

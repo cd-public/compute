@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Calvin">
+
+<title>Pumping Lemma – Automata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07_cfg.html" rel="next">
+<link href="./05_regularity.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_pump.html">Pumping Lemma</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Automata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_aims.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aims of Education</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_starfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Finite Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_regexp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regular Expressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_nfas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NFAs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regularity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_pump.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Pumping Lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_cfg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Grammars</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_pda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pushdown Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_cfgpda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CFG → PDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_cfpump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Pumping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_tm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Turing Machines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_variants.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_thesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Church-Turing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_accept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acceptance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_empty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Emptiness</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_diagonal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review 2</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sketch" id="toc-sketch" class="nav-link active" data-scroll-target="#sketch">Sketch</a></li>
+  <li><a href="#preface" id="toc-preface" class="nav-link" data-scroll-target="#preface">Preface</a>
+  <ul class="collapse">
+  <li><a href="#avoid-this-trap" id="toc-avoid-this-trap" class="nav-link" data-scroll-target="#avoid-this-trap">Avoid this trap</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  </ul></li>
+  <li><a href="#pumping-lemma" id="toc-pumping-lemma" class="nav-link" data-scroll-target="#pumping-lemma">Pumping Lemma</a>
+  <ul class="collapse">
+  <li><a href="#statement-of-lemma" id="toc-statement-of-lemma" class="nav-link" data-scroll-target="#statement-of-lemma">Statement of Lemma</a></li>
+  <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions</a></li>
+  <li><a href="#sketch-of-proof" id="toc-sketch-of-proof" class="nav-link" data-scroll-target="#sketch-of-proof">Sketch of Proof</a></li>
+  <li><a href="#find-xyz" id="toc-find-xyz" class="nav-link" data-scroll-target="#find-xyz">Find x,y,z</a></li>
+  <li><a href="#pump-on-y" id="toc-pump-on-y" class="nav-link" data-scroll-target="#pump-on-y">Pump on <span class="math inline">\(y\)</span></a></li>
+  <li><a href="#pump-on-y-1" id="toc-pump-on-y-1" class="nav-link" data-scroll-target="#pump-on-y-1">Pump on <span class="math inline">\(y\)</span></a></li>
+  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
+  <li><a href="#graphically" id="toc-graphically" class="nav-link" data-scroll-target="#graphically">Graphically</a></li>
+  <li><a href="#show-s_is_j" id="toc-show-s_is_j" class="nav-link" data-scroll-target="#show-s_is_j">Show <span class="math inline">\(s_i=s_j\)</span></a></li>
+  <li><a href="#label-edges" id="toc-label-edges" class="nav-link" data-scroll-target="#label-edges">Label Edges</a></li>
+  <li><a href="#pumping-lemma-1" id="toc-pumping-lemma-1" class="nav-link" data-scroll-target="#pumping-lemma-1">Pumping Lemma</a></li>
+  <li><a href="#easy-to-read" id="toc-easy-to-read" class="nav-link" data-scroll-target="#easy-to-read">Easy to read</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#irregular-0" id="toc-irregular-0" class="nav-link" data-scroll-target="#irregular-0">Irregular 0</a></li>
+  <li><a href="#strategy" id="toc-strategy" class="nav-link" data-scroll-target="#strategy">Strategy</a></li>
+  <li><a href="#on-graphics" id="toc-on-graphics" class="nav-link" data-scroll-target="#on-graphics">On Graphics</a></li>
+  <li><a href="#irregular-1" id="toc-irregular-1" class="nav-link" data-scroll-target="#irregular-1">Irregular 1</a></li>
+  <li><a href="#avoid-this" id="toc-avoid-this" class="nav-link" data-scroll-target="#avoid-this">Avoid this</a></li>
+  <li><a href="#strategy-1" id="toc-strategy-1" class="nav-link" data-scroll-target="#strategy-1">Strategy</a></li>
+  <li><a href="#combined-tactics" id="toc-combined-tactics" class="nav-link" data-scroll-target="#combined-tactics">Combined Tactics</a></li>
+  <li><a href="#irregular-2" id="toc-irregular-2" class="nav-link" data-scroll-target="#irregular-2">Irregular 2</a></li>
+  </ul></li>
+  <li><a href="#stretch-break" id="toc-stretch-break" class="nav-link" data-scroll-target="#stretch-break">Stretch Break</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="06_pump.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Pumping Lemma</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+<p class="subtitle lead">Automata</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Calvin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sketch" class="level2">
+<h2 class="anchored" data-anchor-id="sketch">Sketch</h2>
+<div class="nonincremental">
+<ul>
+<li>Pumping Lemma
+<ul>
+<li>Statement</li>
+<li>Examples</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="preface" class="level1">
+<h1>Preface</h1>
+<section id="avoid-this-trap" class="level2">
+<h2 class="anchored" data-anchor-id="avoid-this-trap">Avoid this trap</h2>
+<ul>
+<li>Suppose we wish to prove a language is not regular.</li>
+<li>We must prove there is no DFA that recognizes the language.</li>
+<li>It may be tempting to conclude:
+<ul>
+<li>I thought about it really hard.</li>
+<li>I could find no DFA.</li>
+<li>Therefore the language is irregular.</li>
+</ul></li>
+</ul>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<ul>
+<li>Take <span class="math inline">\(\Sigma = \{0,1\}\)</span>
+<ul>
+<li>Take <span class="math inline">\(B\)</span> to be the language for which there are equal numbers of <code>0</code>s and <code>1</code>s</li>
+<li>Take <span class="math inline">\(C\)</span> to be the language for which there are equal numbers of <code>01</code>s and <code>10</code>s.
+<ul>
+<li><code>0101</code> <span class="math inline">\(\notin C\)</span></li>
+<li><code>0110</code> <span class="math inline">\(\in C\)</span></li>
+</ul></li>
+</ul></li>
+<li>One of these is regular.</li>
+<li>Left as an exercise to the student.</li>
+</ul>
+</section>
+</section>
+<section id="pumping-lemma" class="level1">
+<h1>Pumping Lemma</h1>
+<section id="statement-of-lemma" class="level2">
+<h2 class="anchored" data-anchor-id="statement-of-lemma">Statement of Lemma</h2>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\forall A :\exists p \in \mathbb{N} : \\
+&amp;\exists xyz \in A : |xyz| \geq p \implies
+\\
+&amp;\forall i \in \mathbb{N} : xy^iz \in A \land \\
+&amp;|y| &gt; 0 \land \\
+&amp;|xy| \leq p
+\end{aligned}
+\]</span> - That is, <span class="math inline">\(\{xz, xyz, xyyz\} \in A\)</span></p>
+<ul>
+<li>We “pump up” the number of occurances of <code>y</code></li>
+</ul>
+</section>
+<section id="definitions" class="level2">
+<h2 class="anchored" data-anchor-id="definitions">Definitions</h2>
+<ul>
+<li>Take <span class="math inline">\(M | L(M) = A\)</span></li>
+<li>Take <span class="math inline">\(p = |M| = |Q|\)</span></li>
+<li>Take <span class="math inline">\(s \in A = xyz : |s| \geq p\)</span></li>
+</ul>
+</section>
+<section id="sketch-of-proof" class="level2">
+<h2 class="anchored" data-anchor-id="sketch-of-proof">Sketch of Proof</h2>
+<ul>
+<li>We note that <span class="math inline">\(s\)</span> visits states <span class="math inline">\(p\)</span> times.
+<ul>
+<li>We make no claims about which states.</li>
+</ul></li>
+<li>Define sequence of states <span class="math inline">\(S = (q_0,s_1,s_2,\ldots,s_i,s_{i+1},\ldots,s_p)\)</span></li>
+<li><span class="math inline">\(\forall s_i \in S : s_i \in Q\)</span></li>
+<li><span class="math inline">\(p = |S| &gt; |Q|\)</span></li>
+<li><span class="math inline">\(\therefore \exists i,j : s_i = s_j\)</span></li>
+</ul>
+</section>
+<section id="find-xyz" class="level2">
+<h2 class="anchored" data-anchor-id="find-xyz">Find x,y,z</h2>
+<ul>
+<li>Let <span class="math inline">\(x = (a_o,\ldots,a_{i-1})\)</span>
+<ul>
+<li><span class="math inline">\(M\)</span> is in state <span class="math inline">\(s_j\)</span> after reading <span class="math inline">\(x\)</span></li>
+</ul></li>
+<li>Let <span class="math inline">\(y = (a_i,\ldots,a_{j-1})\)</span>
+<ul>
+<li><span class="math inline">\(M\)</span> is in state <span class="math inline">\(s_j\)</span> after reading <span class="math inline">\(y\)</span> when beginning in <span class="math inline">\(s_i\)</span></li>
+<li><span class="math inline">\(s_i = s_j\)</span></li>
+</ul></li>
+<li>Let <span class="math inline">\(z = (a_{j},\ldots,a_p)\)</span>
+<ul>
+<li><span class="math inline">\(M\)</span> accepts after reading <span class="math inline">\(z\)</span> when beginning in <span class="math inline">\(s_j\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="pump-on-y" class="level2">
+<h2 class="anchored" data-anchor-id="pump-on-y">Pump on <span class="math inline">\(y\)</span></h2>
+<ul>
+<li>We note
+<ul>
+<li><span class="math inline">\(xz\)</span> is accepted by <span class="math inline">\((q_0,s_1,\ldots,s_i,s_{j+1},\ldots,s_p)\)</span>
+<ul>
+<li>Denote as <span class="math inline">\([0,i][j+1,p]\)</span></li>
+</ul></li>
+<li><span class="math inline">\(xyz\)</span> is accepted by <span class="math inline">\((q_0,s_1,\ldots,s_p)\)</span>
+<ul>
+<li>Denote as <span class="math inline">\([0,p] = [0,i][i+1,j][j+1,p]\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="pump-on-y-1" class="level2">
+<h2 class="anchored" data-anchor-id="pump-on-y-1">Pump on <span class="math inline">\(y\)</span></h2>
+<ul>
+<li>We note
+<ul>
+<li><span class="math inline">\(xyyz\)</span> is accepted by <span class="math inline">\((q_0,s_1,\ldots,s_{i+1},\ldots,s_{j-1},s_i\ldots,s_j, s_{j+1},\ldots, s_p)\)</span>
+<ul>
+<li>Denote as <span class="math inline">\([0,i][i+1,j][i+1,j][j+1,p]\)</span></li>
+</ul></li>
+<li><span class="math inline">\(xy^nz\)</span> is accepted by <span class="math inline">\([0,i][i+1,j]^n[j+1,p]\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="python" class="level2">
+<h2 class="anchored" data-anchor-id="python">Python</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># assume S as a list of states.</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>S : List[states]</span>
+<span id="cb1-3"><a href="#cb1-3"></a>x : <span class="bu">str</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>y : <span class="bu">str</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>z : <span class="bu">str</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="cf">assert</span>(states(x <span class="op">+</span> z)         <span class="op">==</span> S[:i] <span class="op">+</span> S[j:]) </span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="cf">assert</span>(states(x <span class="op">+</span> y <span class="op">+</span> z)     <span class="op">==</span> S    <span class="op">==</span> S[:i]<span class="op">+</span>S[i:j]<span class="op">+</span>S[j:])</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="cf">assert</span>(states(x <span class="op">+</span> y <span class="op">+</span> y <span class="op">+</span> z) <span class="op">==</span> S[:i] <span class="op">+</span> S[i:j] <span class="op">+</span> S[i:j] <span class="op">+</span> S[j:])</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="cf">assert</span>(states(x <span class="op">+</span> y <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> z) <span class="op">==</span> S[:i] <span class="op">+</span> S[i:j] <span class="op">*</span> <span class="dv">2</span>      <span class="op">+</span> S[j:])</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># This can't run - it's infinite</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="cf">assert</span>(<span class="bu">all</span>((states(x<span class="op">+</span>y<span class="op">*</span>n<span class="op">+</span>z) <span class="op">==</span> A[:i]<span class="op">+</span>A[i:j]<span class="op">*</span>n<span class="op">+</span>A[j:]) <span class="cf">for</span> n <span class="kw">in</span> count()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Much easier with Pythonic slices.</li>
+</ul>
+</section>
+<section id="graphically" class="level2">
+<h2 class="anchored" data-anchor-id="graphically">Graphically</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 181.59 57.39" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 53.39)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-53.39 177.59,-53.39 177.59,4 -4,4"></polygon>
+<!-- d0 -->
+<g id="node1" class="node">
+<title>d0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q0 -->
+<g id="node2" class="node">
+<title>q0</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">0</text>
+</g>
+<!-- d0&#45;&gt;q0 -->
+<g id="edge1" class="edge">
+<title>d0-&gt;q0</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- qn -->
+<g id="node3" class="node">
+<title>qn</title>
+<ellipse fill="none" stroke="#ffffff" cx="148.89" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="148.89" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="141.89" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="148.89" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
+</g>
+<!-- q0&#45;&gt;qn -->
+<g id="edge2" class="edge">
+<title>q0-&gt;qn</title>
+<path fill="none" stroke="#ffffff" d="M82.15,-24.69C91.65,-24.69 103.3,-24.69 114.14,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="114.19,-28.19 124.19,-24.69 114.19,-21.19 114.19,-28.19"></polygon>
+<text text-anchor="middle" x="103.09" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">?</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="show-s_is_j" class="level2">
+<h2 class="anchored" data-anchor-id="show-s_is_j">Show <span class="math inline">\(s_i=s_j\)</span></h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 259.80 85.49" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 81.49)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-81.49 255.8,-81.49 255.8,4 -4,4"></polygon>
+<!-- d0 -->
+<g id="node1" class="node">
+<title>d0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q0 -->
+<g id="node2" class="node">
+<title>q0</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">0</text>
+</g>
+<!-- d0&#45;&gt;q0 -->
+<g id="edge1" class="edge">
+<title>d0-&gt;q0</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- qi -->
+<g id="node3" class="node">
+<title>qi</title>
+<ellipse fill="none" stroke="#ffffff" cx="142.2" cy="-24.69" rx="18" ry="18"></ellipse>
+<text text-anchor="start" x="137.53" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">s</text>
+<text text-anchor="start" x="142.98" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">i</text>
+</g>
+<!-- q0&#45;&gt;qi -->
+<g id="edge2" class="edge">
+<title>q0-&gt;qi</title>
+<path fill="none" stroke="#ffffff" d="M82.21,-24.69C91.76,-24.69 103.36,-24.69 113.74,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="113.98,-28.19 123.98,-24.69 113.98,-21.19 113.98,-28.19"></polygon>
+<text text-anchor="middle" x="103.09" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">?</text>
+</g>
+<!-- qi&#45;&gt;qi -->
+<g id="edge3" class="edge">
+<title>qi-&gt;qi</title>
+<path fill="none" stroke="#ffffff" d="M135.47,-41.73C134.09,-51.55 136.34,-60.69 142.2,-60.69 145.87,-60.69 148.12,-57.12 148.95,-52.05"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="152.45,-51.72 148.93,-41.73 145.45,-51.74 152.45,-51.72"></polygon>
+<text text-anchor="middle" x="142.2" y="-64.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">?</text>
+</g>
+<!-- qn -->
+<g id="node4" class="node">
+<title>qn</title>
+<ellipse fill="none" stroke="#ffffff" cx="227.11" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="227.11" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="220.11" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="227.11" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
+</g>
+<!-- qi&#45;&gt;qn -->
+<g id="edge4" class="edge">
+<title>qi-&gt;qn</title>
+<path fill="none" stroke="#ffffff" d="M160.38,-24.69C169.58,-24.69 181.25,-24.69 192.19,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="192.35,-28.19 202.35,-24.69 192.35,-21.19 192.35,-28.19"></polygon>
+<text text-anchor="middle" x="181.31" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">?</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="label-edges" class="level2">
+<h2 class="anchored" data-anchor-id="label-edges">Label Edges</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 260.59 85.49" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 81.49)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-81.49 256.59,-81.49 256.59,4 -4,4"></polygon>
+<!-- d0 -->
+<g id="node1" class="node">
+<title>d0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q0 -->
+<g id="node2" class="node">
+<title>q0</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">0</text>
+</g>
+<!-- d0&#45;&gt;q0 -->
+<g id="edge1" class="edge">
+<title>d0-&gt;q0</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- qi -->
+<g id="node3" class="node">
+<title>qi</title>
+<ellipse fill="none" stroke="#ffffff" cx="142.99" cy="-24.69" rx="18" ry="18"></ellipse>
+<text text-anchor="start" x="138.32" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">s</text>
+<text text-anchor="start" x="143.77" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">i</text>
+</g>
+<!-- q0&#45;&gt;qi -->
+<g id="edge2" class="edge">
+<title>q0-&gt;qi</title>
+<path fill="none" stroke="#ffffff" d="M81.99,-24.69C91.88,-24.69 104.01,-24.69 114.77,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="114.94,-28.19 124.94,-24.69 114.94,-21.19 114.94,-28.19"></polygon>
+<text text-anchor="middle" x="103.49" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- qi&#45;&gt;qi -->
+<g id="edge3" class="edge">
+<title>qi-&gt;qi</title>
+<path fill="none" stroke="#ffffff" d="M136.25,-41.73C134.88,-51.55 137.12,-60.69 142.99,-60.69 146.65,-60.69 148.9,-57.12 149.74,-52.05"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="153.24,-51.72 149.72,-41.73 146.24,-51.74 153.24,-51.72"></polygon>
+<text text-anchor="middle" x="142.99" y="-64.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+<!-- qn -->
+<g id="node4" class="node">
+<title>qn</title>
+<ellipse fill="none" stroke="#ffffff" cx="227.89" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="227.89" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="220.89" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="227.89" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
+</g>
+<!-- qi&#45;&gt;qn -->
+<g id="edge4" class="edge">
+<title>qi-&gt;qn</title>
+<path fill="none" stroke="#ffffff" d="M161.17,-24.69C170.37,-24.69 182.03,-24.69 192.97,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="193.14,-28.19 203.14,-24.69 193.14,-21.19 193.14,-28.19"></polygon>
+<text text-anchor="middle" x="182.09" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">z</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li>This is valid GNFA that reduces to a DFA.</li>
+</ul>
+</section>
+<section id="pumping-lemma-1" class="level2">
+<h2 class="anchored" data-anchor-id="pumping-lemma-1">Pumping Lemma</h2>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\forall A :\exists p \in \mathbb{N} : \\
+&amp;\exists xyz \in A : |xyz| \geq p \implies
+\\
+&amp;\forall i \in \mathbb{N} : xy^iz \in A \land \\
+&amp;|y| &gt; 0 \land \\
+&amp;|xy| \leq p
+\end{aligned}
+\]</span></p>
+<p><em>Proof</em></p>
+<div class="cell" data-fig-height="200px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="200" viewbox="0.00 0.00 260.59 85.49" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 81.49)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-81.49 256.59,-81.49 256.59,4 -4,4"></polygon>
+<!-- d0 -->
+<g id="node1" class="node">
+<title>d0</title>
+<ellipse fill="#ffffff" stroke="#ffffff" cx="1.8" cy="-24.69" rx="1.8" ry="1.8"></ellipse>
+</g>
+<!-- q0 -->
+<g id="node2" class="node">
+<title>q0</title>
+<ellipse fill="none" stroke="#ffffff" cx="61.29" cy="-24.69" rx="20.89" ry="20.89"></ellipse>
+<text text-anchor="start" x="54.29" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="61.29" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">0</text>
+</g>
+<!-- d0&#45;&gt;q0 -->
+<g id="edge1" class="edge">
+<title>d0-&gt;q0</title>
+<path fill="none" stroke="#ffffff" d="M3.8,-24.69C7.17,-24.69 18.55,-24.69 30.23,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.38,-28.19 40.38,-24.69 30.38,-21.19 30.38,-28.19"></polygon>
+</g>
+<!-- qi -->
+<g id="node3" class="node">
+<title>qi</title>
+<ellipse fill="none" stroke="#ffffff" cx="142.99" cy="-24.69" rx="18" ry="18"></ellipse>
+<text text-anchor="start" x="138.32" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">s</text>
+<text text-anchor="start" x="143.77" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">i</text>
+</g>
+<!-- q0&#45;&gt;qi -->
+<g id="edge2" class="edge">
+<title>q0-&gt;qi</title>
+<path fill="none" stroke="#ffffff" d="M81.99,-24.69C91.88,-24.69 104.01,-24.69 114.77,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="114.94,-28.19 124.94,-24.69 114.94,-21.19 114.94,-28.19"></polygon>
+<text text-anchor="middle" x="103.49" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- qi&#45;&gt;qi -->
+<g id="edge3" class="edge">
+<title>qi-&gt;qi</title>
+<path fill="none" stroke="#ffffff" d="M136.25,-41.73C134.88,-51.55 137.12,-60.69 142.99,-60.69 146.65,-60.69 148.9,-57.12 149.74,-52.05"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="153.24,-51.72 149.72,-41.73 146.24,-51.74 153.24,-51.72"></polygon>
+<text text-anchor="middle" x="142.99" y="-64.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+<!-- qn -->
+<g id="node4" class="node">
+<title>qn</title>
+<ellipse fill="none" stroke="#ffffff" cx="227.89" cy="-24.69" rx="20.86" ry="20.86"></ellipse>
+<ellipse fill="none" stroke="#ffffff" cx="227.89" cy="-24.69" rx="24.89" ry="24.89"></ellipse>
+<text text-anchor="start" x="220.89" y="-21.49" font-family="Times,serif" font-style="italic" font-size="14.00" fill="#ffffff">q</text>
+<text text-anchor="start" x="227.89" y="-21.49" font-family="Times,serif" font-style="italic" baseline-shift="sub" font-size="14.00" fill="#ffffff">n</text>
+</g>
+<!-- qi&#45;&gt;qn -->
+<g id="edge4" class="edge">
+<title>qi-&gt;qn</title>
+<path fill="none" stroke="#ffffff" d="M161.17,-24.69C170.37,-24.69 182.03,-24.69 192.97,-24.69"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="193.14,-28.19 203.14,-24.69 193.14,-21.19 193.14,-28.19"></polygon>
+<text text-anchor="middle" x="182.09" y="-28.89" font-family="Times,serif" font-size="14.00" fill="#ffffff">z</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="easy-to-read" class="level2">
+<h2 class="anchored" data-anchor-id="easy-to-read">Easy to read</h2>
+<ul>
+<li><span class="math inline">\(s \in A \land |s| &gt; p\)</span> requires
+<ul>
+<li><span class="math inline">\(xy^nz \in A\)</span></li>
+<li><span class="math inline">\(|y| &gt; 0\)</span></li>
+<li><span class="math inline">\(|xy| \leq p\)</span></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<section id="irregular-0" class="level2">
+<h2 class="anchored" data-anchor-id="irregular-0">Irregular 0</h2>
+<ul>
+<li>Take <span class="math inline">\(D = \{ 0^k1^k | k \in \mathbb{N}\}\)</span></li>
+<li>Show <span class="math inline">\(D\)</span> is not regular.</li>
+<li>We proceed by contradiction.
+<ul>
+<li>Assume <span class="math inline">\(D\)</span> is regular.</li>
+<li>Apply the pumping lemma.</li>
+<li>Derive a contradiction.</li>
+</ul></li>
+</ul>
+</section>
+<section id="strategy" class="level2">
+<h2 class="anchored" data-anchor-id="strategy">Strategy</h2>
+<ul>
+<li>We take string <span class="math inline">\(s = 0^p1^p\)</span></li>
+<li>Pumping lemma requires <span class="math inline">\(\exists xy : |xy| \leq p\)</span></li>
+<li><span class="math inline">\(\forall xy \not\exists 1 \in xy\)</span></li>
+<li>So <span class="math inline">\(xz = 0^{p-|y|}1^p\)</span></li>
+<li>Pumping lemma requires <span class="math inline">\(|y| &gt; 0\)</span></li>
+<li><span class="math inline">\(D\)</span> requires <span class="math inline">\(p - |y| = p\)</span></li>
+<li>Contradiction <span class="math inline">\(\blacksquare\)</span></li>
+</ul>
+</section>
+<section id="on-graphics" class="level2">
+<h2 class="anchored" data-anchor-id="on-graphics">On Graphics</h2>
+<ul>
+<li>We note we cannot show this graphically.</li>
+<li>We have proven no DFA accepts <span class="math inline">\(D\)</span></li>
+<li>How could we draw a DFA!</li>
+<li>This is also why we can’t rely on graphics!</li>
+</ul>
+</section>
+<section id="irregular-1" class="level2">
+<h2 class="anchored" data-anchor-id="irregular-1">Irregular 1</h2>
+<ul>
+<li>Take <span class="math inline">\(F = \{ ww | w\ \in \Sigma*\}\)</span></li>
+<li>Show <span class="math inline">\(F\)</span> is not regular.</li>
+<li>We proceed by contradiction.
+<ul>
+<li>Assume <span class="math inline">\(F\)</span> is regular.</li>
+<li>Apply the pumping lemma.</li>
+<li>Derive a contradiction.</li>
+</ul></li>
+</ul>
+</section>
+<section id="avoid-this" class="level2">
+<h2 class="anchored" data-anchor-id="avoid-this">Avoid this</h2>
+<ul>
+<li>Say we chose <span class="math inline">\(0^p0^p\)</span></li>
+<li>We take, say, <span class="math inline">\(x = y = 0^{\frac{p}{2} - 1}\)</span></li>
+<li>Well we actually can pump <span class="math inline">\(y\)</span> if <span class="math inline">\(|y|\)</span> is odd.</li>
+<li>Have to be careful!</li>
+</ul>
+</section>
+<section id="strategy-1" class="level2">
+<h2 class="anchored" data-anchor-id="strategy-1">Strategy</h2>
+<ul>
+<li>We take string <span class="math inline">\(s = 0^p10^p1\)</span></li>
+<li>Pumping lemma requires <span class="math inline">\(\exists xy : |xy| \leq p\)</span></li>
+<li><span class="math inline">\(\forall xy \:\not\exists 1 \in x\)</span></li>
+<li>So <span class="math inline">\(xz = 0^{p-|y|}10^p1\)</span></li>
+<li>Pumping lemma requires <span class="math inline">\(|y| &gt; 0\)</span></li>
+<li><span class="math inline">\(F\)</span> requires <span class="math inline">\(p - |y| = p\)</span></li>
+<li>Contradiction <span class="math inline">\(\blacksquare\)</span></li>
+</ul>
+</section>
+<section id="combined-tactics" class="level2">
+<h2 class="anchored" data-anchor-id="combined-tactics">Combined Tactics</h2>
+<ul>
+<li>We have used the assumptions of the pumping lemma.</li>
+<li>We have proven other results!</li>
+<li>We now explore a result using closure properties (Theorems 1-4)</li>
+</ul>
+</section>
+<section id="irregular-2" class="level2">
+<h2 class="anchored" data-anchor-id="irregular-2">Irregular 2</h2>
+<ul>
+<li>Recall <span class="math inline">\(B\)</span>
+<ul>
+<li>“…equal numbers of <code>0</code>s and <code>1</code>s”</li>
+</ul></li>
+<li>Assume by contradiction <span class="math inline">\(B\)</span> is regular.</li>
+<li>Since <span class="math inline">\(B\)</span> is regular, <span class="math inline">\(B \cap 0*1*\)</span> is regular
+<ul>
+<li>Closure under intersection</li>
+</ul></li>
+<li>We note that <span class="math inline">\(D = B \cap 0*1*\)</span>
+<ul>
+<li><span class="math inline">\(D = \{ 0^k1^k | k \in \mathbb{N}\}\)</span></li>
+<li><span class="math inline">\(D\)</span> is irregular!</li>
+</ul></li>
+<li><span class="math inline">\(B\)</span> is irregular.</li>
+<li><span class="math inline">\(\blacksquare\)</span></li>
+</ul>
+</section>
+</section>
+<section id="stretch-break" class="level1">
+<h1>Stretch Break</h1>
+<ul>
+<li><a href="https://cd-public.github.io/compute/">Home</a></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05_regularity.html" class="pagination-link" aria-label="Regularity">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Regularity</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07_cfg.html" class="pagination-link" aria-label="Context Free Grammars">
+        <span class="nav-page-text">Context Free Grammars</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="an">title:</span><span class="co"> "Pumping Lemma"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">---</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">## Sketch</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>::: {.nonincremental}</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="ss">- </span>Pumping Lemma</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="ss">  - </span>Statement</span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="ss">  - </span>Examples</span>
+<span id="cb2-11"><a href="#cb2-11"></a>:::</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="fu"># Preface</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="fu">## Avoid this trap</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="ss">- </span>Suppose we wish to prove a language is not regular.</span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="ss">- </span>We must prove there is no DFA that recognizes the language.</span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="ss">- </span>It may be tempting to conclude:</span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="ss">  - </span>I thought about it really hard.</span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="ss">  - </span>I could find no DFA.</span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="ss">  - </span>Therefore the language is irregular.</span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="fu">## Example</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="ss">- </span>Take $\Sigma = <span class="sc">\{</span>0,1<span class="sc">\}</span>$</span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="ss">  - </span>Take $B$ to be the language for which there are equal numbers of <span class="in">`0`</span>s and <span class="in">`1`</span>s</span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="ss">  - </span>Take $C$ to be the language for which there are equal numbers of <span class="in">`01`</span>s and <span class="in">`10`</span>s.</span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="ss">    - </span><span class="in">`0101`</span> $\notin C$</span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="ss">    - </span><span class="in">`0110`</span> $\in C$</span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="ss">- </span>One of these is regular.</span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="ss">- </span>Left as an exercise to the student.</span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="fu"># Pumping Lemma</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="fu">## Statement of Lemma</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a></span>
+<span id="cb2-38"><a href="#cb2-38"></a>$$</span>
+<span id="cb2-39"><a href="#cb2-39"></a>\begin{aligned}</span>
+<span id="cb2-40"><a href="#cb2-40"></a>&amp;\forall A :\exists p \in \mathbb{N} : <span class="sc">\\</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>&amp;\exists xyz \in A : |xyz| \geq p \implies</span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="sc">\\</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>&amp;\forall i \in \mathbb{N} : xy^iz \in A \land <span class="sc">\\</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a>&amp;|y| &gt; 0 \land <span class="sc">\\</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a>&amp;|xy| \leq p</span>
+<span id="cb2-46"><a href="#cb2-46"></a>\end{aligned}</span>
+<span id="cb2-47"><a href="#cb2-47"></a>$$</span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="ss">- </span>That is, $<span class="sc">\{</span>xz, xyz, xyyz<span class="sc">\}</span> \in A$</span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="ss">- </span>We "pump up" the number of occurances of <span class="in">`y`</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a></span>
+<span id="cb2-52"><a href="#cb2-52"></a><span class="fu">## Definitions</span></span>
+<span id="cb2-53"><a href="#cb2-53"></a></span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="ss">- </span>Take $M | L(M) = A$</span>
+<span id="cb2-55"><a href="#cb2-55"></a><span class="ss">- </span>Take $p = |M| = |Q|$</span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="ss">- </span>Take $s \in A = xyz : |s| \geq p$</span>
+<span id="cb2-57"><a href="#cb2-57"></a></span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="fu">## Sketch of Proof</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a></span>
+<span id="cb2-60"><a href="#cb2-60"></a><span class="ss">- </span>We note that $s$ visits states $p$ times.</span>
+<span id="cb2-61"><a href="#cb2-61"></a><span class="ss">  - </span>We make no claims about which states.</span>
+<span id="cb2-62"><a href="#cb2-62"></a><span class="ss">- </span>Define sequence of states $S = (q_0,s_1,s_2,\ldots,s_i,s_{i+1},\ldots,s_p)$</span>
+<span id="cb2-63"><a href="#cb2-63"></a><span class="ss">- </span>$\forall s_i \in S : s_i \in Q$</span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="ss">- </span>$p = |S| &gt; |Q|$</span>
+<span id="cb2-65"><a href="#cb2-65"></a><span class="ss">- </span>$\therefore \exists i,j : s_i = s_j$</span>
+<span id="cb2-66"><a href="#cb2-66"></a></span>
+<span id="cb2-67"><a href="#cb2-67"></a><span class="fu">## Find x,y,z</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a></span>
+<span id="cb2-69"><a href="#cb2-69"></a><span class="ss">- </span>Let $x = (a_o,\ldots,a_{i-1})$</span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="ss">  - </span>$M$ is in state $s_j$ after reading $x$</span>
+<span id="cb2-71"><a href="#cb2-71"></a><span class="ss">- </span>Let $y = (a_i,\ldots,a_{j-1})$</span>
+<span id="cb2-72"><a href="#cb2-72"></a><span class="ss">  - </span>$M$ is in state $s_j$ after reading $y$ when beginning in $s_i$</span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="ss">  - </span>$s_i = s_j$</span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="ss">- </span>Let $z = (a_{j},\ldots,a_p)$</span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="ss">  - </span>$M$ accepts after reading $z$ when beginning in $s_j$</span>
+<span id="cb2-76"><a href="#cb2-76"></a></span>
+<span id="cb2-77"><a href="#cb2-77"></a><span class="fu">## Pump on $y$</span></span>
+<span id="cb2-78"><a href="#cb2-78"></a></span>
+<span id="cb2-79"><a href="#cb2-79"></a><span class="ss">- </span>We note</span>
+<span id="cb2-80"><a href="#cb2-80"></a><span class="ss">  - </span>$xz$ is accepted by $(q_0,s_1,\ldots,s_i,s_{j+1},\ldots,s_p)$</span>
+<span id="cb2-81"><a href="#cb2-81"></a><span class="ss">    - </span>Denote as $<span class="co">[</span><span class="ot">0,i</span><span class="co">][j+1,p]</span>$</span>
+<span id="cb2-82"><a href="#cb2-82"></a><span class="ss">  - </span>$xyz$ is accepted by $(q_0,s_1,\ldots,s_p)$</span>
+<span id="cb2-83"><a href="#cb2-83"></a><span class="ss">    - </span>Denote as $<span class="co">[</span><span class="ot">0,p</span><span class="co">]</span> = <span class="co">[</span><span class="ot">0,i</span><span class="co">][i+1,j][</span><span class="ot">j+1,p</span><span class="co">]</span>$</span>
+<span id="cb2-84"><a href="#cb2-84"></a></span>
+<span id="cb2-85"><a href="#cb2-85"></a>  </span>
+<span id="cb2-86"><a href="#cb2-86"></a><span class="fu">## Pump on $y$</span></span>
+<span id="cb2-87"><a href="#cb2-87"></a></span>
+<span id="cb2-88"><a href="#cb2-88"></a><span class="ss">- </span>We note</span>
+<span id="cb2-89"><a href="#cb2-89"></a><span class="ss">  - </span>$xyyz$ is accepted by $(q_0,s_1,\ldots,s_{i+1},\ldots,s_{j-1},s_i\ldots,s_j, s_{j+1},\ldots, s_p)$</span>
+<span id="cb2-90"><a href="#cb2-90"></a><span class="ss">    - </span>Denote as $<span class="co">[</span><span class="ot">0,i</span><span class="co">][i+1,j][</span><span class="ot">i+1,j</span><span class="co">][j+1,p]</span>$</span>
+<span id="cb2-91"><a href="#cb2-91"></a><span class="ss">  - </span>$xy^nz$ is accepted by $<span class="co">[</span><span class="ot">0,i</span><span class="co">][i+1,j]</span>^n<span class="co">[</span><span class="ot">j+1,p</span><span class="co">]</span>$</span>
+<span id="cb2-92"><a href="#cb2-92"></a></span>
+<span id="cb2-93"><a href="#cb2-93"></a><span class="fu">## Python</span></span>
+<span id="cb2-94"><a href="#cb2-94"></a></span>
+<span id="cb2-95"><a href="#cb2-95"></a></span>
+<span id="cb2-96"><a href="#cb2-96"></a><span class="in">```python</span></span>
+<span id="cb2-97"><a href="#cb2-97"></a><span class="co"># assume S as a list of states.</span></span>
+<span id="cb2-98"><a href="#cb2-98"></a>S : List[states]</span>
+<span id="cb2-99"><a href="#cb2-99"></a>x : <span class="bu">str</span></span>
+<span id="cb2-100"><a href="#cb2-100"></a>y : <span class="bu">str</span></span>
+<span id="cb2-101"><a href="#cb2-101"></a>z : <span class="bu">str</span></span>
+<span id="cb2-102"><a href="#cb2-102"></a><span class="cf">assert</span>(states(x <span class="op">+</span> z)         <span class="op">==</span> S[:i] <span class="op">+</span> S[j:]) </span>
+<span id="cb2-103"><a href="#cb2-103"></a><span class="cf">assert</span>(states(x <span class="op">+</span> y <span class="op">+</span> z)     <span class="op">==</span> S    <span class="op">==</span> S[:i]<span class="op">+</span>S[i:j]<span class="op">+</span>S[j:])</span>
+<span id="cb2-104"><a href="#cb2-104"></a><span class="cf">assert</span>(states(x <span class="op">+</span> y <span class="op">+</span> y <span class="op">+</span> z) <span class="op">==</span> S[:i] <span class="op">+</span> S[i:j] <span class="op">+</span> S[i:j] <span class="op">+</span> S[j:])</span>
+<span id="cb2-105"><a href="#cb2-105"></a><span class="cf">assert</span>(states(x <span class="op">+</span> y <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> z) <span class="op">==</span> S[:i] <span class="op">+</span> S[i:j] <span class="op">*</span> <span class="dv">2</span>      <span class="op">+</span> S[j:])</span>
+<span id="cb2-106"><a href="#cb2-106"></a><span class="co"># This can't run - it's infinite</span></span>
+<span id="cb2-107"><a href="#cb2-107"></a><span class="cf">assert</span>(<span class="bu">all</span>((states(x<span class="op">+</span>y<span class="op">*</span>n<span class="op">+</span>z) <span class="op">==</span> A[:i]<span class="op">+</span>A[i:j]<span class="op">*</span>n<span class="op">+</span>A[j:]) <span class="cf">for</span> n <span class="kw">in</span> count()))</span>
+<span id="cb2-108"><a href="#cb2-108"></a><span class="in">```</span></span>
+<span id="cb2-109"><a href="#cb2-109"></a></span>
+<span id="cb2-110"><a href="#cb2-110"></a><span class="ss">- </span>Much easier with Pythonic slices.</span>
+<span id="cb2-111"><a href="#cb2-111"></a></span>
+<span id="cb2-112"><a href="#cb2-112"></a><span class="fu">## Graphically</span></span>
+<span id="cb2-113"><a href="#cb2-113"></a></span>
+<span id="cb2-114"><a href="#cb2-114"></a>  <span class="in">```{dot}</span></span>
+<span id="cb2-115"><a href="#cb2-115"></a><span class="in">//| echo: false</span></span>
+<span id="cb2-116"><a href="#cb2-116"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb2-117"><a href="#cb2-117"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb2-118"><a href="#cb2-118"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb2-119"><a href="#cb2-119"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb2-120"><a href="#cb2-120"></a></span>
+<span id="cb2-121"><a href="#cb2-121"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb2-122"><a href="#cb2-122"></a><span class="in">  d0 [label="",shape=point]; </span></span>
+<span id="cb2-123"><a href="#cb2-123"></a><span class="in">  q0 [label=&lt;&lt;I&gt;q&lt;SUB&gt;0&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb2-124"><a href="#cb2-124"></a><span class="in">  qn [label=&lt;&lt;I&gt;q&lt;SUB&gt;n&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb2-125"><a href="#cb2-125"></a></span>
+<span id="cb2-126"><a href="#cb2-126"></a><span class="in">  d0 -&gt; q0</span></span>
+<span id="cb2-127"><a href="#cb2-127"></a><span class="in">  q0 -&gt; qn [label="?"];</span></span>
+<span id="cb2-128"><a href="#cb2-128"></a><span class="in">}</span></span>
+<span id="cb2-129"><a href="#cb2-129"></a><span class="in">```</span></span>
+<span id="cb2-130"><a href="#cb2-130"></a></span>
+<span id="cb2-131"><a href="#cb2-131"></a></span>
+<span id="cb2-132"><a href="#cb2-132"></a><span class="fu">## Show $s_i=s_j$</span></span>
+<span id="cb2-133"><a href="#cb2-133"></a></span>
+<span id="cb2-136"><a href="#cb2-136"></a><span class="in">```{dot}</span></span>
+<span id="cb2-137"><a href="#cb2-137"></a><span class="in">//| echo: false</span></span>
+<span id="cb2-138"><a href="#cb2-138"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb2-139"><a href="#cb2-139"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb2-140"><a href="#cb2-140"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb2-141"><a href="#cb2-141"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb2-142"><a href="#cb2-142"></a></span>
+<span id="cb2-143"><a href="#cb2-143"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb2-144"><a href="#cb2-144"></a><span class="in">  d0 [label="",shape=point]; </span></span>
+<span id="cb2-145"><a href="#cb2-145"></a><span class="in">  q0 [label=&lt;&lt;I&gt;q&lt;SUB&gt;0&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb2-146"><a href="#cb2-146"></a><span class="in">  qi [label=&lt;&lt;I&gt;s&lt;SUB&gt;i&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb2-147"><a href="#cb2-147"></a><span class="in">  qn [label=&lt;&lt;I&gt;q&lt;SUB&gt;n&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb2-148"><a href="#cb2-148"></a></span>
+<span id="cb2-149"><a href="#cb2-149"></a><span class="in">  d0 -&gt; q0</span></span>
+<span id="cb2-150"><a href="#cb2-150"></a><span class="in">  q0 -&gt; qi [label="?"];</span></span>
+<span id="cb2-151"><a href="#cb2-151"></a><span class="in">  qi -&gt; qi [label="?"];</span></span>
+<span id="cb2-152"><a href="#cb2-152"></a><span class="in">  qi -&gt; qn [label="?"];</span></span>
+<span id="cb2-153"><a href="#cb2-153"></a><span class="in">}</span></span>
+<span id="cb2-154"><a href="#cb2-154"></a><span class="in">```</span></span>
+<span id="cb2-155"><a href="#cb2-155"></a></span>
+<span id="cb2-156"><a href="#cb2-156"></a><span class="fu">## Label Edges</span></span>
+<span id="cb2-157"><a href="#cb2-157"></a></span>
+<span id="cb2-160"><a href="#cb2-160"></a><span class="in">```{dot}</span></span>
+<span id="cb2-161"><a href="#cb2-161"></a><span class="in">//| echo: false</span></span>
+<span id="cb2-162"><a href="#cb2-162"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb2-163"><a href="#cb2-163"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb2-164"><a href="#cb2-164"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb2-165"><a href="#cb2-165"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb2-166"><a href="#cb2-166"></a></span>
+<span id="cb2-167"><a href="#cb2-167"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb2-168"><a href="#cb2-168"></a><span class="in">  d0 [label="",shape=point]; </span></span>
+<span id="cb2-169"><a href="#cb2-169"></a><span class="in">  q0 [label=&lt;&lt;I&gt;q&lt;SUB&gt;0&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb2-170"><a href="#cb2-170"></a><span class="in">  qi [label=&lt;&lt;I&gt;s&lt;SUB&gt;i&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb2-171"><a href="#cb2-171"></a><span class="in">  qn [label=&lt;&lt;I&gt;q&lt;SUB&gt;n&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb2-172"><a href="#cb2-172"></a></span>
+<span id="cb2-173"><a href="#cb2-173"></a><span class="in">  d0 -&gt; q0</span></span>
+<span id="cb2-174"><a href="#cb2-174"></a><span class="in">  q0 -&gt; qi [label="x"];</span></span>
+<span id="cb2-175"><a href="#cb2-175"></a><span class="in">  qi -&gt; qi [label="y"];</span></span>
+<span id="cb2-176"><a href="#cb2-176"></a><span class="in">  qi -&gt; qn [label="z"];</span></span>
+<span id="cb2-177"><a href="#cb2-177"></a><span class="in">}</span></span>
+<span id="cb2-178"><a href="#cb2-178"></a><span class="in">```</span></span>
+<span id="cb2-179"><a href="#cb2-179"></a><span class="ss">- </span>This is valid GNFA that reduces to a DFA.</span>
+<span id="cb2-180"><a href="#cb2-180"></a></span>
+<span id="cb2-181"><a href="#cb2-181"></a><span class="fu">## Pumping Lemma</span></span>
+<span id="cb2-182"><a href="#cb2-182"></a></span>
+<span id="cb2-183"><a href="#cb2-183"></a>$$</span>
+<span id="cb2-184"><a href="#cb2-184"></a>\begin{aligned}</span>
+<span id="cb2-185"><a href="#cb2-185"></a>&amp;\forall A :\exists p \in \mathbb{N} : <span class="sc">\\</span></span>
+<span id="cb2-186"><a href="#cb2-186"></a>&amp;\exists xyz \in A : |xyz| \geq p \implies</span>
+<span id="cb2-187"><a href="#cb2-187"></a><span class="sc">\\</span></span>
+<span id="cb2-188"><a href="#cb2-188"></a>&amp;\forall i \in \mathbb{N} : xy^iz \in A \land <span class="sc">\\</span></span>
+<span id="cb2-189"><a href="#cb2-189"></a>&amp;|y| &gt; 0 \land <span class="sc">\\</span></span>
+<span id="cb2-190"><a href="#cb2-190"></a>&amp;|xy| \leq p</span>
+<span id="cb2-191"><a href="#cb2-191"></a>\end{aligned}</span>
+<span id="cb2-192"><a href="#cb2-192"></a>$$</span>
+<span id="cb2-193"><a href="#cb2-193"></a></span>
+<span id="cb2-194"><a href="#cb2-194"></a>*Proof*</span>
+<span id="cb2-195"><a href="#cb2-195"></a></span>
+<span id="cb2-198"><a href="#cb2-198"></a><span class="in">```{dot}</span></span>
+<span id="cb2-199"><a href="#cb2-199"></a><span class="in">//| echo: false</span></span>
+<span id="cb2-200"><a href="#cb2-200"></a><span class="in">//| fig-height: 200px</span></span>
+<span id="cb2-201"><a href="#cb2-201"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb2-202"><a href="#cb2-202"></a><span class="in">  rankdir=LR; bgcolor="#191919";</span></span>
+<span id="cb2-203"><a href="#cb2-203"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff"]</span></span>
+<span id="cb2-204"><a href="#cb2-204"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb2-205"><a href="#cb2-205"></a></span>
+<span id="cb2-206"><a href="#cb2-206"></a><span class="in">  node [shape=circle];</span></span>
+<span id="cb2-207"><a href="#cb2-207"></a><span class="in">  d0 [label="",shape=point]; </span></span>
+<span id="cb2-208"><a href="#cb2-208"></a><span class="in">  q0 [label=&lt;&lt;I&gt;q&lt;SUB&gt;0&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb2-209"><a href="#cb2-209"></a><span class="in">  qi [label=&lt;&lt;I&gt;s&lt;SUB&gt;i&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
+<span id="cb2-210"><a href="#cb2-210"></a><span class="in">  qn [label=&lt;&lt;I&gt;q&lt;SUB&gt;n&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb2-211"><a href="#cb2-211"></a></span>
+<span id="cb2-212"><a href="#cb2-212"></a><span class="in">  d0 -&gt; q0</span></span>
+<span id="cb2-213"><a href="#cb2-213"></a><span class="in">  q0 -&gt; qi [label="x"];</span></span>
+<span id="cb2-214"><a href="#cb2-214"></a><span class="in">  qi -&gt; qi [label="y"];</span></span>
+<span id="cb2-215"><a href="#cb2-215"></a><span class="in">  qi -&gt; qn [label="z"];</span></span>
+<span id="cb2-216"><a href="#cb2-216"></a><span class="in">}</span></span>
+<span id="cb2-217"><a href="#cb2-217"></a><span class="in">```</span></span>
+<span id="cb2-218"><a href="#cb2-218"></a></span>
+<span id="cb2-219"><a href="#cb2-219"></a><span class="fu">## Easy to read</span></span>
+<span id="cb2-220"><a href="#cb2-220"></a></span>
+<span id="cb2-221"><a href="#cb2-221"></a><span class="ss">- </span>$s \in A \land |s| &gt; p$ requires</span>
+<span id="cb2-222"><a href="#cb2-222"></a><span class="ss">  - </span>$xy^nz \in A$</span>
+<span id="cb2-223"><a href="#cb2-223"></a><span class="ss">  - </span>$|y| &gt; 0$</span>
+<span id="cb2-224"><a href="#cb2-224"></a><span class="ss">  - </span>$|xy| \leq p$</span>
+<span id="cb2-225"><a href="#cb2-225"></a></span>
+<span id="cb2-226"><a href="#cb2-226"></a><span class="fu"># Examples</span></span>
+<span id="cb2-227"><a href="#cb2-227"></a></span>
+<span id="cb2-228"><a href="#cb2-228"></a><span class="fu">## Irregular 0</span></span>
+<span id="cb2-229"><a href="#cb2-229"></a></span>
+<span id="cb2-230"><a href="#cb2-230"></a><span class="ss">- </span>Take $D = <span class="sc">\{</span> 0^k1^k | k \in \mathbb{N}<span class="sc">\}</span>$</span>
+<span id="cb2-231"><a href="#cb2-231"></a><span class="ss">- </span>Show $D$ is not regular.</span>
+<span id="cb2-232"><a href="#cb2-232"></a><span class="ss">- </span>We proceed by contradiction.</span>
+<span id="cb2-233"><a href="#cb2-233"></a><span class="ss">  - </span>Assume $D$ is regular.</span>
+<span id="cb2-234"><a href="#cb2-234"></a><span class="ss">  - </span>Apply the pumping lemma.</span>
+<span id="cb2-235"><a href="#cb2-235"></a><span class="ss">  - </span>Derive a contradiction.</span>
+<span id="cb2-236"><a href="#cb2-236"></a></span>
+<span id="cb2-237"><a href="#cb2-237"></a><span class="fu">## Strategy</span></span>
+<span id="cb2-238"><a href="#cb2-238"></a></span>
+<span id="cb2-239"><a href="#cb2-239"></a><span class="ss">- </span>We take string $s = 0^p1^p$</span>
+<span id="cb2-240"><a href="#cb2-240"></a><span class="ss">- </span>Pumping lemma requires $\exists xy : |xy| \leq p$</span>
+<span id="cb2-241"><a href="#cb2-241"></a><span class="ss">- </span>$\forall xy \not\exists 1 \in xy$</span>
+<span id="cb2-242"><a href="#cb2-242"></a><span class="ss">- </span>So $xz = 0^{p-|y|}1^p$</span>
+<span id="cb2-243"><a href="#cb2-243"></a><span class="ss">- </span>Pumping lemma requires $|y| &gt; 0$</span>
+<span id="cb2-244"><a href="#cb2-244"></a><span class="ss">- </span>$D$ requires $p - |y| = p$</span>
+<span id="cb2-245"><a href="#cb2-245"></a><span class="ss">- </span>Contradiction $\blacksquare$</span>
+<span id="cb2-246"><a href="#cb2-246"></a></span>
+<span id="cb2-247"><a href="#cb2-247"></a><span class="fu">## On Graphics</span></span>
+<span id="cb2-248"><a href="#cb2-248"></a></span>
+<span id="cb2-249"><a href="#cb2-249"></a><span class="ss">- </span>We note we cannot show this graphically.</span>
+<span id="cb2-250"><a href="#cb2-250"></a><span class="ss">- </span>We have proven no DFA accepts $D$</span>
+<span id="cb2-251"><a href="#cb2-251"></a><span class="ss">- </span>How could we draw a DFA!</span>
+<span id="cb2-252"><a href="#cb2-252"></a><span class="ss">- </span>This is also why we can't rely on graphics!</span>
+<span id="cb2-253"><a href="#cb2-253"></a></span>
+<span id="cb2-254"><a href="#cb2-254"></a><span class="fu">## Irregular 1</span></span>
+<span id="cb2-255"><a href="#cb2-255"></a></span>
+<span id="cb2-256"><a href="#cb2-256"></a><span class="ss">- </span>Take $F = <span class="sc">\{</span> ww | w\ \in \Sigma*<span class="sc">\}</span>$</span>
+<span id="cb2-257"><a href="#cb2-257"></a><span class="ss">- </span>Show $F$ is not regular.</span>
+<span id="cb2-258"><a href="#cb2-258"></a><span class="ss">- </span>We proceed by contradiction.</span>
+<span id="cb2-259"><a href="#cb2-259"></a><span class="ss">  - </span>Assume $F$ is regular.</span>
+<span id="cb2-260"><a href="#cb2-260"></a><span class="ss">  - </span>Apply the pumping lemma.</span>
+<span id="cb2-261"><a href="#cb2-261"></a><span class="ss">  - </span>Derive a contradiction.</span>
+<span id="cb2-262"><a href="#cb2-262"></a></span>
+<span id="cb2-263"><a href="#cb2-263"></a><span class="fu">## Avoid this</span></span>
+<span id="cb2-264"><a href="#cb2-264"></a></span>
+<span id="cb2-265"><a href="#cb2-265"></a><span class="ss">- </span>Say we chose $0^p0^p$</span>
+<span id="cb2-266"><a href="#cb2-266"></a><span class="ss">- </span>We take, say, $x = y = 0^{\frac{p}{2} - 1}$</span>
+<span id="cb2-267"><a href="#cb2-267"></a><span class="ss">- </span>Well we actually can pump $y$ if $|y|$ is odd.</span>
+<span id="cb2-268"><a href="#cb2-268"></a><span class="ss">- </span>Have to be careful!</span>
+<span id="cb2-269"><a href="#cb2-269"></a></span>
+<span id="cb2-270"><a href="#cb2-270"></a><span class="fu">## Strategy</span></span>
+<span id="cb2-271"><a href="#cb2-271"></a></span>
+<span id="cb2-272"><a href="#cb2-272"></a><span class="ss">- </span>We take string $s = 0^p10^p1$</span>
+<span id="cb2-273"><a href="#cb2-273"></a><span class="ss">- </span>Pumping lemma requires $\exists xy : |xy| \leq p$</span>
+<span id="cb2-274"><a href="#cb2-274"></a><span class="ss">- </span>$\forall xy \:\not\exists 1 \in x$</span>
+<span id="cb2-275"><a href="#cb2-275"></a><span class="ss">- </span>So $xz = 0^{p-|y|}10^p1$</span>
+<span id="cb2-276"><a href="#cb2-276"></a><span class="ss">- </span>Pumping lemma requires $|y| &gt; 0$</span>
+<span id="cb2-277"><a href="#cb2-277"></a><span class="ss">- </span>$F$ requires $p - |y| = p$</span>
+<span id="cb2-278"><a href="#cb2-278"></a><span class="ss">- </span>Contradiction $\blacksquare$</span>
+<span id="cb2-279"><a href="#cb2-279"></a></span>
+<span id="cb2-280"><a href="#cb2-280"></a><span class="fu">## Combined Tactics</span></span>
+<span id="cb2-281"><a href="#cb2-281"></a></span>
+<span id="cb2-282"><a href="#cb2-282"></a><span class="ss">- </span>We have used the assumptions of the pumping lemma.</span>
+<span id="cb2-283"><a href="#cb2-283"></a><span class="ss">- </span>We have proven other results!</span>
+<span id="cb2-284"><a href="#cb2-284"></a><span class="ss">- </span>We now explore a result using closure properties (Theorems 1-4)</span>
+<span id="cb2-285"><a href="#cb2-285"></a></span>
+<span id="cb2-286"><a href="#cb2-286"></a><span class="fu">## Irregular 2</span></span>
+<span id="cb2-287"><a href="#cb2-287"></a></span>
+<span id="cb2-288"><a href="#cb2-288"></a><span class="ss">- </span>Recall $B$</span>
+<span id="cb2-289"><a href="#cb2-289"></a><span class="ss">  - </span>"...equal numbers of <span class="in">`0`</span>s and <span class="in">`1`</span>s"</span>
+<span id="cb2-290"><a href="#cb2-290"></a><span class="ss">- </span>Assume by contradiction $B$ is regular.</span>
+<span id="cb2-291"><a href="#cb2-291"></a><span class="ss">- </span>Since $B$ is regular, $B \cap 0*1*$ is regular</span>
+<span id="cb2-292"><a href="#cb2-292"></a><span class="ss">  -  </span>Closure under intersection</span>
+<span id="cb2-293"><a href="#cb2-293"></a><span class="ss">- </span>We note that $D = B \cap 0*1*$</span>
+<span id="cb2-294"><a href="#cb2-294"></a><span class="ss">  - </span>$D = <span class="sc">\{</span> 0^k1^k | k \in \mathbb{N}<span class="sc">\}</span>$</span>
+<span id="cb2-295"><a href="#cb2-295"></a><span class="ss">  - </span>$D$ is irregular!</span>
+<span id="cb2-296"><a href="#cb2-296"></a><span class="ss">- </span>$B$ is irregular.</span>
+<span id="cb2-297"><a href="#cb2-297"></a><span class="ss">- </span>$\blacksquare$</span>
+<span id="cb2-298"><a href="#cb2-298"></a></span>
+<span id="cb2-299"><a href="#cb2-299"></a><span class="fu"># Stretch Break</span></span>
+<span id="cb2-300"><a href="#cb2-300"></a></span>
+<span id="cb2-301"><a href="#cb2-301"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Home</span><span class="co">](https://cd-public.github.io/compute/)</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

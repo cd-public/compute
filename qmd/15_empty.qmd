@@ -1,0 +1,330 @@
+---
+title: "Emptiness"
+---
+
+## Sketch
+
+::: {.nonincremental}
+- CFGs
+  - Acceptance
+  - Emptiness
+  - Equivalence
+- TMs
+  - Acceptance
+:::
+
+# Acceptance
+
+## Statement of Theorem
+
+$$
+\text{Decidable}(A_{CFG} := \{\langle G, w \rangle \space | \space w \in G:\text{CFG}\})
+$$
+
+- As with NFAs, we might have infinite loops here.
+- Remember - rules can return an empty string!
+- Can't go forward or backward.
+- We introduce CNF - "Chomsky Normal Form"
+
+## Chomsky Normal Form (CNF)
+
+- Two legal forms
+    - $A \rightarrow BC \space | \space \{A,B,C\} \subset V$
+    - $A \rightarrow a \space | \space A \in V \land a \in \Sigma$
+- This enforces uniformity.
+
+## Original Grammar
+
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+:::{.nonincremental}
+
+- Two legal forms
+    - $A \rightarrow BC \space | \space \{A,B,C\} \subset V$
+    - $A \rightarrow a \space | \space A \in V \land a \in \Sigma$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+
+
+- $S \rightarrow AB \space | \space a$
+- $A \rightarrow \varepsilon \space | \space b$
+- $B \rightarrow c \space | \space AB$
+
+:::
+
+::::
+
+## Eliminate Epsilon
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+:::{.nonincremental}
+
+- $S \rightarrow AB \space | \space a$
+- $A \rightarrow \varepsilon \space | \space b$
+- $B \rightarrow c \space | \space AB$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+
+
+- $S \rightarrow bB \space | \space a \space | \space B$
+- $B \rightarrow c \space | \space bB \space | \space b$
+
+:::
+
+::::
+
+
+## Eliminate $V \times V$
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+:::{.nonincremental}
+
+- $S \rightarrow bB \space | \space a \space | \space B$
+- $B \rightarrow c \space | \space bB \space | \space b$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+- $S \rightarrow bB \space | \space a \space | \space c \space | \space b$
+- $B \rightarrow c \space | \space bB \space | \space b$
+:::
+
+::::
+
+
+## Eliminate Long RHS
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+:::{.nonincremental}
+
+- $S \rightarrow bB \space | \space a \space | \space c \space | \space b$
+- $B \rightarrow c \space | \space bB \space | \space b$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+- $S \rightarrow XB \space | \space a \space | \space c \space | \space b$
+- $B \rightarrow c \space | \space XB \space | \space b$
+- $X \rightarrow b$
+
+:::
+
+::::
+
+
+## Reorder
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+:::{.nonincremental}
+
+- $S \rightarrow XB \space | \space a \space | \space c \space | \space b$
+- $B \rightarrow c \space | \space XB \space | \space b$
+- $X \rightarrow b$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+- $S \rightarrow XB \space | \space a \space | \space b \space | \space c$
+- $B \rightarrow XB \space | \space b \space | \space c$
+- $X \rightarrow b$
+
+:::
+
+::::
+
+## Lemma
+
+- $w \in L(H:\text{CNF})$ takes $2|w| - 1$ steps
+- Left as an exercise.
+  - Not too bad - think about the two rule types.
+
+## Theorem 14
+
+$$
+\text{Decidable}(A_{CFG} := \{\langle G, w \rangle \space | \space w \in G:\text{CFG}\})
+$$
+
+1. Convert to CNF
+2. Test all derivations of length $2|w| - 1$
+
+## Corollary
+
+- We note that this also captures context free languages.
+- But a wrinkle!
+  - From a CFL, we needn't necessarily know the CFG
+  - We don't need it! It suffices to exist by definition
+  - We only claim something *is* decidable, not that we know how to decide!
+
+## Understanding check
+
+- Is $A_{PDA}$ decidable.
+  - Just convert.
+
+# Emptiness
+
+## Statement of Theorem
+
+$$
+\text{Decidable}(EQ_{CFG} := \{\langle G, H \rangle \space | \space L(G:\text{CFG}) = L(H:\text{CFG}) \})
+$$
+
+- Probably not gonna fly to try every string.
+- What about closures, well...
+- **This is undecidable**
+- We will return to this with more robust proof techniques.
+
+
+## Statement of Theorem
+
+$$
+\text{Decidable}(AMBIG_{CFG} := \{\langle G\rangle \space | \space G:\text{CFG is not ambigious}\})
+$$
+
+- **This is undecidable**
+
+## Understanding Check
+
+- Why can we $EQ_{DFA}$ but not $EQ_{CFG}$?
+  - We lack closures we need.
+
+
+# Turing Machines
+
+## Statement of Theorem
+
+$$
+\text{Decidable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+$$
+
+- This turns out not to be true.
+- However, an incrementally weaker result:
+
+:::{.fragment}
+$$
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+$$
+:::
+
+- We are able to show this now.
+
+## Theorem 15
+
+$$
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+$$
+
+- Intuition:
+  - Take machine $U$
+  - $U$ simulates $M$ on one of its tapes.
+  - $U$ accepts if $M$ accepts
+  - $U$ rejects if $M$ rejects
+
+## Problem
+
+- There is no guarantee that $M$ (and $\therefore U$) halt!
+- How to deal with this?
+  - Can we say "if $M$ doesn't halt?"
+  - How would we know!
+- To recognize, we need *only* accept those accepting $w$
+  - It *doesn't matter* if $U$ halts.
+
+## Theorem 15
+
+$$
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+$$
+
+- Intuition:
+  - Take machine $U$
+  - $U$ simulates $M$ on one of its tapes.
+  - $U$ accepts if $M$ accepts
+  - <s>$U$ rejects if $M$ rejects</s>
+  - Consider anything else a rejection.
+
+## $U$
+
+- $U$ was the name Turing gave the original "universal computing machine"
+  - It was the subject of many latter results in:
+    - Computing
+    - Information
+    - Mathematics
+    - Philosophy
+    - Linguistics
+
+## Example of $U$
+
+- We use $U$ to denote a machine that can compute anything.
+  - It has some combination of states and symbols.
+  - One such is:
+
+:::{.fragment}
+
+  > [a 7-state 4-symbol universal Turing machine in 1962 using 2-tag systems. (Marvin Minksy)](https://en.wikipedia.org/wiki/Universal_Turing_machine#Smallest_machines)
+:::
+
+
+## Use of $U$
+
+- We use the term $U$ in our proof to refer to a machine that could do anything.
+- A **U**niversal machine.
+- The development of $U$ is out-of-scope for this class, but with familiar with modern devices like stored memory computers and RISC processors.
+
+## Theorem 15
+
+$$
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+$$
+
+*Proof.*
+
+- Take machine $U$
+  1. $U$ simulates $M$ on one of its tapes.
+  2. $U$ accepts if $M$ accepts
+
+# Summary
+
+- $A_{DFA}, A_{NFA}, E_{DFA}, EQ_{DFA}, A_{CFG}, E_{CFG}$ are decidable.
+- $A_{TM}$ is recognizable.
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

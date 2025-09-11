@@ -1,0 +1,625 @@
+---
+title: "Finite Automata"
+---
+
+## Sketch
+
+::: {.nonincremental}
+- What is theory of computation?
+    - 1930s - 1950s
+    - 1960s - 2020s
+- Role of Theory
+- Finite Automata
+   - Formal Definition
+
+:::
+
+# Theory of Computation
+
+## Theory of Computation
+- <50s:
+    -   If we had computers, what could they do?
+    -   What can't they do?
+    -   I call this automata or computability theory.
+
+## Example 0
+-   Say we:
+    -   Have a computer, or formal definition thereof.
+    -   Have a sorting algorithm.
+    -   Having a sorting specification.
+-   Can we determine:
+    -   If the sorting algorithm meets a specification?
+-   Turns out: **impossible**.
+
+## Example 1
+-   Say we:
+    -   Have a really, really optimized LLM, like DeepSeek.
+    -   Have a program we'd like to run, but aren't sure we have enough compute.
+-   Can we determine:
+    -   Whether the program will ever finish running?
+-   Turns out: **impossible**.
+
+## Some Previews
+-   Finite Automata
+    -   Today
+-   Context Free Grammars
+    -   Today and Tomorrow
+-   Turing Machines
+    -   In residence
+
+## Theory of Complexity
+-   What can we actually do?
+    -   Factoring Problem, foundation of modern [cryptography](https://cd-public.github.io/courses/c89s25/index.html).
+    -   Can we measure relative "goodness" of things.
+
+
+# Role of Theory
+
+## Open Questions
+
+-   How does the brain work?
+    -   Is it a neural network?
+    -   What is creativity?
+    -   Can machine learning do formal sciences including mathematics?
+-   Can we claim to understand computing without being able to answer the factoring question?
+
+
+# Finite Automata
+
+## Definition
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Term this $M_1$:
+    - States
+     $$
+     q_n
+     $$
+
+    - Transitions 
+    $$
+    \overset{\{1\}}{\longrightarrow}
+    $$
+    - Start state $q_1$
+    - Accept state $q_3$
+
+:::
+
+::: {.column width="50%"}
+```{dot filename="Finite Automata"}
+//| fig-width: 500px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+:::
+
+::::
+
+## Process
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+:::{.nonincremental}
+
+- Term this $M_1$:
+    - States
+     $$
+     q_n
+     $$
+
+    - Transitions 
+    $$
+    \overset{\{1\}}{\longrightarrow}
+    $$
+    - Start state $q_1$
+    - Accept state $q_3$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+- **Input**
+    - *Finite* bit string 
+    -   $\{0,1\}^n$
+- **Output**
+    - Boolean or bit
+    -   $\{0,1\}$
+-   Begin in start
+-   Read symbol
+-   Follow edge
+
+:::
+
+::::
+
+
+## ''
+
+- The inital state is $q_1$.
+
+```py
+[] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 [color="orange"]
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+
+## '0'
+
+- Find label containing `0` out of $q_1$.
+
+```py
+[0] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}", color="orange"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+## '01'
+
+- Find label containing `1` out of $q_1$.
+
+```py
+[0, 1] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>, color="orange"];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}", color="orange"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+## '011'
+
+- Find label containing `1` out of $q_2$.
+
+```py
+[0, 1, 1] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}", color="orange"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+## '0110'
+
+- Find label containing `0` out of $q_3$.
+
+```py
+[0, 1, 1, 0] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}", color="orange"];
+}
+```
+
+## '01101'
+
+- Find label containing `1` out of $q_3$.
+
+```py
+[0, 1, 1, 0, 1] # We'll use a Python list to represent the input.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}", color="orange"];
+}
+```
+
+## '01101'
+
+- $M_1$ accepts `[0, 1, 1, 0, 1]` by ending in $q_3$
+
+```py
+assert(M_1([0, 1, 1, 0, 1]) # M_1 as a function from bit strings to booleans.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>, color="orange"];
+  q2 [label=<<I>q<SUB>2</SUB></I>>, color="orange"];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle, color="orange"]; 
+
+  q0 -> q1 [color="orange"]
+  q1 -> q1 [label="{0}", color="orange"];
+  q1 -> q2 [label="{1}", color="orange"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}", color="orange"];
+  q3 -> q3 [label="{0,1}", color="orange"];
+}
+```
+
+## Exercise
+
+- Does $M_1$ accept `[0, 0, 1, 0, 1]`?
+
+```py
+[0, 0, 1, 0, 1] # M_1 as a function from bit strings to booleans.
+```
+
+```{dot filename="Finite Automata"}
+//| fig-width: 800px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  node [shape=circle];
+  q0 [label="",shape=point]; 
+  q1 [label=<<I>q<SUB>1</SUB></I>>];
+  q2 [label=<<I>q<SUB>2</SUB></I>>];
+  q3 [label=<<I>q<SUB>3</SUB></I>>, shape=doublecircle]; 
+
+  q0 -> q1 []
+  q1 -> q1 [label="{0}"];
+  q1 -> q2 [label="{1}"];
+  q2 -> q1 [label="{0}"];
+  q2 -> q3 [label="{1}"];
+  q3 -> q3 [label="{0,1}"];
+}
+```
+
+## Terminology
+
+- We say that:
+    -   $A$ is the *language* of $M_1$.
+    -   $M_1$ *recognizes* $A$
+    -   $A = L(M_1)$
+- We note:
+$$
+w \in A \implies \exists i < |w| - 1 : w_i = 1 \land w_{i+1} = 1 
+$$
+
+:::{.fragment}
+
+```{.py}
+w = '01101' # for example
+assert('11' in w)
+```
+
+:::
+
+# Formal Definition
+
+## Finite Automaton
+
+> A **finite automaton** (FA), also known as a finite state machine (FSM), is a mathematical model of computation used to recognize patterns in a sequence of symbols. 
+    
+
+## Finite Automaton  
+  
+- In class: "finite automaton"
+- Real life: mostly say "state machine"
+- I used the notation *FA to denote these are not a specific kind of FA
+
+
+## Formal Definition
+
+A finite automaton is formally defined as a 5-*tuple*:
+
+- **$Q$** A finite, non-empty *set* of states.
+- **$\Sigma$:** A finite, non-empty *set* of input symbols called the alphabet.
+- **$\delta$:** The transition function, a mapping 
+    -   $\delta : Q \times \sigma \rightarrow Q$ 
+- **$q_0$:** The initial state, where $q_0 \in Q$.
+- **$F$:** A set of accepting states (or final states), where $F \subset Q$.
+
+## Explanation:
+
+* **States ($Q$):** Possible internal configurations - like computer memory.
+* **Alphabet ($\Sigma$):** Possible inputs - machine binary or computer I/O.
+* **Transition Function ($\delta$):** How the FA's state is updated on read.
+* **Initial State ($q_0$):** This is the state where the automaton begins its operation.
+* **Accepting States ($F$):** These determine if the FA outputs $0$ or $1$.
+
+## Our Example
+
+- $M_1 = (Q, \Sigma, \delta, q_1, \{q_3\})$
+    - $Q = \{q_1, q_2, q_3\}$
+    - $\Sigma = \{0, 1\}$
+- How to express $\delta$?
+
+:::{.fragment}
+
+| $\delta=$  | $0$ | $1$ |
+|------------|-----|-----|
+| $q_1$&vert;|$q_1$|$q_2$|
+| $q_2$&vert;|$q_1$|$q_3$|
+| $q_3$&vert;|$q_3$|$q_3$|
+
+:::
+
+## Python
+
+```{python}
+# define q_n as a convenience
+q_1, q_2, q_3 = "q_1", "q_2", "q_3"
+# define M_1
+Q = {q_1, q_2, q_3}
+S = {0, 1}
+d = {
+    q_1 : { 0:q_1, 1:q_2 },
+    q_2 : { 0:q_1, 1:q_3 },
+    q_3 : { 0:q_3, 1:q_3 }
+}
+M_1 = (Q,S,d,q_1,{q_3})
+print(M_1)
+```
+
+## Strings/Languages
+
+-   A *string* is a **sequence** of letters $\Sigma^n$
+-   A *language* is a set of *strings*.
+-   The empty string is zero length $\Sigma^0$
+-   The empty language is the empty set $\varnothing$
+
+:::{.fragment}
+*We note that the empty string is not in or related to the empty language*
+:::
+
+## Acceptance
+
+-   $M$ *accepts* string $w = w_1w_2\ldots w_n$ if:
+
+:::{.fragment}
+$$
+\forall w_i \in \Sigma : \exists r_0r_1\ldots r_n : 
+$$
+:::
+
+
+:::{.fragment}
+
+$$
+r_0 = q_0 \land 
+$$
+
+:::
+
+
+:::{.fragment}
+
+$$
+r_n \in F \land 
+$$
+
+:::
+
+
+:::{.fragment}
+
+$$
+\forall i : r_i = \delta(r_{i-1},w_i) 
+$$
+
+:::
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)

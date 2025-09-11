@@ -1,0 +1,396 @@
+---
+title: "Acceptance"
+---
+
+## Sketch
+
+::: {.nonincremental}
+- Acceptance Problems
+  - DFAs
+  - NFAs
+:::
+
+# Acceptance Problem for DFAs
+
+## Statement of Theorem
+
+$$
+A_{DFA} := \{\langle B, w \rangle | B \text{ is a DFA and } B \text{ accepts } w\} \in \text{T-Decidable}
+$$
+
+- Theorem - $A_{DFA}$ is decidable.
+  - Encoding doesn't matter too much here.
+  - We just want a TM that can tell if a DFA accepts a string.
+- We create TM $D_{A_{DFA}}$
+  - The decider for the language of the DFA.
+
+## $D_{A_{DFA}}$
+
+$D_{A_{DFA}} =$ "On input $w$ 
+
+1. Check that $s$ has form $\langle B, w \rangle$
+  - This is should remind us of type checking.
+2. Simulate $B$ over $W$ using $D_{A_{DFA}}$'s tape and states.
+3. If $B$ accepts, then *accept*, else *reject*.
+
+## Schematic
+
+```{dot}
+// | echo: false
+// | height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  t  [label=" Q | 0,1 | δ | q_0 | F | # | 0 | 1 | 1 | 0 | 1"]
+  h
+
+  t ->h [dir=back];
+}
+```
+
+## Simplify
+
+- Can track the current state of the DFA on a work tape.
+- Can track the current index in the string on a work tape.
+- Can move either $B$ or $w$ to a work tape before we begin.
+
+## Notational Convenience
+
+$D_{A_{DFA}} =$ "On input  $\langle B, w \rangle$
+
+1. Simulate $B$ over $W$ using $D_{A_{DFA}}$'s tape and states.
+2. If $B$ accepts, then *accept*, else *reject*.
+
+- That is, pattern match in the initializer.
+- It is always appropriate to use a programing language here, e.g.
+
+:::{.fragment}
+
+```py
+def d_a_dfa(B:DFA, w:str) -> bool:
+  a_or_r = B(w)
+  return a_or_r
+```
+
+:::
+
+## What about loops
+
+- $B$ is a DFA
+- A DFA
+  - Reads finite string
+  - Progresses monotonically
+  - It must terminate
+
+## Theorem 10
+
+$$
+A_{DFA} := \{\langle B, w \rangle | B \text{ is a DFA and } B \text{ accepts } w\} \in \text{T-Decidable}
+$$
+
+*Proof.*
+
+```py
+def d_a_dfa(B:DFA, w:str) -> bool:
+  accept : bool
+  accept = B(w)
+  return accept
+```
+
+## Theorem 11
+
+$$
+A_{NFA} := \{\langle B, w \rangle | B \text{ is a NFA and } B \text{ accepts } w\} \in \text{T-Decidable}
+$$
+
+- We have a problem here.
+  - NFAs have legal $\varepsilon$ transitions
+  - A cycle through $\varepsilon$ transitions can repeat infinitely
+  - Therefore, progress is not guaranteed.
+- Must be clever.
+
+## Theorem 2: NFA &rarr; DFA
+
+$$
+\forall M_{NFA}: \exists M_{DFA} : L(M_{NFA})) = L(M_{DFA})) 
+$$
+
+*Proof*
+
+$$ 
+\begin{aligned}
+M_{NFA}(&Q, \Sigma, \delta, q_1, F_1) = \\
+M_{DFA}(&\mathcal{P} (Q), \Sigma, \delta, \{q_1\}, \\
+        & \{ R \in \mathcal{P} (Q) | R \cap F \neq \varnothing \})\blacksquare
+\end{aligned}
+$$
+
+## Theorem 11
+
+$$
+A_{NFA} := \{\langle B, w \rangle | B \text{ is a NFA and } B \text{ accepts } w\} \in \text{T-Decidable}
+$$
+
+*Proof.*
+
+```py
+from theorem_02 import NFA_to_DFA
+from theorem_10 import d_a_dfa
+
+def d_a_nfa(B:NFA, w:str) -> bool:
+  B_prime : DFA
+  B_prime = NFA_to_DFA(B)
+  accept : bool
+  accept = d_a_dfa(B_prime, w)
+  return accept
+```
+
+## Theorem 12
+
+$$
+E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \in \text{T-Decidable}
+$$
+
+- Term this "the Emptiness Problem for DFAs"
+- We'll make a TM $D_{E_{DFA}}$
+- Let's look for a path from $q_0$ to $F$
+  - What do we know or not know about path algorithms
+  - I'd imagine a transitive closure over $\delta$
+  - Prof. Sipser used breadth-first search
+
+## Understanding check
+
+- Can I just run $B$ over *all* strings?
+- Can I just run $B$ over all strings up to some length?
+  - Sure! Just prove the length you choose is sufficient.
+  - This is not easier!
+
+## DFA.py
+
+```py
+# define q_n as a convenience
+q_1, q_2, q_3 = "q_1", "q_2", "q_3"
+# define M_1
+Q = {q_1, q_2, q_3}
+S = {0, 1}
+d = {
+    q_1 : { 0:q_1, 1:q_2 },
+    q_2 : { 0:q_1, 1:q_3 },
+    q_3 : { 0:q_3, 1:q_3 }
+}
+M_1 = (Q,S,d,q_1,{q_3})
+print(M_1)
+```
+
+## Express DFA to a TM
+
+```py
+# We use strings for states and ints for letters
+def d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -> bool:
+```
+
+## Take start state
+
+```py
+# We use strings for states and ints for letters
+def d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -> bool:
+  current = q_0
+```
+
+## Track visited states
+
+```py
+# We use strings for states and ints for letters
+def d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -> bool:
+  current = q_0
+  visited = [q_0]
+```
+
+- It is very important to keep those states in order...
+  - Why?
+
+## Reachable states from q_0
+
+```py
+# We use strings for states and ints for letters
+def d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -> bool:
+  current = q_0
+  visited = [q_0]
+  transitions = d[d_0]
+  for transition in transitions:
+    pass # do something
+```
+
+## Quick Python Refresher
+
+```{python}
+# how does dict iteration work?
+q_1, q_2, q_3 = "q_1", "q_2", "q_3"
+d = {
+    q_1 : { 0:q_1, 1:q_2 },
+    q_2 : { 0:q_1, 1:q_3 },
+    q_3 : { 0:q_3, 1:q_3 }
+}
+for element in d[q_1]:
+    print(element)
+```
+
+## Reachable states from q_0
+
+```py
+# We use strings for states and ints for letters
+def d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -> bool:
+  current = q_0
+  visited = [q_0]
+  transitions = d[d_0]
+  for symbol in transitions:
+    # we will get symbols, see where the symbols go
+    state = transitions[symbol]
+    # we will add that state to visted state
+    visted.append(state)
+```
+
+- Then what?
+
+## Reachable states from q_0
+
+```py
+# We use strings for states and ints for letters
+def d_e_dfa(Q:set[state], S:set[symbol], d:dict, q_0:state, F:set) -> bool:
+  current = q_0
+  visited = [q_0]
+  transitions = d[q_0]
+  count = 0 # track what states we've examined
+  while count < len(visited): # stop if we run out
+    transitions = d[visited[count]]
+    for symbol in transitions:
+      # we will get symbols, see where the symbols go
+      state = transitions[symbol]
+      # we will add that state to visted state
+      visted.append(state)
+```
+
+- Is using `len` cheating?
+- What about `for` and `while`?
+
+## Imagine
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```py
+def d_e_dfa(Q, S, d, q_0, F):
+  visited = [q_0]
+  count = 0
+  while count < len(visited):
+    transitions = d[visited[count]]
+    for symbol in transitions:
+      state = transitions[symbol]
+      if state not in visted:
+        visted.append(state)
+```
+
+:::
+
+::: {.column width="50%"}
+
+```email
+$D_{A_{DFA}} =$ "On input $M$ 
+Track states on working tape 1
+Use head to track current state
+While current not blank
+  Place delta(current) on tape 2
+  Move head head 2 along delta
+    copy all state names to tape 3
+    read all of tape 1 for each state
+      if state is new, add to tape 1
+```
+
+:::
+
+::::
+
+
+## Accept
+
+```py
+def d_e_dfa(Q, S, d, q_0, F):
+  visited = [q_0]
+  count = 0
+  while count < len(visited):
+    transitions = d[visited[count]]
+    for symbol in transitions:
+      state = transitions[symbol]
+      if state not in visted:
+        if state in F:
+          return True
+        visted.append(state)
+  return False
+```
+
+- Copy $F$ to another tape, and check it before checking the visit tracker.
+- This halts as there are finite states
+
+## Theorem 12
+
+$$
+E_{DFA} := \{\langle B \rangle | L(B:\text{DFA}) = \varnothing\} \in \text{T-Decidable}
+$$
+
+*Proof.*
+
+```py
+def d_e_dfa(Q, S, d, q_0, F):
+  visited = [q_0]
+  count = 0
+  while count < len(visited):
+    transitions = d[visited[count]]
+    for symbol in transitions:
+      state = transitions[symbol]
+      if state not in visted:
+        if state in F:
+          return True
+        visted.append(state)
+  return False
+```
+
+
+## Theorem 13
+
+$$
+EQ_{DFA} := \{\langle A,B \rangle | L(A:\text{DFA}) = L(B:\text{DFA})\} \in \text{T-Decidable}
+$$
+
+*Proof.*
+
+  - Not too bad to make $TM_{EQ_{DFA}}$
+  - Emulate $A$ on one track
+  - Emulate $B$ on another track
+  - Create synthetic $C$:DFA which accepts if $A \oplus B$ accept
+  - Apply Theorem 12 to synthetic DFA $C$
+
+## Understanding Check
+
+$$
+EQ_{REX} := \{\langle R_1,R_2 \rangle | (R_1:\text{Reg. Exp.} = R_2:\text{Reg. Exp.})\}
+$$
+
+- Is this hard to prove?
+
+
+# End of Day :)
+
+- Good work!

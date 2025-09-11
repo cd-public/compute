@@ -1,0 +1,3234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Calvin">
+
+<title>Context Free Grammars – Automata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08_pda.html" rel="next">
+<link href="./06_pump.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_cfg.html">Context Free Grammars</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Automata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_aims.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aims of Education</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_starfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Finite Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_regexp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regular Expressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_nfas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NFAs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regularity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pumping Lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_cfg.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Context Free Grammars</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_pda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pushdown Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_cfgpda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CFG → PDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_cfpump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Pumping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_tm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Turing Machines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_variants.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_thesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Church-Turing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_accept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acceptance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_empty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Emptiness</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_diagonal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review 2</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sketch" id="toc-sketch" class="nav-link active" data-scroll-target="#sketch">Sketch</a></li>
+  <li><a href="#rules" id="toc-rules" class="nav-link" data-scroll-target="#rules">Rules</a>
+  <ul class="collapse">
+  <li><a href="#context-free-grammars" id="toc-context-free-grammars" class="nav-link" data-scroll-target="#context-free-grammars">Context Free Grammars</a></li>
+  <li><a href="#rules-1" id="toc-rules-1" class="nav-link" data-scroll-target="#rules-1">Rules</a></li>
+  <li><a href="#terms" id="toc-terms" class="nav-link" data-scroll-target="#terms">Terms</a></li>
+  <li><a href="#rules-2" id="toc-rules-2" class="nav-link" data-scroll-target="#rules-2">3 Rules</a></li>
+  <li><a href="#variables-2-terminals" id="toc-variables-2-terminals" class="nav-link" data-scroll-target="#variables-2-terminals">2 Variables / 2 Terminals</a></li>
+  <li><a href="#generation" id="toc-generation" class="nav-link" data-scroll-target="#generation">Generation</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#graphically" id="toc-graphically" class="nav-link" data-scroll-target="#graphically">Graphically</a></li>
+  <li><a href="#graphically-1" id="toc-graphically-1" class="nav-link" data-scroll-target="#graphically-1">Graphically</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example</a></li>
+  <li><a href="#shorthand" id="toc-shorthand" class="nav-link" data-scroll-target="#shorthand">Shorthand</a></li>
+  </ul></li>
+  <li><a href="#formal-definition" id="toc-formal-definition" class="nav-link" data-scroll-target="#formal-definition">Formal Definition</a>
+  <ul class="collapse">
+  <li><a href="#context-free-grammar" id="toc-context-free-grammar" class="nav-link" data-scroll-target="#context-free-grammar">Context Free Grammar</a></li>
+  <li><a href="#substitutions" id="toc-substitutions" class="nav-link" data-scroll-target="#substitutions">Substitutions</a></li>
+  <li><a href="#check-in" id="toc-check-in" class="nav-link" data-scroll-target="#check-in">Check in</a></li>
+  </ul></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example</a>
+  <ul class="collapse">
+  <li><a href="#arithmetic" id="toc-arithmetic" class="nav-link" data-scroll-target="#arithmetic">Arithmetic</a></li>
+  <li><a href="#graphically-2" id="toc-graphically-2" class="nav-link" data-scroll-target="#graphically-2">Graphically</a></li>
+  <li><a href="#graphically-3" id="toc-graphically-3" class="nav-link" data-scroll-target="#graphically-3">Graphically</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  </ul></li>
+  <li><a href="#ambiguity" id="toc-ambiguity" class="nav-link" data-scroll-target="#ambiguity">Ambiguity</a>
+  <ul class="collapse">
+  <li><a href="#arithmetic-1" id="toc-arithmetic-1" class="nav-link" data-scroll-target="#arithmetic-1">Arithmetic</a></li>
+  </ul></li>
+  <li><a href="#a-a-times-a" id="toc-a-a-times-a" class="nav-link" data-scroll-target="#a-a-times-a"><span class="math inline">\(a + a \times a\)</span></a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a>
+  <ul class="collapse">
+  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution">Solution</a></li>
+  </ul></li>
+  <li><a href="#end-of-day" id="toc-end-of-day" class="nav-link" data-scroll-target="#end-of-day">End of Day :)</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="07_cfg.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Context Free Grammars</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+<p class="subtitle lead">Automata</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Calvin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sketch" class="level2">
+<h2 class="anchored" data-anchor-id="sketch">Sketch</h2>
+<div class="nonincremental">
+<ul>
+<li>Context Free Grammars
+<ul>
+<li>Rules</li>
+<li>Formal Definition</li>
+<li>Examples</li>
+<li>Ambiguity</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="rules" class="level1">
+<h1>Rules</h1>
+<section id="context-free-grammars" class="level2">
+<h2 class="anchored" data-anchor-id="context-free-grammars">Context Free Grammars</h2>
+<p><span class="math display">\[
+\begin{align*}
+G_1&amp; \\
+&amp;\left.
+    \begin{aligned}
+        &amp;S \rightarrow 0S1 \\
+        &amp;S \rightarrow R \\
+        &amp;R \rightarrow \varepsilon
+    \end{aligned}
+\right\} \quad \text{(Substitution) Rules}
+\end{align*}
+\]</span></p>
+<ul>
+<li>We use <span class="math inline">\(\varepsilon\)</span> to denote the empty string.</li>
+</ul>
+</section>
+<section id="rules-1" class="level2">
+<h2 class="anchored" data-anchor-id="rules-1">Rules</h2>
+<ul>
+<li>Term these “rules”</li>
+<li>They are of form:
+<ul>
+<li>Symbol</li>
+<li>→</li>
+<li>String of symbols</li>
+</ul></li>
+</ul>
+</section>
+<section id="terms" class="level2">
+<h2 class="anchored" data-anchor-id="terms">Terms</h2>
+<ul>
+<li><em>Rule</em>: Statements of form <em>Variable</em> → (string of symbols and terminals)</li>
+<li><em>Variable</em>: Those symbols on the left-hand side (LHS) of a → in a rule</li>
+<li><em>Terminals</em>: Those symbols which appear in only on the right-hand side (RHS)</li>
+<li><em>Starting</em> variable: The topmost symbol.</li>
+</ul>
+</section>
+<section id="rules-2" class="level2">
+<h2 class="anchored" data-anchor-id="rules-2">3 Rules</h2>
+<ul>
+<li><span class="math inline">\(S \rightarrow 0S1\)</span></li>
+<li><span class="math inline">\(S \rightarrow R\)</span></li>
+<li><span class="math inline">\(R \rightarrow \varepsilon\)</span></li>
+</ul>
+</section>
+<section id="variables-2-terminals" class="level2">
+<h2 class="anchored" data-anchor-id="variables-2-terminals">2 Variables / 2 Terminals</h2>
+<ul>
+<li>Variables
+<ul>
+<li><span class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(R\)</span></li>
+</ul></li>
+<li>Terminals
+<ul>
+<li><span class="math inline">\(0\)</span></li>
+<li><span class="math inline">\(1\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="generation" class="level2">
+<h2 class="anchored" data-anchor-id="generation">Generation</h2>
+<ol type="1">
+<li>Write down the start variable.</li>
+<li>Substitute the start variable according to any rule.</li>
+<li>Substitute any variable for any rule until no variables remain.</li>
+</ol>
+<ul>
+<li>That is, only terminals.</li>
+</ul>
+<ol start="4" type="1">
+<li>Every possible string is the language <span class="math inline">\(L(G)\)</span></li>
+</ol>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;S \rightarrow 0S1 \\
+    &amp;S \rightarrow R \\
+    &amp;R \rightarrow \varepsilon
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:25%;">
+<ul>
+<li><span class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(0S1\)</span></li>
+<li><span class="math inline">\(00S11\)</span></li>
+<li><span class="math inline">\(00R11\)</span></li>
+<li><span class="math inline">\(0011\)</span></li>
+</ul>
+</div><div class="column" style="width:25%;">
+<ul>
+<li><span class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(0S1\)</span></li>
+<li><span class="math inline">\(0R1\)</span></li>
+<li><span class="math inline">\(01\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="graphically" class="level2">
+<h2 class="anchored" data-anchor-id="graphically">Graphically</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 206.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 202,-368 202,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">0</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">1</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">0</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-239.69C71.32,-231.02 61.96,-220.87 53.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-208.99 46.4,-204.02 50.61,-213.74 55.76,-208.99"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 3&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>3-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M99,-239.69C99,-231.8 99,-222.68 99,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-214.02 99,-204.02 95.5,-214.02 102.5,-214.02"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">1</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-239.69C126.68,-231.02 136.04,-220.87 144.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-213.74 151.6,-204.02 142.24,-208.99 147.39,-213.74"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">R</text>
+</g>
+<!-- 6&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>6-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">ε</text>
+</g>
+<!-- 8&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>8-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="nonincremental">
+<ul>
+<li><span class="math inline">\(S\)</span><br>
+</li>
+<li><span class="math inline">\(0S1\)</span></li>
+<li><span class="math inline">\(00S11\)</span></li>
+<li><span class="math inline">\(00R11\)</span></li>
+<li><span class="math inline">\(0011\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="graphically-1" class="level2">
+<h2 class="anchored" data-anchor-id="graphically-1">Graphically</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 206.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 202,-368 202,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">0</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">1</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">0</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-239.69C71.32,-231.02 61.96,-220.87 53.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-208.99 46.4,-204.02 50.61,-213.74 55.76,-208.99"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 3&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>3-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M99,-239.69C99,-231.8 99,-222.68 99,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-214.02 99,-204.02 95.5,-214.02 102.5,-214.02"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">1</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-239.69C126.68,-231.02 136.04,-220.87 144.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-213.74 151.6,-204.02 142.24,-208.99 147.39,-213.74"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">R</text>
+</g>
+<!-- 6&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>6-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">ε</text>
+</g>
+<!-- 8&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>8-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 200.00 532.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 528)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-528 196,-528 196,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-493" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-413" font-family="Times,serif" font-size="30.00" fill="#ffffff">0</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-479.69C71.32,-471.02 61.96,-460.87 53.38,-451.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-448.99 46.4,-444.02 50.61,-453.74 55.76,-448.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-413" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-479.69C99,-471.8 99,-462.68 99,-454.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-454.02 99,-444.02 95.5,-454.02 102.5,-454.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="164" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">1</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M121.51,-479.8C149.04,-451.47 192,-398.38 192,-343 192,-343 192,-343 192,-181 192,-136.32 181.01,-85.62 172.8,-53.97"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="176.1,-52.76 170.14,-44 169.34,-54.57 176.1,-52.76"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">0</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge9" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-399.69C27,-391.8 27,-382.68 27,-374.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-374.02 27,-364.02 23.5,-374.02 30.5,-374.02"></polygon>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-399.69C71.32,-391.02 61.96,-380.87 53.38,-371.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-368.99 46.4,-364.02 50.61,-373.74 55.76,-368.99"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">S</text>
+</g>
+<!-- 3&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>3-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M99,-399.69C99,-391.8 99,-382.68 99,-374.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-374.02 99,-364.02 95.5,-374.02 102.5,-374.02"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="137" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">1</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M116.28,-399.93C123.56,-389.73 131.21,-376.92 135,-364 158.48,-284 149.24,-184.17 142.19,-134.34"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="145.61,-133.58 140.68,-124.21 138.69,-134.61 145.61,-133.58"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">ε</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge10" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M33.01,-319.95C39.3,-299.13 50.05,-266.61 63,-240 67.48,-230.78 73.11,-221.2 78.58,-212.58"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="81.64,-214.3 84.16,-204.01 75.77,-210.48 81.64,-214.3"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">R</text>
+</g>
+<!-- 6&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>6-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 7&#45;&gt;4 -->
+<g id="edge12" class="edge">
+<title>7-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M144.38,-79.69C147.17,-71.62 150.4,-62.28 153.43,-53.54"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="156.76,-54.61 156.72,-44.02 150.15,-52.32 156.76,-54.61"></polygon>
+</g>
+<!-- 8&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>8-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M99,-239.69C99,-231.8 99,-222.68 99,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-214.02 99,-204.02 95.5,-214.02 102.5,-214.02"></polygon>
+</g>
+<!-- 9&#45;&gt;7 -->
+<g id="edge11" class="edge">
+<title>9-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M109.38,-159.69C113.35,-151.54 117.96,-142.08 122.26,-133.26"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="125.53,-134.54 126.76,-124.02 119.23,-131.48 125.53,-134.54"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-1">Example</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;S \rightarrow 0S1 \\
+    &amp;S \rightarrow R \\
+    &amp;R \rightarrow \varepsilon
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(L(G_1) = \{ 0^k1^k | k \in \mathbb{N} \}\)</span></li>
+<li>This is a language a CFG can do.
+<ul>
+<li>That a DFA/NFA/GNFA cannot.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="shorthand" class="level2">
+<h2 class="anchored" data-anchor-id="shorthand">Shorthand</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;S \rightarrow 0S1 \\
+    &amp;S \rightarrow R \\
+    &amp;R \rightarrow \varepsilon
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;S \rightarrow 0S1\quad|\quad R\\
+    &amp;R \rightarrow \varepsilon
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</section>
+</section>
+<section id="formal-definition" class="level1">
+<h1>Formal Definition</h1>
+<section id="context-free-grammar" class="level2">
+<h2 class="anchored" data-anchor-id="context-free-grammar">Context Free Grammar</h2>
+<ul>
+<li>A <em>Context Free Grammar</em> (CFG)</li>
+<li>A CFG is a 4-tuple <span class="math inline">\((V, \Sigma, R, S)\)</span>
+<ul>
+<li><span class="math inline">\(V\)</span> : finite set of variables</li>
+<li><span class="math inline">\(\Sigma\)</span> : finite set of terminal symbols
+<ul>
+<li>We note this is the alphabet, a la DFA</li>
+</ul></li>
+<li><span class="math inline">\(R\)</span> finite set of rules
+<ul>
+<li>Of form <span class="math inline">\(V \rightarrow (V \cup \Sigma)*\)</span></li>
+</ul></li>
+<li><span class="math inline">\(S\)</span> start variable</li>
+</ul></li>
+</ul>
+</section>
+<section id="substitutions" class="level2">
+<h2 class="anchored" data-anchor-id="substitutions">Substitutions</h2>
+<ul>
+<li><span class="math inline">\(\forall u,v \in (V \cup \Sigma)*\)</span></li>
+<li><span class="math inline">\(u \Rightarrow v := \exists R : R(u) \rightarrow v\)</span></li>
+<li><span class="math inline">\(u \overset{*}{\Rightarrow} v := \exists u_1, u_2, ... u_n : \underset{i \leq n}{\Rightarrow} u_i = v\)</span>
+<ul>
+<li><span class="math inline">\(\overset{*}{\Rightarrow}\)</span> is the transitive closure of <span class="math inline">\(\Rightarrow\)</span></li>
+<li>Term this a <em>derivation</em> of <span class="math inline">\(v\)</span> from <span class="math inline">\(u\)</span></li>
+<li>If <span class="math inline">\(u = S\)</span> term this the <em>derivation</em> of <span class="math inline">\(v\)</span></li>
+</ul></li>
+<li><span class="math inline">\(L(G) = \{ w | w \in \Sigma* \land S \overset{*}{\Rightarrow} w \}\)</span></li>
+</ul>
+</section>
+<section id="check-in" class="level2">
+<h2 class="anchored" data-anchor-id="check-in">Check in</h2>
+<ul>
+<li>Which of the following is a CFG</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{align*}
+C_1&amp; \\
+&amp;\left.
+    \begin{aligned}
+        &amp;B \rightarrow 0B1 \\
+        &amp;B1 \rightarrow 1B \\
+        &amp;0B \rightarrow 0B
+    \end{aligned}
+\right.
+\end{align*}
+\]</span></p>
+<ul>
+<li>This has a context.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{align*}
+C_2&amp; \\
+&amp;\left.
+    \begin{aligned}
+        &amp;S \rightarrow 0S \quad | \quad S1 \\
+        &amp;R \rightarrow RR
+    \end{aligned}
+\right.
+\end{align*}
+\]</span></p>
+<ul>
+<li>This happens to be the empty language.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="example-2" class="level1">
+<h1>Example</h1>
+<section id="arithmetic" class="level2">
+<h2 class="anchored" data-anchor-id="arithmetic">Arithmetic</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{align*}
+G_2&amp; \\
+&amp;\left.
+    \begin{aligned}
+        &amp;E \rightarrow E+T \quad | \quad  T\\
+        &amp;T \rightarrow T\times F \quad | \quad  F \\
+        &amp;F \rightarrow ( E ) \quad | \quad a
+    \end{aligned}
+\right.
+\end{align*}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{aligned}
+&amp;V = \{ E, T, F \}\\
+&amp;\Sigma = \{+, \times, (, ), a \}\\
+&amp;R = \text{As shown}\\
+&amp;S = E
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="graphically-2" class="level2">
+<h2 class="anchored" data-anchor-id="graphically-2">Graphically</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 278.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 274,-368 274,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-239.69C27,-231.8 27,-222.68 27,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-214.02 27,-204.02 23.5,-214.02 30.5,-214.02"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M151.33,-239.69C143.32,-231.02 133.96,-220.87 125.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="127.76,-208.99 118.4,-204.02 122.61,-213.74 127.76,-208.99"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M171,-239.69C171,-231.8 171,-222.68 171,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-214.02 171,-204.02 167.5,-214.02 174.5,-214.02"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="243" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M190.67,-239.69C198.68,-231.02 208.04,-220.87 216.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="219.39,-213.74 223.6,-204.02 214.24,-208.99 219.39,-213.74"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="27" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M27,-159.69C27,-151.8 27,-142.68 27,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-134.02 27,-124.02 23.5,-134.02 30.5,-134.02"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 6&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>6-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="243" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 8&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>8-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M243,-159.69C243,-151.8 243,-142.68 243,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-134.02 243,-124.02 239.5,-134.02 246.5,-134.02"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>9-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M27,-79.69C27,-71.8 27,-62.68 27,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.02 27,-44.02 23.5,-54.02 30.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- A&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>A-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="nonincremental">
+<ul>
+<li><span class="math inline">\(E\)</span><br>
+</li>
+<li><span class="math inline">\(E+T\)</span></li>
+<li><span class="math inline">\(T+T\times F\)</span></li>
+<li><span class="math inline">\(F+F\times a\)</span></li>
+<li><span class="math inline">\(a+a\times a\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="graphically-3" class="level2">
+<h2 class="anchored" data-anchor-id="graphically-3">Graphically</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 278.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 274,-368 274,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-239.69C27,-231.8 27,-222.68 27,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-214.02 27,-204.02 23.5,-214.02 30.5,-214.02"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M151.33,-239.69C143.32,-231.02 133.96,-220.87 125.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="127.76,-208.99 118.4,-204.02 122.61,-213.74 127.76,-208.99"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M171,-239.69C171,-231.8 171,-222.68 171,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-214.02 171,-204.02 167.5,-214.02 174.5,-214.02"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="243" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M190.67,-239.69C198.68,-231.02 208.04,-220.87 216.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="219.39,-213.74 223.6,-204.02 214.24,-208.99 219.39,-213.74"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="27" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M27,-159.69C27,-151.8 27,-142.68 27,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-134.02 27,-124.02 23.5,-134.02 30.5,-134.02"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 6&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>6-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="243" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 8&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>8-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M243,-159.69C243,-151.8 243,-142.68 243,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-134.02 243,-124.02 239.5,-134.02 246.5,-134.02"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>9-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M27,-79.69C27,-71.8 27,-62.68 27,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.02 27,-44.02 23.5,-54.02 30.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- A&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>A-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 282.00 692.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 688)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-688 278,-688 278,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="82" y="-653" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-573" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M66.97,-639.69C61.04,-631.28 54.13,-621.48 47.74,-612.41"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="50.44,-610.17 41.82,-604.02 44.72,-614.21 50.44,-610.17"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="65" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M82,-639.79C82,-609.46 82,-551.96 82,-503 82,-503 82,-503 82,-421 82,-376.76 75.33,-325.94 70.34,-294.15"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="73.78,-293.45 68.73,-284.13 66.87,-294.56 73.78,-293.45"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="164" y="-413" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M89.28,-639.88C103.8,-597.71 136.46,-502.94 153.38,-453.83"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="156.79,-454.67 156.74,-444.07 150.17,-452.39 156.79,-454.67"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-493" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-559.69C27,-551.8 27,-542.68 27,-534.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-534.02 27,-524.02 23.5,-534.02 30.5,-534.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="137" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 3&#45;&gt;D -->
+<g id="edge14" class="edge">
+<title>3-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M84.67,-239.69C92.68,-231.02 102.04,-220.87 110.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="113.39,-213.74 117.6,-204.02 108.24,-208.99 113.39,-213.74"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="137" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M156.62,-399.69C153.83,-391.62 150.6,-382.28 147.57,-373.54"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="150.85,-372.32 144.28,-364.02 144.24,-374.61 150.85,-372.32"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="192" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M167.76,-399.94C169.56,-389.21 171.62,-375.94 173,-364 182.52,-281.34 188.14,-183.36 190.57,-134.3"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="194.08,-134.19 191.07,-124.03 187.09,-133.85 194.08,-134.19"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="247" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M182.84,-399.87C191.05,-389.66 200.12,-376.86 206,-364 228.62,-314.53 239.24,-251.59 243.85,-214.46"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="247.35,-214.59 245.04,-204.25 240.4,-213.78 247.35,-214.59"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="27" y="-413" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M27,-479.69C27,-471.8 27,-462.68 27,-454.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-454.02 27,-444.02 23.5,-454.02 30.5,-454.02"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="137" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 6&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>6-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M137,-319.69C137,-311.8 137,-302.68 137,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="140.5,-294.02 137,-284.02 133.5,-294.02 140.5,-294.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="219" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 7&#45;&gt;B -->
+<g id="edge16" class="edge">
+<title>7-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M199.38,-79.69C202.17,-71.62 205.4,-62.28 208.43,-53.54"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="211.76,-54.61 211.72,-44.02 205.15,-52.32 211.76,-54.61"></polygon>
+</g>
+<!-- 8&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>8-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M243.22,-159.69C238.41,-132.52 230.05,-85.34 224.52,-54.14"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="227.95,-53.46 222.76,-44.22 221.06,-54.68 227.95,-53.46"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="27" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>9-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M27,-399.69C27,-391.8 27,-382.68 27,-374.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-374.02 27,-364.02 23.5,-374.02 30.5,-374.02"></polygon>
+</g>
+<!-- A&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>A-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M137,-239.69C137,-231.8 137,-222.68 137,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="140.5,-214.02 137,-204.02 133.5,-214.02 140.5,-214.02"></polygon>
+</g>
+<!-- C&#45;&gt;3 -->
+<g id="edge13" class="edge">
+<title>C-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M37.38,-319.69C41.35,-311.54 45.96,-302.08 50.26,-293.26"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="53.53,-294.54 54.76,-284.02 47.23,-291.48 53.53,-294.54"></polygon>
+</g>
+<!-- D&#45;&gt;7 -->
+<g id="edge15" class="edge">
+<title>D-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M152.03,-159.69C157.96,-151.28 164.87,-141.48 171.26,-132.41"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.28,-134.21 177.18,-124.02 168.56,-130.17 174.28,-134.21"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<ul>
+<li>This is a viable way to decribe a programming language.
+<ul>
+<li>In fact I wrote a series of grammars for my <a href="https://cd-public.github.io/papers/2021/CD2021.pdf">doctoral thesis</a> (pg 18).</li>
+</ul></li>
+<li>Parse trees may encode e.g.&nbsp;precedence
+<ul>
+<li><span class="math inline">\(\times\)</span> over <span class="math inline">\(+\)</span></li>
+</ul></li>
+<li>If a string can be <em>derived</em> by different substitutions it is <em>ambigious</em>.</li>
+</ul>
+</section>
+</section>
+<section id="ambiguity" class="level1">
+<h1>Ambiguity</h1>
+<section id="arithmetic-1" class="level2">
+<h2 class="anchored" data-anchor-id="arithmetic-1">Arithmetic</h2>
+<p><span class="math display">\[
+\begin{align*}
+G_2&amp; \\
+&amp;\left.
+    \begin{aligned}
+        &amp;E \rightarrow E+T \quad | \quad  T\\
+        &amp;T \rightarrow T\times F \quad | \quad  F \\
+        &amp;F \rightarrow ( E ) \quad | \quad a
+    \end{aligned}
+\right.
+\end{align*}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align*}
+G_3&amp; \\
+&amp;\left.
+    \begin{aligned}
+        &amp;E \rightarrow E+E \quad | \quad  E \times E \quad | \quad  ( E ) \quad | \quad  a\\
+    \end{aligned}
+\right.
+\end{align*}
+\]</span></p>
+<ul>
+<li>These represent the same language (<span class="math inline">\(L(G_2) = L(G_3)\)</span>)!</li>
+<li>But <span class="math inline">\(G_3\)</span> is ambigious!</li>
+</ul>
+</section>
+</section>
+<section id="a-a-times-a" class="level1">
+<h1><span class="math inline">\(a + a \times a\)</span></h1>
+<div class="columns">
+<div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 350.00 292.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 288)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-288 346,-288 346,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-239.69C71.32,-231.02 61.96,-220.87 53.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-208.99 46.4,-204.02 50.61,-213.74 55.76,-208.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-239.69C99,-230.64 99,-219.99 99,-210.37"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-210.09 99,-200.09 95.5,-210.09 102.5,-210.09"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-239.69C126.68,-231.02 136.04,-220.87 144.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-213.74 151.6,-204.02 142.24,-208.99 147.39,-213.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-159.69C27,-150.64 27,-139.99 27,-130.37"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-130.09 27,-120.09 23.5,-130.09 30.5,-130.09"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+</g>
+<!-- 3&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>3-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M99,-163.69C99,-153.89 99,-141.42 99,-130.33"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-130.26 99,-120.26 95.5,-130.26 102.5,-130.26"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M171,-159.69C171,-151.8 171,-142.68 171,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-134.02 171,-124.02 167.5,-134.02 174.5,-134.02"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M190.67,-159.69C199.83,-149.77 210.78,-137.91 220.28,-127.61"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="223.01,-129.82 227.22,-120.09 217.87,-125.07 223.01,-129.82"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="315" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 4&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>4-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M198.25,-167.03C220.19,-155.68 251.75,-139.13 279,-124 279.09,-123.95 279.18,-123.9 279.27,-123.85"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="280.96,-126.92 287.94,-118.95 277.52,-120.82 280.96,-126.92"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 5&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>5-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M27,-83.69C27,-75.03 27,-64.28 27,-54.24"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.15 27,-44.15 23.5,-54.15 30.5,-54.15"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 6&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>6-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M99,-83.69C99,-75.03 99,-64.28 99,-54.24"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.15 99,-44.15 95.5,-54.15 102.5,-54.15"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="171" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 7&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>7-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M171,-79.69C171,-71.8 171,-62.68 171,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-54.02 171,-44.02 167.5,-54.02 174.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="243" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 8&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>8-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M243,-83.69C243,-75.03 243,-64.28 243,-54.24"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-54.15 243,-44.15 239.5,-54.15 246.5,-54.15"></polygon>
+</g>
+<!-- E -->
+<g id="node14" class="node">
+<title>E</title>
+<text text-anchor="middle" x="315" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;E -->
+<g id="edge13" class="edge">
+<title>9-&gt;E</title>
+<path fill="none" stroke="#ffffff" d="M315,-79.69C315,-71.8 315,-62.68 315,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="318.5,-54.02 315,-44.02 311.5,-54.02 318.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 350.00 292.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 288)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-288 346,-288 346,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="243" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="135" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M215.75,-241.32C202.06,-231.43 185.31,-219.33 170.62,-208.72"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="172.4,-205.69 162.24,-202.68 168.3,-211.37 172.4,-205.69"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="243" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M243,-239.69C243,-231.8 243,-222.68 243,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-214.02 243,-204.02 239.5,-214.02 246.5,-214.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="315" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M262.67,-239.69C270.68,-231.02 280.04,-220.87 288.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="291.39,-213.74 295.6,-204.02 286.24,-208.99 291.39,-213.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M107.75,-161.32C94.06,-151.43 77.31,-139.33 62.62,-128.72"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="64.4,-125.69 54.24,-122.68 60.3,-131.37 64.4,-125.69"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+</g>
+<!-- 2&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>2-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M125.16,-159.69C120.85,-150.35 115.75,-139.3 111.2,-129.44"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="114.26,-127.71 106.89,-120.09 107.9,-130.64 114.26,-127.71"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>2-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M144.84,-159.69C148.6,-151.54 152.96,-142.08 157.04,-133.26"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="160.29,-134.56 161.3,-124.02 153.93,-131.63 160.29,-134.56"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+</g>
+<!-- 3&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>3-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M243,-159.69C243,-150.64 243,-139.99 243,-130.37"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-130.09 243,-120.09 239.5,-130.09 246.5,-130.09"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+</g>
+<!-- 4&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>4-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M315,-159.69C315,-150.64 315,-139.99 315,-130.37"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="318.5,-130.09 315,-120.09 311.5,-130.09 318.5,-130.09"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 5&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>5-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M27,-79.69C27,-71.8 27,-62.68 27,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.02 27,-44.02 23.5,-54.02 30.5,-54.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 6&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>6-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M99,-83.69C99,-75.03 99,-64.28 99,-54.24"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.15 99,-44.15 95.5,-54.15 102.5,-54.15"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="171" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 7&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>7-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M171,-79.69C171,-71.8 171,-62.68 171,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-54.02 171,-44.02 167.5,-54.02 174.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="243" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 8&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>8-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M243,-83.69C243,-75.03 243,-64.28 243,-54.24"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-54.15 243,-44.15 239.5,-54.15 246.5,-54.15"></polygon>
+</g>
+<!-- E -->
+<g id="node14" class="node">
+<title>E</title>
+<text text-anchor="middle" x="315" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;E -->
+<g id="edge13" class="edge">
+<title>9-&gt;E</title>
+<path fill="none" stroke="#ffffff" d="M315,-83.69C315,-75.03 315,-64.28 315,-54.24"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="318.5,-54.15 315,-44.15 311.5,-54.15 318.5,-54.15"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<section id="python" class="level2">
+<h2 class="anchored" data-anchor-id="python">Python</h2>
+<p><span class="math display">\[
+\begin{align*}
+G_3&amp; \\
+&amp;\left.
+    \begin{aligned}
+        &amp;E \rightarrow E+E \quad | \quad  E \times E \quad | \quad  ( E ) \quad | \quad  a\\
+    \end{aligned}
+\right.
+\end{align*}
+\]</span></p>
+<ul>
+<li>Express CFG <span class="math inline">\(G_3\)</span> in Python.</li>
+</ul>
+</section>
+<section id="solution" class="level2">
+<h2 class="anchored" data-anchor-id="solution">Solution</h2>
+<div id="1a65532c" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> itertools <span class="im">import</span> count <span class="co"># infinite iterator</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> itertools <span class="im">import</span> combinations_with_replacement <span class="im">as</span> cwr</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># define variables, so we can use them</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>rules <span class="op">=</span> (</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"E+E"</span>),</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"ExE"</span>), </span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"(E)"</span>), </span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"a"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>trans <span class="op">=</span> <span class="kw">lambda</span> fs, s: fs[<span class="dv">0</span>](trans(fs[<span class="dv">1</span>:], s)) <span class="cf">if</span> <span class="bu">len</span>(fs) <span class="cf">else</span> s</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a>G_2 <span class="op">=</span> (trans(fs,<span class="st">'E'</span>) <span class="cf">for</span> n <span class="kw">in</span> count() <span class="cf">for</span> fs <span class="kw">in</span> cwr(rules, n))</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="bu">next</span>(G_2), <span class="bu">next</span>(G_2), <span class="bu">next</span>(G_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>('E', 'E+E', 'ExE')</code></pre>
+</div>
+</div>
+<ul>
+<li>This isn’t quite right. What’s wrong?</li>
+</ul>
+</section>
+</section>
+<section id="end-of-day" class="level1">
+<h1>End of Day :)</h1>
+<ul>
+<li>Good work!</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06_pump.html" class="pagination-link" aria-label="Pumping Lemma">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Pumping Lemma</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08_pda.html" class="pagination-link" aria-label="Pushdown Automata">
+        <span class="nav-page-text">Pushdown Automata</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="an">title:</span><span class="co"> "Context Free Grammars"</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">---</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">## Sketch</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a>::: {.nonincremental}</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="ss">- </span>Context Free Grammars</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="ss">  - </span>Rules</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="ss">  - </span>Formal Definition</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="ss">  - </span>Examples</span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="ss">  - </span>Ambiguity</span>
+<span id="cb3-13"><a href="#cb3-13"></a>:::</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="fu"># Rules</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="fu">## Context Free Grammars</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a>$$</span>
+<span id="cb3-20"><a href="#cb3-20"></a>\begin{align*}</span>
+<span id="cb3-21"><a href="#cb3-21"></a>G_1&amp; <span class="sc">\\</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a> &amp;\left.</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    \begin{aligned}</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        &amp;S \rightarrow 0S1 <span class="sc">\\</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>        &amp;S \rightarrow R <span class="sc">\\</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>        &amp;R \rightarrow \varepsilon</span>
+<span id="cb3-27"><a href="#cb3-27"></a>    \end{aligned}</span>
+<span id="cb3-28"><a href="#cb3-28"></a>\right<span class="sc">\}</span> \quad \text{(Substitution) Rules}</span>
+<span id="cb3-29"><a href="#cb3-29"></a>\end{align*}</span>
+<span id="cb3-30"><a href="#cb3-30"></a>$$</span>
+<span id="cb3-31"><a href="#cb3-31"></a></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="ss">- </span>We use $\varepsilon$ to denote the empty string.</span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="fu">## Rules</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="ss">- </span>Term these "rules"</span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="ss">- </span>They are of form:</span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="ss">    - </span>Symbol</span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="ss">    - </span><span class="dv">&amp;rarr;</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a><span class="ss">    - </span>String of symbols</span>
+<span id="cb3-41"><a href="#cb3-41"></a></span>
+<span id="cb3-42"><a href="#cb3-42"></a><span class="fu">## Terms</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a></span>
+<span id="cb3-44"><a href="#cb3-44"></a><span class="ss">- </span>*Rule*: Statements of form *Variable* <span class="dv">&amp;rarr;</span> (string of symbols and terminals)</span>
+<span id="cb3-45"><a href="#cb3-45"></a><span class="ss">- </span>*Variable*: Those symbols on the left-hand side (LHS) of a <span class="dv">&amp;rarr;</span> in a rule</span>
+<span id="cb3-46"><a href="#cb3-46"></a><span class="ss">- </span>*Terminals*: Those symbols which appear in only on the right-hand side (RHS)</span>
+<span id="cb3-47"><a href="#cb3-47"></a><span class="ss">- </span>*Starting* variable: The topmost symbol.</span>
+<span id="cb3-48"><a href="#cb3-48"></a></span>
+<span id="cb3-49"><a href="#cb3-49"></a><span class="fu">## 3 Rules</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a></span>
+<span id="cb3-51"><a href="#cb3-51"></a><span class="ss">- </span>$S \rightarrow 0S1$</span>
+<span id="cb3-52"><a href="#cb3-52"></a><span class="ss">- </span>$S \rightarrow R$</span>
+<span id="cb3-53"><a href="#cb3-53"></a><span class="ss">- </span>$R \rightarrow \varepsilon$</span>
+<span id="cb3-54"><a href="#cb3-54"></a></span>
+<span id="cb3-55"><a href="#cb3-55"></a><span class="fu">## 2 Variables / 2 Terminals</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a></span>
+<span id="cb3-57"><a href="#cb3-57"></a><span class="ss">- </span>Variables</span>
+<span id="cb3-58"><a href="#cb3-58"></a><span class="ss">  - </span>$S$</span>
+<span id="cb3-59"><a href="#cb3-59"></a><span class="ss">  - </span>$R$</span>
+<span id="cb3-60"><a href="#cb3-60"></a><span class="ss">- </span>Terminals</span>
+<span id="cb3-61"><a href="#cb3-61"></a><span class="ss">  - </span>$0$</span>
+<span id="cb3-62"><a href="#cb3-62"></a><span class="ss">  - </span>$1$</span>
+<span id="cb3-63"><a href="#cb3-63"></a></span>
+<span id="cb3-64"><a href="#cb3-64"></a><span class="fu">## Generation</span></span>
+<span id="cb3-65"><a href="#cb3-65"></a></span>
+<span id="cb3-66"><a href="#cb3-66"></a><span class="ss">1. </span>Write down the start variable.</span>
+<span id="cb3-67"><a href="#cb3-67"></a><span class="ss">2. </span>Substitute the start variable according to any rule.</span>
+<span id="cb3-68"><a href="#cb3-68"></a><span class="ss">3. </span>Substitute any variable for any rule until no variables remain.</span>
+<span id="cb3-69"><a href="#cb3-69"></a><span class="ss">  - </span>That is, only terminals.</span>
+<span id="cb3-70"><a href="#cb3-70"></a><span class="ss">4. </span>Every possible string is the language $L(G)$</span>
+<span id="cb3-71"><a href="#cb3-71"></a></span>
+<span id="cb3-72"><a href="#cb3-72"></a><span class="fu">## Example</span></span>
+<span id="cb3-73"><a href="#cb3-73"></a></span>
+<span id="cb3-74"><a href="#cb3-74"></a>:::: {.columns}</span>
+<span id="cb3-75"><a href="#cb3-75"></a></span>
+<span id="cb3-76"><a href="#cb3-76"></a>::: {.column width="50%"}</span>
+<span id="cb3-77"><a href="#cb3-77"></a></span>
+<span id="cb3-78"><a href="#cb3-78"></a>$$</span>
+<span id="cb3-79"><a href="#cb3-79"></a>\begin{aligned}</span>
+<span id="cb3-80"><a href="#cb3-80"></a>    &amp;S \rightarrow 0S1 <span class="sc">\\</span></span>
+<span id="cb3-81"><a href="#cb3-81"></a>    &amp;S \rightarrow R <span class="sc">\\</span></span>
+<span id="cb3-82"><a href="#cb3-82"></a>    &amp;R \rightarrow \varepsilon</span>
+<span id="cb3-83"><a href="#cb3-83"></a>\end{aligned}</span>
+<span id="cb3-84"><a href="#cb3-84"></a>$$</span>
+<span id="cb3-85"><a href="#cb3-85"></a></span>
+<span id="cb3-86"><a href="#cb3-86"></a>:::</span>
+<span id="cb3-87"><a href="#cb3-87"></a></span>
+<span id="cb3-88"><a href="#cb3-88"></a>::: {.column width="25%"}</span>
+<span id="cb3-89"><a href="#cb3-89"></a></span>
+<span id="cb3-90"><a href="#cb3-90"></a><span class="ss">- </span>$S$</span>
+<span id="cb3-91"><a href="#cb3-91"></a><span class="ss">- </span>$0S1$</span>
+<span id="cb3-92"><a href="#cb3-92"></a><span class="ss">- </span>$00S11$</span>
+<span id="cb3-93"><a href="#cb3-93"></a><span class="ss">- </span>$00R11$</span>
+<span id="cb3-94"><a href="#cb3-94"></a><span class="ss">- </span>$0011$</span>
+<span id="cb3-95"><a href="#cb3-95"></a></span>
+<span id="cb3-96"><a href="#cb3-96"></a>:::</span>
+<span id="cb3-97"><a href="#cb3-97"></a></span>
+<span id="cb3-98"><a href="#cb3-98"></a>::: {.column width="25%"}</span>
+<span id="cb3-99"><a href="#cb3-99"></a></span>
+<span id="cb3-100"><a href="#cb3-100"></a><span class="ss">- </span>$S$</span>
+<span id="cb3-101"><a href="#cb3-101"></a><span class="ss">- </span>$0S1$</span>
+<span id="cb3-102"><a href="#cb3-102"></a><span class="ss">- </span>$0R1$</span>
+<span id="cb3-103"><a href="#cb3-103"></a><span class="ss">- </span>$01$</span>
+<span id="cb3-104"><a href="#cb3-104"></a></span>
+<span id="cb3-105"><a href="#cb3-105"></a>:::</span>
+<span id="cb3-106"><a href="#cb3-106"></a></span>
+<span id="cb3-107"><a href="#cb3-107"></a>::::</span>
+<span id="cb3-108"><a href="#cb3-108"></a></span>
+<span id="cb3-109"><a href="#cb3-109"></a><span class="fu">## Graphically</span></span>
+<span id="cb3-110"><a href="#cb3-110"></a></span>
+<span id="cb3-111"><a href="#cb3-111"></a>:::: {.columns}</span>
+<span id="cb3-112"><a href="#cb3-112"></a></span>
+<span id="cb3-113"><a href="#cb3-113"></a>::: {.column }</span>
+<span id="cb3-114"><a href="#cb3-114"></a></span>
+<span id="cb3-117"><a href="#cb3-117"></a><span class="in">```{dot}</span></span>
+<span id="cb3-118"><a href="#cb3-118"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-119"><a href="#cb3-119"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-120"><a href="#cb3-120"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-121"><a href="#cb3-121"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-122"><a href="#cb3-122"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-123"><a href="#cb3-123"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-124"><a href="#cb3-124"></a></span>
+<span id="cb3-125"><a href="#cb3-125"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-126"><a href="#cb3-126"></a><span class="in">  1 [label="S"]; </span></span>
+<span id="cb3-127"><a href="#cb3-127"></a><span class="in">  2 [label="0"];</span></span>
+<span id="cb3-128"><a href="#cb3-128"></a><span class="in">  3 [label="S"];</span></span>
+<span id="cb3-129"><a href="#cb3-129"></a><span class="in">  4 [label="1"];</span></span>
+<span id="cb3-130"><a href="#cb3-130"></a><span class="in">  5 [label="0"];</span></span>
+<span id="cb3-131"><a href="#cb3-131"></a><span class="in">  6 [label="S"];</span></span>
+<span id="cb3-132"><a href="#cb3-132"></a><span class="in">  7 [label="1"];</span></span>
+<span id="cb3-133"><a href="#cb3-133"></a><span class="in">  8 [label="R"];</span></span>
+<span id="cb3-134"><a href="#cb3-134"></a><span class="in">  9 [label="ε"];</span></span>
+<span id="cb3-135"><a href="#cb3-135"></a></span>
+<span id="cb3-136"><a href="#cb3-136"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-137"><a href="#cb3-137"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-138"><a href="#cb3-138"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-139"><a href="#cb3-139"></a><span class="in">  3 -&gt; 5</span></span>
+<span id="cb3-140"><a href="#cb3-140"></a><span class="in">  3 -&gt; 6</span></span>
+<span id="cb3-141"><a href="#cb3-141"></a><span class="in">  3 -&gt; 7</span></span>
+<span id="cb3-142"><a href="#cb3-142"></a><span class="in">  6 -&gt; 8</span></span>
+<span id="cb3-143"><a href="#cb3-143"></a><span class="in">  8 -&gt; 9</span></span>
+<span id="cb3-144"><a href="#cb3-144"></a></span>
+<span id="cb3-145"><a href="#cb3-145"></a><span class="in">}</span></span>
+<span id="cb3-146"><a href="#cb3-146"></a><span class="in">```</span></span>
+<span id="cb3-147"><a href="#cb3-147"></a></span>
+<span id="cb3-148"><a href="#cb3-148"></a>:::</span>
+<span id="cb3-149"><a href="#cb3-149"></a></span>
+<span id="cb3-150"><a href="#cb3-150"></a>::: {.column }</span>
+<span id="cb3-151"><a href="#cb3-151"></a></span>
+<span id="cb3-152"><a href="#cb3-152"></a>:::{.nonincremental}</span>
+<span id="cb3-153"><a href="#cb3-153"></a></span>
+<span id="cb3-154"><a href="#cb3-154"></a></span>
+<span id="cb3-155"><a href="#cb3-155"></a><span class="ss">- </span>$S$  </span>
+<span id="cb3-156"><a href="#cb3-156"></a><span class="ss">- </span>$0S1$</span>
+<span id="cb3-157"><a href="#cb3-157"></a><span class="ss">- </span>$00S11$</span>
+<span id="cb3-158"><a href="#cb3-158"></a><span class="ss">- </span>$00R11$</span>
+<span id="cb3-159"><a href="#cb3-159"></a><span class="ss">- </span>$0011$</span>
+<span id="cb3-160"><a href="#cb3-160"></a></span>
+<span id="cb3-161"><a href="#cb3-161"></a></span>
+<span id="cb3-162"><a href="#cb3-162"></a>:::</span>
+<span id="cb3-163"><a href="#cb3-163"></a></span>
+<span id="cb3-164"><a href="#cb3-164"></a>:::</span>
+<span id="cb3-165"><a href="#cb3-165"></a></span>
+<span id="cb3-166"><a href="#cb3-166"></a>::::</span>
+<span id="cb3-167"><a href="#cb3-167"></a></span>
+<span id="cb3-168"><a href="#cb3-168"></a><span class="fu">## Graphically</span></span>
+<span id="cb3-169"><a href="#cb3-169"></a></span>
+<span id="cb3-170"><a href="#cb3-170"></a>:::: {.columns}</span>
+<span id="cb3-171"><a href="#cb3-171"></a></span>
+<span id="cb3-172"><a href="#cb3-172"></a>::: {.column }</span>
+<span id="cb3-173"><a href="#cb3-173"></a></span>
+<span id="cb3-176"><a href="#cb3-176"></a><span class="in">```{dot}</span></span>
+<span id="cb3-177"><a href="#cb3-177"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-178"><a href="#cb3-178"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-179"><a href="#cb3-179"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-180"><a href="#cb3-180"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-181"><a href="#cb3-181"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-182"><a href="#cb3-182"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-183"><a href="#cb3-183"></a></span>
+<span id="cb3-184"><a href="#cb3-184"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-185"><a href="#cb3-185"></a><span class="in">  1 [label="S"]; </span></span>
+<span id="cb3-186"><a href="#cb3-186"></a><span class="in">  2 [label="0"];</span></span>
+<span id="cb3-187"><a href="#cb3-187"></a><span class="in">  3 [label="S"];</span></span>
+<span id="cb3-188"><a href="#cb3-188"></a><span class="in">  4 [label="1"];</span></span>
+<span id="cb3-189"><a href="#cb3-189"></a><span class="in">  5 [label="0"];</span></span>
+<span id="cb3-190"><a href="#cb3-190"></a><span class="in">  6 [label="S"];</span></span>
+<span id="cb3-191"><a href="#cb3-191"></a><span class="in">  7 [label="1"];</span></span>
+<span id="cb3-192"><a href="#cb3-192"></a><span class="in">  8 [label="R"];</span></span>
+<span id="cb3-193"><a href="#cb3-193"></a><span class="in">  9 [label="ε"];</span></span>
+<span id="cb3-194"><a href="#cb3-194"></a></span>
+<span id="cb3-195"><a href="#cb3-195"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-196"><a href="#cb3-196"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-197"><a href="#cb3-197"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-198"><a href="#cb3-198"></a><span class="in">  3 -&gt; 5</span></span>
+<span id="cb3-199"><a href="#cb3-199"></a><span class="in">  3 -&gt; 6</span></span>
+<span id="cb3-200"><a href="#cb3-200"></a><span class="in">  3 -&gt; 7</span></span>
+<span id="cb3-201"><a href="#cb3-201"></a><span class="in">  6 -&gt; 8</span></span>
+<span id="cb3-202"><a href="#cb3-202"></a><span class="in">  8 -&gt; 9</span></span>
+<span id="cb3-203"><a href="#cb3-203"></a></span>
+<span id="cb3-204"><a href="#cb3-204"></a><span class="in">}</span></span>
+<span id="cb3-205"><a href="#cb3-205"></a><span class="in">```</span></span>
+<span id="cb3-206"><a href="#cb3-206"></a></span>
+<span id="cb3-207"><a href="#cb3-207"></a>:::</span>
+<span id="cb3-208"><a href="#cb3-208"></a></span>
+<span id="cb3-209"><a href="#cb3-209"></a>::: {.column }</span>
+<span id="cb3-210"><a href="#cb3-210"></a></span>
+<span id="cb3-213"><a href="#cb3-213"></a><span class="in">```{dot}</span></span>
+<span id="cb3-214"><a href="#cb3-214"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-215"><a href="#cb3-215"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-216"><a href="#cb3-216"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-217"><a href="#cb3-217"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-218"><a href="#cb3-218"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-219"><a href="#cb3-219"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-220"><a href="#cb3-220"></a></span>
+<span id="cb3-221"><a href="#cb3-221"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-222"><a href="#cb3-222"></a><span class="in">  1 [label="S"]; </span></span>
+<span id="cb3-223"><a href="#cb3-223"></a><span class="in">  2 [label="0"];</span></span>
+<span id="cb3-224"><a href="#cb3-224"></a><span class="in">  3 [label="S"];</span></span>
+<span id="cb3-225"><a href="#cb3-225"></a><span class="in">  4 [label="1"];</span></span>
+<span id="cb3-226"><a href="#cb3-226"></a><span class="in">  5 [label="0"];</span></span>
+<span id="cb3-227"><a href="#cb3-227"></a><span class="in">  6 [label="S"];</span></span>
+<span id="cb3-228"><a href="#cb3-228"></a><span class="in">  7 [label="1"];</span></span>
+<span id="cb3-229"><a href="#cb3-229"></a><span class="in">  8 [label="R"];</span></span>
+<span id="cb3-230"><a href="#cb3-230"></a><span class="in">  9 [label="ε"];</span></span>
+<span id="cb3-231"><a href="#cb3-231"></a></span>
+<span id="cb3-232"><a href="#cb3-232"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-233"><a href="#cb3-233"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-234"><a href="#cb3-234"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-235"><a href="#cb3-235"></a><span class="in">  3 -&gt; 5</span></span>
+<span id="cb3-236"><a href="#cb3-236"></a><span class="in">  3 -&gt; 6</span></span>
+<span id="cb3-237"><a href="#cb3-237"></a><span class="in">  3 -&gt; 7</span></span>
+<span id="cb3-238"><a href="#cb3-238"></a><span class="in">  6 -&gt; 8</span></span>
+<span id="cb3-239"><a href="#cb3-239"></a><span class="in">  8 -&gt; 9</span></span>
+<span id="cb3-240"><a href="#cb3-240"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb3-241"><a href="#cb3-241"></a><span class="in">  5 -&gt; 9</span></span>
+<span id="cb3-242"><a href="#cb3-242"></a><span class="in">  9 -&gt; 7</span></span>
+<span id="cb3-243"><a href="#cb3-243"></a><span class="in">  7 -&gt; 4</span></span>
+<span id="cb3-244"><a href="#cb3-244"></a></span>
+<span id="cb3-245"><a href="#cb3-245"></a><span class="in">}</span></span>
+<span id="cb3-246"><a href="#cb3-246"></a><span class="in">```</span></span>
+<span id="cb3-247"><a href="#cb3-247"></a></span>
+<span id="cb3-248"><a href="#cb3-248"></a>:::</span>
+<span id="cb3-249"><a href="#cb3-249"></a></span>
+<span id="cb3-250"><a href="#cb3-250"></a>::::</span>
+<span id="cb3-251"><a href="#cb3-251"></a></span>
+<span id="cb3-252"><a href="#cb3-252"></a></span>
+<span id="cb3-253"><a href="#cb3-253"></a><span class="fu">## Example</span></span>
+<span id="cb3-254"><a href="#cb3-254"></a></span>
+<span id="cb3-255"><a href="#cb3-255"></a>:::: {.columns}</span>
+<span id="cb3-256"><a href="#cb3-256"></a></span>
+<span id="cb3-257"><a href="#cb3-257"></a>::: {.column width="50%"}</span>
+<span id="cb3-258"><a href="#cb3-258"></a></span>
+<span id="cb3-259"><a href="#cb3-259"></a>$$</span>
+<span id="cb3-260"><a href="#cb3-260"></a>\begin{aligned}</span>
+<span id="cb3-261"><a href="#cb3-261"></a>    &amp;S \rightarrow 0S1 <span class="sc">\\</span></span>
+<span id="cb3-262"><a href="#cb3-262"></a>    &amp;S \rightarrow R <span class="sc">\\</span></span>
+<span id="cb3-263"><a href="#cb3-263"></a>    &amp;R \rightarrow \varepsilon</span>
+<span id="cb3-264"><a href="#cb3-264"></a>\end{aligned}</span>
+<span id="cb3-265"><a href="#cb3-265"></a>$$</span>
+<span id="cb3-266"><a href="#cb3-266"></a></span>
+<span id="cb3-267"><a href="#cb3-267"></a>:::</span>
+<span id="cb3-268"><a href="#cb3-268"></a></span>
+<span id="cb3-269"><a href="#cb3-269"></a>::: {.column width="50%"}</span>
+<span id="cb3-270"><a href="#cb3-270"></a></span>
+<span id="cb3-271"><a href="#cb3-271"></a><span class="ss">- </span>$L(G_1) = <span class="sc">\{</span> 0^k1^k | k \in \mathbb{N} <span class="sc">\}</span>$</span>
+<span id="cb3-272"><a href="#cb3-272"></a><span class="ss">- </span>This is a language a CFG can do.</span>
+<span id="cb3-273"><a href="#cb3-273"></a><span class="ss">  - </span>That a DFA/NFA/GNFA cannot.</span>
+<span id="cb3-274"><a href="#cb3-274"></a></span>
+<span id="cb3-275"><a href="#cb3-275"></a>:::</span>
+<span id="cb3-276"><a href="#cb3-276"></a></span>
+<span id="cb3-277"><a href="#cb3-277"></a>::::</span>
+<span id="cb3-278"><a href="#cb3-278"></a></span>
+<span id="cb3-279"><a href="#cb3-279"></a><span class="fu">## Shorthand</span></span>
+<span id="cb3-280"><a href="#cb3-280"></a></span>
+<span id="cb3-281"><a href="#cb3-281"></a>:::: {.columns}</span>
+<span id="cb3-282"><a href="#cb3-282"></a></span>
+<span id="cb3-283"><a href="#cb3-283"></a>::: {.column width="50%"}</span>
+<span id="cb3-284"><a href="#cb3-284"></a></span>
+<span id="cb3-285"><a href="#cb3-285"></a>$$</span>
+<span id="cb3-286"><a href="#cb3-286"></a>\begin{aligned}</span>
+<span id="cb3-287"><a href="#cb3-287"></a>    &amp;S \rightarrow 0S1 <span class="sc">\\</span></span>
+<span id="cb3-288"><a href="#cb3-288"></a>    &amp;S \rightarrow R <span class="sc">\\</span></span>
+<span id="cb3-289"><a href="#cb3-289"></a>    &amp;R \rightarrow \varepsilon</span>
+<span id="cb3-290"><a href="#cb3-290"></a>\end{aligned}</span>
+<span id="cb3-291"><a href="#cb3-291"></a>$$</span>
+<span id="cb3-292"><a href="#cb3-292"></a></span>
+<span id="cb3-293"><a href="#cb3-293"></a>:::</span>
+<span id="cb3-294"><a href="#cb3-294"></a></span>
+<span id="cb3-295"><a href="#cb3-295"></a>::: {.column width="50%"}</span>
+<span id="cb3-296"><a href="#cb3-296"></a></span>
+<span id="cb3-297"><a href="#cb3-297"></a>$$</span>
+<span id="cb3-298"><a href="#cb3-298"></a>\begin{aligned}</span>
+<span id="cb3-299"><a href="#cb3-299"></a>    &amp;S \rightarrow 0S1\quad|\quad R<span class="sc">\\</span></span>
+<span id="cb3-300"><a href="#cb3-300"></a>    &amp;R \rightarrow \varepsilon</span>
+<span id="cb3-301"><a href="#cb3-301"></a>\end{aligned}</span>
+<span id="cb3-302"><a href="#cb3-302"></a>$$</span>
+<span id="cb3-303"><a href="#cb3-303"></a></span>
+<span id="cb3-304"><a href="#cb3-304"></a>:::</span>
+<span id="cb3-305"><a href="#cb3-305"></a></span>
+<span id="cb3-306"><a href="#cb3-306"></a>::::</span>
+<span id="cb3-307"><a href="#cb3-307"></a></span>
+<span id="cb3-308"><a href="#cb3-308"></a><span class="fu"># Formal Definition</span></span>
+<span id="cb3-309"><a href="#cb3-309"></a></span>
+<span id="cb3-310"><a href="#cb3-310"></a><span class="fu">## Context Free Grammar</span></span>
+<span id="cb3-311"><a href="#cb3-311"></a></span>
+<span id="cb3-312"><a href="#cb3-312"></a><span class="ss">- </span>A *Context Free Grammar* (CFG) </span>
+<span id="cb3-313"><a href="#cb3-313"></a><span class="ss">- </span>A CFG is a 4-tuple $(V, \Sigma, R, S)$</span>
+<span id="cb3-314"><a href="#cb3-314"></a><span class="ss">  - </span>$V$ : finite set of variables</span>
+<span id="cb3-315"><a href="#cb3-315"></a><span class="ss">  - </span>$\Sigma$ : finite set of terminal symbols</span>
+<span id="cb3-316"><a href="#cb3-316"></a><span class="ss">    - </span>We note this is the alphabet, a la DFA</span>
+<span id="cb3-317"><a href="#cb3-317"></a><span class="ss">  - </span>$R$ finite set of rules</span>
+<span id="cb3-318"><a href="#cb3-318"></a><span class="ss">    - </span>Of form $V \rightarrow (V \cup \Sigma)*$</span>
+<span id="cb3-319"><a href="#cb3-319"></a><span class="ss">  - </span>$S$ start variable</span>
+<span id="cb3-320"><a href="#cb3-320"></a></span>
+<span id="cb3-321"><a href="#cb3-321"></a><span class="fu">## Substitutions</span></span>
+<span id="cb3-322"><a href="#cb3-322"></a></span>
+<span id="cb3-323"><a href="#cb3-323"></a><span class="ss">- </span>$\forall u,v \in (V \cup \Sigma)*$</span>
+<span id="cb3-324"><a href="#cb3-324"></a><span class="ss">- </span>$u \Rightarrow v := \exists R : R(u) \rightarrow v$</span>
+<span id="cb3-325"><a href="#cb3-325"></a><span class="ss">- </span>$u \overset{*}{\Rightarrow} v := \exists u_1, u_2, ... u_n : \underset{i \leq n}{\Rightarrow} u_i = v$</span>
+<span id="cb3-326"><a href="#cb3-326"></a><span class="ss">  -  </span>$\overset{*}{\Rightarrow}$ is the transitive closure of $\Rightarrow$</span>
+<span id="cb3-327"><a href="#cb3-327"></a><span class="ss">  -  </span>Term this a *derivation* of $v$ from $u$</span>
+<span id="cb3-328"><a href="#cb3-328"></a><span class="ss">  -  </span>If $u = S$ term this the *derivation* of $v$</span>
+<span id="cb3-329"><a href="#cb3-329"></a><span class="ss">- </span>$L(G) = <span class="sc">\{</span> w | w \in \Sigma* \land S \overset{*}{\Rightarrow} w <span class="sc">\}</span>$</span>
+<span id="cb3-330"><a href="#cb3-330"></a></span>
+<span id="cb3-331"><a href="#cb3-331"></a><span class="fu">## Check in</span></span>
+<span id="cb3-332"><a href="#cb3-332"></a></span>
+<span id="cb3-333"><a href="#cb3-333"></a><span class="ss">- </span>Which of the following is a CFG</span>
+<span id="cb3-334"><a href="#cb3-334"></a></span>
+<span id="cb3-335"><a href="#cb3-335"></a>:::: {.columns}</span>
+<span id="cb3-336"><a href="#cb3-336"></a></span>
+<span id="cb3-337"><a href="#cb3-337"></a>::: {.column width="50%"}</span>
+<span id="cb3-338"><a href="#cb3-338"></a></span>
+<span id="cb3-339"><a href="#cb3-339"></a>$$</span>
+<span id="cb3-340"><a href="#cb3-340"></a>\begin{align*}</span>
+<span id="cb3-341"><a href="#cb3-341"></a>C_1&amp; <span class="sc">\\</span></span>
+<span id="cb3-342"><a href="#cb3-342"></a> &amp;\left.</span>
+<span id="cb3-343"><a href="#cb3-343"></a>    \begin{aligned}</span>
+<span id="cb3-344"><a href="#cb3-344"></a>        &amp;B \rightarrow 0B1 <span class="sc">\\</span></span>
+<span id="cb3-345"><a href="#cb3-345"></a>        &amp;B1 \rightarrow 1B <span class="sc">\\</span></span>
+<span id="cb3-346"><a href="#cb3-346"></a>        &amp;0B \rightarrow 0B</span>
+<span id="cb3-347"><a href="#cb3-347"></a>    \end{aligned}</span>
+<span id="cb3-348"><a href="#cb3-348"></a>\right.</span>
+<span id="cb3-349"><a href="#cb3-349"></a>\end{align*}</span>
+<span id="cb3-350"><a href="#cb3-350"></a>$$</span>
+<span id="cb3-351"><a href="#cb3-351"></a></span>
+<span id="cb3-352"><a href="#cb3-352"></a><span class="ss">- </span>This has a context.</span>
+<span id="cb3-353"><a href="#cb3-353"></a></span>
+<span id="cb3-354"><a href="#cb3-354"></a>:::</span>
+<span id="cb3-355"><a href="#cb3-355"></a></span>
+<span id="cb3-356"><a href="#cb3-356"></a>::: {.column width="50%"}</span>
+<span id="cb3-357"><a href="#cb3-357"></a></span>
+<span id="cb3-358"><a href="#cb3-358"></a>$$</span>
+<span id="cb3-359"><a href="#cb3-359"></a>\begin{align*}</span>
+<span id="cb3-360"><a href="#cb3-360"></a>C_2&amp; <span class="sc">\\</span></span>
+<span id="cb3-361"><a href="#cb3-361"></a> &amp;\left.</span>
+<span id="cb3-362"><a href="#cb3-362"></a>    \begin{aligned}</span>
+<span id="cb3-363"><a href="#cb3-363"></a>        &amp;S \rightarrow 0S \quad | \quad S1 <span class="sc">\\</span></span>
+<span id="cb3-364"><a href="#cb3-364"></a>        &amp;R \rightarrow RR </span>
+<span id="cb3-365"><a href="#cb3-365"></a>    \end{aligned}</span>
+<span id="cb3-366"><a href="#cb3-366"></a>\right.</span>
+<span id="cb3-367"><a href="#cb3-367"></a>\end{align*}</span>
+<span id="cb3-368"><a href="#cb3-368"></a>$$</span>
+<span id="cb3-369"><a href="#cb3-369"></a></span>
+<span id="cb3-370"><a href="#cb3-370"></a><span class="ss">- </span>This happens to be the empty language.</span>
+<span id="cb3-371"><a href="#cb3-371"></a></span>
+<span id="cb3-372"><a href="#cb3-372"></a>:::</span>
+<span id="cb3-373"><a href="#cb3-373"></a></span>
+<span id="cb3-374"><a href="#cb3-374"></a>::::</span>
+<span id="cb3-375"><a href="#cb3-375"></a></span>
+<span id="cb3-376"><a href="#cb3-376"></a><span class="fu"># Example</span></span>
+<span id="cb3-377"><a href="#cb3-377"></a></span>
+<span id="cb3-378"><a href="#cb3-378"></a><span class="fu">## Arithmetic</span></span>
+<span id="cb3-379"><a href="#cb3-379"></a></span>
+<span id="cb3-380"><a href="#cb3-380"></a>:::: {.columns}</span>
+<span id="cb3-381"><a href="#cb3-381"></a></span>
+<span id="cb3-382"><a href="#cb3-382"></a>::: {.column width="50%"}</span>
+<span id="cb3-383"><a href="#cb3-383"></a></span>
+<span id="cb3-384"><a href="#cb3-384"></a>$$</span>
+<span id="cb3-385"><a href="#cb3-385"></a>\begin{align*}</span>
+<span id="cb3-386"><a href="#cb3-386"></a>G_2&amp; <span class="sc">\\</span></span>
+<span id="cb3-387"><a href="#cb3-387"></a> &amp;\left.</span>
+<span id="cb3-388"><a href="#cb3-388"></a>    \begin{aligned}</span>
+<span id="cb3-389"><a href="#cb3-389"></a>        &amp;E \rightarrow E+T \quad | \quad  T<span class="sc">\\</span></span>
+<span id="cb3-390"><a href="#cb3-390"></a>        &amp;T \rightarrow T\times F \quad | \quad  F <span class="sc">\\</span></span>
+<span id="cb3-391"><a href="#cb3-391"></a>        &amp;F \rightarrow ( E ) \quad | \quad a</span>
+<span id="cb3-392"><a href="#cb3-392"></a>    \end{aligned}</span>
+<span id="cb3-393"><a href="#cb3-393"></a>\right.</span>
+<span id="cb3-394"><a href="#cb3-394"></a>\end{align*}</span>
+<span id="cb3-395"><a href="#cb3-395"></a>$$</span>
+<span id="cb3-396"><a href="#cb3-396"></a></span>
+<span id="cb3-397"><a href="#cb3-397"></a>:::</span>
+<span id="cb3-398"><a href="#cb3-398"></a></span>
+<span id="cb3-399"><a href="#cb3-399"></a>::: {.column width="50%"}</span>
+<span id="cb3-400"><a href="#cb3-400"></a></span>
+<span id="cb3-401"><a href="#cb3-401"></a>$$</span>
+<span id="cb3-402"><a href="#cb3-402"></a>\begin{aligned}</span>
+<span id="cb3-403"><a href="#cb3-403"></a>&amp;V = <span class="sc">\{</span> E, T, F <span class="sc">\}\\</span></span>
+<span id="cb3-404"><a href="#cb3-404"></a>&amp;\Sigma = <span class="sc">\{</span>+, \times, (, ), a <span class="sc">\}\\</span></span>
+<span id="cb3-405"><a href="#cb3-405"></a>&amp;R = \text{As shown}<span class="sc">\\</span></span>
+<span id="cb3-406"><a href="#cb3-406"></a>&amp;S = E</span>
+<span id="cb3-407"><a href="#cb3-407"></a>\end{aligned}</span>
+<span id="cb3-408"><a href="#cb3-408"></a>$$</span>
+<span id="cb3-409"><a href="#cb3-409"></a></span>
+<span id="cb3-410"><a href="#cb3-410"></a>:::</span>
+<span id="cb3-411"><a href="#cb3-411"></a></span>
+<span id="cb3-412"><a href="#cb3-412"></a>::::</span>
+<span id="cb3-413"><a href="#cb3-413"></a></span>
+<span id="cb3-414"><a href="#cb3-414"></a><span class="fu">## Graphically</span></span>
+<span id="cb3-415"><a href="#cb3-415"></a></span>
+<span id="cb3-416"><a href="#cb3-416"></a>:::: {.columns}</span>
+<span id="cb3-417"><a href="#cb3-417"></a></span>
+<span id="cb3-418"><a href="#cb3-418"></a>::: {.column }</span>
+<span id="cb3-419"><a href="#cb3-419"></a></span>
+<span id="cb3-422"><a href="#cb3-422"></a><span class="in">```{dot}</span></span>
+<span id="cb3-423"><a href="#cb3-423"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-424"><a href="#cb3-424"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-425"><a href="#cb3-425"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-426"><a href="#cb3-426"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-427"><a href="#cb3-427"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-428"><a href="#cb3-428"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-429"><a href="#cb3-429"></a></span>
+<span id="cb3-430"><a href="#cb3-430"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-431"><a href="#cb3-431"></a><span class="in">  1 [label="E"]; </span></span>
+<span id="cb3-432"><a href="#cb3-432"></a></span>
+<span id="cb3-433"><a href="#cb3-433"></a><span class="in">  2 [label="E"];</span></span>
+<span id="cb3-434"><a href="#cb3-434"></a><span class="in">  3 [label="+"];</span></span>
+<span id="cb3-435"><a href="#cb3-435"></a><span class="in">  4 [label="T"];</span></span>
+<span id="cb3-436"><a href="#cb3-436"></a></span>
+<span id="cb3-437"><a href="#cb3-437"></a><span class="in">  5 [label="T"];</span></span>
+<span id="cb3-438"><a href="#cb3-438"></a><span class="in">  6 [label="T"];</span></span>
+<span id="cb3-439"><a href="#cb3-439"></a><span class="in">  7 [label="×"];</span></span>
+<span id="cb3-440"><a href="#cb3-440"></a><span class="in">  8 [label="F"];</span></span>
+<span id="cb3-441"><a href="#cb3-441"></a></span>
+<span id="cb3-442"><a href="#cb3-442"></a><span class="in">  9 [label="F"];</span></span>
+<span id="cb3-443"><a href="#cb3-443"></a><span class="in">  A [label="F"];</span></span>
+<span id="cb3-444"><a href="#cb3-444"></a><span class="in">  B [label="a"];</span></span>
+<span id="cb3-445"><a href="#cb3-445"></a></span>
+<span id="cb3-446"><a href="#cb3-446"></a><span class="in">  C [label="a"];</span></span>
+<span id="cb3-447"><a href="#cb3-447"></a><span class="in">  D [label="a"];</span></span>
+<span id="cb3-448"><a href="#cb3-448"></a></span>
+<span id="cb3-449"><a href="#cb3-449"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-450"><a href="#cb3-450"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-451"><a href="#cb3-451"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-452"><a href="#cb3-452"></a></span>
+<span id="cb3-453"><a href="#cb3-453"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb3-454"><a href="#cb3-454"></a><span class="in">  4 -&gt; 6</span></span>
+<span id="cb3-455"><a href="#cb3-455"></a><span class="in">  4 -&gt; 7</span></span>
+<span id="cb3-456"><a href="#cb3-456"></a><span class="in">  4 -&gt; 8</span></span>
+<span id="cb3-457"><a href="#cb3-457"></a></span>
+<span id="cb3-458"><a href="#cb3-458"></a><span class="in">  5 -&gt; 9</span></span>
+<span id="cb3-459"><a href="#cb3-459"></a><span class="in">  6 -&gt; A</span></span>
+<span id="cb3-460"><a href="#cb3-460"></a><span class="in">  8 -&gt; B</span></span>
+<span id="cb3-461"><a href="#cb3-461"></a></span>
+<span id="cb3-462"><a href="#cb3-462"></a><span class="in">  9 -&gt; C</span></span>
+<span id="cb3-463"><a href="#cb3-463"></a><span class="in">  A -&gt; D</span></span>
+<span id="cb3-464"><a href="#cb3-464"></a></span>
+<span id="cb3-465"><a href="#cb3-465"></a></span>
+<span id="cb3-466"><a href="#cb3-466"></a><span class="in">}</span></span>
+<span id="cb3-467"><a href="#cb3-467"></a><span class="in">```</span></span>
+<span id="cb3-468"><a href="#cb3-468"></a></span>
+<span id="cb3-469"><a href="#cb3-469"></a>:::</span>
+<span id="cb3-470"><a href="#cb3-470"></a></span>
+<span id="cb3-471"><a href="#cb3-471"></a>::: {.column }</span>
+<span id="cb3-472"><a href="#cb3-472"></a></span>
+<span id="cb3-473"><a href="#cb3-473"></a>:::{.nonincremental}</span>
+<span id="cb3-474"><a href="#cb3-474"></a></span>
+<span id="cb3-475"><a href="#cb3-475"></a></span>
+<span id="cb3-476"><a href="#cb3-476"></a><span class="ss">- </span>$E$  </span>
+<span id="cb3-477"><a href="#cb3-477"></a><span class="ss">- </span>$E+T$</span>
+<span id="cb3-478"><a href="#cb3-478"></a><span class="ss">- </span>$T+T\times F$</span>
+<span id="cb3-479"><a href="#cb3-479"></a><span class="ss">- </span>$F+F\times a$</span>
+<span id="cb3-480"><a href="#cb3-480"></a><span class="ss">- </span>$a+a\times a$</span>
+<span id="cb3-481"><a href="#cb3-481"></a></span>
+<span id="cb3-482"><a href="#cb3-482"></a></span>
+<span id="cb3-483"><a href="#cb3-483"></a>:::</span>
+<span id="cb3-484"><a href="#cb3-484"></a></span>
+<span id="cb3-485"><a href="#cb3-485"></a>:::</span>
+<span id="cb3-486"><a href="#cb3-486"></a></span>
+<span id="cb3-487"><a href="#cb3-487"></a>::::</span>
+<span id="cb3-488"><a href="#cb3-488"></a></span>
+<span id="cb3-489"><a href="#cb3-489"></a><span class="fu">## Graphically</span></span>
+<span id="cb3-490"><a href="#cb3-490"></a></span>
+<span id="cb3-491"><a href="#cb3-491"></a>:::: {.columns}</span>
+<span id="cb3-492"><a href="#cb3-492"></a></span>
+<span id="cb3-493"><a href="#cb3-493"></a>::: {.column }</span>
+<span id="cb3-494"><a href="#cb3-494"></a></span>
+<span id="cb3-497"><a href="#cb3-497"></a><span class="in">```{dot}</span></span>
+<span id="cb3-498"><a href="#cb3-498"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-499"><a href="#cb3-499"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-500"><a href="#cb3-500"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-501"><a href="#cb3-501"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-502"><a href="#cb3-502"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-503"><a href="#cb3-503"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-504"><a href="#cb3-504"></a></span>
+<span id="cb3-505"><a href="#cb3-505"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-506"><a href="#cb3-506"></a><span class="in">  1 [label="E"]; </span></span>
+<span id="cb3-507"><a href="#cb3-507"></a></span>
+<span id="cb3-508"><a href="#cb3-508"></a><span class="in">  2 [label="E"];</span></span>
+<span id="cb3-509"><a href="#cb3-509"></a><span class="in">  3 [label="+"];</span></span>
+<span id="cb3-510"><a href="#cb3-510"></a><span class="in">  4 [label="T"];</span></span>
+<span id="cb3-511"><a href="#cb3-511"></a></span>
+<span id="cb3-512"><a href="#cb3-512"></a><span class="in">  5 [label="T"];</span></span>
+<span id="cb3-513"><a href="#cb3-513"></a><span class="in">  6 [label="T"];</span></span>
+<span id="cb3-514"><a href="#cb3-514"></a><span class="in">  7 [label="×"];</span></span>
+<span id="cb3-515"><a href="#cb3-515"></a><span class="in">  8 [label="F"];</span></span>
+<span id="cb3-516"><a href="#cb3-516"></a></span>
+<span id="cb3-517"><a href="#cb3-517"></a><span class="in">  9 [label="F"];</span></span>
+<span id="cb3-518"><a href="#cb3-518"></a><span class="in">  A [label="F"];</span></span>
+<span id="cb3-519"><a href="#cb3-519"></a><span class="in">  B [label="a"];</span></span>
+<span id="cb3-520"><a href="#cb3-520"></a></span>
+<span id="cb3-521"><a href="#cb3-521"></a><span class="in">  C [label="a"];</span></span>
+<span id="cb3-522"><a href="#cb3-522"></a><span class="in">  D [label="a"];</span></span>
+<span id="cb3-523"><a href="#cb3-523"></a></span>
+<span id="cb3-524"><a href="#cb3-524"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-525"><a href="#cb3-525"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-526"><a href="#cb3-526"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-527"><a href="#cb3-527"></a></span>
+<span id="cb3-528"><a href="#cb3-528"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb3-529"><a href="#cb3-529"></a><span class="in">  4 -&gt; 6</span></span>
+<span id="cb3-530"><a href="#cb3-530"></a><span class="in">  4 -&gt; 7</span></span>
+<span id="cb3-531"><a href="#cb3-531"></a><span class="in">  4 -&gt; 8</span></span>
+<span id="cb3-532"><a href="#cb3-532"></a></span>
+<span id="cb3-533"><a href="#cb3-533"></a><span class="in">  5 -&gt; 9</span></span>
+<span id="cb3-534"><a href="#cb3-534"></a><span class="in">  6 -&gt; A</span></span>
+<span id="cb3-535"><a href="#cb3-535"></a><span class="in">  8 -&gt; B</span></span>
+<span id="cb3-536"><a href="#cb3-536"></a></span>
+<span id="cb3-537"><a href="#cb3-537"></a><span class="in">  9 -&gt; C</span></span>
+<span id="cb3-538"><a href="#cb3-538"></a><span class="in">  A -&gt; D</span></span>
+<span id="cb3-539"><a href="#cb3-539"></a></span>
+<span id="cb3-540"><a href="#cb3-540"></a></span>
+<span id="cb3-541"><a href="#cb3-541"></a><span class="in">}</span></span>
+<span id="cb3-542"><a href="#cb3-542"></a><span class="in">```</span></span>
+<span id="cb3-543"><a href="#cb3-543"></a></span>
+<span id="cb3-544"><a href="#cb3-544"></a>:::</span>
+<span id="cb3-545"><a href="#cb3-545"></a></span>
+<span id="cb3-546"><a href="#cb3-546"></a>::: {.column }</span>
+<span id="cb3-547"><a href="#cb3-547"></a></span>
+<span id="cb3-548"><a href="#cb3-548"></a></span>
+<span id="cb3-551"><a href="#cb3-551"></a><span class="in">```{dot}</span></span>
+<span id="cb3-552"><a href="#cb3-552"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-553"><a href="#cb3-553"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-554"><a href="#cb3-554"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-555"><a href="#cb3-555"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-556"><a href="#cb3-556"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-557"><a href="#cb3-557"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-558"><a href="#cb3-558"></a></span>
+<span id="cb3-559"><a href="#cb3-559"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-560"><a href="#cb3-560"></a><span class="in">  1 [label="E"]; </span></span>
+<span id="cb3-561"><a href="#cb3-561"></a></span>
+<span id="cb3-562"><a href="#cb3-562"></a><span class="in">  2 [label="E"];</span></span>
+<span id="cb3-563"><a href="#cb3-563"></a><span class="in">  3 [label="+"];</span></span>
+<span id="cb3-564"><a href="#cb3-564"></a><span class="in">  4 [label="T"];</span></span>
+<span id="cb3-565"><a href="#cb3-565"></a></span>
+<span id="cb3-566"><a href="#cb3-566"></a><span class="in">  5 [label="T"];</span></span>
+<span id="cb3-567"><a href="#cb3-567"></a><span class="in">  6 [label="T"];</span></span>
+<span id="cb3-568"><a href="#cb3-568"></a><span class="in">  7 [label="×"];</span></span>
+<span id="cb3-569"><a href="#cb3-569"></a><span class="in">  8 [label="F"];</span></span>
+<span id="cb3-570"><a href="#cb3-570"></a></span>
+<span id="cb3-571"><a href="#cb3-571"></a><span class="in">  9 [label="F"];</span></span>
+<span id="cb3-572"><a href="#cb3-572"></a><span class="in">  A [label="F"];</span></span>
+<span id="cb3-573"><a href="#cb3-573"></a><span class="in">  B [label="a"];</span></span>
+<span id="cb3-574"><a href="#cb3-574"></a></span>
+<span id="cb3-575"><a href="#cb3-575"></a><span class="in">  C [label="a"];</span></span>
+<span id="cb3-576"><a href="#cb3-576"></a><span class="in">  D [label="a"];</span></span>
+<span id="cb3-577"><a href="#cb3-577"></a></span>
+<span id="cb3-578"><a href="#cb3-578"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-579"><a href="#cb3-579"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-580"><a href="#cb3-580"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-581"><a href="#cb3-581"></a></span>
+<span id="cb3-582"><a href="#cb3-582"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb3-583"><a href="#cb3-583"></a><span class="in">  4 -&gt; 6</span></span>
+<span id="cb3-584"><a href="#cb3-584"></a><span class="in">  4 -&gt; 7</span></span>
+<span id="cb3-585"><a href="#cb3-585"></a><span class="in">  4 -&gt; 8</span></span>
+<span id="cb3-586"><a href="#cb3-586"></a></span>
+<span id="cb3-587"><a href="#cb3-587"></a><span class="in">  5 -&gt; 9</span></span>
+<span id="cb3-588"><a href="#cb3-588"></a><span class="in">  6 -&gt; A</span></span>
+<span id="cb3-589"><a href="#cb3-589"></a><span class="in">  8 -&gt; B</span></span>
+<span id="cb3-590"><a href="#cb3-590"></a></span>
+<span id="cb3-591"><a href="#cb3-591"></a><span class="in">  9 -&gt; C</span></span>
+<span id="cb3-592"><a href="#cb3-592"></a><span class="in">  A -&gt; D</span></span>
+<span id="cb3-593"><a href="#cb3-593"></a></span>
+<span id="cb3-594"><a href="#cb3-594"></a><span class="in">  C -&gt; 3</span></span>
+<span id="cb3-595"><a href="#cb3-595"></a><span class="in">  3 -&gt; D</span></span>
+<span id="cb3-596"><a href="#cb3-596"></a><span class="in">  D -&gt; 7</span></span>
+<span id="cb3-597"><a href="#cb3-597"></a><span class="in">  7 -&gt; B</span></span>
+<span id="cb3-598"><a href="#cb3-598"></a><span class="in">}</span></span>
+<span id="cb3-599"><a href="#cb3-599"></a><span class="in">```</span></span>
+<span id="cb3-600"><a href="#cb3-600"></a></span>
+<span id="cb3-601"><a href="#cb3-601"></a></span>
+<span id="cb3-602"><a href="#cb3-602"></a>:::</span>
+<span id="cb3-603"><a href="#cb3-603"></a></span>
+<span id="cb3-604"><a href="#cb3-604"></a>::::</span>
+<span id="cb3-605"><a href="#cb3-605"></a></span>
+<span id="cb3-606"><a href="#cb3-606"></a><span class="fu">## Takeaways</span></span>
+<span id="cb3-607"><a href="#cb3-607"></a></span>
+<span id="cb3-608"><a href="#cb3-608"></a><span class="ss">- </span>This is a viable way to decribe a programming language.</span>
+<span id="cb3-609"><a href="#cb3-609"></a><span class="ss">  - </span>In fact I wrote a series of grammars for my <span class="co">[</span><span class="ot">doctoral thesis</span><span class="co">](https://cd-public.github.io/papers/2021/CD2021.pdf)</span> (pg 18).</span>
+<span id="cb3-610"><a href="#cb3-610"></a><span class="ss">- </span>Parse trees may encode e.g. precedence</span>
+<span id="cb3-611"><a href="#cb3-611"></a><span class="ss">  - </span>$\times$ over $+$</span>
+<span id="cb3-612"><a href="#cb3-612"></a><span class="ss">- </span>If a string can be *derived* by different substitutions it is *ambigious*.</span>
+<span id="cb3-613"><a href="#cb3-613"></a></span>
+<span id="cb3-614"><a href="#cb3-614"></a><span class="fu"># Ambiguity</span></span>
+<span id="cb3-615"><a href="#cb3-615"></a></span>
+<span id="cb3-616"><a href="#cb3-616"></a><span class="fu">## Arithmetic</span></span>
+<span id="cb3-617"><a href="#cb3-617"></a></span>
+<span id="cb3-618"><a href="#cb3-618"></a>$$</span>
+<span id="cb3-619"><a href="#cb3-619"></a>\begin{align*}</span>
+<span id="cb3-620"><a href="#cb3-620"></a>G_2&amp; <span class="sc">\\</span></span>
+<span id="cb3-621"><a href="#cb3-621"></a> &amp;\left.</span>
+<span id="cb3-622"><a href="#cb3-622"></a>    \begin{aligned}</span>
+<span id="cb3-623"><a href="#cb3-623"></a>        &amp;E \rightarrow E+T \quad | \quad  T<span class="sc">\\</span></span>
+<span id="cb3-624"><a href="#cb3-624"></a>        &amp;T \rightarrow T\times F \quad | \quad  F <span class="sc">\\</span></span>
+<span id="cb3-625"><a href="#cb3-625"></a>        &amp;F \rightarrow ( E ) \quad | \quad a</span>
+<span id="cb3-626"><a href="#cb3-626"></a>    \end{aligned}</span>
+<span id="cb3-627"><a href="#cb3-627"></a>\right.</span>
+<span id="cb3-628"><a href="#cb3-628"></a>\end{align*}</span>
+<span id="cb3-629"><a href="#cb3-629"></a>$$</span>
+<span id="cb3-630"><a href="#cb3-630"></a></span>
+<span id="cb3-631"><a href="#cb3-631"></a>$$</span>
+<span id="cb3-632"><a href="#cb3-632"></a>\begin{align*}</span>
+<span id="cb3-633"><a href="#cb3-633"></a>G_3&amp; <span class="sc">\\</span></span>
+<span id="cb3-634"><a href="#cb3-634"></a> &amp;\left.</span>
+<span id="cb3-635"><a href="#cb3-635"></a>    \begin{aligned}</span>
+<span id="cb3-636"><a href="#cb3-636"></a>        &amp;E \rightarrow E+E \quad | \quad  E \times E \quad | \quad  ( E ) \quad | \quad  a<span class="sc">\\</span></span>
+<span id="cb3-637"><a href="#cb3-637"></a>    \end{aligned}</span>
+<span id="cb3-638"><a href="#cb3-638"></a>\right.</span>
+<span id="cb3-639"><a href="#cb3-639"></a>\end{align*}</span>
+<span id="cb3-640"><a href="#cb3-640"></a>$$</span>
+<span id="cb3-641"><a href="#cb3-641"></a></span>
+<span id="cb3-642"><a href="#cb3-642"></a><span class="ss">- </span>These represent the same language ($L(G_2) = L(G_3)$)!</span>
+<span id="cb3-643"><a href="#cb3-643"></a><span class="ss">- </span>But $G_3$ is ambigious!</span>
+<span id="cb3-644"><a href="#cb3-644"></a></span>
+<span id="cb3-645"><a href="#cb3-645"></a><span class="fu"># $a + a \times a$</span></span>
+<span id="cb3-646"><a href="#cb3-646"></a></span>
+<span id="cb3-647"><a href="#cb3-647"></a>:::: {.columns}</span>
+<span id="cb3-648"><a href="#cb3-648"></a></span>
+<span id="cb3-649"><a href="#cb3-649"></a>::: {.column }</span>
+<span id="cb3-650"><a href="#cb3-650"></a></span>
+<span id="cb3-653"><a href="#cb3-653"></a><span class="in">```{dot}</span></span>
+<span id="cb3-654"><a href="#cb3-654"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-655"><a href="#cb3-655"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-656"><a href="#cb3-656"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-657"><a href="#cb3-657"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-658"><a href="#cb3-658"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-659"><a href="#cb3-659"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-660"><a href="#cb3-660"></a></span>
+<span id="cb3-661"><a href="#cb3-661"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-662"><a href="#cb3-662"></a><span class="in">  1 [label="E"]; </span></span>
+<span id="cb3-663"><a href="#cb3-663"></a></span>
+<span id="cb3-664"><a href="#cb3-664"></a><span class="in">  2 [label="E"];</span></span>
+<span id="cb3-665"><a href="#cb3-665"></a><span class="in">  3 [label=""];</span></span>
+<span id="cb3-666"><a href="#cb3-666"></a><span class="in">  4 [label="E"];</span></span>
+<span id="cb3-667"><a href="#cb3-667"></a></span>
+<span id="cb3-668"><a href="#cb3-668"></a><span class="in">  5 [label=""];</span></span>
+<span id="cb3-669"><a href="#cb3-669"></a><span class="in">  6 [label=""];</span></span>
+<span id="cb3-670"><a href="#cb3-670"></a><span class="in">  7 [label="E"];</span></span>
+<span id="cb3-671"><a href="#cb3-671"></a><span class="in">  8 [label=""];</span></span>
+<span id="cb3-672"><a href="#cb3-672"></a><span class="in">  9 [label="E"];</span></span>
+<span id="cb3-673"><a href="#cb3-673"></a></span>
+<span id="cb3-674"><a href="#cb3-674"></a><span class="in">  A [label="a"];</span></span>
+<span id="cb3-675"><a href="#cb3-675"></a><span class="in">  B [label="+"];</span></span>
+<span id="cb3-676"><a href="#cb3-676"></a><span class="in">  C [label="a"];</span></span>
+<span id="cb3-677"><a href="#cb3-677"></a><span class="in">  D [label="×"];</span></span>
+<span id="cb3-678"><a href="#cb3-678"></a><span class="in">  E [label="a"];</span></span>
+<span id="cb3-679"><a href="#cb3-679"></a></span>
+<span id="cb3-680"><a href="#cb3-680"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-681"><a href="#cb3-681"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-682"><a href="#cb3-682"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-683"><a href="#cb3-683"></a></span>
+<span id="cb3-684"><a href="#cb3-684"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb3-685"><a href="#cb3-685"></a><span class="in">  3 -&gt; 6</span></span>
+<span id="cb3-686"><a href="#cb3-686"></a><span class="in">  4 -&gt; 7</span></span>
+<span id="cb3-687"><a href="#cb3-687"></a><span class="in">  4 -&gt; 8</span></span>
+<span id="cb3-688"><a href="#cb3-688"></a><span class="in">  4 -&gt; 9</span></span>
+<span id="cb3-689"><a href="#cb3-689"></a></span>
+<span id="cb3-690"><a href="#cb3-690"></a><span class="in">  5 -&gt; A</span></span>
+<span id="cb3-691"><a href="#cb3-691"></a><span class="in">  6 -&gt; B</span></span>
+<span id="cb3-692"><a href="#cb3-692"></a><span class="in">  7 -&gt; C</span></span>
+<span id="cb3-693"><a href="#cb3-693"></a><span class="in">  8 -&gt; D</span></span>
+<span id="cb3-694"><a href="#cb3-694"></a><span class="in">  9 -&gt; E</span></span>
+<span id="cb3-695"><a href="#cb3-695"></a></span>
+<span id="cb3-696"><a href="#cb3-696"></a><span class="in">}</span></span>
+<span id="cb3-697"><a href="#cb3-697"></a><span class="in">```</span></span>
+<span id="cb3-698"><a href="#cb3-698"></a></span>
+<span id="cb3-699"><a href="#cb3-699"></a>:::</span>
+<span id="cb3-700"><a href="#cb3-700"></a></span>
+<span id="cb3-701"><a href="#cb3-701"></a>::: {.column }</span>
+<span id="cb3-702"><a href="#cb3-702"></a></span>
+<span id="cb3-703"><a href="#cb3-703"></a></span>
+<span id="cb3-706"><a href="#cb3-706"></a><span class="in">```{dot}</span></span>
+<span id="cb3-707"><a href="#cb3-707"></a><span class="in">// | echo: false</span></span>
+<span id="cb3-708"><a href="#cb3-708"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb3-709"><a href="#cb3-709"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb3-710"><a href="#cb3-710"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb3-711"><a href="#cb3-711"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb3-712"><a href="#cb3-712"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb3-713"><a href="#cb3-713"></a></span>
+<span id="cb3-714"><a href="#cb3-714"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb3-715"><a href="#cb3-715"></a><span class="in">  1 [label="E"]; </span></span>
+<span id="cb3-716"><a href="#cb3-716"></a></span>
+<span id="cb3-717"><a href="#cb3-717"></a><span class="in">  2 [label="E"];</span></span>
+<span id="cb3-718"><a href="#cb3-718"></a><span class="in">  3 [label="+"];</span></span>
+<span id="cb3-719"><a href="#cb3-719"></a><span class="in">  4 [label="E"];</span></span>
+<span id="cb3-720"><a href="#cb3-720"></a></span>
+<span id="cb3-721"><a href="#cb3-721"></a><span class="in">  5 [label="E"];</span></span>
+<span id="cb3-722"><a href="#cb3-722"></a><span class="in">  6 [label=""];</span></span>
+<span id="cb3-723"><a href="#cb3-723"></a><span class="in">  7 [label="E"];</span></span>
+<span id="cb3-724"><a href="#cb3-724"></a><span class="in">  8 [label=""];</span></span>
+<span id="cb3-725"><a href="#cb3-725"></a><span class="in">  9 [label=""];</span></span>
+<span id="cb3-726"><a href="#cb3-726"></a></span>
+<span id="cb3-727"><a href="#cb3-727"></a><span class="in">  A [label="a"];</span></span>
+<span id="cb3-728"><a href="#cb3-728"></a><span class="in">  B [label="+"];</span></span>
+<span id="cb3-729"><a href="#cb3-729"></a><span class="in">  C [label="a"];</span></span>
+<span id="cb3-730"><a href="#cb3-730"></a><span class="in">  D [label="×"];</span></span>
+<span id="cb3-731"><a href="#cb3-731"></a><span class="in">  E [label="a"];</span></span>
+<span id="cb3-732"><a href="#cb3-732"></a></span>
+<span id="cb3-733"><a href="#cb3-733"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb3-734"><a href="#cb3-734"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb3-735"><a href="#cb3-735"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb3-736"><a href="#cb3-736"></a></span>
+<span id="cb3-737"><a href="#cb3-737"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb3-738"><a href="#cb3-738"></a><span class="in">  2 -&gt; 6</span></span>
+<span id="cb3-739"><a href="#cb3-739"></a><span class="in">  2 -&gt; 7</span></span>
+<span id="cb3-740"><a href="#cb3-740"></a><span class="in">  3 -&gt; 8</span></span>
+<span id="cb3-741"><a href="#cb3-741"></a><span class="in">  4 -&gt; 9</span></span>
+<span id="cb3-742"><a href="#cb3-742"></a></span>
+<span id="cb3-743"><a href="#cb3-743"></a><span class="in">  5 -&gt; A</span></span>
+<span id="cb3-744"><a href="#cb3-744"></a><span class="in">  6 -&gt; B</span></span>
+<span id="cb3-745"><a href="#cb3-745"></a><span class="in">  7 -&gt; C</span></span>
+<span id="cb3-746"><a href="#cb3-746"></a><span class="in">  8 -&gt; D</span></span>
+<span id="cb3-747"><a href="#cb3-747"></a><span class="in">  9 -&gt; E</span></span>
+<span id="cb3-748"><a href="#cb3-748"></a></span>
+<span id="cb3-749"><a href="#cb3-749"></a><span class="in">}</span></span>
+<span id="cb3-750"><a href="#cb3-750"></a><span class="in">```</span></span>
+<span id="cb3-751"><a href="#cb3-751"></a></span>
+<span id="cb3-752"><a href="#cb3-752"></a>:::</span>
+<span id="cb3-753"><a href="#cb3-753"></a></span>
+<span id="cb3-754"><a href="#cb3-754"></a>::::</span>
+<span id="cb3-755"><a href="#cb3-755"></a></span>
+<span id="cb3-756"><a href="#cb3-756"></a><span class="fu"># Exercise</span></span>
+<span id="cb3-757"><a href="#cb3-757"></a></span>
+<span id="cb3-758"><a href="#cb3-758"></a><span class="fu">## Python</span></span>
+<span id="cb3-759"><a href="#cb3-759"></a></span>
+<span id="cb3-760"><a href="#cb3-760"></a>$$</span>
+<span id="cb3-761"><a href="#cb3-761"></a>\begin{align*}</span>
+<span id="cb3-762"><a href="#cb3-762"></a>G_3&amp; <span class="sc">\\</span></span>
+<span id="cb3-763"><a href="#cb3-763"></a> &amp;\left.</span>
+<span id="cb3-764"><a href="#cb3-764"></a>    \begin{aligned}</span>
+<span id="cb3-765"><a href="#cb3-765"></a>        &amp;E \rightarrow E+E \quad | \quad  E \times E \quad | \quad  ( E ) \quad | \quad  a<span class="sc">\\</span></span>
+<span id="cb3-766"><a href="#cb3-766"></a>    \end{aligned}</span>
+<span id="cb3-767"><a href="#cb3-767"></a>\right.</span>
+<span id="cb3-768"><a href="#cb3-768"></a>\end{align*}</span>
+<span id="cb3-769"><a href="#cb3-769"></a>$$</span>
+<span id="cb3-770"><a href="#cb3-770"></a></span>
+<span id="cb3-771"><a href="#cb3-771"></a><span class="ss">- </span>Express CFG $G_3$ in Python.</span>
+<span id="cb3-772"><a href="#cb3-772"></a></span>
+<span id="cb3-773"><a href="#cb3-773"></a><span class="fu">## Solution</span></span>
+<span id="cb3-774"><a href="#cb3-774"></a></span>
+<span id="cb3-777"><a href="#cb3-777"></a><span class="in">```{python}</span></span>
+<span id="cb3-778"><a href="#cb3-778"></a><span class="im">from</span> itertools <span class="im">import</span> count <span class="co"># infinite iterator</span></span>
+<span id="cb3-779"><a href="#cb3-779"></a><span class="im">from</span> itertools <span class="im">import</span> combinations_with_replacement <span class="im">as</span> cwr</span>
+<span id="cb3-780"><a href="#cb3-780"></a><span class="co"># define variables, so we can use them</span></span>
+<span id="cb3-781"><a href="#cb3-781"></a>rules <span class="op">=</span> (</span>
+<span id="cb3-782"><a href="#cb3-782"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"E+E"</span>),</span>
+<span id="cb3-783"><a href="#cb3-783"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"ExE"</span>), </span>
+<span id="cb3-784"><a href="#cb3-784"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"(E)"</span>), </span>
+<span id="cb3-785"><a href="#cb3-785"></a>  <span class="kw">lambda</span> s : s.replace(<span class="st">"E"</span>, <span class="st">"a"</span>)</span>
+<span id="cb3-786"><a href="#cb3-786"></a>)</span>
+<span id="cb3-787"><a href="#cb3-787"></a>trans <span class="op">=</span> <span class="kw">lambda</span> fs, s: fs[<span class="dv">0</span>](trans(fs[<span class="dv">1</span>:], s)) <span class="cf">if</span> <span class="bu">len</span>(fs) <span class="cf">else</span> s</span>
+<span id="cb3-788"><a href="#cb3-788"></a></span>
+<span id="cb3-789"><a href="#cb3-789"></a>G_2 <span class="op">=</span> (trans(fs,<span class="st">'E'</span>) <span class="cf">for</span> n <span class="kw">in</span> count() <span class="cf">for</span> fs <span class="kw">in</span> cwr(rules, n))</span>
+<span id="cb3-790"><a href="#cb3-790"></a></span>
+<span id="cb3-791"><a href="#cb3-791"></a><span class="bu">next</span>(G_2), <span class="bu">next</span>(G_2), <span class="bu">next</span>(G_2)</span>
+<span id="cb3-792"><a href="#cb3-792"></a><span class="in">```</span></span>
+<span id="cb3-793"><a href="#cb3-793"></a><span class="ss">- </span>This isn't quite right. What's wrong?</span>
+<span id="cb3-794"><a href="#cb3-794"></a></span>
+<span id="cb3-795"><a href="#cb3-795"></a></span>
+<span id="cb3-796"><a href="#cb3-796"></a></span>
+<span id="cb3-797"><a href="#cb3-797"></a><span class="fu"># End of Day :)</span></span>
+<span id="cb3-798"><a href="#cb3-798"></a></span>
+<span id="cb3-799"><a href="#cb3-799"></a><span class="ss">- </span>Good work!</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

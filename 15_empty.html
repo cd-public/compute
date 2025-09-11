@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Calvin">
+
+<title>Emptiness – Automata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./16_diagonal.html" rel="next">
+<link href="./14_accept.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./15_empty.html">Emptiness</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Automata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_aims.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aims of Education</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_starfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Finite Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_regexp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regular Expressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_nfas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NFAs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regularity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pumping Lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_cfg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Grammars</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_pda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pushdown Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_cfgpda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CFG → PDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_cfpump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Pumping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_tm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Turing Machines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_variants.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_thesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Church-Turing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_accept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acceptance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_empty.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Emptiness</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_diagonal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review 2</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sketch" id="toc-sketch" class="nav-link active" data-scroll-target="#sketch">Sketch</a></li>
+  <li><a href="#acceptance" id="toc-acceptance" class="nav-link" data-scroll-target="#acceptance">Acceptance</a>
+  <ul class="collapse">
+  <li><a href="#statement-of-theorem" id="toc-statement-of-theorem" class="nav-link" data-scroll-target="#statement-of-theorem">Statement of Theorem</a></li>
+  <li><a href="#chomsky-normal-form-cnf" id="toc-chomsky-normal-form-cnf" class="nav-link" data-scroll-target="#chomsky-normal-form-cnf">Chomsky Normal Form (CNF)</a></li>
+  <li><a href="#original-grammar" id="toc-original-grammar" class="nav-link" data-scroll-target="#original-grammar">Original Grammar</a></li>
+  <li><a href="#eliminate-epsilon" id="toc-eliminate-epsilon" class="nav-link" data-scroll-target="#eliminate-epsilon">Eliminate Epsilon</a></li>
+  <li><a href="#eliminate-v-times-v" id="toc-eliminate-v-times-v" class="nav-link" data-scroll-target="#eliminate-v-times-v">Eliminate <span class="math inline">\(V \times V\)</span></a></li>
+  <li><a href="#eliminate-long-rhs" id="toc-eliminate-long-rhs" class="nav-link" data-scroll-target="#eliminate-long-rhs">Eliminate Long RHS</a></li>
+  <li><a href="#reorder" id="toc-reorder" class="nav-link" data-scroll-target="#reorder">Reorder</a></li>
+  <li><a href="#lemma" id="toc-lemma" class="nav-link" data-scroll-target="#lemma">Lemma</a></li>
+  <li><a href="#theorem-14" id="toc-theorem-14" class="nav-link" data-scroll-target="#theorem-14">Theorem 14</a></li>
+  <li><a href="#corollary" id="toc-corollary" class="nav-link" data-scroll-target="#corollary">Corollary</a></li>
+  <li><a href="#understanding-check" id="toc-understanding-check" class="nav-link" data-scroll-target="#understanding-check">Understanding check</a></li>
+  </ul></li>
+  <li><a href="#emptiness" id="toc-emptiness" class="nav-link" data-scroll-target="#emptiness">Emptiness</a>
+  <ul class="collapse">
+  <li><a href="#statement-of-theorem-1" id="toc-statement-of-theorem-1" class="nav-link" data-scroll-target="#statement-of-theorem-1">Statement of Theorem</a></li>
+  <li><a href="#statement-of-theorem-2" id="toc-statement-of-theorem-2" class="nav-link" data-scroll-target="#statement-of-theorem-2">Statement of Theorem</a></li>
+  <li><a href="#understanding-check-1" id="toc-understanding-check-1" class="nav-link" data-scroll-target="#understanding-check-1">Understanding Check</a></li>
+  </ul></li>
+  <li><a href="#turing-machines" id="toc-turing-machines" class="nav-link" data-scroll-target="#turing-machines">Turing Machines</a>
+  <ul class="collapse">
+  <li><a href="#statement-of-theorem-3" id="toc-statement-of-theorem-3" class="nav-link" data-scroll-target="#statement-of-theorem-3">Statement of Theorem</a></li>
+  <li><a href="#theorem-15" id="toc-theorem-15" class="nav-link" data-scroll-target="#theorem-15">Theorem 15</a></li>
+  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem">Problem</a></li>
+  <li><a href="#theorem-15-1" id="toc-theorem-15-1" class="nav-link" data-scroll-target="#theorem-15-1">Theorem 15</a></li>
+  <li><a href="#u" id="toc-u" class="nav-link" data-scroll-target="#u"><span class="math inline">\(U\)</span></a></li>
+  <li><a href="#example-of-u" id="toc-example-of-u" class="nav-link" data-scroll-target="#example-of-u">Example of <span class="math inline">\(U\)</span></a></li>
+  <li><a href="#use-of-u" id="toc-use-of-u" class="nav-link" data-scroll-target="#use-of-u">Use of <span class="math inline">\(U\)</span></a></li>
+  <li><a href="#theorem-15-2" id="toc-theorem-15-2" class="nav-link" data-scroll-target="#theorem-15-2">Theorem 15</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#stretch-break" id="toc-stretch-break" class="nav-link" data-scroll-target="#stretch-break">Stretch Break</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="15_empty.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Emptiness</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+<p class="subtitle lead">Automata</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Calvin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sketch" class="level2">
+<h2 class="anchored" data-anchor-id="sketch">Sketch</h2>
+<div class="nonincremental">
+<ul>
+<li>CFGs
+<ul>
+<li>Acceptance</li>
+<li>Emptiness</li>
+<li>Equivalence</li>
+</ul></li>
+<li>TMs
+<ul>
+<li>Acceptance</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="acceptance" class="level1">
+<h1>Acceptance</h1>
+<section id="statement-of-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="statement-of-theorem">Statement of Theorem</h2>
+<p><span class="math display">\[
+\text{Decidable}(A_{CFG} := \{\langle G, w \rangle \space | \space w \in G:\text{CFG}\})
+\]</span></p>
+<ul>
+<li>As with NFAs, we might have infinite loops here.</li>
+<li>Remember - rules can return an empty string!</li>
+<li>Can’t go forward or backward.</li>
+<li>We introduce CNF - “Chomsky Normal Form”</li>
+</ul>
+</section>
+<section id="chomsky-normal-form-cnf" class="level2">
+<h2 class="anchored" data-anchor-id="chomsky-normal-form-cnf">Chomsky Normal Form (CNF)</h2>
+<ul>
+<li>Two legal forms
+<ul>
+<li><span class="math inline">\(A \rightarrow BC \space | \space \{A,B,C\} \subset V\)</span></li>
+<li><span class="math inline">\(A \rightarrow a \space | \space A \in V \land a \in \Sigma\)</span></li>
+</ul></li>
+<li>This enforces uniformity.</li>
+</ul>
+</section>
+<section id="original-grammar" class="level2">
+<h2 class="anchored" data-anchor-id="original-grammar">Original Grammar</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="nonincremental">
+<ul>
+<li>Two legal forms
+<ul>
+<li><span class="math inline">\(A \rightarrow BC \space | \space \{A,B,C\} \subset V\)</span></li>
+<li><span class="math inline">\(A \rightarrow a \space | \space A \in V \land a \in \Sigma\)</span></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(S \rightarrow AB \space | \space a\)</span></li>
+<li><span class="math inline">\(A \rightarrow \varepsilon \space | \space b\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space AB\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="eliminate-epsilon" class="level2">
+<h2 class="anchored" data-anchor-id="eliminate-epsilon">Eliminate Epsilon</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="nonincremental">
+<ul>
+<li><span class="math inline">\(S \rightarrow AB \space | \space a\)</span></li>
+<li><span class="math inline">\(A \rightarrow \varepsilon \space | \space b\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space AB\)</span></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(S \rightarrow bB \space | \space a \space | \space B\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space bB \space | \space b\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="eliminate-v-times-v" class="level2">
+<h2 class="anchored" data-anchor-id="eliminate-v-times-v">Eliminate <span class="math inline">\(V \times V\)</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="nonincremental">
+<ul>
+<li><span class="math inline">\(S \rightarrow bB \space | \space a \space | \space B\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space bB \space | \space b\)</span></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(S \rightarrow bB \space | \space a \space | \space c \space | \space b\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space bB \space | \space b\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="eliminate-long-rhs" class="level2">
+<h2 class="anchored" data-anchor-id="eliminate-long-rhs">Eliminate Long RHS</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="nonincremental">
+<ul>
+<li><span class="math inline">\(S \rightarrow bB \space | \space a \space | \space c \space | \space b\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space bB \space | \space b\)</span></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(S \rightarrow XB \space | \space a \space | \space c \space | \space b\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space XB \space | \space b\)</span></li>
+<li><span class="math inline">\(X \rightarrow b\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="reorder" class="level2">
+<h2 class="anchored" data-anchor-id="reorder">Reorder</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="nonincremental">
+<ul>
+<li><span class="math inline">\(S \rightarrow XB \space | \space a \space | \space c \space | \space b\)</span></li>
+<li><span class="math inline">\(B \rightarrow c \space | \space XB \space | \space b\)</span></li>
+<li><span class="math inline">\(X \rightarrow b\)</span></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span class="math inline">\(S \rightarrow XB \space | \space a \space | \space b \space | \space c\)</span></li>
+<li><span class="math inline">\(B \rightarrow XB \space | \space b \space | \space c\)</span></li>
+<li><span class="math inline">\(X \rightarrow b\)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="lemma" class="level2">
+<h2 class="anchored" data-anchor-id="lemma">Lemma</h2>
+<ul>
+<li><span class="math inline">\(w \in L(H:\text{CNF})\)</span> takes <span class="math inline">\(2|w| - 1\)</span> steps</li>
+<li>Left as an exercise.
+<ul>
+<li>Not too bad - think about the two rule types.</li>
+</ul></li>
+</ul>
+</section>
+<section id="theorem-14" class="level2">
+<h2 class="anchored" data-anchor-id="theorem-14">Theorem 14</h2>
+<p><span class="math display">\[
+\text{Decidable}(A_{CFG} := \{\langle G, w \rangle \space | \space w \in G:\text{CFG}\})
+\]</span></p>
+<ol type="1">
+<li>Convert to CNF</li>
+<li>Test all derivations of length <span class="math inline">\(2|w| - 1\)</span></li>
+</ol>
+</section>
+<section id="corollary" class="level2">
+<h2 class="anchored" data-anchor-id="corollary">Corollary</h2>
+<ul>
+<li>We note that this also captures context free languages.</li>
+<li>But a wrinkle!
+<ul>
+<li>From a CFL, we needn’t necessarily know the CFG</li>
+<li>We don’t need it! It suffices to exist by definition</li>
+<li>We only claim something <em>is</em> decidable, not that we know how to decide!</li>
+</ul></li>
+</ul>
+</section>
+<section id="understanding-check" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-check">Understanding check</h2>
+<ul>
+<li>Is <span class="math inline">\(A_{PDA}\)</span> decidable.
+<ul>
+<li>Just convert.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="emptiness" class="level1">
+<h1>Emptiness</h1>
+<section id="statement-of-theorem-1" class="level2">
+<h2 class="anchored" data-anchor-id="statement-of-theorem-1">Statement of Theorem</h2>
+<p><span class="math display">\[
+\text{Decidable}(EQ_{CFG} := \{\langle G, H \rangle \space | \space L(G:\text{CFG}) = L(H:\text{CFG}) \})
+\]</span></p>
+<ul>
+<li>Probably not gonna fly to try every string.</li>
+<li>What about closures, well…</li>
+<li><strong>This is undecidable</strong></li>
+<li>We will return to this with more robust proof techniques.</li>
+</ul>
+</section>
+<section id="statement-of-theorem-2" class="level2">
+<h2 class="anchored" data-anchor-id="statement-of-theorem-2">Statement of Theorem</h2>
+<p><span class="math display">\[
+\text{Decidable}(AMBIG_{CFG} := \{\langle G\rangle \space | \space G:\text{CFG is not ambigious}\})
+\]</span></p>
+<ul>
+<li><strong>This is undecidable</strong></li>
+</ul>
+</section>
+<section id="understanding-check-1" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-check-1">Understanding Check</h2>
+<ul>
+<li>Why can we <span class="math inline">\(EQ_{DFA}\)</span> but not <span class="math inline">\(EQ_{CFG}\)</span>?
+<ul>
+<li>We lack closures we need.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="turing-machines" class="level1">
+<h1>Turing Machines</h1>
+<section id="statement-of-theorem-3" class="level2">
+<h2 class="anchored" data-anchor-id="statement-of-theorem-3">Statement of Theorem</h2>
+<p><span class="math display">\[
+\text{Decidable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+\]</span></p>
+<ul>
+<li>This turns out not to be true.</li>
+<li>However, an incrementally weaker result:</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+\]</span></p>
+</div>
+<ul>
+<li>We are able to show this now.</li>
+</ul>
+</section>
+<section id="theorem-15" class="level2">
+<h2 class="anchored" data-anchor-id="theorem-15">Theorem 15</h2>
+<p><span class="math display">\[
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+\]</span></p>
+<ul>
+<li>Intuition:
+<ul>
+<li>Take machine <span class="math inline">\(U\)</span></li>
+<li><span class="math inline">\(U\)</span> simulates <span class="math inline">\(M\)</span> on one of its tapes.</li>
+<li><span class="math inline">\(U\)</span> accepts if <span class="math inline">\(M\)</span> accepts</li>
+<li><span class="math inline">\(U\)</span> rejects if <span class="math inline">\(M\)</span> rejects</li>
+</ul></li>
+</ul>
+</section>
+<section id="problem" class="level2">
+<h2 class="anchored" data-anchor-id="problem">Problem</h2>
+<ul>
+<li>There is no guarantee that <span class="math inline">\(M\)</span> (and <span class="math inline">\(\therefore U\)</span>) halt!</li>
+<li>How to deal with this?
+<ul>
+<li>Can we say “if <span class="math inline">\(M\)</span> doesn’t halt?”</li>
+<li>How would we know!</li>
+</ul></li>
+<li>To recognize, we need <em>only</em> accept those accepting <span class="math inline">\(w\)</span>
+<ul>
+<li>It <em>doesn’t matter</em> if <span class="math inline">\(U\)</span> halts.</li>
+</ul></li>
+</ul>
+</section>
+<section id="theorem-15-1" class="level2">
+<h2 class="anchored" data-anchor-id="theorem-15-1">Theorem 15</h2>
+<p><span class="math display">\[
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+\]</span></p>
+<ul>
+<li>Intuition:
+<ul>
+<li>Take machine <span class="math inline">\(U\)</span></li>
+<li><span class="math inline">\(U\)</span> simulates <span class="math inline">\(M\)</span> on one of its tapes.</li>
+<li><span class="math inline">\(U\)</span> accepts if <span class="math inline">\(M\)</span> accepts</li>
+<li><s><span class="math inline">\(U\)</span> rejects if <span class="math inline">\(M\)</span> rejects</s></li>
+<li>Consider anything else a rejection.</li>
+</ul></li>
+</ul>
+</section>
+<section id="u" class="level2">
+<h2 class="anchored" data-anchor-id="u"><span class="math inline">\(U\)</span></h2>
+<ul>
+<li><span class="math inline">\(U\)</span> was the name Turing gave the original “universal computing machine”
+<ul>
+<li>It was the subject of many latter results in:
+<ul>
+<li>Computing</li>
+<li>Information</li>
+<li>Mathematics</li>
+<li>Philosophy</li>
+<li>Linguistics</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-of-u" class="level2">
+<h2 class="anchored" data-anchor-id="example-of-u">Example of <span class="math inline">\(U\)</span></h2>
+<ul>
+<li>We use <span class="math inline">\(U\)</span> to denote a machine that can compute anything.
+<ul>
+<li>It has some combination of states and symbols.</li>
+<li>One such is:</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<blockquote class="blockquote">
+<p><a href="https://en.wikipedia.org/wiki/Universal_Turing_machine#Smallest_machines">a 7-state 4-symbol universal Turing machine in 1962 using 2-tag systems. (Marvin Minksy)</a></p>
+</blockquote>
+</div>
+</section>
+<section id="use-of-u" class="level2">
+<h2 class="anchored" data-anchor-id="use-of-u">Use of <span class="math inline">\(U\)</span></h2>
+<ul>
+<li>We use the term <span class="math inline">\(U\)</span> in our proof to refer to a machine that could do anything.</li>
+<li>A <strong>U</strong>niversal machine.</li>
+<li>The development of <span class="math inline">\(U\)</span> is out-of-scope for this class, but with familiar with modern devices like stored memory computers and RISC processors.</li>
+</ul>
+</section>
+<section id="theorem-15-2" class="level2">
+<h2 class="anchored" data-anchor-id="theorem-15-2">Theorem 15</h2>
+<p><span class="math display">\[
+\text{Recognizable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+\]</span></p>
+<p><em>Proof.</em></p>
+<ul>
+<li>Take machine <span class="math inline">\(U\)</span>
+<ol type="1">
+<li><span class="math inline">\(U\)</span> simulates <span class="math inline">\(M\)</span> on one of its tapes.</li>
+<li><span class="math inline">\(U\)</span> accepts if <span class="math inline">\(M\)</span> accepts</li>
+</ol></li>
+</ul>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li><span class="math inline">\(A_{DFA}, A_{NFA}, E_{DFA}, EQ_{DFA}, A_{CFG}, E_{CFG}\)</span> are decidable.</li>
+<li><span class="math inline">\(A_{TM}\)</span> is recognizable.</li>
+</ul>
+</section>
+<section id="stretch-break" class="level1">
+<h1>Stretch Break</h1>
+<ul>
+<li><a href="https://cd-public.github.io/compute/">Home</a></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./14_accept.html" class="pagination-link" aria-label="Acceptance">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Acceptance</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./16_diagonal.html" class="pagination-link" aria-label="Diagonalization">
+        <span class="nav-page-text">Diagonalization</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "Emptiness"</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">---</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">## Sketch</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>::: {.nonincremental}</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="ss">- </span>CFGs</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="ss">  - </span>Acceptance</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="ss">  - </span>Emptiness</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="ss">  - </span>Equivalence</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="ss">- </span>TMs</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="ss">  - </span>Acceptance</span>
+<span id="cb1-14"><a href="#cb1-14"></a>:::</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="fu"># Acceptance</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="fu">## Statement of Theorem</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>$$</span>
+<span id="cb1-21"><a href="#cb1-21"></a>\text{Decidable}(A_{CFG} := <span class="sc">\{</span>\langle G, w \rangle \space | \space w \in G:\text{CFG}<span class="sc">\}</span>)</span>
+<span id="cb1-22"><a href="#cb1-22"></a>$$</span>
+<span id="cb1-23"><a href="#cb1-23"></a></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="ss">- </span>As with NFAs, we might have infinite loops here.</span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="ss">- </span>Remember - rules can return an empty string!</span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="ss">- </span>Can't go forward or backward.</span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="ss">- </span>We introduce CNF - "Chomsky Normal Form"</span>
+<span id="cb1-28"><a href="#cb1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="fu">## Chomsky Normal Form (CNF)</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a></span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="ss">- </span>Two legal forms</span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="ss">    - </span>$A \rightarrow BC \space | \space <span class="sc">\{</span>A,B,C<span class="sc">\}</span> \subset V$</span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="ss">    - </span>$A \rightarrow a \space | \space A \in V \land a \in \Sigma$</span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="ss">- </span>This enforces uniformity.</span>
+<span id="cb1-35"><a href="#cb1-35"></a></span>
+<span id="cb1-36"><a href="#cb1-36"></a><span class="fu">## Original Grammar</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a></span>
+<span id="cb1-39"><a href="#cb1-39"></a>:::: {.columns}</span>
+<span id="cb1-40"><a href="#cb1-40"></a></span>
+<span id="cb1-41"><a href="#cb1-41"></a></span>
+<span id="cb1-42"><a href="#cb1-42"></a>::: {.column width="50%"}</span>
+<span id="cb1-43"><a href="#cb1-43"></a></span>
+<span id="cb1-44"><a href="#cb1-44"></a>:::{.nonincremental}</span>
+<span id="cb1-45"><a href="#cb1-45"></a></span>
+<span id="cb1-46"><a href="#cb1-46"></a><span class="ss">- </span>Two legal forms</span>
+<span id="cb1-47"><a href="#cb1-47"></a><span class="ss">    - </span>$A \rightarrow BC \space | \space <span class="sc">\{</span>A,B,C<span class="sc">\}</span> \subset V$</span>
+<span id="cb1-48"><a href="#cb1-48"></a><span class="ss">    - </span>$A \rightarrow a \space | \space A \in V \land a \in \Sigma$</span>
+<span id="cb1-49"><a href="#cb1-49"></a></span>
+<span id="cb1-50"><a href="#cb1-50"></a>:::</span>
+<span id="cb1-51"><a href="#cb1-51"></a></span>
+<span id="cb1-52"><a href="#cb1-52"></a>:::</span>
+<span id="cb1-53"><a href="#cb1-53"></a></span>
+<span id="cb1-54"><a href="#cb1-54"></a>::: {.column width="50%"}</span>
+<span id="cb1-55"><a href="#cb1-55"></a></span>
+<span id="cb1-56"><a href="#cb1-56"></a></span>
+<span id="cb1-57"><a href="#cb1-57"></a></span>
+<span id="cb1-58"><a href="#cb1-58"></a><span class="ss">- </span>$S \rightarrow AB \space | \space a$</span>
+<span id="cb1-59"><a href="#cb1-59"></a><span class="ss">- </span>$A \rightarrow \varepsilon \space | \space b$</span>
+<span id="cb1-60"><a href="#cb1-60"></a><span class="ss">- </span>$B \rightarrow c \space | \space AB$</span>
+<span id="cb1-61"><a href="#cb1-61"></a></span>
+<span id="cb1-62"><a href="#cb1-62"></a>:::</span>
+<span id="cb1-63"><a href="#cb1-63"></a></span>
+<span id="cb1-64"><a href="#cb1-64"></a>::::</span>
+<span id="cb1-65"><a href="#cb1-65"></a></span>
+<span id="cb1-66"><a href="#cb1-66"></a><span class="fu">## Eliminate Epsilon</span></span>
+<span id="cb1-67"><a href="#cb1-67"></a></span>
+<span id="cb1-68"><a href="#cb1-68"></a>:::: {.columns}</span>
+<span id="cb1-69"><a href="#cb1-69"></a></span>
+<span id="cb1-70"><a href="#cb1-70"></a></span>
+<span id="cb1-71"><a href="#cb1-71"></a>::: {.column width="50%"}</span>
+<span id="cb1-72"><a href="#cb1-72"></a></span>
+<span id="cb1-73"><a href="#cb1-73"></a>:::{.nonincremental}</span>
+<span id="cb1-74"><a href="#cb1-74"></a></span>
+<span id="cb1-75"><a href="#cb1-75"></a><span class="ss">- </span>$S \rightarrow AB \space | \space a$</span>
+<span id="cb1-76"><a href="#cb1-76"></a><span class="ss">- </span>$A \rightarrow \varepsilon \space | \space b$</span>
+<span id="cb1-77"><a href="#cb1-77"></a><span class="ss">- </span>$B \rightarrow c \space | \space AB$</span>
+<span id="cb1-78"><a href="#cb1-78"></a></span>
+<span id="cb1-79"><a href="#cb1-79"></a>:::</span>
+<span id="cb1-80"><a href="#cb1-80"></a></span>
+<span id="cb1-81"><a href="#cb1-81"></a>:::</span>
+<span id="cb1-82"><a href="#cb1-82"></a></span>
+<span id="cb1-83"><a href="#cb1-83"></a>::: {.column width="50%"}</span>
+<span id="cb1-84"><a href="#cb1-84"></a></span>
+<span id="cb1-85"><a href="#cb1-85"></a></span>
+<span id="cb1-86"><a href="#cb1-86"></a></span>
+<span id="cb1-87"><a href="#cb1-87"></a><span class="ss">- </span>$S \rightarrow bB \space | \space a \space | \space B$</span>
+<span id="cb1-88"><a href="#cb1-88"></a><span class="ss">- </span>$B \rightarrow c \space | \space bB \space | \space b$</span>
+<span id="cb1-89"><a href="#cb1-89"></a></span>
+<span id="cb1-90"><a href="#cb1-90"></a>:::</span>
+<span id="cb1-91"><a href="#cb1-91"></a></span>
+<span id="cb1-92"><a href="#cb1-92"></a>::::</span>
+<span id="cb1-93"><a href="#cb1-93"></a></span>
+<span id="cb1-94"><a href="#cb1-94"></a></span>
+<span id="cb1-95"><a href="#cb1-95"></a><span class="fu">## Eliminate $V \times V$</span></span>
+<span id="cb1-96"><a href="#cb1-96"></a></span>
+<span id="cb1-97"><a href="#cb1-97"></a>:::: {.columns}</span>
+<span id="cb1-98"><a href="#cb1-98"></a></span>
+<span id="cb1-99"><a href="#cb1-99"></a></span>
+<span id="cb1-100"><a href="#cb1-100"></a>::: {.column width="50%"}</span>
+<span id="cb1-101"><a href="#cb1-101"></a></span>
+<span id="cb1-102"><a href="#cb1-102"></a>:::{.nonincremental}</span>
+<span id="cb1-103"><a href="#cb1-103"></a></span>
+<span id="cb1-104"><a href="#cb1-104"></a><span class="ss">- </span>$S \rightarrow bB \space | \space a \space | \space B$</span>
+<span id="cb1-105"><a href="#cb1-105"></a><span class="ss">- </span>$B \rightarrow c \space | \space bB \space | \space b$</span>
+<span id="cb1-106"><a href="#cb1-106"></a></span>
+<span id="cb1-107"><a href="#cb1-107"></a>:::</span>
+<span id="cb1-108"><a href="#cb1-108"></a></span>
+<span id="cb1-109"><a href="#cb1-109"></a>:::</span>
+<span id="cb1-110"><a href="#cb1-110"></a></span>
+<span id="cb1-111"><a href="#cb1-111"></a>::: {.column width="50%"}</span>
+<span id="cb1-112"><a href="#cb1-112"></a></span>
+<span id="cb1-113"><a href="#cb1-113"></a><span class="ss">- </span>$S \rightarrow bB \space | \space a \space | \space c \space | \space b$</span>
+<span id="cb1-114"><a href="#cb1-114"></a><span class="ss">- </span>$B \rightarrow c \space | \space bB \space | \space b$</span>
+<span id="cb1-115"><a href="#cb1-115"></a>:::</span>
+<span id="cb1-116"><a href="#cb1-116"></a></span>
+<span id="cb1-117"><a href="#cb1-117"></a>::::</span>
+<span id="cb1-118"><a href="#cb1-118"></a></span>
+<span id="cb1-119"><a href="#cb1-119"></a></span>
+<span id="cb1-120"><a href="#cb1-120"></a><span class="fu">## Eliminate Long RHS</span></span>
+<span id="cb1-121"><a href="#cb1-121"></a></span>
+<span id="cb1-122"><a href="#cb1-122"></a>:::: {.columns}</span>
+<span id="cb1-123"><a href="#cb1-123"></a></span>
+<span id="cb1-124"><a href="#cb1-124"></a></span>
+<span id="cb1-125"><a href="#cb1-125"></a>::: {.column width="50%"}</span>
+<span id="cb1-126"><a href="#cb1-126"></a></span>
+<span id="cb1-127"><a href="#cb1-127"></a>:::{.nonincremental}</span>
+<span id="cb1-128"><a href="#cb1-128"></a></span>
+<span id="cb1-129"><a href="#cb1-129"></a><span class="ss">- </span>$S \rightarrow bB \space | \space a \space | \space c \space | \space b$</span>
+<span id="cb1-130"><a href="#cb1-130"></a><span class="ss">- </span>$B \rightarrow c \space | \space bB \space | \space b$</span>
+<span id="cb1-131"><a href="#cb1-131"></a></span>
+<span id="cb1-132"><a href="#cb1-132"></a>:::</span>
+<span id="cb1-133"><a href="#cb1-133"></a></span>
+<span id="cb1-134"><a href="#cb1-134"></a>:::</span>
+<span id="cb1-135"><a href="#cb1-135"></a></span>
+<span id="cb1-136"><a href="#cb1-136"></a>::: {.column width="50%"}</span>
+<span id="cb1-137"><a href="#cb1-137"></a></span>
+<span id="cb1-138"><a href="#cb1-138"></a><span class="ss">- </span>$S \rightarrow XB \space | \space a \space | \space c \space | \space b$</span>
+<span id="cb1-139"><a href="#cb1-139"></a><span class="ss">- </span>$B \rightarrow c \space | \space XB \space | \space b$</span>
+<span id="cb1-140"><a href="#cb1-140"></a><span class="ss">- </span>$X \rightarrow b$</span>
+<span id="cb1-141"><a href="#cb1-141"></a></span>
+<span id="cb1-142"><a href="#cb1-142"></a>:::</span>
+<span id="cb1-143"><a href="#cb1-143"></a></span>
+<span id="cb1-144"><a href="#cb1-144"></a>::::</span>
+<span id="cb1-145"><a href="#cb1-145"></a></span>
+<span id="cb1-146"><a href="#cb1-146"></a></span>
+<span id="cb1-147"><a href="#cb1-147"></a><span class="fu">## Reorder</span></span>
+<span id="cb1-148"><a href="#cb1-148"></a></span>
+<span id="cb1-149"><a href="#cb1-149"></a>:::: {.columns}</span>
+<span id="cb1-150"><a href="#cb1-150"></a></span>
+<span id="cb1-151"><a href="#cb1-151"></a></span>
+<span id="cb1-152"><a href="#cb1-152"></a>::: {.column width="50%"}</span>
+<span id="cb1-153"><a href="#cb1-153"></a></span>
+<span id="cb1-154"><a href="#cb1-154"></a>:::{.nonincremental}</span>
+<span id="cb1-155"><a href="#cb1-155"></a></span>
+<span id="cb1-156"><a href="#cb1-156"></a><span class="ss">- </span>$S \rightarrow XB \space | \space a \space | \space c \space | \space b$</span>
+<span id="cb1-157"><a href="#cb1-157"></a><span class="ss">- </span>$B \rightarrow c \space | \space XB \space | \space b$</span>
+<span id="cb1-158"><a href="#cb1-158"></a><span class="ss">- </span>$X \rightarrow b$</span>
+<span id="cb1-159"><a href="#cb1-159"></a></span>
+<span id="cb1-160"><a href="#cb1-160"></a>:::</span>
+<span id="cb1-161"><a href="#cb1-161"></a></span>
+<span id="cb1-162"><a href="#cb1-162"></a>:::</span>
+<span id="cb1-163"><a href="#cb1-163"></a></span>
+<span id="cb1-164"><a href="#cb1-164"></a>::: {.column width="50%"}</span>
+<span id="cb1-165"><a href="#cb1-165"></a></span>
+<span id="cb1-166"><a href="#cb1-166"></a><span class="ss">- </span>$S \rightarrow XB \space | \space a \space | \space b \space | \space c$</span>
+<span id="cb1-167"><a href="#cb1-167"></a><span class="ss">- </span>$B \rightarrow XB \space | \space b \space | \space c$</span>
+<span id="cb1-168"><a href="#cb1-168"></a><span class="ss">- </span>$X \rightarrow b$</span>
+<span id="cb1-169"><a href="#cb1-169"></a></span>
+<span id="cb1-170"><a href="#cb1-170"></a>:::</span>
+<span id="cb1-171"><a href="#cb1-171"></a></span>
+<span id="cb1-172"><a href="#cb1-172"></a>::::</span>
+<span id="cb1-173"><a href="#cb1-173"></a></span>
+<span id="cb1-174"><a href="#cb1-174"></a><span class="fu">## Lemma</span></span>
+<span id="cb1-175"><a href="#cb1-175"></a></span>
+<span id="cb1-176"><a href="#cb1-176"></a><span class="ss">- </span>$w \in L(H:\text{CNF})$ takes $2|w| - 1$ steps</span>
+<span id="cb1-177"><a href="#cb1-177"></a><span class="ss">- </span>Left as an exercise.</span>
+<span id="cb1-178"><a href="#cb1-178"></a><span class="ss">  - </span>Not too bad - think about the two rule types.</span>
+<span id="cb1-179"><a href="#cb1-179"></a></span>
+<span id="cb1-180"><a href="#cb1-180"></a><span class="fu">## Theorem 14</span></span>
+<span id="cb1-181"><a href="#cb1-181"></a></span>
+<span id="cb1-182"><a href="#cb1-182"></a>$$</span>
+<span id="cb1-183"><a href="#cb1-183"></a>\text{Decidable}(A_{CFG} := <span class="sc">\{</span>\langle G, w \rangle \space | \space w \in G:\text{CFG}<span class="sc">\}</span>)</span>
+<span id="cb1-184"><a href="#cb1-184"></a>$$</span>
+<span id="cb1-185"><a href="#cb1-185"></a></span>
+<span id="cb1-186"><a href="#cb1-186"></a><span class="ss">1. </span>Convert to CNF</span>
+<span id="cb1-187"><a href="#cb1-187"></a><span class="ss">2. </span>Test all derivations of length $2|w| - 1$</span>
+<span id="cb1-188"><a href="#cb1-188"></a></span>
+<span id="cb1-189"><a href="#cb1-189"></a><span class="fu">## Corollary</span></span>
+<span id="cb1-190"><a href="#cb1-190"></a></span>
+<span id="cb1-191"><a href="#cb1-191"></a><span class="ss">- </span>We note that this also captures context free languages.</span>
+<span id="cb1-192"><a href="#cb1-192"></a><span class="ss">- </span>But a wrinkle!</span>
+<span id="cb1-193"><a href="#cb1-193"></a><span class="ss">  - </span>From a CFL, we needn't necessarily know the CFG</span>
+<span id="cb1-194"><a href="#cb1-194"></a><span class="ss">  - </span>We don't need it! It suffices to exist by definition</span>
+<span id="cb1-195"><a href="#cb1-195"></a><span class="ss">  - </span>We only claim something *is* decidable, not that we know how to decide!</span>
+<span id="cb1-196"><a href="#cb1-196"></a></span>
+<span id="cb1-197"><a href="#cb1-197"></a><span class="fu">## Understanding check</span></span>
+<span id="cb1-198"><a href="#cb1-198"></a></span>
+<span id="cb1-199"><a href="#cb1-199"></a><span class="ss">- </span>Is $A_{PDA}$ decidable.</span>
+<span id="cb1-200"><a href="#cb1-200"></a><span class="ss">  - </span>Just convert.</span>
+<span id="cb1-201"><a href="#cb1-201"></a></span>
+<span id="cb1-202"><a href="#cb1-202"></a><span class="fu"># Emptiness</span></span>
+<span id="cb1-203"><a href="#cb1-203"></a></span>
+<span id="cb1-204"><a href="#cb1-204"></a><span class="fu">## Statement of Theorem</span></span>
+<span id="cb1-205"><a href="#cb1-205"></a></span>
+<span id="cb1-206"><a href="#cb1-206"></a>$$</span>
+<span id="cb1-207"><a href="#cb1-207"></a>\text{Decidable}(EQ_{CFG} := <span class="sc">\{</span>\langle G, H \rangle \space | \space L(G:\text{CFG}) = L(H:\text{CFG}) <span class="sc">\}</span>)</span>
+<span id="cb1-208"><a href="#cb1-208"></a>$$</span>
+<span id="cb1-209"><a href="#cb1-209"></a></span>
+<span id="cb1-210"><a href="#cb1-210"></a><span class="ss">- </span>Probably not gonna fly to try every string.</span>
+<span id="cb1-211"><a href="#cb1-211"></a><span class="ss">- </span>What about closures, well...</span>
+<span id="cb1-212"><a href="#cb1-212"></a><span class="ss">- </span>**This is undecidable**</span>
+<span id="cb1-213"><a href="#cb1-213"></a><span class="ss">- </span>We will return to this with more robust proof techniques.</span>
+<span id="cb1-214"><a href="#cb1-214"></a></span>
+<span id="cb1-215"><a href="#cb1-215"></a></span>
+<span id="cb1-216"><a href="#cb1-216"></a><span class="fu">## Statement of Theorem</span></span>
+<span id="cb1-217"><a href="#cb1-217"></a></span>
+<span id="cb1-218"><a href="#cb1-218"></a>$$</span>
+<span id="cb1-219"><a href="#cb1-219"></a>\text{Decidable}(AMBIG_{CFG} := <span class="sc">\{</span>\langle G\rangle \space | \space G:\text{CFG is not ambigious}<span class="sc">\}</span>)</span>
+<span id="cb1-220"><a href="#cb1-220"></a>$$</span>
+<span id="cb1-221"><a href="#cb1-221"></a></span>
+<span id="cb1-222"><a href="#cb1-222"></a><span class="ss">- </span>**This is undecidable**</span>
+<span id="cb1-223"><a href="#cb1-223"></a></span>
+<span id="cb1-224"><a href="#cb1-224"></a><span class="fu">## Understanding Check</span></span>
+<span id="cb1-225"><a href="#cb1-225"></a></span>
+<span id="cb1-226"><a href="#cb1-226"></a><span class="ss">- </span>Why can we $EQ_{DFA}$ but not $EQ_{CFG}$?</span>
+<span id="cb1-227"><a href="#cb1-227"></a><span class="ss">  - </span>We lack closures we need.</span>
+<span id="cb1-228"><a href="#cb1-228"></a></span>
+<span id="cb1-229"><a href="#cb1-229"></a></span>
+<span id="cb1-230"><a href="#cb1-230"></a><span class="fu"># Turing Machines</span></span>
+<span id="cb1-231"><a href="#cb1-231"></a></span>
+<span id="cb1-232"><a href="#cb1-232"></a><span class="fu">## Statement of Theorem</span></span>
+<span id="cb1-233"><a href="#cb1-233"></a></span>
+<span id="cb1-234"><a href="#cb1-234"></a>$$</span>
+<span id="cb1-235"><a href="#cb1-235"></a>\text{Decidable}(A_{TM} := <span class="sc">\{</span>\langle M,w \rangle \space | \space w \in M:\text{TM}<span class="sc">\}</span>)</span>
+<span id="cb1-236"><a href="#cb1-236"></a>$$</span>
+<span id="cb1-237"><a href="#cb1-237"></a></span>
+<span id="cb1-238"><a href="#cb1-238"></a><span class="ss">- </span>This turns out not to be true.</span>
+<span id="cb1-239"><a href="#cb1-239"></a><span class="ss">- </span>However, an incrementally weaker result:</span>
+<span id="cb1-240"><a href="#cb1-240"></a></span>
+<span id="cb1-241"><a href="#cb1-241"></a>:::{.fragment}</span>
+<span id="cb1-242"><a href="#cb1-242"></a>$$</span>
+<span id="cb1-243"><a href="#cb1-243"></a>\text{Recognizable}(A_{TM} := <span class="sc">\{</span>\langle M,w \rangle \space | \space w \in M:\text{TM}<span class="sc">\}</span>)</span>
+<span id="cb1-244"><a href="#cb1-244"></a>$$</span>
+<span id="cb1-245"><a href="#cb1-245"></a>:::</span>
+<span id="cb1-246"><a href="#cb1-246"></a></span>
+<span id="cb1-247"><a href="#cb1-247"></a><span class="ss">- </span>We are able to show this now.</span>
+<span id="cb1-248"><a href="#cb1-248"></a></span>
+<span id="cb1-249"><a href="#cb1-249"></a><span class="fu">## Theorem 15</span></span>
+<span id="cb1-250"><a href="#cb1-250"></a></span>
+<span id="cb1-251"><a href="#cb1-251"></a>$$</span>
+<span id="cb1-252"><a href="#cb1-252"></a>\text{Recognizable}(A_{TM} := <span class="sc">\{</span>\langle M,w \rangle \space | \space w \in M:\text{TM}<span class="sc">\}</span>)</span>
+<span id="cb1-253"><a href="#cb1-253"></a>$$</span>
+<span id="cb1-254"><a href="#cb1-254"></a></span>
+<span id="cb1-255"><a href="#cb1-255"></a><span class="ss">- </span>Intuition:</span>
+<span id="cb1-256"><a href="#cb1-256"></a><span class="ss">  - </span>Take machine $U$</span>
+<span id="cb1-257"><a href="#cb1-257"></a><span class="ss">  - </span>$U$ simulates $M$ on one of its tapes.</span>
+<span id="cb1-258"><a href="#cb1-258"></a><span class="ss">  - </span>$U$ accepts if $M$ accepts</span>
+<span id="cb1-259"><a href="#cb1-259"></a><span class="ss">  - </span>$U$ rejects if $M$ rejects</span>
+<span id="cb1-260"><a href="#cb1-260"></a></span>
+<span id="cb1-261"><a href="#cb1-261"></a><span class="fu">## Problem</span></span>
+<span id="cb1-262"><a href="#cb1-262"></a></span>
+<span id="cb1-263"><a href="#cb1-263"></a><span class="ss">- </span>There is no guarantee that $M$ (and $\therefore U$) halt!</span>
+<span id="cb1-264"><a href="#cb1-264"></a><span class="ss">- </span>How to deal with this?</span>
+<span id="cb1-265"><a href="#cb1-265"></a><span class="ss">  - </span>Can we say "if $M$ doesn't halt?"</span>
+<span id="cb1-266"><a href="#cb1-266"></a><span class="ss">  - </span>How would we know!</span>
+<span id="cb1-267"><a href="#cb1-267"></a><span class="ss">- </span>To recognize, we need *only* accept those accepting $w$</span>
+<span id="cb1-268"><a href="#cb1-268"></a><span class="ss">  - </span>It *doesn't matter* if $U$ halts.</span>
+<span id="cb1-269"><a href="#cb1-269"></a></span>
+<span id="cb1-270"><a href="#cb1-270"></a><span class="fu">## Theorem 15</span></span>
+<span id="cb1-271"><a href="#cb1-271"></a></span>
+<span id="cb1-272"><a href="#cb1-272"></a>$$</span>
+<span id="cb1-273"><a href="#cb1-273"></a>\text{Recognizable}(A_{TM} := <span class="sc">\{</span>\langle M,w \rangle \space | \space w \in M:\text{TM}<span class="sc">\}</span>)</span>
+<span id="cb1-274"><a href="#cb1-274"></a>$$</span>
+<span id="cb1-275"><a href="#cb1-275"></a></span>
+<span id="cb1-276"><a href="#cb1-276"></a><span class="ss">- </span>Intuition:</span>
+<span id="cb1-277"><a href="#cb1-277"></a><span class="ss">  - </span>Take machine $U$</span>
+<span id="cb1-278"><a href="#cb1-278"></a><span class="ss">  - </span>$U$ simulates $M$ on one of its tapes.</span>
+<span id="cb1-279"><a href="#cb1-279"></a><span class="ss">  - </span>$U$ accepts if $M$ accepts</span>
+<span id="cb1-280"><a href="#cb1-280"></a><span class="ss">  - </span>&lt;s&gt;$U$ rejects if $M$ rejects&lt;/s&gt;</span>
+<span id="cb1-281"><a href="#cb1-281"></a><span class="ss">  - </span>Consider anything else a rejection.</span>
+<span id="cb1-282"><a href="#cb1-282"></a></span>
+<span id="cb1-283"><a href="#cb1-283"></a><span class="fu">## $U$</span></span>
+<span id="cb1-284"><a href="#cb1-284"></a></span>
+<span id="cb1-285"><a href="#cb1-285"></a><span class="ss">- </span>$U$ was the name Turing gave the original "universal computing machine"</span>
+<span id="cb1-286"><a href="#cb1-286"></a><span class="ss">  - </span>It was the subject of many latter results in:</span>
+<span id="cb1-287"><a href="#cb1-287"></a><span class="ss">    - </span>Computing</span>
+<span id="cb1-288"><a href="#cb1-288"></a><span class="ss">    - </span>Information</span>
+<span id="cb1-289"><a href="#cb1-289"></a><span class="ss">    - </span>Mathematics</span>
+<span id="cb1-290"><a href="#cb1-290"></a><span class="ss">    - </span>Philosophy</span>
+<span id="cb1-291"><a href="#cb1-291"></a><span class="ss">    - </span>Linguistics</span>
+<span id="cb1-292"><a href="#cb1-292"></a></span>
+<span id="cb1-293"><a href="#cb1-293"></a><span class="fu">## Example of $U$</span></span>
+<span id="cb1-294"><a href="#cb1-294"></a></span>
+<span id="cb1-295"><a href="#cb1-295"></a><span class="ss">- </span>We use $U$ to denote a machine that can compute anything.</span>
+<span id="cb1-296"><a href="#cb1-296"></a><span class="ss">  - </span>It has some combination of states and symbols.</span>
+<span id="cb1-297"><a href="#cb1-297"></a><span class="ss">  - </span>One such is:</span>
+<span id="cb1-298"><a href="#cb1-298"></a></span>
+<span id="cb1-299"><a href="#cb1-299"></a>:::{.fragment}</span>
+<span id="cb1-300"><a href="#cb1-300"></a></span>
+<span id="cb1-301"><a href="#cb1-301"></a>  <span class="at">&gt; </span><span class="co">[</span><span class="ot">a 7-state 4-symbol universal Turing machine in 1962 using 2-tag systems. (Marvin Minksy)</span><span class="co">](https://en.wikipedia.org/wiki/Universal_Turing_machine#Smallest_machines)</span></span>
+<span id="cb1-302"><a href="#cb1-302"></a><span class="at">:::</span></span>
+<span id="cb1-303"><a href="#cb1-303"></a></span>
+<span id="cb1-304"><a href="#cb1-304"></a></span>
+<span id="cb1-305"><a href="#cb1-305"></a><span class="fu">## Use of $U$</span></span>
+<span id="cb1-306"><a href="#cb1-306"></a></span>
+<span id="cb1-307"><a href="#cb1-307"></a><span class="ss">- </span>We use the term $U$ in our proof to refer to a machine that could do anything.</span>
+<span id="cb1-308"><a href="#cb1-308"></a><span class="ss">- </span>A **U**niversal machine.</span>
+<span id="cb1-309"><a href="#cb1-309"></a><span class="ss">- </span>The development of $U$ is out-of-scope for this class, but with familiar with modern devices like stored memory computers and RISC processors.</span>
+<span id="cb1-310"><a href="#cb1-310"></a></span>
+<span id="cb1-311"><a href="#cb1-311"></a><span class="fu">## Theorem 15</span></span>
+<span id="cb1-312"><a href="#cb1-312"></a></span>
+<span id="cb1-313"><a href="#cb1-313"></a>$$</span>
+<span id="cb1-314"><a href="#cb1-314"></a>\text{Recognizable}(A_{TM} := <span class="sc">\{</span>\langle M,w \rangle \space | \space w \in M:\text{TM}<span class="sc">\}</span>)</span>
+<span id="cb1-315"><a href="#cb1-315"></a>$$</span>
+<span id="cb1-316"><a href="#cb1-316"></a></span>
+<span id="cb1-317"><a href="#cb1-317"></a>*Proof.*</span>
+<span id="cb1-318"><a href="#cb1-318"></a></span>
+<span id="cb1-319"><a href="#cb1-319"></a><span class="ss">- </span>Take machine $U$</span>
+<span id="cb1-320"><a href="#cb1-320"></a><span class="ss">  1. </span>$U$ simulates $M$ on one of its tapes.</span>
+<span id="cb1-321"><a href="#cb1-321"></a><span class="ss">  2. </span>$U$ accepts if $M$ accepts</span>
+<span id="cb1-322"><a href="#cb1-322"></a></span>
+<span id="cb1-323"><a href="#cb1-323"></a><span class="fu"># Summary</span></span>
+<span id="cb1-324"><a href="#cb1-324"></a></span>
+<span id="cb1-325"><a href="#cb1-325"></a><span class="ss">- </span>$A_{DFA}, A_{NFA}, E_{DFA}, EQ_{DFA}, A_{CFG}, E_{CFG}$ are decidable.</span>
+<span id="cb1-326"><a href="#cb1-326"></a><span class="ss">- </span>$A_{TM}$ is recognizable.</span>
+<span id="cb1-327"><a href="#cb1-327"></a></span>
+<span id="cb1-328"><a href="#cb1-328"></a><span class="fu"># Stretch Break</span></span>
+<span id="cb1-329"><a href="#cb1-329"></a></span>
+<span id="cb1-330"><a href="#cb1-330"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Home</span><span class="co">](https://cd-public.github.io/compute/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

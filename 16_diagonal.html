@@ -1,0 +1,3109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Calvin">
+
+<title>Diagonalization – Automata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./17_undecide.html" rel="next">
+<link href="./15_empty.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./16_diagonal.html">Diagonalization</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Automata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_aims.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aims of Education</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_starfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Finite Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_regexp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regular Expressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_nfas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NFAs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regularity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pumping Lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_cfg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Grammars</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_pda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pushdown Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_cfgpda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CFG → PDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_cfpump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Pumping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_tm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Turing Machines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_variants.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_thesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Church-Turing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_accept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acceptance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_empty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Emptiness</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_diagonal.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review 2</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sketch" id="toc-sketch" class="nav-link active" data-scroll-target="#sketch">Sketch</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal">Goal</a></li>
+  <li><a href="#the-size-of-infinity" id="toc-the-size-of-infinity" class="nav-link" data-scroll-target="#the-size-of-infinity">The Size of Infinity</a>
+  <ul class="collapse">
+  <li><a href="#set-theory" id="toc-set-theory" class="nav-link" data-scroll-target="#set-theory">Set Theory</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
+  <li><a href="#injectivity" id="toc-injectivity" class="nav-link" data-scroll-target="#injectivity">Injectivity</a></li>
+  <li><a href="#graphically" id="toc-graphically" class="nav-link" data-scroll-target="#graphically">Graphically</a></li>
+  <li><a href="#injectivity-1" id="toc-injectivity-1" class="nav-link" data-scroll-target="#injectivity-1">Injectivity</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#nonexamples" id="toc-nonexamples" class="nav-link" data-scroll-target="#nonexamples">Nonexamples</a></li>
+  <li><a href="#surjectivity" id="toc-surjectivity" class="nav-link" data-scroll-target="#surjectivity">Surjectivity</a></li>
+  <li><a href="#graphically-1" id="toc-graphically-1" class="nav-link" data-scroll-target="#graphically-1">Graphically</a></li>
+  <li><a href="#properties-of-surjectivity" id="toc-properties-of-surjectivity" class="nav-link" data-scroll-target="#properties-of-surjectivity">Properties of Surjectivity</a></li>
+  <li><a href="#properties-of-surjectivity-1" id="toc-properties-of-surjectivity-1" class="nav-link" data-scroll-target="#properties-of-surjectivity-1">Properties of Surjectivity</a></li>
+  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">Examples</a></li>
+  <li><a href="#nonexamples-1" id="toc-nonexamples-1" class="nav-link" data-scroll-target="#nonexamples-1">Nonexamples</a></li>
+  <li><a href="#bijective" id="toc-bijective" class="nav-link" data-scroll-target="#bijective">Bijective</a></li>
+  <li><a href="#graphically-2" id="toc-graphically-2" class="nav-link" data-scroll-target="#graphically-2">Graphically</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#terms" id="toc-terms" class="nav-link" data-scroll-target="#terms">Terms</a></li>
+  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2">Examples</a></li>
+  <li><a href="#size-of-infinity" id="toc-size-of-infinity" class="nav-link" data-scroll-target="#size-of-infinity">Size of infinity</a></li>
+  <li><a href="#countability" id="toc-countability" class="nav-link" data-scroll-target="#countability">Countability</a></li>
+  <li><a href="#mathbbq" id="toc-mathbbq" class="nav-link" data-scroll-target="#mathbbq"><span class="math inline">\(\mathbb{Q}\)</span></a></li>
+  <li><a href="#mathbbq-1" id="toc-mathbbq-1" class="nav-link" data-scroll-target="#mathbbq-1"><span class="math inline">\(\mathbb{Q}\)</span></a></li>
+  <li><a href="#mathbbq-2" id="toc-mathbbq-2" class="nav-link" data-scroll-target="#mathbbq-2"><span class="math inline">\(\mathbb{Q}\)</span></a></li>
+  <li><a href="#countability-lemma" id="toc-countability-lemma" class="nav-link" data-scroll-target="#countability-lemma">Countability Lemma</a></li>
+  <li><a href="#diagonalization-lemma" id="toc-diagonalization-lemma" class="nav-link" data-scroll-target="#diagonalization-lemma">Diagonalization Lemma</a></li>
+  <li><a href="#a-bijection" id="toc-a-bijection" class="nav-link" data-scroll-target="#a-bijection">A bijection</a></li>
+  <li><a href="#a-listing" id="toc-a-listing" class="nav-link" data-scroll-target="#a-listing">A listing</a></li>
+  <li><a href="#a-listing-1" id="toc-a-listing-1" class="nav-link" data-scroll-target="#a-listing-1">A listing</a></li>
+  <li><a href="#diagonalization-lemma-1" id="toc-diagonalization-lemma-1" class="nav-link" data-scroll-target="#diagonalization-lemma-1">Diagonalization Lemma</a></li>
+  <li><a href="#coming-attractions" id="toc-coming-attractions" class="nav-link" data-scroll-target="#coming-attractions">Coming Attractions</a></li>
+  </ul></li>
+  <li><a href="#thank-you" id="toc-thank-you" class="nav-link" data-scroll-target="#thank-you">Thank you!</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="16_diagonal.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Diagonalization</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+<p class="subtitle lead">Automata</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Calvin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sketch" class="level2">
+<h2 class="anchored" data-anchor-id="sketch">Sketch</h2>
+<ul>
+<li>Diagonalization
+<ul>
+<li>(It’s non-trivial)</li>
+</ul></li>
+</ul>
+</section>
+<section id="goal" class="level2">
+<h2 class="anchored" data-anchor-id="goal">Goal</h2>
+<p><span class="math display">\[
+\neg\text{Decidable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+\]</span></p>
+<ul>
+<li>We need some way to say this.</li>
+<li>We term this notion <em>undecidability</em></li>
+<li>We introduce a technique <em>diagonalization</em> first.
+<ul>
+<li>It is the only known technique to show undecidability.</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-size-of-infinity" class="level1">
+<h1>The Size of Infinity</h1>
+<section id="set-theory" class="level2">
+<h2 class="anchored" data-anchor-id="set-theory">Set Theory</h2>
+<ul>
+<li>Diagonalization emerged from set and number theory.
+<ul>
+<li>My first diagonalization, and perhaps yours, was over <span class="math inline">\(\mathbb{R}\)</span></li>
+</ul></li>
+<li>First deployed by Georg Cantor in 1891
+<ul>
+<li>Showing <span class="math inline">\(|\mathbb{N}| \lt |\mathbb{R}|\)</span></li>
+</ul></li>
+<li>Famously showed Gödel’s incompleteness</li>
+<li>Famously (as here) showed Turing’s Entscheidungsproblem</li>
+</ul>
+</section>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<ul>
+<li>One way to show infinite sets have the same or different sizes is using functions.</li>
+<li>We claim that a set of infinite size is of the same infinite size as some other set if there exists some function that is:
+<ul>
+<li>one-to-one, and</li>
+<li>onto.</li>
+</ul></li>
+</ul>
+</section>
+<section id="notation" class="level2">
+<h2 class="anchored" data-anchor-id="notation">Notation</h2>
+<ul>
+<li>We introduce notations <span class="math inline">\(f : A \rightarrow B\)</span>
+<ul>
+<li>This is logicially equivalent to <span class="math inline">\(f : A \times B\)</span>, but</li>
+<li>Captures a different meaning.</li>
+</ul></li>
+</ul>
+</section>
+<section id="injectivity" class="level2">
+<h2 class="anchored" data-anchor-id="injectivity">Injectivity</h2>
+<ul>
+<li>We term a one-to-one function to be <em>injective</em>:</li>
+<li>Said function:</li>
+</ul>
+<div class="fragment">
+<blockquote class="blockquote">
+<p><a href="https://en.wikipedia.org/wiki/Injective_function">maps distinct elements of its domain to distinct elements of its codomain</a></p>
+</blockquote>
+</div>
+<ul>
+<li><span class="math inline">\(\forall x_1, x_2 : x_1 \neq x_2 \implies f(x_1) \neq f(x_2)\)</span></li>
+</ul>
+</section>
+<section id="graphically" class="level2">
+<h2 class="anchored" data-anchor-id="graphically">Graphically</h2>
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 148.02 263.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-259 144.02,-259 144.02,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_X</title>
+<path fill="#191919" stroke="#ffffff" d="M20,-62C20,-62 48,-62 48,-62 54,-62 60,-68 60,-74 60,-74 60,-235 60,-235 60,-241 54,-247 48,-247 48,-247 20,-247 20,-247 14,-247 8,-241 8,-235 8,-235 8,-74 8,-74 8,-68 14,-62 20,-62"></path>
+<text text-anchor="middle" x="34" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">A</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Y</title>
+<path fill="#191919" stroke="#ffffff" d="M92,-8C92,-8 120.02,-8 120.02,-8 126.02,-8 132.02,-14 132.02,-20 132.02,-20 132.02,-235 132.02,-235 132.02,-241 126.02,-247 120.02,-247 120.02,-247 92,-247 92,-247 86,-247 80,-241 80,-235 80,-235 80,-20 80,-20 80,-14 86,-8 92,-8"></path>
+<text text-anchor="middle" x="106.01" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">B</text>
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-196" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- w -->
+<g id="node4" class="node">
+<title>w</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-196" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="106.01" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">w</text>
+</g>
+<!-- 1&#45;&gt;w -->
+<g id="edge1" class="edge">
+<title>1-&gt;w</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-196C60.02,-196 69.29,-196 77.89,-196"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-199.5 87.9,-196 77.9,-192.5 77.9,-199.5"></polygon>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- x -->
+<g id="node5" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- 2&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>2-&gt;x</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-142C60.02,-142 69.29,-142 77.89,-142"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-145.5 87.9,-142 77.9,-138.5 77.9,-145.5"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">3</text>
+</g>
+<!-- z -->
+<g id="node7" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">z</text>
+</g>
+<!-- 3&#45;&gt;z -->
+<g id="edge3" class="edge">
+<title>3-&gt;z</title>
+<path fill="none" stroke="#ffffff" d="M48.83,-77.33C58.61,-69.79 71.93,-59.52 83.14,-50.87"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.43,-53.53 91.21,-44.65 81.15,-47.98 85.43,-53.53"></polygon>
+</g>
+<!-- y -->
+<g id="node6" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="injectivity-1" class="level2">
+<h2 class="anchored" data-anchor-id="injectivity-1">Injectivity</h2>
+<ul>
+<li>Every element of the function’s codomain
+<ul>
+<li>Also called “set of destination”</li>
+<li><span class="math inline">\(\{B | f: A \rightarrow B\}\)</span></li>
+</ul></li>
+<li>Is the image
+<ul>
+<li>The image of value <span class="math inline">\(x \in A\)</span> is the <strong>single</strong> value <span class="math inline">\(f(x) \in B\)</span></li>
+</ul></li>
+<li>Of <em>at most one</em> element of the domain
+<ul>
+<li>The set of inputs,</li>
+<li><span class="math inline">\(\{A | f: A \rightarrow B\}\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<ul>
+<li><span class="math inline">\(f(x) = x^2 : \mathbb{N} \rightarrow \mathbb{N}\)</span></li>
+<li><span class="math inline">\(f(x) = x^3 : \mathbb{R} \rightarrow \mathbb{R}\)</span></li>
+<li>Python <code>ord</code> which takes a finite set of printable characters to <span class="math inline">\(\mathbb{N}\)</span></li>
+</ul>
+<div class="fragment">
+<div id="aeb871d1" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>[<span class="bu">ord</span>(a) <span class="cf">for</span> a <span class="kw">in</span> <span class="st">'abcdefghijklmnopqrstuvwxyz!@#$%^&amp;*()'</span>][::<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>[97, 102, 107, 112, 117, 122, 37, 41]</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li>Social security number is a injection from people with them to numbers.</li>
+</ul>
+</section>
+<section id="nonexamples" class="level2">
+<h2 class="anchored" data-anchor-id="nonexamples">Nonexamples</h2>
+<ul>
+<li><span class="math inline">\(f(x) = x^2 : \mathbb{R} \rightarrow \mathbb{R}\)</span></li>
+</ul>
+<div class="fragment">
+<div id="5dd5d165" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>[x<span class="op">*</span>x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>[1, 0, 1]</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(f(x) = x^2 - x : \mathbb{N} \rightarrow \mathbb{Z}\)</span></li>
+</ul>
+<div class="fragment">
+<div id="c701039f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>[x<span class="op">*</span>x<span class="op">-</span>x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>[0, 0, 2]</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li>Emails-to-humans, e.g.&nbsp;I have:</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource email number-lines code-with-copy"><code class="sourceCode email"><span id="cb7-1"><a href="#cb7-1"></a>cdeutschbein@lagrange.edu</span>
+<span id="cb7-2"><a href="#cb7-2"></a>calvindeu@gmail.com</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="surjectivity" class="level2">
+<h2 class="anchored" data-anchor-id="surjectivity">Surjectivity</h2>
+<ul>
+<li>We term a function to be <em>surjective</em> if:</li>
+</ul>
+<div class="fragment">
+<blockquote class="blockquote">
+<p><a href="https://en.wikipedia.org/wiki/Surjective_function">for every element <span class="math inline">\(y\)</span> of the function’s codomain, there exists at least one element <span class="math inline">\(x\)</span> in the function’s domain such that <span class="math inline">\(f(x) = y\)</span></a></p>
+</blockquote>
+</div>
+<ul>
+<li><span class="math inline">\(\forall y \in B : \exists x \in A : y = f(x)\)</span></li>
+</ul>
+</section>
+<section id="graphically-1" class="level2">
+<h2 class="anchored" data-anchor-id="graphically-1">Graphically</h2>
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 148.02 263.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-259 144.02,-259 144.02,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_X</title>
+<path fill="#191919" stroke="#ffffff" d="M20,-8C20,-8 48,-8 48,-8 54,-8 60,-14 60,-20 60,-20 60,-235 60,-235 60,-241 54,-247 48,-247 48,-247 20,-247 20,-247 14,-247 8,-241 8,-235 8,-235 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="34" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">A</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Y</title>
+<path fill="#191919" stroke="#ffffff" d="M92,-62C92,-62 120.02,-62 120.02,-62 126.02,-62 132.02,-68 132.02,-74 132.02,-74 132.02,-235 132.02,-235 132.02,-241 126.02,-247 120.02,-247 120.02,-247 92,-247 92,-247 86,-247 80,-241 80,-235 80,-235 80,-74 80,-74 80,-68 86,-62 92,-62"></path>
+<text text-anchor="middle" x="106.01" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">B</text>
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-196" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- w -->
+<g id="node5" class="node">
+<title>w</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-196" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="106.01" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">w</text>
+</g>
+<!-- 1&#45;&gt;w -->
+<g id="edge1" class="edge">
+<title>1-&gt;w</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-196C60.02,-196 69.29,-196 77.89,-196"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-199.5 87.9,-196 77.9,-192.5 77.9,-199.5"></polygon>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- x -->
+<g id="node6" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- 2&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>2-&gt;x</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-142C60.02,-142 69.29,-142 77.89,-142"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-145.5 87.9,-142 77.9,-138.5 77.9,-145.5"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">3</text>
+</g>
+<!-- y -->
+<g id="node7" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+<!-- 3&#45;&gt;y -->
+<g id="edge3" class="edge">
+<title>3-&gt;y</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-88C60.02,-88 69.29,-88 77.89,-88"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-91.5 87.9,-88 77.9,-84.5 77.9,-91.5"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">4</text>
+</g>
+<!-- 4&#45;&gt;y -->
+<g id="edge4" class="edge">
+<title>4-&gt;y</title>
+<path fill="none" stroke="#ffffff" d="M48.83,-44.67C58.61,-52.21 71.93,-62.48 83.14,-71.13"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="81.15,-74.02 91.21,-77.35 85.43,-68.47 81.15,-74.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="properties-of-surjectivity" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-surjectivity">Properties of Surjectivity</h2>
+<ul>
+<li>Every element of the function’s codomain
+<ul>
+<li>Also called ‘set of destination’</li>
+<li><span class="math inline">\(\{B | f: A \rightarrow B\}\)</span></li>
+</ul></li>
+<li>Is the image of at least one element of the domain
+<ul>
+<li>The set of inputs,</li>
+<li><span class="math inline">\(\{A | f: A \rightarrow B\}\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="properties-of-surjectivity-1" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-surjectivity-1">Properties of Surjectivity</h2>
+<ul>
+<li>Can also say
+<ul>
+<li>The codomain
+<ul>
+<li><span class="math inline">\(\{B | f: A \rightarrow B\}\)</span></li>
+</ul></li>
+<li>Is the image
+<ul>
+<li>Different meaning!</li>
+<li>Image of a set, not an element.</li>
+<li>“The image of <span class="math inline">\(A\)</span> under <span class="math inline">\(f\)</span>” is the set <span class="math inline">\(\{f(x) \in B | x \in A\}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="examples-1" class="level2">
+<h2 class="anchored" data-anchor-id="examples-1">Examples</h2>
+<ul>
+<li><span class="math inline">\(f(x) = |x| : \mathbb{Z} \rightarrow \mathbb{N}\)</span></li>
+<li><span class="math inline">\(f(x) = \ln(x) : \mathbb{R} \rightarrow \mathbb{R}\)</span></li>
+<li>Python <code>chr</code> which takes a finite subset of infinite numerical values but maps to every printing character.</li>
+</ul>
+<div class="fragment">
+<div id="32f6acce" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>[<span class="bu">chr</span>(a) <span class="cf">for</span> a <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10000</span>,<span class="dv">1000</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>['\x00', 'Ϩ', 'ߐ', 'ஸ', 'ྠ', 'ᎈ', 'ᝰ', '᭘', 'ὀ', '⌨']</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li>Names are surjections - every name a person, not unique.</li>
+</ul>
+</section>
+<section id="nonexamples-1" class="level2">
+<h2 class="anchored" data-anchor-id="nonexamples-1">Nonexamples</h2>
+<ul>
+<li><span class="math inline">\(f(x) = x^2 : \mathbb{R} \rightarrow \mathbb{R}\)</span>
+<ul>
+<li>No value such that <span class="math inline">\(f(x) = -1 \in \mathbb{R}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(f(x) = 2x  : \mathbb{N} \rightarrow \mathbb{N}\)</span>
+<ul>
+<li>No value such that <span class="math inline">\(f(x) = 3\)</span></li>
+</ul></li>
+<li>English words to Latin character spellings
+<ul>
+<li>There exists no English word <code>xxxyzx</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="bijective" class="level2">
+<h2 class="anchored" data-anchor-id="bijective">Bijective</h2>
+<ul>
+<li>A function is bijective if it is injective and surjective.
+<ul>
+<li><span class="math inline">\(\forall x_1, x_2 : x_1 \neq x_2 \implies f(x_1) \neq f(x_2)\)</span></li>
+<li><span class="math inline">\(\forall y \in B : \exists x \in A : y = f(x)\)</span></li>
+</ul></li>
+<li>Or perhaps, the bijective functions are the intersection of the injective and surjective functions.</li>
+</ul>
+</section>
+<section id="graphically-2" class="level2">
+<h2 class="anchored" data-anchor-id="graphically-2">Graphically</h2>
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 148.02 263.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-259 144.02,-259 144.02,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_X</title>
+<path fill="#191919" stroke="#ffffff" d="M20,-8C20,-8 48,-8 48,-8 54,-8 60,-14 60,-20 60,-20 60,-235 60,-235 60,-241 54,-247 48,-247 48,-247 20,-247 20,-247 14,-247 8,-241 8,-235 8,-235 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="34" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">A</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Y</title>
+<path fill="#191919" stroke="#ffffff" d="M92,-8C92,-8 120.02,-8 120.02,-8 126.02,-8 132.02,-14 132.02,-20 132.02,-20 132.02,-235 132.02,-235 132.02,-241 126.02,-247 120.02,-247 120.02,-247 92,-247 92,-247 86,-247 80,-241 80,-235 80,-235 80,-20 80,-20 80,-14 86,-8 92,-8"></path>
+<text text-anchor="middle" x="106.01" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">B</text>
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-196" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- w -->
+<g id="node5" class="node">
+<title>w</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-196" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="106.01" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">w</text>
+</g>
+<!-- 1&#45;&gt;w -->
+<g id="edge1" class="edge">
+<title>1-&gt;w</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-196C60.02,-196 69.29,-196 77.89,-196"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-199.5 87.9,-196 77.9,-192.5 77.9,-199.5"></polygon>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- x -->
+<g id="node6" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- 2&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>2-&gt;x</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-142C60.02,-142 69.29,-142 77.89,-142"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-145.5 87.9,-142 77.9,-138.5 77.9,-145.5"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">3</text>
+</g>
+<!-- y -->
+<g id="node7" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+<!-- 3&#45;&gt;y -->
+<g id="edge3" class="edge">
+<title>3-&gt;y</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-88C60.02,-88 69.29,-88 77.89,-88"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-91.5 87.9,-88 77.9,-84.5 77.9,-91.5"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">4</text>
+</g>
+<!-- z -->
+<g id="node8" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">z</text>
+</g>
+<!-- 4&#45;&gt;z -->
+<g id="edge4" class="edge">
+<title>4-&gt;z</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-34C60.02,-34 69.29,-34 77.89,-34"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-37.5 87.9,-34 77.9,-30.5 77.9,-37.5"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<table>
+<tbody>
+<tr>
+<td>
+<p><strong>Bijective</strong></p>
+<div class="cell" data-fig-width="300px" data-fig-height="200px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="300" height="200" viewbox="0.00 0.00 148.02 263.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-259 144.02,-259 144.02,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_X</title>
+<path fill="#191919" stroke="#ffffff" d="M20,-8C20,-8 48,-8 48,-8 54,-8 60,-14 60,-20 60,-20 60,-235 60,-235 60,-241 54,-247 48,-247 48,-247 20,-247 20,-247 14,-247 8,-241 8,-235 8,-235 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="34" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">A</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Y</title>
+<path fill="#191919" stroke="#ffffff" d="M92,-8C92,-8 120.02,-8 120.02,-8 126.02,-8 132.02,-14 132.02,-20 132.02,-20 132.02,-235 132.02,-235 132.02,-241 126.02,-247 120.02,-247 120.02,-247 92,-247 92,-247 86,-247 80,-241 80,-235 80,-235 80,-20 80,-20 80,-14 86,-8 92,-8"></path>
+<text text-anchor="middle" x="106.01" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">B</text>
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-196" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- w -->
+<g id="node5" class="node">
+<title>w</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-196" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="106.01" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">w</text>
+</g>
+<!-- 1&#45;&gt;w -->
+<g id="edge1" class="edge">
+<title>1-&gt;w</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-196C60.02,-196 69.29,-196 77.89,-196"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-199.5 87.9,-196 77.9,-192.5 77.9,-199.5"></polygon>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- x -->
+<g id="node6" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- 2&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>2-&gt;x</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-142C60.02,-142 69.29,-142 77.89,-142"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-145.5 87.9,-142 77.9,-138.5 77.9,-145.5"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">3</text>
+</g>
+<!-- y -->
+<g id="node7" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+<!-- 3&#45;&gt;y -->
+<g id="edge3" class="edge">
+<title>3-&gt;y</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-88C60.02,-88 69.29,-88 77.89,-88"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-91.5 87.9,-88 77.9,-84.5 77.9,-91.5"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">4</text>
+</g>
+<!-- z -->
+<g id="node8" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">z</text>
+</g>
+<!-- 4&#45;&gt;z -->
+<g id="edge4" class="edge">
+<title>4-&gt;z</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-34C60.02,-34 69.29,-34 77.89,-34"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-37.5 87.9,-34 77.9,-30.5 77.9,-37.5"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</td>
+<td>
+<p><strong>Injective</strong></p>
+<div class="cell" data-fig-width="300px" data-fig-height="200px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="300" height="200" viewbox="0.00 0.00 148.02 263.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-259 144.02,-259 144.02,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_X</title>
+<path fill="#191919" stroke="#ffffff" d="M20,-62C20,-62 48,-62 48,-62 54,-62 60,-68 60,-74 60,-74 60,-235 60,-235 60,-241 54,-247 48,-247 48,-247 20,-247 20,-247 14,-247 8,-241 8,-235 8,-235 8,-74 8,-74 8,-68 14,-62 20,-62"></path>
+<text text-anchor="middle" x="34" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">A</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Y</title>
+<path fill="#191919" stroke="#ffffff" d="M92,-8C92,-8 120.02,-8 120.02,-8 126.02,-8 132.02,-14 132.02,-20 132.02,-20 132.02,-235 132.02,-235 132.02,-241 126.02,-247 120.02,-247 120.02,-247 92,-247 92,-247 86,-247 80,-241 80,-235 80,-235 80,-20 80,-20 80,-14 86,-8 92,-8"></path>
+<text text-anchor="middle" x="106.01" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">B</text>
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-196" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- w -->
+<g id="node4" class="node">
+<title>w</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-196" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="106.01" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">w</text>
+</g>
+<!-- 1&#45;&gt;w -->
+<g id="edge1" class="edge">
+<title>1-&gt;w</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-196C60.02,-196 69.29,-196 77.89,-196"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-199.5 87.9,-196 77.9,-192.5 77.9,-199.5"></polygon>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- x -->
+<g id="node5" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- 2&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>2-&gt;x</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-142C60.02,-142 69.29,-142 77.89,-142"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-145.5 87.9,-142 77.9,-138.5 77.9,-145.5"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">3</text>
+</g>
+<!-- z -->
+<g id="node7" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">z</text>
+</g>
+<!-- 3&#45;&gt;z -->
+<g id="edge3" class="edge">
+<title>3-&gt;z</title>
+<path fill="none" stroke="#ffffff" d="M48.83,-77.33C58.61,-69.79 71.93,-59.52 83.14,-50.87"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.43,-53.53 91.21,-44.65 81.15,-47.98 85.43,-53.53"></polygon>
+</g>
+<!-- y -->
+<g id="node6" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>Surjective</strong></p>
+<div class="cell" data-fig-width="300px" data-fig-height="200px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="300" height="200" viewbox="0.00 0.00 148.02 263.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-259 144.02,-259 144.02,4 -4,4"></polygon>
+<g id="clust2" class="cluster">
+<title>cluster_Y</title>
+<path fill="#191919" stroke="#ffffff" d="M92,-62C92,-62 120.02,-62 120.02,-62 126.02,-62 132.02,-68 132.02,-74 132.02,-74 132.02,-235 132.02,-235 132.02,-241 126.02,-247 120.02,-247 120.02,-247 92,-247 92,-247 86,-247 80,-241 80,-235 80,-235 80,-74 80,-74 80,-68 86,-62 92,-62"></path>
+<text text-anchor="middle" x="106.01" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">B</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_X</title>
+<path fill="#191919" stroke="#ffffff" d="M20,-8C20,-8 48,-8 48,-8 54,-8 60,-14 60,-20 60,-20 60,-235 60,-235 60,-241 54,-247 48,-247 48,-247 20,-247 20,-247 14,-247 8,-241 8,-235 8,-235 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="34" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">A</text>
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-196" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- w -->
+<g id="node5" class="node">
+<title>w</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-196" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="106.01" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">w</text>
+</g>
+<!-- 1&#45;&gt;w -->
+<g id="edge1" class="edge">
+<title>1-&gt;w</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-196C60.02,-196 69.29,-196 77.89,-196"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-199.5 87.9,-196 77.9,-192.5 77.9,-199.5"></polygon>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- x -->
+<g id="node6" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- 2&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>2-&gt;x</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-142C60.02,-142 69.29,-142 77.89,-142"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-145.5 87.9,-142 77.9,-138.5 77.9,-145.5"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">3</text>
+</g>
+<!-- y -->
+<g id="node7" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+<!-- 3&#45;&gt;y -->
+<g id="edge3" class="edge">
+<title>3-&gt;y</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-88C60.02,-88 69.29,-88 77.89,-88"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-91.5 87.9,-88 77.9,-84.5 77.9,-91.5"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">4</text>
+</g>
+<!-- 4&#45;&gt;y -->
+<g id="edge4" class="edge">
+<title>4-&gt;y</title>
+<path fill="none" stroke="#ffffff" d="M48.83,-44.67C58.61,-52.21 71.93,-62.48 83.14,-71.13"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="81.15,-74.02 91.21,-77.35 85.43,-68.47 81.15,-74.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</td>
+<td>
+<p>Neither</p>
+<div class="cell" data-fig-width="300px" data-fig-height="200px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="300" height="200" viewbox="0.00 0.00 148.02 263.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-259 144.02,-259 144.02,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_X</title>
+<path fill="#191919" stroke="#ffffff" d="M20,-8C20,-8 48,-8 48,-8 54,-8 60,-14 60,-20 60,-20 60,-235 60,-235 60,-241 54,-247 48,-247 48,-247 20,-247 20,-247 14,-247 8,-241 8,-235 8,-235 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="34" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">A</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Y</title>
+<path fill="#191919" stroke="#ffffff" d="M92,-8C92,-8 120.02,-8 120.02,-8 126.02,-8 132.02,-14 132.02,-20 132.02,-20 132.02,-235 132.02,-235 132.02,-241 126.02,-247 120.02,-247 120.02,-247 92,-247 92,-247 86,-247 80,-241 80,-235 80,-235 80,-20 80,-20 80,-14 86,-8 92,-8"></path>
+<text text-anchor="middle" x="106.01" y="-230.4" font-family="Times,serif" font-size="14.00" fill="#ffffff">B</text>
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-196" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">1</text>
+</g>
+<!-- w -->
+<g id="node5" class="node">
+<title>w</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-196" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="106.01" y="-191.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">w</text>
+</g>
+<!-- 1&#45;&gt;w -->
+<g id="edge1" class="edge">
+<title>1-&gt;w</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-196C60.02,-196 69.29,-196 77.89,-196"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-199.5 87.9,-196 77.9,-192.5 77.9,-199.5"></polygon>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">2</text>
+</g>
+<!-- x -->
+<g id="node6" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-142" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-137.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">x</text>
+</g>
+<!-- 2&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>2-&gt;x</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-142C60.02,-142 69.29,-142 77.89,-142"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-145.5 87.9,-142 77.9,-138.5 77.9,-145.5"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">3</text>
+</g>
+<!-- z -->
+<g id="node8" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">z</text>
+</g>
+<!-- 3&#45;&gt;z -->
+<g id="edge3" class="edge">
+<title>3-&gt;z</title>
+<path fill="none" stroke="#ffffff" d="M48.83,-77.33C58.61,-69.79 71.93,-59.52 83.14,-50.87"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="85.43,-53.53 91.21,-44.65 81.15,-47.98 85.43,-53.53"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#ffffff" cx="34" cy="-34" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="34" y="-29.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">4</text>
+</g>
+<!-- 4&#45;&gt;z -->
+<g id="edge4" class="edge">
+<title>4-&gt;z</title>
+<path fill="none" stroke="#ffffff" d="M52.31,-34C60.02,-34 69.29,-34 77.89,-34"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="77.9,-37.5 87.9,-34 77.9,-30.5 77.9,-37.5"></polygon>
+</g>
+<!-- y -->
+<g id="node7" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="#ffffff" cx="106.01" cy="-88" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="106.01" y="-83.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">y</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="terms" class="level2">
+<h2 class="anchored" data-anchor-id="terms">Terms</h2>
+<ul>
+<li>Bijective functions are also called bijections</li>
+<li>Also called “one-to-one correspondence”
+<ul>
+<li>I avoid this term as an injective function is a one-to-one <em>function</em></li>
+<li>I just use the unambigious terms when at all possible.</li>
+</ul></li>
+</ul>
+</section>
+<section id="examples-2" class="level2">
+<h2 class="anchored" data-anchor-id="examples-2">Examples</h2>
+<ul>
+<li><span class="math inline">\(f(x) = x : \mathbb{R} \rightarrow \mathbb{R}\)</span></li>
+<li><span class="math inline">\(f(x) = x^3 : \mathbb{R} \rightarrow \mathbb{R}\)</span></li>
+<li>This for <span class="math inline">\(\mathbb{N} \rightarrow \mathbb{Z}\)</span></li>
+</ul>
+<div class="fragment">
+<div id="877a612e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">from</span> itertools <span class="im">import</span> count</span>
+<span id="cb10-2"><a href="#cb10-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">//</span> <span class="dv">2</span> <span class="op">*</span> (x <span class="op">%</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a>Z <span class="op">=</span> (f(x) <span class="cf">for</span> x <span class="kw">in</span> count(<span class="dv">1</span>))</span>
+<span id="cb10-4"><a href="#cb10-4"></a>[<span class="bu">next</span>(Z) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>[0, -1, 1, -2, 2, -3, 3, -4, 4, -5]</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li>Wait a minute!</li>
+</ul>
+</section>
+<section id="size-of-infinity" class="level2">
+<h2 class="anchored" data-anchor-id="size-of-infinity">Size of infinity</h2>
+<div id="05a72cb7" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> itertools <span class="im">import</span> count</span>
+<span id="cb12-2"><a href="#cb12-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">//</span> <span class="dv">2</span> <span class="op">*</span> (x <span class="op">%</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb12-3"><a href="#cb12-3"></a>Z <span class="op">=</span> (f(x) <span class="cf">for</span> x <span class="kw">in</span> count(<span class="dv">1</span>))</span>
+<span id="cb12-4"><a href="#cb12-4"></a>[<span class="bu">next</span>(Z) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>[0, -1, 1, -2, 2, -3, 3, -4, 4, -5]</code></pre>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\forall n \in \mathbb{N}, n \in \mathbb{Z}\)</span>
+<ul>
+<li><span class="math inline">\(\mathbb{N} \subseteq \mathbb{Z}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\exists x \in \mathbb{Z} : x \notin \mathbb{N}\)</span>
+<ul>
+<li><span class="math inline">\(\mathbb{N} \subset \mathbb{Z}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\exists \text{ bijection } f: \mathbb{N} \rightarrow \mathbb{Z}\)</span></li>
+<li><span class="math inline">\(|\mathbb{N}| = |\mathbb{Z}|\)</span></li>
+</ul>
+</section>
+<section id="countability" class="level2">
+<h2 class="anchored" data-anchor-id="countability">Countability</h2>
+<ul>
+<li><span class="math inline">\(|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}|\)</span></li>
+<li>We term these countably infinite.
+<ul>
+<li>See Pythonic <code>count</code></li>
+</ul></li>
+<li><span class="math inline">\(\mathbb{Q}\)</span> is non-trivial, I’m not aware of a close form.
+<ul>
+<li>We’ll write it out real quick.</li>
+</ul></li>
+</ul>
+</section>
+<section id="mathbbq" class="level2">
+<h2 class="anchored" data-anchor-id="mathbbq"><span class="math inline">\(\mathbb{Q}\)</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Restrict to <span class="math inline">\(\mathbb{Q^+} = \{ \dfrac{m}{n} | m,n \in \mathbb{N}\}\)</span></li>
+<li>Set the fractions out within a table.</li>
+</ul>
+</div><div class="column fragment" style="width:50%;">
+<!--
+```{.python}
+for i in range(1,5):
+  s = f'|{i}|'
+  for j in range(1,5):
+    s += f'$\dfrac{{{i}}}{{{j}}}$|'
+  print(s)
+```
+-->
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th><span class="math inline">\(\ldots\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(\dfrac{1}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{4}\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(\dfrac{2}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{2}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{2}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{2}{4}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(\dfrac{3}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{4}\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(\dfrac{4}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{4}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{4}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{4}{4}\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="mathbbq-1" class="level2">
+<h2 class="anchored" data-anchor-id="mathbbq-1"><span class="math inline">\(\mathbb{Q}\)</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Populate a set.</li>
+<li>Careful with duplicates!</li>
+<li>Careful with placing infinite many values before another value!</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<!--
+```{.python}
+for i in range(1,5):
+  s = f'|{i}|'
+  for j in range(1,5):
+    s += f'$\dfrac{{{i}}}{{{j}}}$|'
+  print(s)
+```
+-->
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th><span class="math inline">\(\ldots\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(\dfrac{1}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{4}\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(\dfrac{2}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{2}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{2}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{2}{4}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(\dfrac{3}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{4}\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(\dfrac{4}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{4}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{4}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{4}{4}\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="mathbbq-2" class="level2">
+<h2 class="anchored" data-anchor-id="mathbbq-2"><span class="math inline">\(\mathbb{Q}\)</span></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div id="db17b7dd" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>pair <span class="op">=</span> <span class="kw">lambda</span> i,j: (i<span class="op">+</span>j<span class="op">-</span><span class="dv">2</span>)<span class="op">*</span>(i<span class="op">+</span>j<span class="op">-</span><span class="dv">1</span>)<span class="op">//</span><span class="dv">2</span><span class="op">+</span>j</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">5</span>):</span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="bu">print</span>([pair(i,j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">5</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 3, 6, 10]
+[2, 5, 9, 14]
+[4, 8, 13, 19]
+[7, 12, 18, 25]</code></pre>
+</div>
+</div>
+<ul>
+<li>Basically just load the fractions into a stack</li>
+<li>Check they aren’t in the ordering yet</li>
+<li>Add them if they aren’t.</li>
+</ul>
+</div><div class="column" style="width:40%;">
+<!--
+```{.python}
+for i in range(1,5):
+  s = f'|{i}|'
+  for j in range(1,5):
+    s += f'$\dfrac{{{i}}}{{{j}}}$|'
+  print(s)
+```
+-->
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(\dfrac{1}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{4}\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(\dfrac{2}{1}\)</span></td>
+<td></td>
+<td><span class="math inline">\(\dfrac{2}{3}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(\dfrac{3}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{2}\)</span></td>
+<td></td>
+<td><span class="math inline">\(\dfrac{3}{4}\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(\dfrac{4}{1}\)</span></td>
+<td></td>
+<td><span class="math inline">\(\dfrac{4}{3}\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="countability-lemma" class="level2">
+<h2 class="anchored" data-anchor-id="countability-lemma">Countability Lemma</h2>
+<p><span class="math display">\[
+|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}|
+\]</span></p>
+<p><em>Proof.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(\dfrac{1}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{2}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{3}\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{4}\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(\dfrac{2}{1}\)</span></td>
+<td></td>
+<td><span class="math inline">\(\dfrac{2}{3}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(\dfrac{3}{1}\)</span></td>
+<td><span class="math inline">\(\dfrac{3}{2}\)</span></td>
+<td></td>
+<td><span class="math inline">\(\dfrac{3}{4}\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(\dfrac{4}{1}\)</span></td>
+<td></td>
+<td><span class="math inline">\(\dfrac{4}{3}\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!--
+https://www.youtube.com/watch?v=3PzuSPQPEU4
+-->
+</section>
+<section id="diagonalization-lemma" class="level2">
+<h2 class="anchored" data-anchor-id="diagonalization-lemma">Diagonalization Lemma</h2>
+<p><span class="math display">\[
+|\mathbb{R}| \gt |\mathbb{N}|
+\]</span></p>
+<ul>
+<li>We will assume <span class="math inline">\(\mathbb{R}\)</span> is countable and find a contradiction.</li>
+<li>We note that e.g., <span class="math inline">\(3.14159 \in \mathbb{R} \cap \mathbb{Q}\)</span></li>
+<li>We note that e.g., <span class="math inline">\(3.14159\ldots = \pi \in \mathbb{R} \setminus \mathbb{Q}\)</span></li>
+</ul>
+</section>
+<section id="a-bijection" class="level2">
+<h2 class="anchored" data-anchor-id="a-bijection">A bijection</h2>
+<ul>
+<li>Let’s take all the real numbers in <span class="math inline">\(\mathbb{R}\)</span>
+<ul>
+<li>We note that are the numbers expressible with potentially infinite strings.</li>
+<li>Decimal or binary is fine.</li>
+</ul></li>
+</ul>
+</section>
+<section id="a-listing" class="level2">
+<h2 class="anchored" data-anchor-id="a-listing">A listing</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(n\)</span></th>
+<th><span class="math inline">\(f(n): \mathbb{N} \rightarrow \mathbb{R}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>If there is some bijection to <span class="math inline">\(\mathbb{N}\)</span>, we can make such a listing!</li>
+<li>You are welcome to try!</li>
+</ul>
+</section>
+<section id="a-listing-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-listing-1">A listing</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(n\)</span></th>
+<th><span class="math inline">\(f(n): \mathbb{N} \rightarrow \mathbb{R}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(\pi = 3.14159\ldots\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(e = 2.71828\ldots\)</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(0 = 0.00000\ldots\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(x = 1.41421\ldots\)</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><span class="math inline">\(y = 0.14286\ldots\)</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><span class="math inline">\(z = 0.20788\ldots\)</span></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><span class="math inline">\(v = 1.23456\ldots\)</span></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Missing:
+<ul>
+<li>4…</li>
+<li>4.8…</li>
+<li>4.81…</li>
+<li>4.815…</li>
+<li>4.8159…</li>
+<li>4.81599…</li>
+<li>4.815998…</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="diagonalization-lemma-1" class="level2">
+<h2 class="anchored" data-anchor-id="diagonalization-lemma-1">Diagonalization Lemma</h2>
+<p><span class="math display">\[
+|\mathbb{R}| \gt |\mathbb{N}|
+\]</span></p>
+<p><span class="math inline">\(Proof.\)</span></p>
+<ul>
+<li>4.815998…</li>
+<li>That is, take an proposed bijection, and differ in the <span class="math inline">\(i\)</span>’th digit from the <span class="math inline">\(i\)</span>’th value.</li>
+<li>In fact, <span class="math inline">\(|\mathbb{R} = |2^\mathbb{N}|\)</span></li>
+</ul>
+</section>
+<section id="coming-attractions" class="level2">
+<h2 class="anchored" data-anchor-id="coming-attractions">Coming Attractions</h2>
+<ul>
+<li>That is all for now!
+<ul>
+<li>But… we treated <span class="math inline">\(\mathbb{R}\)</span> (strings) as bigger than <span class="math inline">\(\mathbb{N}\)</span> (lists) from a language based argument!</li>
+<li>We have been storing computers as strings!</li>
+<li>We have been writing computers that study strings!</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[
+\neg\text{Decidable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+\]</span></p>
+</div>
+</section>
+</section>
+<section id="thank-you" class="level1">
+<h1>Thank you!</h1>
+<ul>
+<li>Next lecture, on undecidability, posted Monday to YouTube!</li>
+<li>Homework 1, on automata, the Monday after
+<ul>
+<li>Assuming my flight etc etc</li>
+</ul></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./15_empty.html" class="pagination-link" aria-label="Emptiness">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Emptiness</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./17_undecide.html" class="pagination-link" aria-label="Diagonalization">
+        <span class="nav-page-text">Diagonalization</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="an">title:</span><span class="co"> "Diagonalization"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">---</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="fu">## Sketch</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="ss">- </span>Diagonalization</span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="ss">  - </span>(It's non-trivial)</span>
+<span id="cb16-10"><a href="#cb16-10"></a></span>
+<span id="cb16-11"><a href="#cb16-11"></a><span class="fu">## Goal</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a></span>
+<span id="cb16-13"><a href="#cb16-13"></a>$$</span>
+<span id="cb16-14"><a href="#cb16-14"></a>\neg\text{Decidable}(A_{TM} := <span class="sc">\{</span>\langle M,w \rangle \space | \space w \in M:\text{TM}<span class="sc">\}</span>)</span>
+<span id="cb16-15"><a href="#cb16-15"></a>$$</span>
+<span id="cb16-16"><a href="#cb16-16"></a></span>
+<span id="cb16-17"><a href="#cb16-17"></a><span class="ss">- </span>We need some way to say this. </span>
+<span id="cb16-18"><a href="#cb16-18"></a><span class="ss">- </span>We term this notion *undecidability*</span>
+<span id="cb16-19"><a href="#cb16-19"></a><span class="ss">- </span>We introduce a technique *diagonalization* first.</span>
+<span id="cb16-20"><a href="#cb16-20"></a><span class="ss">  - </span>It is the only known technique to show undecidability.</span>
+<span id="cb16-21"><a href="#cb16-21"></a></span>
+<span id="cb16-22"><a href="#cb16-22"></a><span class="fu"># The Size of Infinity</span></span>
+<span id="cb16-23"><a href="#cb16-23"></a></span>
+<span id="cb16-24"><a href="#cb16-24"></a><span class="fu">## Set Theory</span></span>
+<span id="cb16-25"><a href="#cb16-25"></a></span>
+<span id="cb16-26"><a href="#cb16-26"></a><span class="ss">- </span>Diagonalization emerged from set and number theory.</span>
+<span id="cb16-27"><a href="#cb16-27"></a><span class="ss">  - </span>My first diagonalization, and perhaps yours, was over $\mathbb{R}$</span>
+<span id="cb16-28"><a href="#cb16-28"></a><span class="ss">- </span>First deployed by Georg Cantor in 1891</span>
+<span id="cb16-29"><a href="#cb16-29"></a><span class="ss">  - </span>Showing $|\mathbb{N}| \lt |\mathbb{R}|$</span>
+<span id="cb16-30"><a href="#cb16-30"></a><span class="ss">- </span>Famously showed Gödel's incompleteness</span>
+<span id="cb16-31"><a href="#cb16-31"></a><span class="ss">- </span>Famously (as here) showed Turing's Entscheidungsproblem</span>
+<span id="cb16-32"><a href="#cb16-32"></a></span>
+<span id="cb16-33"><a href="#cb16-33"></a><span class="fu">## Functions</span></span>
+<span id="cb16-34"><a href="#cb16-34"></a></span>
+<span id="cb16-35"><a href="#cb16-35"></a><span class="ss">- </span>One way to show infinite sets have the same or different sizes is using functions.</span>
+<span id="cb16-36"><a href="#cb16-36"></a><span class="ss">- </span>We claim that a set of infinite size is of the same infinite size as some other set if there exists some function that is:</span>
+<span id="cb16-37"><a href="#cb16-37"></a><span class="ss">  - </span>one-to-one, and</span>
+<span id="cb16-38"><a href="#cb16-38"></a><span class="ss">  - </span>onto.</span>
+<span id="cb16-39"><a href="#cb16-39"></a></span>
+<span id="cb16-40"><a href="#cb16-40"></a><span class="fu">## Notation</span></span>
+<span id="cb16-41"><a href="#cb16-41"></a></span>
+<span id="cb16-42"><a href="#cb16-42"></a><span class="ss">- </span>We introduce notations $f : A \rightarrow B$</span>
+<span id="cb16-43"><a href="#cb16-43"></a><span class="ss">  - </span>This is logicially equivalent to $f : A \times B$, but</span>
+<span id="cb16-44"><a href="#cb16-44"></a><span class="ss">  - </span>Captures a different meaning.</span>
+<span id="cb16-45"><a href="#cb16-45"></a></span>
+<span id="cb16-46"><a href="#cb16-46"></a></span>
+<span id="cb16-47"><a href="#cb16-47"></a><span class="fu">## Injectivity</span></span>
+<span id="cb16-48"><a href="#cb16-48"></a></span>
+<span id="cb16-49"><a href="#cb16-49"></a><span class="ss">- </span>We term a one-to-one function to be *injective*:</span>
+<span id="cb16-50"><a href="#cb16-50"></a><span class="ss">- </span>Said function:</span>
+<span id="cb16-51"><a href="#cb16-51"></a></span>
+<span id="cb16-52"><a href="#cb16-52"></a>:::{.fragment}</span>
+<span id="cb16-53"><a href="#cb16-53"></a></span>
+<span id="cb16-54"><a href="#cb16-54"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">maps distinct elements of its domain to distinct elements of its codomain</span><span class="co">](https://en.wikipedia.org/wiki/Injective_function)</span></span>
+<span id="cb16-55"><a href="#cb16-55"></a></span>
+<span id="cb16-56"><a href="#cb16-56"></a>:::</span>
+<span id="cb16-57"><a href="#cb16-57"></a></span>
+<span id="cb16-58"><a href="#cb16-58"></a><span class="ss">- </span>$\forall x_1, x_2 : x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$</span>
+<span id="cb16-59"><a href="#cb16-59"></a></span>
+<span id="cb16-60"><a href="#cb16-60"></a></span>
+<span id="cb16-61"><a href="#cb16-61"></a><span class="fu">## Graphically</span></span>
+<span id="cb16-62"><a href="#cb16-62"></a></span>
+<span id="cb16-63"><a href="#cb16-63"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
+<span id="cb16-64"><a href="#cb16-64"></a><span class="in">//| fig-width: 500px</span></span>
+<span id="cb16-65"><a href="#cb16-65"></a><span class="in">//| echo: false</span></span>
+<span id="cb16-66"><a href="#cb16-66"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb16-67"><a href="#cb16-67"></a><span class="in">  rankdir=LR;</span></span>
+<span id="cb16-68"><a href="#cb16-68"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb16-69"><a href="#cb16-69"></a></span>
+<span id="cb16-70"><a href="#cb16-70"></a><span class="in">  node [</span></span>
+<span id="cb16-71"><a href="#cb16-71"></a><span class="in">      fontcolor = "#ffffff",</span></span>
+<span id="cb16-72"><a href="#cb16-72"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-73"><a href="#cb16-73"></a><span class="in">      shape=circle,</span></span>
+<span id="cb16-74"><a href="#cb16-74"></a><span class="in">  ]</span></span>
+<span id="cb16-75"><a href="#cb16-75"></a></span>
+<span id="cb16-76"><a href="#cb16-76"></a><span class="in">  edge [</span></span>
+<span id="cb16-77"><a href="#cb16-77"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-78"><a href="#cb16-78"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-79"><a href="#cb16-79"></a><span class="in">  ]</span></span>
+<span id="cb16-80"><a href="#cb16-80"></a><span class="in">  subgraph cluster_X {</span></span>
+<span id="cb16-81"><a href="#cb16-81"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-82"><a href="#cb16-82"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-83"><a href="#cb16-83"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-84"><a href="#cb16-84"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-85"><a href="#cb16-85"></a><span class="in">      label = "A";</span></span>
+<span id="cb16-86"><a href="#cb16-86"></a><span class="in">      "1";</span></span>
+<span id="cb16-87"><a href="#cb16-87"></a><span class="in">      "2";</span></span>
+<span id="cb16-88"><a href="#cb16-88"></a><span class="in">      "3";</span></span>
+<span id="cb16-89"><a href="#cb16-89"></a><span class="in">  }</span></span>
+<span id="cb16-90"><a href="#cb16-90"></a></span>
+<span id="cb16-91"><a href="#cb16-91"></a><span class="in">  subgraph cluster_Y {</span></span>
+<span id="cb16-92"><a href="#cb16-92"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-93"><a href="#cb16-93"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-94"><a href="#cb16-94"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-95"><a href="#cb16-95"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-96"><a href="#cb16-96"></a><span class="in">      label = "B";</span></span>
+<span id="cb16-97"><a href="#cb16-97"></a><span class="in">      "w";</span></span>
+<span id="cb16-98"><a href="#cb16-98"></a><span class="in">      "x";</span></span>
+<span id="cb16-99"><a href="#cb16-99"></a><span class="in">      "y";</span></span>
+<span id="cb16-100"><a href="#cb16-100"></a><span class="in">      "z";</span></span>
+<span id="cb16-101"><a href="#cb16-101"></a><span class="in">  }</span></span>
+<span id="cb16-102"><a href="#cb16-102"></a></span>
+<span id="cb16-103"><a href="#cb16-103"></a><span class="in">  "1" -&gt; "w";</span></span>
+<span id="cb16-104"><a href="#cb16-104"></a><span class="in">  "2" -&gt; "x";</span></span>
+<span id="cb16-105"><a href="#cb16-105"></a><span class="in">  "3" -&gt; "z";</span></span>
+<span id="cb16-106"><a href="#cb16-106"></a><span class="in">}</span></span>
+<span id="cb16-107"><a href="#cb16-107"></a><span class="in">```</span></span>
+<span id="cb16-108"><a href="#cb16-108"></a></span>
+<span id="cb16-109"><a href="#cb16-109"></a><span class="fu">## Injectivity</span></span>
+<span id="cb16-110"><a href="#cb16-110"></a></span>
+<span id="cb16-111"><a href="#cb16-111"></a><span class="ss">- </span>Every element of the function's codomain</span>
+<span id="cb16-112"><a href="#cb16-112"></a><span class="ss">  - </span>Also called "set of destination"</span>
+<span id="cb16-113"><a href="#cb16-113"></a><span class="ss">  - </span>$<span class="sc">\{</span>B | f: A \rightarrow B<span class="sc">\}</span>$</span>
+<span id="cb16-114"><a href="#cb16-114"></a><span class="ss">- </span>Is the image</span>
+<span id="cb16-115"><a href="#cb16-115"></a><span class="ss">  - </span>The image of value $x \in A$ is the **single** value $f(x) \in B$</span>
+<span id="cb16-116"><a href="#cb16-116"></a><span class="ss">- </span>Of *at most one* element of the domain</span>
+<span id="cb16-117"><a href="#cb16-117"></a><span class="ss">  - </span>The set of inputs, </span>
+<span id="cb16-118"><a href="#cb16-118"></a><span class="ss">  - </span>$<span class="sc">\{</span>A | f: A \rightarrow B<span class="sc">\}</span>$</span>
+<span id="cb16-119"><a href="#cb16-119"></a></span>
+<span id="cb16-120"><a href="#cb16-120"></a><span class="fu">## Examples</span></span>
+<span id="cb16-121"><a href="#cb16-121"></a></span>
+<span id="cb16-122"><a href="#cb16-122"></a><span class="ss">- </span>$f(x) = x^2 : \mathbb{N} \rightarrow \mathbb{N}$</span>
+<span id="cb16-123"><a href="#cb16-123"></a><span class="ss">- </span>$f(x) = x^3 : \mathbb{R} \rightarrow \mathbb{R}$</span>
+<span id="cb16-124"><a href="#cb16-124"></a><span class="ss">- </span>Python <span class="in">`ord`</span> which takes a finite set of printable characters to $\mathbb{N}$</span>
+<span id="cb16-125"><a href="#cb16-125"></a></span>
+<span id="cb16-126"><a href="#cb16-126"></a>:::{.fragment}</span>
+<span id="cb16-127"><a href="#cb16-127"></a></span>
+<span id="cb16-130"><a href="#cb16-130"></a><span class="in">```{python}</span></span>
+<span id="cb16-131"><a href="#cb16-131"></a>[<span class="bu">ord</span>(a) <span class="cf">for</span> a <span class="kw">in</span> <span class="st">'abcdefghijklmnopqrstuvwxyz!@#$%^&amp;*()'</span>][::<span class="dv">5</span>]</span>
+<span id="cb16-132"><a href="#cb16-132"></a><span class="in">```</span></span>
+<span id="cb16-133"><a href="#cb16-133"></a></span>
+<span id="cb16-134"><a href="#cb16-134"></a>:::</span>
+<span id="cb16-135"><a href="#cb16-135"></a></span>
+<span id="cb16-136"><a href="#cb16-136"></a><span class="ss">- </span>Social security number is a injection from people with them to numbers.</span>
+<span id="cb16-137"><a href="#cb16-137"></a></span>
+<span id="cb16-138"><a href="#cb16-138"></a><span class="fu">## Nonexamples</span></span>
+<span id="cb16-139"><a href="#cb16-139"></a></span>
+<span id="cb16-140"><a href="#cb16-140"></a><span class="ss">- </span>$f(x) = x^2 : \mathbb{R} \rightarrow \mathbb{R}$</span>
+<span id="cb16-141"><a href="#cb16-141"></a></span>
+<span id="cb16-142"><a href="#cb16-142"></a>:::{.fragment}</span>
+<span id="cb16-143"><a href="#cb16-143"></a></span>
+<span id="cb16-146"><a href="#cb16-146"></a><span class="in">```{python}</span></span>
+<span id="cb16-147"><a href="#cb16-147"></a>[x<span class="op">*</span>x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>)]</span>
+<span id="cb16-148"><a href="#cb16-148"></a><span class="in">```</span></span>
+<span id="cb16-149"><a href="#cb16-149"></a></span>
+<span id="cb16-150"><a href="#cb16-150"></a>:::</span>
+<span id="cb16-151"><a href="#cb16-151"></a></span>
+<span id="cb16-152"><a href="#cb16-152"></a><span class="ss">- </span>$f(x) = x^2 - x : \mathbb{N} \rightarrow \mathbb{Z}$</span>
+<span id="cb16-153"><a href="#cb16-153"></a></span>
+<span id="cb16-154"><a href="#cb16-154"></a>:::{.fragment}</span>
+<span id="cb16-155"><a href="#cb16-155"></a></span>
+<span id="cb16-158"><a href="#cb16-158"></a><span class="in">```{python}</span></span>
+<span id="cb16-159"><a href="#cb16-159"></a>[x<span class="op">*</span>x<span class="op">-</span>x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span>
+<span id="cb16-160"><a href="#cb16-160"></a><span class="in">```</span></span>
+<span id="cb16-161"><a href="#cb16-161"></a></span>
+<span id="cb16-162"><a href="#cb16-162"></a>:::</span>
+<span id="cb16-163"><a href="#cb16-163"></a></span>
+<span id="cb16-164"><a href="#cb16-164"></a><span class="ss">- </span>Emails-to-humans, e.g. I have:</span>
+<span id="cb16-165"><a href="#cb16-165"></a></span>
+<span id="cb16-166"><a href="#cb16-166"></a>:::{.fragment}</span>
+<span id="cb16-167"><a href="#cb16-167"></a><span class="in">```email</span></span>
+<span id="cb16-168"><a href="#cb16-168"></a>cdeutschbein@lagrange.edu</span>
+<span id="cb16-169"><a href="#cb16-169"></a>calvindeu@gmail.com</span>
+<span id="cb16-170"><a href="#cb16-170"></a><span class="in">```</span></span>
+<span id="cb16-171"><a href="#cb16-171"></a>:::</span>
+<span id="cb16-172"><a href="#cb16-172"></a></span>
+<span id="cb16-173"><a href="#cb16-173"></a><span class="fu">## Surjectivity</span></span>
+<span id="cb16-174"><a href="#cb16-174"></a></span>
+<span id="cb16-175"><a href="#cb16-175"></a><span class="ss">- </span>We term a function to be *surjective* if:</span>
+<span id="cb16-176"><a href="#cb16-176"></a></span>
+<span id="cb16-177"><a href="#cb16-177"></a>:::{.fragment}</span>
+<span id="cb16-178"><a href="#cb16-178"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">for every element $y$ of the function's codomain, there exists at least one element $x$ in the function's domain such that $f(x) = y$</span><span class="co">](https://en.wikipedia.org/wiki/Surjective_function)</span></span>
+<span id="cb16-179"><a href="#cb16-179"></a><span class="at">:::</span></span>
+<span id="cb16-180"><a href="#cb16-180"></a></span>
+<span id="cb16-181"><a href="#cb16-181"></a></span>
+<span id="cb16-182"><a href="#cb16-182"></a><span class="ss">- </span>$\forall y \in B : \exists x \in A : y = f(x)$</span>
+<span id="cb16-183"><a href="#cb16-183"></a></span>
+<span id="cb16-184"><a href="#cb16-184"></a><span class="fu">## Graphically</span></span>
+<span id="cb16-185"><a href="#cb16-185"></a></span>
+<span id="cb16-186"><a href="#cb16-186"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
+<span id="cb16-187"><a href="#cb16-187"></a><span class="in">//| fig-width: 500px</span></span>
+<span id="cb16-188"><a href="#cb16-188"></a><span class="in">//| echo: false</span></span>
+<span id="cb16-189"><a href="#cb16-189"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb16-190"><a href="#cb16-190"></a><span class="in">  rankdir=LR;</span></span>
+<span id="cb16-191"><a href="#cb16-191"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb16-192"><a href="#cb16-192"></a></span>
+<span id="cb16-193"><a href="#cb16-193"></a><span class="in">  node [</span></span>
+<span id="cb16-194"><a href="#cb16-194"></a><span class="in">      fontcolor = "#ffffff",</span></span>
+<span id="cb16-195"><a href="#cb16-195"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-196"><a href="#cb16-196"></a><span class="in">      shape=circle,</span></span>
+<span id="cb16-197"><a href="#cb16-197"></a><span class="in">  ]</span></span>
+<span id="cb16-198"><a href="#cb16-198"></a></span>
+<span id="cb16-199"><a href="#cb16-199"></a><span class="in">  edge [</span></span>
+<span id="cb16-200"><a href="#cb16-200"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-201"><a href="#cb16-201"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-202"><a href="#cb16-202"></a><span class="in">  ]</span></span>
+<span id="cb16-203"><a href="#cb16-203"></a><span class="in">  subgraph cluster_X {</span></span>
+<span id="cb16-204"><a href="#cb16-204"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-205"><a href="#cb16-205"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-206"><a href="#cb16-206"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-207"><a href="#cb16-207"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-208"><a href="#cb16-208"></a><span class="in">      label = "A";</span></span>
+<span id="cb16-209"><a href="#cb16-209"></a><span class="in">      "1";</span></span>
+<span id="cb16-210"><a href="#cb16-210"></a><span class="in">      "2";</span></span>
+<span id="cb16-211"><a href="#cb16-211"></a><span class="in">      "3";</span></span>
+<span id="cb16-212"><a href="#cb16-212"></a><span class="in">      "4";</span></span>
+<span id="cb16-213"><a href="#cb16-213"></a><span class="in">  }</span></span>
+<span id="cb16-214"><a href="#cb16-214"></a></span>
+<span id="cb16-215"><a href="#cb16-215"></a><span class="in">  subgraph cluster_Y {</span></span>
+<span id="cb16-216"><a href="#cb16-216"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-217"><a href="#cb16-217"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-218"><a href="#cb16-218"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-219"><a href="#cb16-219"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-220"><a href="#cb16-220"></a><span class="in">      label = "B";</span></span>
+<span id="cb16-221"><a href="#cb16-221"></a><span class="in">      "w";</span></span>
+<span id="cb16-222"><a href="#cb16-222"></a><span class="in">      "x";</span></span>
+<span id="cb16-223"><a href="#cb16-223"></a><span class="in">      "y";</span></span>
+<span id="cb16-224"><a href="#cb16-224"></a><span class="in">  }</span></span>
+<span id="cb16-225"><a href="#cb16-225"></a></span>
+<span id="cb16-226"><a href="#cb16-226"></a><span class="in">  "1" -&gt; "w";</span></span>
+<span id="cb16-227"><a href="#cb16-227"></a><span class="in">  "2" -&gt; "x";</span></span>
+<span id="cb16-228"><a href="#cb16-228"></a><span class="in">  "3" -&gt; "y";</span></span>
+<span id="cb16-229"><a href="#cb16-229"></a><span class="in">  "4" -&gt; "y";</span></span>
+<span id="cb16-230"><a href="#cb16-230"></a><span class="in">}</span></span>
+<span id="cb16-231"><a href="#cb16-231"></a><span class="in">```</span></span>
+<span id="cb16-232"><a href="#cb16-232"></a></span>
+<span id="cb16-233"><a href="#cb16-233"></a><span class="fu">## Properties of Surjectivity</span></span>
+<span id="cb16-234"><a href="#cb16-234"></a></span>
+<span id="cb16-235"><a href="#cb16-235"></a><span class="ss">- </span>Every element of the function's codomain</span>
+<span id="cb16-236"><a href="#cb16-236"></a><span class="ss">  - </span>Also called 'set of destination'</span>
+<span id="cb16-237"><a href="#cb16-237"></a><span class="ss">  - </span>$<span class="sc">\{</span>B | f: A \rightarrow B<span class="sc">\}</span>$</span>
+<span id="cb16-238"><a href="#cb16-238"></a><span class="ss">- </span>Is the image of at least one element of the domain</span>
+<span id="cb16-239"><a href="#cb16-239"></a><span class="ss">  - </span>The set of inputs,</span>
+<span id="cb16-240"><a href="#cb16-240"></a><span class="ss">  - </span>$<span class="sc">\{</span>A | f: A \rightarrow B<span class="sc">\}</span>$</span>
+<span id="cb16-241"><a href="#cb16-241"></a></span>
+<span id="cb16-242"><a href="#cb16-242"></a>  </span>
+<span id="cb16-243"><a href="#cb16-243"></a><span class="fu">## Properties of Surjectivity</span></span>
+<span id="cb16-244"><a href="#cb16-244"></a></span>
+<span id="cb16-245"><a href="#cb16-245"></a><span class="ss">- </span>Can also say</span>
+<span id="cb16-246"><a href="#cb16-246"></a><span class="ss">  - </span>The codomain</span>
+<span id="cb16-247"><a href="#cb16-247"></a><span class="ss">    - </span>$<span class="sc">\{</span>B | f: A \rightarrow B<span class="sc">\}</span>$</span>
+<span id="cb16-248"><a href="#cb16-248"></a><span class="ss">  - </span>Is the image</span>
+<span id="cb16-249"><a href="#cb16-249"></a><span class="ss">    - </span>Different meaning! </span>
+<span id="cb16-250"><a href="#cb16-250"></a><span class="ss">    - </span>Image of a set, not an element.</span>
+<span id="cb16-251"><a href="#cb16-251"></a><span class="ss">    - </span>"The image of $A$ under $f$" is the set $<span class="sc">\{</span>f(x) \in B | x \in A<span class="sc">\}</span>$</span>
+<span id="cb16-252"><a href="#cb16-252"></a></span>
+<span id="cb16-253"><a href="#cb16-253"></a><span class="fu">## Examples</span></span>
+<span id="cb16-254"><a href="#cb16-254"></a></span>
+<span id="cb16-255"><a href="#cb16-255"></a><span class="ss">- </span>$f(x) = |x| : \mathbb{Z} \rightarrow \mathbb{N}$</span>
+<span id="cb16-256"><a href="#cb16-256"></a><span class="ss">- </span>$f(x) = \ln(x) : \mathbb{R} \rightarrow \mathbb{R}$</span>
+<span id="cb16-257"><a href="#cb16-257"></a><span class="ss">- </span>Python <span class="in">`chr`</span> which takes a finite subset of infinite numerical values but maps to every printing character.</span>
+<span id="cb16-258"><a href="#cb16-258"></a></span>
+<span id="cb16-259"><a href="#cb16-259"></a>:::{.fragment}</span>
+<span id="cb16-260"><a href="#cb16-260"></a></span>
+<span id="cb16-263"><a href="#cb16-263"></a><span class="in">```{python}</span></span>
+<span id="cb16-264"><a href="#cb16-264"></a>[<span class="bu">chr</span>(a) <span class="cf">for</span> a <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10000</span>,<span class="dv">1000</span>)]</span>
+<span id="cb16-265"><a href="#cb16-265"></a><span class="in">```</span></span>
+<span id="cb16-266"><a href="#cb16-266"></a></span>
+<span id="cb16-267"><a href="#cb16-267"></a>:::</span>
+<span id="cb16-268"><a href="#cb16-268"></a></span>
+<span id="cb16-269"><a href="#cb16-269"></a><span class="ss">- </span>Names are surjections - every name a person, not unique.</span>
+<span id="cb16-270"><a href="#cb16-270"></a></span>
+<span id="cb16-271"><a href="#cb16-271"></a><span class="fu">## Nonexamples</span></span>
+<span id="cb16-272"><a href="#cb16-272"></a></span>
+<span id="cb16-273"><a href="#cb16-273"></a><span class="ss">- </span>$f(x) = x^2 : \mathbb{R} \rightarrow \mathbb{R}$</span>
+<span id="cb16-274"><a href="#cb16-274"></a><span class="ss">  -  </span>No value such that $f(x) = -1 \in \mathbb{R}$</span>
+<span id="cb16-275"><a href="#cb16-275"></a><span class="ss">- </span>$f(x) = 2x  : \mathbb{N} \rightarrow \mathbb{N}$</span>
+<span id="cb16-276"><a href="#cb16-276"></a><span class="ss">  - </span>No value such that $f(x) = 3$</span>
+<span id="cb16-277"><a href="#cb16-277"></a><span class="ss">- </span>English words to Latin character spellings </span>
+<span id="cb16-278"><a href="#cb16-278"></a><span class="ss">  - </span>There exists no English word <span class="in">`xxxyzx`</span></span>
+<span id="cb16-279"><a href="#cb16-279"></a></span>
+<span id="cb16-280"><a href="#cb16-280"></a><span class="fu">## Bijective</span></span>
+<span id="cb16-281"><a href="#cb16-281"></a></span>
+<span id="cb16-282"><a href="#cb16-282"></a><span class="ss">- </span>A function is bijective if it is injective and surjective.</span>
+<span id="cb16-283"><a href="#cb16-283"></a><span class="ss">  - </span>$\forall x_1, x_2 : x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$</span>
+<span id="cb16-284"><a href="#cb16-284"></a><span class="ss">  - </span>$\forall y \in B : \exists x \in A : y = f(x)$</span>
+<span id="cb16-285"><a href="#cb16-285"></a><span class="ss">- </span>Or perhaps, the bijective functions are the intersection of the injective and surjective functions.</span>
+<span id="cb16-286"><a href="#cb16-286"></a></span>
+<span id="cb16-287"><a href="#cb16-287"></a><span class="fu">## Graphically</span></span>
+<span id="cb16-288"><a href="#cb16-288"></a></span>
+<span id="cb16-289"><a href="#cb16-289"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
+<span id="cb16-290"><a href="#cb16-290"></a><span class="in">//| fig-width: 500px</span></span>
+<span id="cb16-291"><a href="#cb16-291"></a><span class="in">//| echo: false</span></span>
+<span id="cb16-292"><a href="#cb16-292"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb16-293"><a href="#cb16-293"></a><span class="in">  rankdir=LR;</span></span>
+<span id="cb16-294"><a href="#cb16-294"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb16-295"><a href="#cb16-295"></a></span>
+<span id="cb16-296"><a href="#cb16-296"></a><span class="in">  node [</span></span>
+<span id="cb16-297"><a href="#cb16-297"></a><span class="in">      fontcolor = "#ffffff",</span></span>
+<span id="cb16-298"><a href="#cb16-298"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-299"><a href="#cb16-299"></a><span class="in">      shape=circle,</span></span>
+<span id="cb16-300"><a href="#cb16-300"></a><span class="in">  ]</span></span>
+<span id="cb16-301"><a href="#cb16-301"></a></span>
+<span id="cb16-302"><a href="#cb16-302"></a><span class="in">  edge [</span></span>
+<span id="cb16-303"><a href="#cb16-303"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-304"><a href="#cb16-304"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-305"><a href="#cb16-305"></a><span class="in">  ]</span></span>
+<span id="cb16-306"><a href="#cb16-306"></a><span class="in">  subgraph cluster_X {</span></span>
+<span id="cb16-307"><a href="#cb16-307"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-308"><a href="#cb16-308"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-309"><a href="#cb16-309"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-310"><a href="#cb16-310"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-311"><a href="#cb16-311"></a><span class="in">      label = "A";</span></span>
+<span id="cb16-312"><a href="#cb16-312"></a><span class="in">      "1";</span></span>
+<span id="cb16-313"><a href="#cb16-313"></a><span class="in">      "2";</span></span>
+<span id="cb16-314"><a href="#cb16-314"></a><span class="in">      "3";</span></span>
+<span id="cb16-315"><a href="#cb16-315"></a><span class="in">      "4";</span></span>
+<span id="cb16-316"><a href="#cb16-316"></a><span class="in">  }</span></span>
+<span id="cb16-317"><a href="#cb16-317"></a></span>
+<span id="cb16-318"><a href="#cb16-318"></a><span class="in">  subgraph cluster_Y {</span></span>
+<span id="cb16-319"><a href="#cb16-319"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-320"><a href="#cb16-320"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-321"><a href="#cb16-321"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-322"><a href="#cb16-322"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-323"><a href="#cb16-323"></a><span class="in">      label = "B";</span></span>
+<span id="cb16-324"><a href="#cb16-324"></a><span class="in">      "w";</span></span>
+<span id="cb16-325"><a href="#cb16-325"></a><span class="in">      "x";</span></span>
+<span id="cb16-326"><a href="#cb16-326"></a><span class="in">      "y";</span></span>
+<span id="cb16-327"><a href="#cb16-327"></a><span class="in">      "z";</span></span>
+<span id="cb16-328"><a href="#cb16-328"></a><span class="in">  }</span></span>
+<span id="cb16-329"><a href="#cb16-329"></a></span>
+<span id="cb16-330"><a href="#cb16-330"></a><span class="in">  "1" -&gt; "w";</span></span>
+<span id="cb16-331"><a href="#cb16-331"></a><span class="in">  "2" -&gt; "x";</span></span>
+<span id="cb16-332"><a href="#cb16-332"></a><span class="in">  "3" -&gt; "y";</span></span>
+<span id="cb16-333"><a href="#cb16-333"></a><span class="in">  "4" -&gt; "z";</span></span>
+<span id="cb16-334"><a href="#cb16-334"></a><span class="in">}</span></span>
+<span id="cb16-335"><a href="#cb16-335"></a><span class="in">```</span></span>
+<span id="cb16-336"><a href="#cb16-336"></a></span>
+<span id="cb16-337"><a href="#cb16-337"></a><span class="fu">## </span></span>
+<span id="cb16-338"><a href="#cb16-338"></a></span>
+<span id="cb16-339"><a href="#cb16-339"></a>&lt;table&gt;</span>
+<span id="cb16-340"><a href="#cb16-340"></a></span>
+<span id="cb16-341"><a href="#cb16-341"></a>  &lt;tbody&gt;</span>
+<span id="cb16-342"><a href="#cb16-342"></a>    &lt;tr&gt;</span>
+<span id="cb16-343"><a href="#cb16-343"></a>&lt;td&gt;</span>
+<span id="cb16-344"><a href="#cb16-344"></a>**Bijective**</span>
+<span id="cb16-345"><a href="#cb16-345"></a></span>
+<span id="cb16-346"><a href="#cb16-346"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
+<span id="cb16-347"><a href="#cb16-347"></a><span class="in">//| fig-width: 300px</span></span>
+<span id="cb16-348"><a href="#cb16-348"></a><span class="in">//| fig-height: 200px</span></span>
+<span id="cb16-349"><a href="#cb16-349"></a><span class="in">//| echo: false</span></span>
+<span id="cb16-350"><a href="#cb16-350"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb16-351"><a href="#cb16-351"></a><span class="in">  rankdir=LR;</span></span>
+<span id="cb16-352"><a href="#cb16-352"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb16-353"><a href="#cb16-353"></a></span>
+<span id="cb16-354"><a href="#cb16-354"></a><span class="in">  node [</span></span>
+<span id="cb16-355"><a href="#cb16-355"></a><span class="in">      fontcolor = "#ffffff",</span></span>
+<span id="cb16-356"><a href="#cb16-356"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-357"><a href="#cb16-357"></a><span class="in">      shape=circle,</span></span>
+<span id="cb16-358"><a href="#cb16-358"></a><span class="in">  ]</span></span>
+<span id="cb16-359"><a href="#cb16-359"></a></span>
+<span id="cb16-360"><a href="#cb16-360"></a><span class="in">  edge [</span></span>
+<span id="cb16-361"><a href="#cb16-361"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-362"><a href="#cb16-362"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-363"><a href="#cb16-363"></a><span class="in">  ]</span></span>
+<span id="cb16-364"><a href="#cb16-364"></a><span class="in">  subgraph cluster_X {</span></span>
+<span id="cb16-365"><a href="#cb16-365"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-366"><a href="#cb16-366"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-367"><a href="#cb16-367"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-368"><a href="#cb16-368"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-369"><a href="#cb16-369"></a><span class="in">      label = "A";</span></span>
+<span id="cb16-370"><a href="#cb16-370"></a><span class="in">      "1";</span></span>
+<span id="cb16-371"><a href="#cb16-371"></a><span class="in">      "2";</span></span>
+<span id="cb16-372"><a href="#cb16-372"></a><span class="in">      "3";</span></span>
+<span id="cb16-373"><a href="#cb16-373"></a><span class="in">      "4";</span></span>
+<span id="cb16-374"><a href="#cb16-374"></a><span class="in">  }</span></span>
+<span id="cb16-375"><a href="#cb16-375"></a></span>
+<span id="cb16-376"><a href="#cb16-376"></a><span class="in">  subgraph cluster_Y {</span></span>
+<span id="cb16-377"><a href="#cb16-377"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-378"><a href="#cb16-378"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-379"><a href="#cb16-379"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-380"><a href="#cb16-380"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-381"><a href="#cb16-381"></a><span class="in">      label = "B";</span></span>
+<span id="cb16-382"><a href="#cb16-382"></a><span class="in">      "w";</span></span>
+<span id="cb16-383"><a href="#cb16-383"></a><span class="in">      "x";</span></span>
+<span id="cb16-384"><a href="#cb16-384"></a><span class="in">      "y";</span></span>
+<span id="cb16-385"><a href="#cb16-385"></a><span class="in">      "z";</span></span>
+<span id="cb16-386"><a href="#cb16-386"></a><span class="in">  }</span></span>
+<span id="cb16-387"><a href="#cb16-387"></a></span>
+<span id="cb16-388"><a href="#cb16-388"></a><span class="in">  "1" -&gt; "w";</span></span>
+<span id="cb16-389"><a href="#cb16-389"></a><span class="in">  "2" -&gt; "x";</span></span>
+<span id="cb16-390"><a href="#cb16-390"></a><span class="in">  "3" -&gt; "y";</span></span>
+<span id="cb16-391"><a href="#cb16-391"></a><span class="in">  "4" -&gt; "z";</span></span>
+<span id="cb16-392"><a href="#cb16-392"></a><span class="in">}</span></span>
+<span id="cb16-393"><a href="#cb16-393"></a><span class="in">```</span></span>
+<span id="cb16-394"><a href="#cb16-394"></a></span>
+<span id="cb16-395"><a href="#cb16-395"></a>&lt;/td&gt;</span>
+<span id="cb16-396"><a href="#cb16-396"></a>&lt;td&gt;</span>
+<span id="cb16-397"><a href="#cb16-397"></a>**Injective**</span>
+<span id="cb16-398"><a href="#cb16-398"></a></span>
+<span id="cb16-399"><a href="#cb16-399"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
+<span id="cb16-400"><a href="#cb16-400"></a><span class="in">//| fig-width: 300px</span></span>
+<span id="cb16-401"><a href="#cb16-401"></a><span class="in">//| fig-height: 200px</span></span>
+<span id="cb16-402"><a href="#cb16-402"></a><span class="in">//| echo: false</span></span>
+<span id="cb16-403"><a href="#cb16-403"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb16-404"><a href="#cb16-404"></a><span class="in">  rankdir=LR;</span></span>
+<span id="cb16-405"><a href="#cb16-405"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb16-406"><a href="#cb16-406"></a></span>
+<span id="cb16-407"><a href="#cb16-407"></a><span class="in">  node [</span></span>
+<span id="cb16-408"><a href="#cb16-408"></a><span class="in">      fontcolor = "#ffffff",</span></span>
+<span id="cb16-409"><a href="#cb16-409"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-410"><a href="#cb16-410"></a><span class="in">      shape=circle,</span></span>
+<span id="cb16-411"><a href="#cb16-411"></a><span class="in">  ]</span></span>
+<span id="cb16-412"><a href="#cb16-412"></a></span>
+<span id="cb16-413"><a href="#cb16-413"></a><span class="in">  edge [</span></span>
+<span id="cb16-414"><a href="#cb16-414"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-415"><a href="#cb16-415"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-416"><a href="#cb16-416"></a><span class="in">  ]</span></span>
+<span id="cb16-417"><a href="#cb16-417"></a><span class="in">  subgraph cluster_X {</span></span>
+<span id="cb16-418"><a href="#cb16-418"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-419"><a href="#cb16-419"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-420"><a href="#cb16-420"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-421"><a href="#cb16-421"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-422"><a href="#cb16-422"></a><span class="in">      label = "A";</span></span>
+<span id="cb16-423"><a href="#cb16-423"></a><span class="in">      "1";</span></span>
+<span id="cb16-424"><a href="#cb16-424"></a><span class="in">      "2";</span></span>
+<span id="cb16-425"><a href="#cb16-425"></a><span class="in">      "3";</span></span>
+<span id="cb16-426"><a href="#cb16-426"></a><span class="in">  }</span></span>
+<span id="cb16-427"><a href="#cb16-427"></a></span>
+<span id="cb16-428"><a href="#cb16-428"></a><span class="in">  subgraph cluster_Y {</span></span>
+<span id="cb16-429"><a href="#cb16-429"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-430"><a href="#cb16-430"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-431"><a href="#cb16-431"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-432"><a href="#cb16-432"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-433"><a href="#cb16-433"></a><span class="in">      label = "B";</span></span>
+<span id="cb16-434"><a href="#cb16-434"></a><span class="in">      "w";</span></span>
+<span id="cb16-435"><a href="#cb16-435"></a><span class="in">      "x";</span></span>
+<span id="cb16-436"><a href="#cb16-436"></a><span class="in">      "y";</span></span>
+<span id="cb16-437"><a href="#cb16-437"></a><span class="in">      "z";</span></span>
+<span id="cb16-438"><a href="#cb16-438"></a><span class="in">  }</span></span>
+<span id="cb16-439"><a href="#cb16-439"></a></span>
+<span id="cb16-440"><a href="#cb16-440"></a><span class="in">  "1" -&gt; "w";</span></span>
+<span id="cb16-441"><a href="#cb16-441"></a><span class="in">  "2" -&gt; "x";</span></span>
+<span id="cb16-442"><a href="#cb16-442"></a><span class="in">  "3" -&gt; "z";</span></span>
+<span id="cb16-443"><a href="#cb16-443"></a><span class="in">}</span></span>
+<span id="cb16-444"><a href="#cb16-444"></a><span class="in">```</span></span>
+<span id="cb16-445"><a href="#cb16-445"></a>&lt;/td&gt;</span>
+<span id="cb16-446"><a href="#cb16-446"></a>&lt;/tr&gt;</span>
+<span id="cb16-447"><a href="#cb16-447"></a>    &lt;tr&gt;</span>
+<span id="cb16-448"><a href="#cb16-448"></a>&lt;td&gt;</span>
+<span id="cb16-449"><a href="#cb16-449"></a>**Surjective**</span>
+<span id="cb16-450"><a href="#cb16-450"></a></span>
+<span id="cb16-451"><a href="#cb16-451"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
+<span id="cb16-452"><a href="#cb16-452"></a><span class="in">//| fig-width: 300px</span></span>
+<span id="cb16-453"><a href="#cb16-453"></a><span class="in">//| fig-height: 200px</span></span>
+<span id="cb16-454"><a href="#cb16-454"></a><span class="in">//| echo: false</span></span>
+<span id="cb16-455"><a href="#cb16-455"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb16-456"><a href="#cb16-456"></a><span class="in">  rankdir=LR;</span></span>
+<span id="cb16-457"><a href="#cb16-457"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb16-458"><a href="#cb16-458"></a></span>
+<span id="cb16-459"><a href="#cb16-459"></a><span class="in">  node [</span></span>
+<span id="cb16-460"><a href="#cb16-460"></a><span class="in">      fontcolor = "#ffffff",</span></span>
+<span id="cb16-461"><a href="#cb16-461"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-462"><a href="#cb16-462"></a><span class="in">      shape=circle,</span></span>
+<span id="cb16-463"><a href="#cb16-463"></a><span class="in">  ]</span></span>
+<span id="cb16-464"><a href="#cb16-464"></a></span>
+<span id="cb16-465"><a href="#cb16-465"></a><span class="in">  edge [</span></span>
+<span id="cb16-466"><a href="#cb16-466"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-467"><a href="#cb16-467"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-468"><a href="#cb16-468"></a><span class="in">  ]</span></span>
+<span id="cb16-469"><a href="#cb16-469"></a><span class="in">  subgraph cluster_X {</span></span>
+<span id="cb16-470"><a href="#cb16-470"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-471"><a href="#cb16-471"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-472"><a href="#cb16-472"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-473"><a href="#cb16-473"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-474"><a href="#cb16-474"></a><span class="in">      label = "A";</span></span>
+<span id="cb16-475"><a href="#cb16-475"></a><span class="in">      "1";</span></span>
+<span id="cb16-476"><a href="#cb16-476"></a><span class="in">      "2";</span></span>
+<span id="cb16-477"><a href="#cb16-477"></a><span class="in">      "3";</span></span>
+<span id="cb16-478"><a href="#cb16-478"></a><span class="in">      "4";</span></span>
+<span id="cb16-479"><a href="#cb16-479"></a><span class="in">  }</span></span>
+<span id="cb16-480"><a href="#cb16-480"></a></span>
+<span id="cb16-481"><a href="#cb16-481"></a><span class="in">  subgraph cluster_Y {</span></span>
+<span id="cb16-482"><a href="#cb16-482"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-483"><a href="#cb16-483"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-484"><a href="#cb16-484"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-485"><a href="#cb16-485"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-486"><a href="#cb16-486"></a><span class="in">      label = "B";</span></span>
+<span id="cb16-487"><a href="#cb16-487"></a><span class="in">      "w";</span></span>
+<span id="cb16-488"><a href="#cb16-488"></a><span class="in">      "x";</span></span>
+<span id="cb16-489"><a href="#cb16-489"></a><span class="in">      "y";</span></span>
+<span id="cb16-490"><a href="#cb16-490"></a><span class="in">  }</span></span>
+<span id="cb16-491"><a href="#cb16-491"></a></span>
+<span id="cb16-492"><a href="#cb16-492"></a><span class="in">  "1" -&gt; "w";</span></span>
+<span id="cb16-493"><a href="#cb16-493"></a><span class="in">  "2" -&gt; "x";</span></span>
+<span id="cb16-494"><a href="#cb16-494"></a><span class="in">  "3" -&gt; "y";</span></span>
+<span id="cb16-495"><a href="#cb16-495"></a><span class="in">  "4" -&gt; "y";</span></span>
+<span id="cb16-496"><a href="#cb16-496"></a><span class="in">}</span></span>
+<span id="cb16-497"><a href="#cb16-497"></a><span class="in">```</span></span>
+<span id="cb16-498"><a href="#cb16-498"></a></span>
+<span id="cb16-499"><a href="#cb16-499"></a>&lt;/td&gt;</span>
+<span id="cb16-500"><a href="#cb16-500"></a>&lt;td&gt;</span>
+<span id="cb16-501"><a href="#cb16-501"></a>Neither</span>
+<span id="cb16-502"><a href="#cb16-502"></a></span>
+<span id="cb16-503"><a href="#cb16-503"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
+<span id="cb16-504"><a href="#cb16-504"></a><span class="in">//| fig-width: 300px</span></span>
+<span id="cb16-505"><a href="#cb16-505"></a><span class="in">//| fig-height: 200px</span></span>
+<span id="cb16-506"><a href="#cb16-506"></a><span class="in">//| echo: false</span></span>
+<span id="cb16-507"><a href="#cb16-507"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb16-508"><a href="#cb16-508"></a><span class="in">  rankdir=LR;</span></span>
+<span id="cb16-509"><a href="#cb16-509"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb16-510"><a href="#cb16-510"></a></span>
+<span id="cb16-511"><a href="#cb16-511"></a><span class="in">  node [</span></span>
+<span id="cb16-512"><a href="#cb16-512"></a><span class="in">      fontcolor = "#ffffff",</span></span>
+<span id="cb16-513"><a href="#cb16-513"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-514"><a href="#cb16-514"></a><span class="in">      shape=circle,</span></span>
+<span id="cb16-515"><a href="#cb16-515"></a><span class="in">  ]</span></span>
+<span id="cb16-516"><a href="#cb16-516"></a></span>
+<span id="cb16-517"><a href="#cb16-517"></a><span class="in">  edge [</span></span>
+<span id="cb16-518"><a href="#cb16-518"></a><span class="in">      color = "#ffffff",</span></span>
+<span id="cb16-519"><a href="#cb16-519"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-520"><a href="#cb16-520"></a><span class="in">  ]</span></span>
+<span id="cb16-521"><a href="#cb16-521"></a><span class="in">  subgraph cluster_X {</span></span>
+<span id="cb16-522"><a href="#cb16-522"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-523"><a href="#cb16-523"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-524"><a href="#cb16-524"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-525"><a href="#cb16-525"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-526"><a href="#cb16-526"></a><span class="in">      label = "A";</span></span>
+<span id="cb16-527"><a href="#cb16-527"></a><span class="in">      "1";</span></span>
+<span id="cb16-528"><a href="#cb16-528"></a><span class="in">      "2";</span></span>
+<span id="cb16-529"><a href="#cb16-529"></a><span class="in">      "3";</span></span>
+<span id="cb16-530"><a href="#cb16-530"></a><span class="in">      "4";</span></span>
+<span id="cb16-531"><a href="#cb16-531"></a><span class="in">  }</span></span>
+<span id="cb16-532"><a href="#cb16-532"></a></span>
+<span id="cb16-533"><a href="#cb16-533"></a><span class="in">  subgraph cluster_Y {</span></span>
+<span id="cb16-534"><a href="#cb16-534"></a><span class="in">  rankdir=TB;</span></span>
+<span id="cb16-535"><a href="#cb16-535"></a><span class="in">      color = "#ffffff";</span></span>
+<span id="cb16-536"><a href="#cb16-536"></a><span class="in">      style=rounded</span></span>
+<span id="cb16-537"><a href="#cb16-537"></a><span class="in">      fontcolor = "#ffffff"</span></span>
+<span id="cb16-538"><a href="#cb16-538"></a><span class="in">      label = "B";</span></span>
+<span id="cb16-539"><a href="#cb16-539"></a><span class="in">      "w";</span></span>
+<span id="cb16-540"><a href="#cb16-540"></a><span class="in">      "x";</span></span>
+<span id="cb16-541"><a href="#cb16-541"></a><span class="in">      "y";</span></span>
+<span id="cb16-542"><a href="#cb16-542"></a><span class="in">      "z";</span></span>
+<span id="cb16-543"><a href="#cb16-543"></a><span class="in">  }</span></span>
+<span id="cb16-544"><a href="#cb16-544"></a></span>
+<span id="cb16-545"><a href="#cb16-545"></a><span class="in">  "1" -&gt; "w";</span></span>
+<span id="cb16-546"><a href="#cb16-546"></a><span class="in">  "2" -&gt; "x";</span></span>
+<span id="cb16-547"><a href="#cb16-547"></a><span class="in">  "3" -&gt; "z";</span></span>
+<span id="cb16-548"><a href="#cb16-548"></a><span class="in">  "4" -&gt; "z";</span></span>
+<span id="cb16-549"><a href="#cb16-549"></a><span class="in">}</span></span>
+<span id="cb16-550"><a href="#cb16-550"></a><span class="in">```</span></span>
+<span id="cb16-551"><a href="#cb16-551"></a></span>
+<span id="cb16-552"><a href="#cb16-552"></a>&lt;/td&gt;</span>
+<span id="cb16-553"><a href="#cb16-553"></a>&lt;/tr&gt;</span>
+<span id="cb16-554"><a href="#cb16-554"></a>&lt;/tbody&gt;</span>
+<span id="cb16-555"><a href="#cb16-555"></a>&lt;/table&gt;</span>
+<span id="cb16-556"><a href="#cb16-556"></a></span>
+<span id="cb16-557"><a href="#cb16-557"></a><span class="fu">## Terms</span></span>
+<span id="cb16-558"><a href="#cb16-558"></a></span>
+<span id="cb16-559"><a href="#cb16-559"></a><span class="ss">- </span>Bijective functions are also called bijections</span>
+<span id="cb16-560"><a href="#cb16-560"></a><span class="ss">- </span>Also called "one-to-one correspondence"</span>
+<span id="cb16-561"><a href="#cb16-561"></a><span class="ss">  - </span>I avoid this term as an injective function is a one-to-one *function*</span>
+<span id="cb16-562"><a href="#cb16-562"></a><span class="ss">  - </span>I just use the unambigious terms when at all possible.</span>
+<span id="cb16-563"><a href="#cb16-563"></a></span>
+<span id="cb16-564"><a href="#cb16-564"></a></span>
+<span id="cb16-565"><a href="#cb16-565"></a><span class="fu">## Examples</span></span>
+<span id="cb16-566"><a href="#cb16-566"></a></span>
+<span id="cb16-567"><a href="#cb16-567"></a><span class="ss">- </span>$f(x) = x : \mathbb{R} \rightarrow \mathbb{R}$</span>
+<span id="cb16-568"><a href="#cb16-568"></a><span class="ss">- </span>$f(x) = x^3 : \mathbb{R} \rightarrow \mathbb{R}$</span>
+<span id="cb16-569"><a href="#cb16-569"></a><span class="ss">- </span>This for $\mathbb{N} \rightarrow \mathbb{Z}$</span>
+<span id="cb16-570"><a href="#cb16-570"></a></span>
+<span id="cb16-571"><a href="#cb16-571"></a>:::{.fragment}</span>
+<span id="cb16-574"><a href="#cb16-574"></a><span class="in">```{python}</span></span>
+<span id="cb16-575"><a href="#cb16-575"></a><span class="im">from</span> itertools <span class="im">import</span> count</span>
+<span id="cb16-576"><a href="#cb16-576"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">//</span> <span class="dv">2</span> <span class="op">*</span> (x <span class="op">%</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb16-577"><a href="#cb16-577"></a>Z <span class="op">=</span> (f(x) <span class="cf">for</span> x <span class="kw">in</span> count(<span class="dv">1</span>))</span>
+<span id="cb16-578"><a href="#cb16-578"></a>[<span class="bu">next</span>(Z) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
+<span id="cb16-579"><a href="#cb16-579"></a><span class="in">```</span></span>
+<span id="cb16-580"><a href="#cb16-580"></a>:::</span>
+<span id="cb16-581"><a href="#cb16-581"></a></span>
+<span id="cb16-582"><a href="#cb16-582"></a><span class="ss">- </span>Wait a minute!</span>
+<span id="cb16-583"><a href="#cb16-583"></a></span>
+<span id="cb16-584"><a href="#cb16-584"></a><span class="fu">## Size of infinity</span></span>
+<span id="cb16-585"><a href="#cb16-585"></a></span>
+<span id="cb16-588"><a href="#cb16-588"></a><span class="in">```{python}</span></span>
+<span id="cb16-589"><a href="#cb16-589"></a><span class="im">from</span> itertools <span class="im">import</span> count</span>
+<span id="cb16-590"><a href="#cb16-590"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">//</span> <span class="dv">2</span> <span class="op">*</span> (x <span class="op">%</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb16-591"><a href="#cb16-591"></a>Z <span class="op">=</span> (f(x) <span class="cf">for</span> x <span class="kw">in</span> count(<span class="dv">1</span>))</span>
+<span id="cb16-592"><a href="#cb16-592"></a>[<span class="bu">next</span>(Z) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
+<span id="cb16-593"><a href="#cb16-593"></a><span class="in">```</span></span>
+<span id="cb16-594"><a href="#cb16-594"></a></span>
+<span id="cb16-595"><a href="#cb16-595"></a><span class="ss">- </span>$\forall n \in \mathbb{N}, n \in \mathbb{Z}$</span>
+<span id="cb16-596"><a href="#cb16-596"></a><span class="ss">  - </span>$\mathbb{N} \subseteq \mathbb{Z}$</span>
+<span id="cb16-597"><a href="#cb16-597"></a><span class="ss">- </span>$\exists x \in \mathbb{Z} : x \notin \mathbb{N}$</span>
+<span id="cb16-598"><a href="#cb16-598"></a><span class="ss">  - </span>$\mathbb{N} \subset \mathbb{Z}$</span>
+<span id="cb16-599"><a href="#cb16-599"></a><span class="ss">- </span>$\exists \text{ bijection } f: \mathbb{N} \rightarrow \mathbb{Z}$</span>
+<span id="cb16-600"><a href="#cb16-600"></a><span class="ss">- </span>$|\mathbb{N}| = |\mathbb{Z}|$</span>
+<span id="cb16-601"><a href="#cb16-601"></a></span>
+<span id="cb16-602"><a href="#cb16-602"></a><span class="fu">## Countability</span></span>
+<span id="cb16-603"><a href="#cb16-603"></a></span>
+<span id="cb16-604"><a href="#cb16-604"></a></span>
+<span id="cb16-605"><a href="#cb16-605"></a></span>
+<span id="cb16-606"><a href="#cb16-606"></a></span>
+<span id="cb16-607"><a href="#cb16-607"></a><span class="ss">- </span>$|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}|$</span>
+<span id="cb16-608"><a href="#cb16-608"></a><span class="ss">- </span>We term these countably infinite.</span>
+<span id="cb16-609"><a href="#cb16-609"></a><span class="ss">  - </span>See Pythonic <span class="in">`count`</span></span>
+<span id="cb16-610"><a href="#cb16-610"></a><span class="ss">- </span>$\mathbb{Q}$ is non-trivial, I'm not aware of a close form.</span>
+<span id="cb16-611"><a href="#cb16-611"></a><span class="ss">  - </span>We'll write it out real quick.</span>
+<span id="cb16-612"><a href="#cb16-612"></a></span>
+<span id="cb16-613"><a href="#cb16-613"></a><span class="fu">## $\mathbb{Q}$</span></span>
+<span id="cb16-614"><a href="#cb16-614"></a></span>
+<span id="cb16-615"><a href="#cb16-615"></a>:::: {.columns}</span>
+<span id="cb16-616"><a href="#cb16-616"></a></span>
+<span id="cb16-617"><a href="#cb16-617"></a></span>
+<span id="cb16-618"><a href="#cb16-618"></a>::: {.column width="50%"}</span>
+<span id="cb16-619"><a href="#cb16-619"></a></span>
+<span id="cb16-620"><a href="#cb16-620"></a><span class="ss">- </span>Restrict to $\mathbb{Q^+} = <span class="sc">\{</span> \dfrac{m}{n} | m,n \in \mathbb{N}<span class="sc">\}</span>$</span>
+<span id="cb16-621"><a href="#cb16-621"></a><span class="ss">- </span>Set the fractions out within a table.</span>
+<span id="cb16-622"><a href="#cb16-622"></a></span>
+<span id="cb16-623"><a href="#cb16-623"></a></span>
+<span id="cb16-624"><a href="#cb16-624"></a>:::</span>
+<span id="cb16-625"><a href="#cb16-625"></a></span>
+<span id="cb16-626"><a href="#cb16-626"></a></span>
+<span id="cb16-627"><a href="#cb16-627"></a>::: {.column width="50%" .fragment}</span>
+<span id="cb16-628"><a href="#cb16-628"></a></span>
+<span id="cb16-629"><a href="#cb16-629"></a><span class="co">&lt;!--</span></span>
+<span id="cb16-630"><a href="#cb16-630"></a><span class="co">```{.python}</span></span>
+<span id="cb16-631"><a href="#cb16-631"></a><span class="co">for i in range(1,5):</span></span>
+<span id="cb16-632"><a href="#cb16-632"></a><span class="co">  s = f'|{i}|'</span></span>
+<span id="cb16-633"><a href="#cb16-633"></a><span class="co">  for j in range(1,5):</span></span>
+<span id="cb16-634"><a href="#cb16-634"></a><span class="co">    s += f'$\dfrac</span><span class="re">{{{</span><span class="co">i</span><span class="re">}}}{{{</span><span class="co">j</span><span class="re">}}}</span><span class="co">$|'</span></span>
+<span id="cb16-635"><a href="#cb16-635"></a><span class="co">  print(s)</span></span>
+<span id="cb16-636"><a href="#cb16-636"></a><span class="co">```</span></span>
+<span id="cb16-637"><a href="#cb16-637"></a><span class="co">--&gt;</span></span>
+<span id="cb16-638"><a href="#cb16-638"></a></span>
+<span id="cb16-639"><a href="#cb16-639"></a>||1|2|3|4|$\ldots$|</span>
+<span id="cb16-640"><a href="#cb16-640"></a>|-|-|-|-|-|-|</span>
+<span id="cb16-641"><a href="#cb16-641"></a>|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|</span>
+<span id="cb16-642"><a href="#cb16-642"></a>|2|$\dfrac{2}{1}$|$\dfrac{2}{2}$|$\dfrac{2}{3}$|$\dfrac{2}{4}$|</span>
+<span id="cb16-643"><a href="#cb16-643"></a>|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$|$\dfrac{3}{3}$|$\dfrac{3}{4}$|</span>
+<span id="cb16-644"><a href="#cb16-644"></a>|4|$\dfrac{4}{1}$|$\dfrac{4}{2}$|$\dfrac{4}{3}$|$\dfrac{4}{4}$|</span>
+<span id="cb16-645"><a href="#cb16-645"></a></span>
+<span id="cb16-646"><a href="#cb16-646"></a>:::</span>
+<span id="cb16-647"><a href="#cb16-647"></a></span>
+<span id="cb16-648"><a href="#cb16-648"></a>::::</span>
+<span id="cb16-649"><a href="#cb16-649"></a></span>
+<span id="cb16-650"><a href="#cb16-650"></a></span>
+<span id="cb16-651"><a href="#cb16-651"></a><span class="fu">## $\mathbb{Q}$</span></span>
+<span id="cb16-652"><a href="#cb16-652"></a></span>
+<span id="cb16-653"><a href="#cb16-653"></a>:::: {.columns}</span>
+<span id="cb16-654"><a href="#cb16-654"></a></span>
+<span id="cb16-655"><a href="#cb16-655"></a></span>
+<span id="cb16-656"><a href="#cb16-656"></a>::: {.column width="50%"}</span>
+<span id="cb16-657"><a href="#cb16-657"></a></span>
+<span id="cb16-658"><a href="#cb16-658"></a><span class="ss">- </span>Populate a set.</span>
+<span id="cb16-659"><a href="#cb16-659"></a><span class="ss">- </span>Careful with duplicates!</span>
+<span id="cb16-660"><a href="#cb16-660"></a><span class="ss">- </span>Careful with placing infinite many values before another value!</span>
+<span id="cb16-661"><a href="#cb16-661"></a></span>
+<span id="cb16-662"><a href="#cb16-662"></a></span>
+<span id="cb16-663"><a href="#cb16-663"></a>:::</span>
+<span id="cb16-664"><a href="#cb16-664"></a></span>
+<span id="cb16-665"><a href="#cb16-665"></a></span>
+<span id="cb16-666"><a href="#cb16-666"></a>::: {.column width="50%"}</span>
+<span id="cb16-667"><a href="#cb16-667"></a></span>
+<span id="cb16-668"><a href="#cb16-668"></a><span class="co">&lt;!--</span></span>
+<span id="cb16-669"><a href="#cb16-669"></a><span class="co">```{.python}</span></span>
+<span id="cb16-670"><a href="#cb16-670"></a><span class="co">for i in range(1,5):</span></span>
+<span id="cb16-671"><a href="#cb16-671"></a><span class="co">  s = f'|{i}|'</span></span>
+<span id="cb16-672"><a href="#cb16-672"></a><span class="co">  for j in range(1,5):</span></span>
+<span id="cb16-673"><a href="#cb16-673"></a><span class="co">    s += f'$\dfrac</span><span class="re">{{{</span><span class="co">i</span><span class="re">}}}{{{</span><span class="co">j</span><span class="re">}}}</span><span class="co">$|'</span></span>
+<span id="cb16-674"><a href="#cb16-674"></a><span class="co">  print(s)</span></span>
+<span id="cb16-675"><a href="#cb16-675"></a><span class="co">```</span></span>
+<span id="cb16-676"><a href="#cb16-676"></a><span class="co">--&gt;</span></span>
+<span id="cb16-677"><a href="#cb16-677"></a></span>
+<span id="cb16-678"><a href="#cb16-678"></a>||1|2|3|4|$\ldots$|</span>
+<span id="cb16-679"><a href="#cb16-679"></a>|-|-|-|-|-|-|</span>
+<span id="cb16-680"><a href="#cb16-680"></a>|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|</span>
+<span id="cb16-681"><a href="#cb16-681"></a>|2|$\dfrac{2}{1}$|$\dfrac{2}{2}$|$\dfrac{2}{3}$|$\dfrac{2}{4}$|</span>
+<span id="cb16-682"><a href="#cb16-682"></a>|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$|$\dfrac{3}{3}$|$\dfrac{3}{4}$|</span>
+<span id="cb16-683"><a href="#cb16-683"></a>|4|$\dfrac{4}{1}$|$\dfrac{4}{2}$|$\dfrac{4}{3}$|$\dfrac{4}{4}$|</span>
+<span id="cb16-684"><a href="#cb16-684"></a></span>
+<span id="cb16-685"><a href="#cb16-685"></a>:::</span>
+<span id="cb16-686"><a href="#cb16-686"></a></span>
+<span id="cb16-687"><a href="#cb16-687"></a>::::</span>
+<span id="cb16-688"><a href="#cb16-688"></a></span>
+<span id="cb16-689"><a href="#cb16-689"></a><span class="fu">## $\mathbb{Q}$</span></span>
+<span id="cb16-690"><a href="#cb16-690"></a></span>
+<span id="cb16-691"><a href="#cb16-691"></a>:::: {.columns}</span>
+<span id="cb16-692"><a href="#cb16-692"></a></span>
+<span id="cb16-693"><a href="#cb16-693"></a></span>
+<span id="cb16-694"><a href="#cb16-694"></a>::: {.column width="60%"}</span>
+<span id="cb16-695"><a href="#cb16-695"></a></span>
+<span id="cb16-698"><a href="#cb16-698"></a><span class="in">```{python}</span></span>
+<span id="cb16-699"><a href="#cb16-699"></a>pair <span class="op">=</span> <span class="kw">lambda</span> i,j: (i<span class="op">+</span>j<span class="op">-</span><span class="dv">2</span>)<span class="op">*</span>(i<span class="op">+</span>j<span class="op">-</span><span class="dv">1</span>)<span class="op">//</span><span class="dv">2</span><span class="op">+</span>j</span>
+<span id="cb16-700"><a href="#cb16-700"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">5</span>):</span>
+<span id="cb16-701"><a href="#cb16-701"></a>  <span class="bu">print</span>([pair(i,j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">5</span>)])</span>
+<span id="cb16-702"><a href="#cb16-702"></a><span class="in">```</span></span>
+<span id="cb16-703"><a href="#cb16-703"></a></span>
+<span id="cb16-704"><a href="#cb16-704"></a><span class="ss">- </span>Basically just load the fractions into a stack</span>
+<span id="cb16-705"><a href="#cb16-705"></a><span class="ss">- </span>Check they aren't in the ordering yet</span>
+<span id="cb16-706"><a href="#cb16-706"></a><span class="ss">- </span>Add them if they aren't.</span>
+<span id="cb16-707"><a href="#cb16-707"></a></span>
+<span id="cb16-708"><a href="#cb16-708"></a>:::</span>
+<span id="cb16-709"><a href="#cb16-709"></a></span>
+<span id="cb16-710"><a href="#cb16-710"></a></span>
+<span id="cb16-711"><a href="#cb16-711"></a>::: {.column width="40%"}</span>
+<span id="cb16-712"><a href="#cb16-712"></a></span>
+<span id="cb16-713"><a href="#cb16-713"></a><span class="co">&lt;!--</span></span>
+<span id="cb16-714"><a href="#cb16-714"></a><span class="co">```{.python}</span></span>
+<span id="cb16-715"><a href="#cb16-715"></a><span class="co">for i in range(1,5):</span></span>
+<span id="cb16-716"><a href="#cb16-716"></a><span class="co">  s = f'|{i}|'</span></span>
+<span id="cb16-717"><a href="#cb16-717"></a><span class="co">  for j in range(1,5):</span></span>
+<span id="cb16-718"><a href="#cb16-718"></a><span class="co">    s += f'$\dfrac</span><span class="re">{{{</span><span class="co">i</span><span class="re">}}}{{{</span><span class="co">j</span><span class="re">}}}</span><span class="co">$|'</span></span>
+<span id="cb16-719"><a href="#cb16-719"></a><span class="co">  print(s)</span></span>
+<span id="cb16-720"><a href="#cb16-720"></a><span class="co">```</span></span>
+<span id="cb16-721"><a href="#cb16-721"></a><span class="co">--&gt;</span></span>
+<span id="cb16-722"><a href="#cb16-722"></a></span>
+<span id="cb16-723"><a href="#cb16-723"></a>||1|2|3|4|</span>
+<span id="cb16-724"><a href="#cb16-724"></a>|-|-|-|-|-|</span>
+<span id="cb16-725"><a href="#cb16-725"></a>|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|</span>
+<span id="cb16-726"><a href="#cb16-726"></a>|2|$\dfrac{2}{1}$||$\dfrac{2}{3}$||</span>
+<span id="cb16-727"><a href="#cb16-727"></a>|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$||$\dfrac{3}{4}$|</span>
+<span id="cb16-728"><a href="#cb16-728"></a>|4|$\dfrac{4}{1}$||$\dfrac{4}{3}$||</span>
+<span id="cb16-729"><a href="#cb16-729"></a></span>
+<span id="cb16-730"><a href="#cb16-730"></a>:::</span>
+<span id="cb16-731"><a href="#cb16-731"></a></span>
+<span id="cb16-732"><a href="#cb16-732"></a>::::</span>
+<span id="cb16-733"><a href="#cb16-733"></a></span>
+<span id="cb16-734"><a href="#cb16-734"></a></span>
+<span id="cb16-735"><a href="#cb16-735"></a><span class="fu">## Countability Lemma</span></span>
+<span id="cb16-736"><a href="#cb16-736"></a></span>
+<span id="cb16-737"><a href="#cb16-737"></a>$$</span>
+<span id="cb16-738"><a href="#cb16-738"></a>|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}|</span>
+<span id="cb16-739"><a href="#cb16-739"></a>$$</span>
+<span id="cb16-740"><a href="#cb16-740"></a></span>
+<span id="cb16-741"><a href="#cb16-741"></a>*Proof.*</span>
+<span id="cb16-742"><a href="#cb16-742"></a></span>
+<span id="cb16-743"><a href="#cb16-743"></a>||1|2|3|4|</span>
+<span id="cb16-744"><a href="#cb16-744"></a>|-|-|-|-|-|</span>
+<span id="cb16-745"><a href="#cb16-745"></a>|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|</span>
+<span id="cb16-746"><a href="#cb16-746"></a>|2|$\dfrac{2}{1}$||$\dfrac{2}{3}$||</span>
+<span id="cb16-747"><a href="#cb16-747"></a>|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$||$\dfrac{3}{4}$|</span>
+<span id="cb16-748"><a href="#cb16-748"></a>|4|$\dfrac{4}{1}$||$\dfrac{4}{3}$||</span>
+<span id="cb16-749"><a href="#cb16-749"></a></span>
+<span id="cb16-750"><a href="#cb16-750"></a></span>
+<span id="cb16-751"><a href="#cb16-751"></a></span>
+<span id="cb16-752"><a href="#cb16-752"></a><span class="co">&lt;!--</span></span>
+<span id="cb16-753"><a href="#cb16-753"></a><span class="co">https://www.youtube.com/watch?v=3PzuSPQPEU4</span></span>
+<span id="cb16-754"><a href="#cb16-754"></a><span class="co">--&gt;</span></span>
+<span id="cb16-755"><a href="#cb16-755"></a></span>
+<span id="cb16-756"><a href="#cb16-756"></a><span class="fu">## Diagonalization Lemma</span></span>
+<span id="cb16-757"><a href="#cb16-757"></a></span>
+<span id="cb16-758"><a href="#cb16-758"></a>$$</span>
+<span id="cb16-759"><a href="#cb16-759"></a>|\mathbb{R}| \gt |\mathbb{N}|</span>
+<span id="cb16-760"><a href="#cb16-760"></a>$$</span>
+<span id="cb16-761"><a href="#cb16-761"></a></span>
+<span id="cb16-762"><a href="#cb16-762"></a><span class="ss">- </span>We will assume $\mathbb{R}$ is countable and find a contradiction.</span>
+<span id="cb16-763"><a href="#cb16-763"></a><span class="ss">- </span>We note that e.g., $3.14159 \in \mathbb{R} \cap \mathbb{Q}$</span>
+<span id="cb16-764"><a href="#cb16-764"></a><span class="ss">- </span>We note that e.g., $3.14159\ldots = \pi \in \mathbb{R} \setminus \mathbb{Q}$</span>
+<span id="cb16-765"><a href="#cb16-765"></a></span>
+<span id="cb16-766"><a href="#cb16-766"></a><span class="fu">## A bijection</span></span>
+<span id="cb16-767"><a href="#cb16-767"></a></span>
+<span id="cb16-768"><a href="#cb16-768"></a><span class="ss">- </span>Let's take all the real numbers in $\mathbb{R}$</span>
+<span id="cb16-769"><a href="#cb16-769"></a><span class="ss">  - </span>We note that are the numbers expressible with potentially infinite strings.</span>
+<span id="cb16-770"><a href="#cb16-770"></a><span class="ss">  - </span>Decimal or binary is fine.</span>
+<span id="cb16-771"><a href="#cb16-771"></a></span>
+<span id="cb16-772"><a href="#cb16-772"></a><span class="fu">## A listing</span></span>
+<span id="cb16-773"><a href="#cb16-773"></a></span>
+<span id="cb16-774"><a href="#cb16-774"></a>|$n$|$f(n): \mathbb{N} \rightarrow \mathbb{R}$|</span>
+<span id="cb16-775"><a href="#cb16-775"></a>|-|-|</span>
+<span id="cb16-776"><a href="#cb16-776"></a>|1||</span>
+<span id="cb16-777"><a href="#cb16-777"></a>|2||</span>
+<span id="cb16-778"><a href="#cb16-778"></a>|3||</span>
+<span id="cb16-779"><a href="#cb16-779"></a>|4||</span>
+<span id="cb16-780"><a href="#cb16-780"></a></span>
+<span id="cb16-781"><a href="#cb16-781"></a><span class="ss">- </span>If there is some bijection to $\mathbb{N}$, we can make such a listing!</span>
+<span id="cb16-782"><a href="#cb16-782"></a><span class="ss">- </span>You are welcome to try!</span>
+<span id="cb16-783"><a href="#cb16-783"></a></span>
+<span id="cb16-784"><a href="#cb16-784"></a><span class="fu">## A listing</span></span>
+<span id="cb16-785"><a href="#cb16-785"></a></span>
+<span id="cb16-786"><a href="#cb16-786"></a></span>
+<span id="cb16-787"><a href="#cb16-787"></a>:::: {.columns}</span>
+<span id="cb16-788"><a href="#cb16-788"></a></span>
+<span id="cb16-789"><a href="#cb16-789"></a></span>
+<span id="cb16-790"><a href="#cb16-790"></a>::: {.column width="50%"}</span>
+<span id="cb16-791"><a href="#cb16-791"></a></span>
+<span id="cb16-792"><a href="#cb16-792"></a></span>
+<span id="cb16-793"><a href="#cb16-793"></a>|$n$|$f(n): \mathbb{N} \rightarrow \mathbb{R}$|</span>
+<span id="cb16-794"><a href="#cb16-794"></a>|-|-|</span>
+<span id="cb16-795"><a href="#cb16-795"></a>|1|$\pi = 3.14159\ldots$|</span>
+<span id="cb16-796"><a href="#cb16-796"></a>|2|$e = 2.71828\ldots$|</span>
+<span id="cb16-797"><a href="#cb16-797"></a>|3|$0 = 0.00000\ldots$|</span>
+<span id="cb16-798"><a href="#cb16-798"></a>|4|$x = 1.41421\ldots$|</span>
+<span id="cb16-799"><a href="#cb16-799"></a>|5|$y = 0.14286\ldots$|</span>
+<span id="cb16-800"><a href="#cb16-800"></a>|6|$z = 0.20788\ldots$|</span>
+<span id="cb16-801"><a href="#cb16-801"></a>|7|$v = 1.23456\ldots$|</span>
+<span id="cb16-802"><a href="#cb16-802"></a></span>
+<span id="cb16-803"><a href="#cb16-803"></a>:::</span>
+<span id="cb16-804"><a href="#cb16-804"></a></span>
+<span id="cb16-805"><a href="#cb16-805"></a>::: {.column width="50%"}</span>
+<span id="cb16-806"><a href="#cb16-806"></a></span>
+<span id="cb16-807"><a href="#cb16-807"></a><span class="ss">- </span>Missing:</span>
+<span id="cb16-808"><a href="#cb16-808"></a><span class="ss">  - </span>4...</span>
+<span id="cb16-809"><a href="#cb16-809"></a><span class="ss">  - </span>4.8...</span>
+<span id="cb16-810"><a href="#cb16-810"></a><span class="ss">  - </span>4.81...</span>
+<span id="cb16-811"><a href="#cb16-811"></a><span class="ss">  - </span>4.815...</span>
+<span id="cb16-812"><a href="#cb16-812"></a><span class="ss">  - </span>4.8159...</span>
+<span id="cb16-813"><a href="#cb16-813"></a><span class="ss">  - </span>4.81599...</span>
+<span id="cb16-814"><a href="#cb16-814"></a><span class="ss">  - </span>4.815998...</span>
+<span id="cb16-815"><a href="#cb16-815"></a></span>
+<span id="cb16-816"><a href="#cb16-816"></a>:::</span>
+<span id="cb16-817"><a href="#cb16-817"></a></span>
+<span id="cb16-818"><a href="#cb16-818"></a>::::</span>
+<span id="cb16-819"><a href="#cb16-819"></a></span>
+<span id="cb16-820"><a href="#cb16-820"></a><span class="fu">## Diagonalization Lemma</span></span>
+<span id="cb16-821"><a href="#cb16-821"></a></span>
+<span id="cb16-822"><a href="#cb16-822"></a>$$</span>
+<span id="cb16-823"><a href="#cb16-823"></a>|\mathbb{R}| \gt |\mathbb{N}|</span>
+<span id="cb16-824"><a href="#cb16-824"></a>$$</span>
+<span id="cb16-825"><a href="#cb16-825"></a></span>
+<span id="cb16-826"><a href="#cb16-826"></a>$Proof.$</span>
+<span id="cb16-827"><a href="#cb16-827"></a></span>
+<span id="cb16-828"><a href="#cb16-828"></a><span class="ss">- </span>4.815998...</span>
+<span id="cb16-829"><a href="#cb16-829"></a><span class="ss">- </span>That is, take an proposed bijection, and differ in the $i$'th digit from the $i$'th value.</span>
+<span id="cb16-830"><a href="#cb16-830"></a><span class="ss">- </span>In fact, $|\mathbb{R} = |2^\mathbb{N}|$</span>
+<span id="cb16-831"><a href="#cb16-831"></a></span>
+<span id="cb16-832"><a href="#cb16-832"></a><span class="fu">## Coming Attractions</span></span>
+<span id="cb16-833"><a href="#cb16-833"></a></span>
+<span id="cb16-834"><a href="#cb16-834"></a><span class="ss">- </span>That is all for now!</span>
+<span id="cb16-835"><a href="#cb16-835"></a><span class="ss">  - </span>But... we treated $\mathbb{R}$ (strings) as bigger than $\mathbb{N}$ (lists) from a language based argument!</span>
+<span id="cb16-836"><a href="#cb16-836"></a><span class="ss">  - </span>We have been storing computers as strings!</span>
+<span id="cb16-837"><a href="#cb16-837"></a><span class="ss">  - </span>We have been writing computers that study strings!</span>
+<span id="cb16-838"><a href="#cb16-838"></a></span>
+<span id="cb16-839"><a href="#cb16-839"></a>:::{.fragment}</span>
+<span id="cb16-840"><a href="#cb16-840"></a></span>
+<span id="cb16-841"><a href="#cb16-841"></a>$$</span>
+<span id="cb16-842"><a href="#cb16-842"></a>\neg\text{Decidable}(A_{TM} := <span class="sc">\{</span>\langle M,w \rangle \space | \space w \in M:\text{TM}<span class="sc">\}</span>)</span>
+<span id="cb16-843"><a href="#cb16-843"></a>$$</span>
+<span id="cb16-844"><a href="#cb16-844"></a></span>
+<span id="cb16-845"><a href="#cb16-845"></a>:::</span>
+<span id="cb16-846"><a href="#cb16-846"></a></span>
+<span id="cb16-847"><a href="#cb16-847"></a><span class="fu"># Thank you!</span></span>
+<span id="cb16-848"><a href="#cb16-848"></a></span>
+<span id="cb16-849"><a href="#cb16-849"></a><span class="ss">- </span>Next lecture, on undecidability, posted Monday to YouTube!</span>
+<span id="cb16-850"><a href="#cb16-850"></a><span class="ss">- </span>Homework 1, on automata, the Monday after</span>
+<span id="cb16-851"><a href="#cb16-851"></a><span class="ss">  - </span>Assuming my flight etc etc</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,837 @@
+---
+title: "Diagonalization"
+
+---
+
+## Sketch
+
+- Diagonalization
+  - (It's non-trivial)
+
+## Goal
+
+$$
+\neg\text{Decidable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+$$
+
+- We need some way to say this. 
+- We term this notion *undecidability*
+- We introduce a technique *diagonalization* first.
+  - It is the only known technique to show undecidability.
+
+# The Size of Infinity
+
+## Set Theory
+
+- Diagonalization emerged from set and number theory.
+  - My first diagonalization, and perhaps yours, was over $\mathbb{R}$
+- First deployed by Georg Cantor in 1891
+  - Showing $|\mathbb{N}| \lt |\mathbb{R}|$
+- Famously showed Gödel's incompleteness
+- Famously (as here) showed Turing's Entscheidungsproblem
+
+## Functions
+
+- One way to show infinite sets have the same or different sizes is using functions.
+- We claim that a set of infinite size is of the same infinite size as some other set if there exists some function that is:
+  - one-to-one, and
+  - onto.
+
+## Notation
+
+- We introduce notations $f : A \rightarrow B$
+  - This is logicially equivalent to $f : A \times B$, but
+  - Captures a different meaning.
+
+
+## Injectivity
+
+- We term a one-to-one function to be *injective*:
+- Said function:
+
+:::{.fragment}
+
+> [maps distinct elements of its domain to distinct elements of its codomain](https://en.wikipedia.org/wiki/Injective_function)
+
+:::
+
+- $\forall x_1, x_2 : x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$
+
+
+## Graphically
+
+```{dot filename="Finite Automata"}
+//| fig-width: 500px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=circle,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+  subgraph cluster_X {
+  rankdir=TB;
+      color = "#ffffff";
+      fontcolor = "#ffffff"
+      style=rounded
+      label = "A";
+      "1";
+      "2";
+      "3";
+  }
+
+  subgraph cluster_Y {
+  rankdir=TB;
+      color = "#ffffff";
+      style=rounded
+      fontcolor = "#ffffff"
+      label = "B";
+      "w";
+      "x";
+      "y";
+      "z";
+  }
+
+  "1" -> "w";
+  "2" -> "x";
+  "3" -> "z";
+}
+```
+
+## Injectivity
+
+- Every element of the function's codomain
+  - Also called "set of destination"
+  - $\{B | f: A \rightarrow B\}$
+- Is the image
+  - The image of value $x \in A$ is the **single** value $f(x) \in B$
+- Of *at most one* element of the domain
+  - The set of inputs, 
+  - $\{A | f: A \rightarrow B\}$
+
+## Examples
+
+- $f(x) = x^2 : \mathbb{N} \rightarrow \mathbb{N}$
+- $f(x) = x^3 : \mathbb{R} \rightarrow \mathbb{R}$
+- Python `ord` which takes a finite set of printable characters to $\mathbb{N}$
+
+:::{.fragment}
+
+```{python}
+[ord(a) for a in 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()'][::5]
+```
+
+:::
+
+- Social security number is a injection from people with them to numbers.
+
+## Nonexamples
+
+- $f(x) = x^2 : \mathbb{R} \rightarrow \mathbb{R}$
+
+:::{.fragment}
+
+```{python}
+[x*x for x in range(-1,2)]
+```
+
+:::
+
+- $f(x) = x^2 - x : \mathbb{N} \rightarrow \mathbb{Z}$
+
+:::{.fragment}
+
+```{python}
+[x*x-x for x in range(3)]
+```
+
+:::
+
+- Emails-to-humans, e.g. I have:
+
+:::{.fragment}
+```email
+cdeutschbein@lagrange.edu
+calvindeu@gmail.com
+```
+:::
+
+## Surjectivity
+
+- We term a function to be *surjective* if:
+
+:::{.fragment}
+> [for every element $y$ of the function's codomain, there exists at least one element $x$ in the function's domain such that $f(x) = y$](https://en.wikipedia.org/wiki/Surjective_function)
+:::
+
+
+- $\forall y \in B : \exists x \in A : y = f(x)$
+
+## Graphically
+
+```{dot filename="Finite Automata"}
+//| fig-width: 500px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=circle,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+  subgraph cluster_X {
+  rankdir=TB;
+      color = "#ffffff";
+      fontcolor = "#ffffff"
+      style=rounded
+      label = "A";
+      "1";
+      "2";
+      "3";
+      "4";
+  }
+
+  subgraph cluster_Y {
+  rankdir=TB;
+      color = "#ffffff";
+      style=rounded
+      fontcolor = "#ffffff"
+      label = "B";
+      "w";
+      "x";
+      "y";
+  }
+
+  "1" -> "w";
+  "2" -> "x";
+  "3" -> "y";
+  "4" -> "y";
+}
+```
+
+## Properties of Surjectivity
+
+- Every element of the function's codomain
+  - Also called 'set of destination'
+  - $\{B | f: A \rightarrow B\}$
+- Is the image of at least one element of the domain
+  - The set of inputs,
+  - $\{A | f: A \rightarrow B\}$
+
+  
+## Properties of Surjectivity
+
+- Can also say
+  - The codomain
+    - $\{B | f: A \rightarrow B\}$
+  - Is the image
+    - Different meaning! 
+    - Image of a set, not an element.
+    - "The image of $A$ under $f$" is the set $\{f(x) \in B | x \in A\}$
+
+## Examples
+
+- $f(x) = |x| : \mathbb{Z} \rightarrow \mathbb{N}$
+- $f(x) = \ln(x) : \mathbb{R} \rightarrow \mathbb{R}$
+- Python `chr` which takes a finite subset of infinite numerical values but maps to every printing character.
+
+:::{.fragment}
+
+```{python}
+[chr(a) for a in range(0,10000,1000)]
+```
+
+:::
+
+- Names are surjections - every name a person, not unique.
+
+## Nonexamples
+
+- $f(x) = x^2 : \mathbb{R} \rightarrow \mathbb{R}$
+  -  No value such that $f(x) = -1 \in \mathbb{R}$
+- $f(x) = 2x  : \mathbb{N} \rightarrow \mathbb{N}$
+  - No value such that $f(x) = 3$
+- English words to Latin character spellings 
+  - There exists no English word `xxxyzx`
+
+## Bijective
+
+- A function is bijective if it is injective and surjective.
+  - $\forall x_1, x_2 : x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$
+  - $\forall y \in B : \exists x \in A : y = f(x)$
+- Or perhaps, the bijective functions are the intersection of the injective and surjective functions.
+
+## Graphically
+
+```{dot filename="Finite Automata"}
+//| fig-width: 500px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=circle,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+  subgraph cluster_X {
+  rankdir=TB;
+      color = "#ffffff";
+      fontcolor = "#ffffff"
+      style=rounded
+      label = "A";
+      "1";
+      "2";
+      "3";
+      "4";
+  }
+
+  subgraph cluster_Y {
+  rankdir=TB;
+      color = "#ffffff";
+      style=rounded
+      fontcolor = "#ffffff"
+      label = "B";
+      "w";
+      "x";
+      "y";
+      "z";
+  }
+
+  "1" -> "w";
+  "2" -> "x";
+  "3" -> "y";
+  "4" -> "z";
+}
+```
+
+## 
+
+<table>
+
+  <tbody>
+    <tr>
+<td>
+**Bijective**
+
+```{dot filename="Finite Automata"}
+//| fig-width: 300px
+//| fig-height: 200px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=circle,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+  subgraph cluster_X {
+  rankdir=TB;
+      color = "#ffffff";
+      fontcolor = "#ffffff"
+      style=rounded
+      label = "A";
+      "1";
+      "2";
+      "3";
+      "4";
+  }
+
+  subgraph cluster_Y {
+  rankdir=TB;
+      color = "#ffffff";
+      style=rounded
+      fontcolor = "#ffffff"
+      label = "B";
+      "w";
+      "x";
+      "y";
+      "z";
+  }
+
+  "1" -> "w";
+  "2" -> "x";
+  "3" -> "y";
+  "4" -> "z";
+}
+```
+
+</td>
+<td>
+**Injective**
+
+```{dot filename="Finite Automata"}
+//| fig-width: 300px
+//| fig-height: 200px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=circle,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+  subgraph cluster_X {
+  rankdir=TB;
+      color = "#ffffff";
+      fontcolor = "#ffffff"
+      style=rounded
+      label = "A";
+      "1";
+      "2";
+      "3";
+  }
+
+  subgraph cluster_Y {
+  rankdir=TB;
+      color = "#ffffff";
+      style=rounded
+      fontcolor = "#ffffff"
+      label = "B";
+      "w";
+      "x";
+      "y";
+      "z";
+  }
+
+  "1" -> "w";
+  "2" -> "x";
+  "3" -> "z";
+}
+```
+</td>
+</tr>
+    <tr>
+<td>
+**Surjective**
+
+```{dot filename="Finite Automata"}
+//| fig-width: 300px
+//| fig-height: 200px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=circle,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+  subgraph cluster_X {
+  rankdir=TB;
+      color = "#ffffff";
+      fontcolor = "#ffffff"
+      style=rounded
+      label = "A";
+      "1";
+      "2";
+      "3";
+      "4";
+  }
+
+  subgraph cluster_Y {
+  rankdir=TB;
+      color = "#ffffff";
+      style=rounded
+      fontcolor = "#ffffff"
+      label = "B";
+      "w";
+      "x";
+      "y";
+  }
+
+  "1" -> "w";
+  "2" -> "x";
+  "3" -> "y";
+  "4" -> "y";
+}
+```
+
+</td>
+<td>
+Neither
+
+```{dot filename="Finite Automata"}
+//| fig-width: 300px
+//| fig-height: 200px
+//| echo: false
+digraph finite_automata {
+  rankdir=LR;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=circle,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+  subgraph cluster_X {
+  rankdir=TB;
+      color = "#ffffff";
+      fontcolor = "#ffffff"
+      style=rounded
+      label = "A";
+      "1";
+      "2";
+      "3";
+      "4";
+  }
+
+  subgraph cluster_Y {
+  rankdir=TB;
+      color = "#ffffff";
+      style=rounded
+      fontcolor = "#ffffff"
+      label = "B";
+      "w";
+      "x";
+      "y";
+      "z";
+  }
+
+  "1" -> "w";
+  "2" -> "x";
+  "3" -> "z";
+  "4" -> "z";
+}
+```
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Terms
+
+- Bijective functions are also called bijections
+- Also called "one-to-one correspondence"
+  - I avoid this term as an injective function is a one-to-one *function*
+  - I just use the unambigious terms when at all possible.
+
+
+## Examples
+
+- $f(x) = x : \mathbb{R} \rightarrow \mathbb{R}$
+- $f(x) = x^3 : \mathbb{R} \rightarrow \mathbb{R}$
+- This for $\mathbb{N} \rightarrow \mathbb{Z}$
+
+:::{.fragment}
+```{python}
+from itertools import count
+f = lambda x: x // 2 * (x % 2 * 2 - 1)
+Z = (f(x) for x in count(1))
+[next(Z) for _ in range(10)]
+```
+:::
+
+- Wait a minute!
+
+## Size of infinity
+
+```{python}
+from itertools import count
+f = lambda x: x // 2 * (x % 2 * 2 - 1)
+Z = (f(x) for x in count(1))
+[next(Z) for _ in range(10)]
+```
+
+- $\forall n \in \mathbb{N}, n \in \mathbb{Z}$
+  - $\mathbb{N} \subseteq \mathbb{Z}$
+- $\exists x \in \mathbb{Z} : x \notin \mathbb{N}$
+  - $\mathbb{N} \subset \mathbb{Z}$
+- $\exists \text{ bijection } f: \mathbb{N} \rightarrow \mathbb{Z}$
+- $|\mathbb{N}| = |\mathbb{Z}|$
+
+## Countability
+
+
+
+
+- $|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}|$
+- We term these countably infinite.
+  - See Pythonic `count`
+- $\mathbb{Q}$ is non-trivial, I'm not aware of a close form.
+  - We'll write it out real quick.
+
+## $\mathbb{Q}$
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+- Restrict to $\mathbb{Q^+} = \{ \dfrac{m}{n} | m,n \in \mathbb{N}\}$
+- Set the fractions out within a table.
+
+
+:::
+
+
+::: {.column width="50%" .fragment}
+
+<!--
+```{.python}
+for i in range(1,5):
+  s = f'|{i}|'
+  for j in range(1,5):
+    s += f'$\dfrac{{{i}}}{{{j}}}$|'
+  print(s)
+```
+-->
+
+||1|2|3|4|$\ldots$|
+|-|-|-|-|-|-|
+|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|
+|2|$\dfrac{2}{1}$|$\dfrac{2}{2}$|$\dfrac{2}{3}$|$\dfrac{2}{4}$|
+|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$|$\dfrac{3}{3}$|$\dfrac{3}{4}$|
+|4|$\dfrac{4}{1}$|$\dfrac{4}{2}$|$\dfrac{4}{3}$|$\dfrac{4}{4}$|
+
+:::
+
+::::
+
+
+## $\mathbb{Q}$
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+- Populate a set.
+- Careful with duplicates!
+- Careful with placing infinite many values before another value!
+
+
+:::
+
+
+::: {.column width="50%"}
+
+<!--
+```{.python}
+for i in range(1,5):
+  s = f'|{i}|'
+  for j in range(1,5):
+    s += f'$\dfrac{{{i}}}{{{j}}}$|'
+  print(s)
+```
+-->
+
+||1|2|3|4|$\ldots$|
+|-|-|-|-|-|-|
+|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|
+|2|$\dfrac{2}{1}$|$\dfrac{2}{2}$|$\dfrac{2}{3}$|$\dfrac{2}{4}$|
+|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$|$\dfrac{3}{3}$|$\dfrac{3}{4}$|
+|4|$\dfrac{4}{1}$|$\dfrac{4}{2}$|$\dfrac{4}{3}$|$\dfrac{4}{4}$|
+
+:::
+
+::::
+
+## $\mathbb{Q}$
+
+:::: {.columns}
+
+
+::: {.column width="60%"}
+
+```{python}
+pair = lambda i,j: (i+j-2)*(i+j-1)//2+j
+for i in range(1,5):
+  print([pair(i,j) for j in range(1,5)])
+```
+
+- Basically just load the fractions into a stack
+- Check they aren't in the ordering yet
+- Add them if they aren't.
+
+:::
+
+
+::: {.column width="40%"}
+
+<!--
+```{.python}
+for i in range(1,5):
+  s = f'|{i}|'
+  for j in range(1,5):
+    s += f'$\dfrac{{{i}}}{{{j}}}$|'
+  print(s)
+```
+-->
+
+||1|2|3|4|
+|-|-|-|-|-|
+|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|
+|2|$\dfrac{2}{1}$||$\dfrac{2}{3}$||
+|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$||$\dfrac{3}{4}$|
+|4|$\dfrac{4}{1}$||$\dfrac{4}{3}$||
+
+:::
+
+::::
+
+
+## Countability Lemma
+
+$$
+|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}|
+$$
+
+*Proof.*
+
+||1|2|3|4|
+|-|-|-|-|-|
+|1|$\dfrac{1}{1}$|$\dfrac{1}{2}$|$\dfrac{1}{3}$|$\dfrac{1}{4}$|
+|2|$\dfrac{2}{1}$||$\dfrac{2}{3}$||
+|3|$\dfrac{3}{1}$|$\dfrac{3}{2}$||$\dfrac{3}{4}$|
+|4|$\dfrac{4}{1}$||$\dfrac{4}{3}$||
+
+
+
+<!--
+https://www.youtube.com/watch?v=3PzuSPQPEU4
+-->
+
+## Diagonalization Lemma
+
+$$
+|\mathbb{R}| \gt |\mathbb{N}|
+$$
+
+- We will assume $\mathbb{R}$ is countable and find a contradiction.
+- We note that e.g., $3.14159 \in \mathbb{R} \cap \mathbb{Q}$
+- We note that e.g., $3.14159\ldots = \pi \in \mathbb{R} \setminus \mathbb{Q}$
+
+## A bijection
+
+- Let's take all the real numbers in $\mathbb{R}$
+  - We note that are the numbers expressible with potentially infinite strings.
+  - Decimal or binary is fine.
+
+## A listing
+
+|$n$|$f(n): \mathbb{N} \rightarrow \mathbb{R}$|
+|-|-|
+|1||
+|2||
+|3||
+|4||
+
+- If there is some bijection to $\mathbb{N}$, we can make such a listing!
+- You are welcome to try!
+
+## A listing
+
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+
+|$n$|$f(n): \mathbb{N} \rightarrow \mathbb{R}$|
+|-|-|
+|1|$\pi = 3.14159\ldots$|
+|2|$e = 2.71828\ldots$|
+|3|$0 = 0.00000\ldots$|
+|4|$x = 1.41421\ldots$|
+|5|$y = 0.14286\ldots$|
+|6|$z = 0.20788\ldots$|
+|7|$v = 1.23456\ldots$|
+
+:::
+
+::: {.column width="50%"}
+
+- Missing:
+  - 4...
+  - 4.8...
+  - 4.81...
+  - 4.815...
+  - 4.8159...
+  - 4.81599...
+  - 4.815998...
+
+:::
+
+::::
+
+## Diagonalization Lemma
+
+$$
+|\mathbb{R}| \gt |\mathbb{N}|
+$$
+
+$Proof.$
+
+- 4.815998...
+- That is, take an proposed bijection, and differ in the $i$'th digit from the $i$'th value.
+- In fact, $|\mathbb{R} = |2^\mathbb{N}|$
+
+## Coming Attractions
+
+- That is all for now!
+  - But... we treated $\mathbb{R}$ (strings) as bigger than $\mathbb{N}$ (lists) from a language based argument!
+  - We have been storing computers as strings!
+  - We have been writing computers that study strings!
+
+:::{.fragment}
+
+$$
+\neg\text{Decidable}(A_{TM} := \{\langle M,w \rangle \space | \space w \in M:\text{TM}\})
+$$
+
+:::
+
+# Thank you!
+
+- Next lecture, on undecidability, posted Monday to YouTube!
+- Homework 1, on automata, the Monday after
+  - Assuming my flight etc etc

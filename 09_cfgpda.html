@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Calvin">
+
+<title>CFG → PDA – Automata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./10_cfpump.html" rel="next">
+<link href="./08_pda.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_cfgpda.html">CFG → PDA</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Automata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_aims.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aims of Education</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_starfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Finite Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_regexp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regular Expressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_nfas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NFAs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regularity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pumping Lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_cfg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Grammars</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_pda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pushdown Automata</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_cfgpda.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">CFG → PDA</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_cfpump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Context Free Pumping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_tm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Turing Machines</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_variants.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Variants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_thesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Church-Turing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_accept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acceptance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_empty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Emptiness</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_diagonal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Review 2</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sketch" id="toc-sketch" class="nav-link active" data-scroll-target="#sketch">Sketch</a></li>
+  <li><a href="#sketch-1" id="toc-sketch-1" class="nav-link" data-scroll-target="#sketch-1">Sketch</a></li>
+  <li><a href="#theorem-7" id="toc-theorem-7" class="nav-link" data-scroll-target="#theorem-7">Theorem 7</a></li>
+  <li><a href="#on-alphabets" id="toc-on-alphabets" class="nav-link" data-scroll-target="#on-alphabets">On Alphabets</a></li>
+  <li><a href="#a-note" id="toc-a-note" class="nav-link" data-scroll-target="#a-note">A Note</a></li>
+  <li><a href="#a-note-cont." id="toc-a-note-cont." class="nav-link" data-scroll-target="#a-note-cont.">A Note, Cont.</a></li>
+  <li><a href="#strategy" id="toc-strategy" class="nav-link" data-scroll-target="#strategy">Strategy</a></li>
+  <li><a href="#maintaining-the-stack" id="toc-maintaining-the-stack" class="nav-link" data-scroll-target="#maintaining-the-stack">Maintaining the Stack</a></li>
+  <li><a href="#a-stack" id="toc-a-stack" class="nav-link" data-scroll-target="#a-stack">A Stack</a></li>
+  <li><a href="#a-stack-1" id="toc-a-stack-1" class="nav-link" data-scroll-target="#a-stack-1">A Stack</a></li>
+  <li><a href="#what-to-do" id="toc-what-to-do" class="nav-link" data-scroll-target="#what-to-do">What to do?</a></li>
+  <li><a href="#a-workaround" id="toc-a-workaround" class="nav-link" data-scroll-target="#a-workaround">A Workaround</a></li>
+  <li><a href="#reorder-substitutions" id="toc-reorder-substitutions" class="nav-link" data-scroll-target="#reorder-substitutions">Reorder Substitutions</a></li>
+  <li><a href="#new-strategy" id="toc-new-strategy" class="nav-link" data-scroll-target="#new-strategy">New Strategy</a></li>
+  <li><a href="#theorem-7-1" id="toc-theorem-7-1" class="nav-link" data-scroll-target="#theorem-7-1">Theorem 7</a></li>
+  <li><a href="#adjacent-results" id="toc-adjacent-results" class="nav-link" data-scroll-target="#adjacent-results">Adjacent Results</a></li>
+  <li><a href="#summary-of-results" id="toc-summary-of-results" class="nav-link" data-scroll-target="#summary-of-results">Summary of Results</a></li>
+  <li><a href="#relation-between-results" id="toc-relation-between-results" class="nav-link" data-scroll-target="#relation-between-results">Relation Between Results</a></li>
+  <li><a href="#code-reveal" id="toc-code-reveal" class="nav-link" data-scroll-target="#code-reveal">Code Reveal</a></li>
+  <li><a href="#faq-0" id="toc-faq-0" class="nav-link" data-scroll-target="#faq-0">FAQ 0</a></li>
+  <li><a href="#faq-1" id="toc-faq-1" class="nav-link" data-scroll-target="#faq-1">FAQ 1</a></li>
+  <li><a href="#faq-2" id="toc-faq-2" class="nav-link" data-scroll-target="#faq-2">FAQ 2</a></li>
+  <li><a href="#stretch-break" id="toc-stretch-break" class="nav-link" data-scroll-target="#stretch-break">Stretch Break</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="09_cfgpda.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">CFG → PDA</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i></button></div></div>
+<p class="subtitle lead">Automata</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Calvin </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sketch" class="level2">
+<h2 class="anchored" data-anchor-id="sketch">Sketch</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;S \rightarrow 0S1 \\
+    &amp;S \rightarrow R \\
+    &amp;R \rightarrow \varepsilon
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg"></p>
+</div>
+</div>
+</section>
+<section id="sketch-1" class="level2">
+<h2 class="anchored" data-anchor-id="sketch-1">Sketch</h2>
+<ul>
+<li>If <span class="math inline">\(G\)</span> is a CFG then some PDA recognizes <span class="math inline">\(A\)</span>.</li>
+<li>*We will convert <span class="math inline">\(A\)</span>’s CFG to a PDA.</li>
+</ul>
+</section>
+<section id="theorem-7" class="level2">
+<h2 class="anchored" data-anchor-id="theorem-7">Theorem 7</h2>
+<p><span class="math display">\[
+\forall G:\text{CFL}, \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = G
+\]</span></p>
+</section>
+<section id="on-alphabets" class="level2">
+<h2 class="anchored" data-anchor-id="on-alphabets">On Alphabets</h2>
+<ul>
+<li><span class="math inline">\(P\)</span> begins by placing the first variable of the CFL on the stack.</li>
+<li>Consider <span class="math inline">\(G_2\)</span></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;E \rightarrow E+T \quad | \quad  T\\
+    &amp;T \rightarrow T\times F \quad | \quad  F \\
+    &amp;F \rightarrow ( E ) \quad | \quad a
+\end{aligned}
+\]</span></p>
+</div>
+<ul>
+<li>Begin by placing <span class="math inline">\(E\)</span> on the stack.</li>
+</ul>
+</section>
+<section id="a-note" class="level2">
+<h2 class="anchored" data-anchor-id="a-note">A Note</h2>
+<ul>
+<li>Placing <span class="math inline">\(E\)</span>, a variable, on stack suggests that <span class="math inline">\(E\)</span> is part of the stack alphabet <span class="math inline">\(\Gamma\)</span>.</li>
+<li><span class="math inline">\(E\)</span> is necessarily not part of the input alphabet <span class="math inline">\(\Sigma\)</span></li>
+<li>This is a good example of how (and why) these languages may differ.</li>
+<li>We make no claims (yet) about whether the input alphabet appears on the stack (or not).</li>
+</ul>
+</section>
+<section id="a-note-cont." class="level2">
+<h2 class="anchored" data-anchor-id="a-note-cont.">A Note, Cont.</h2>
+<div id="95645bd9" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># We note we can use a stack language of {!} for an input language of {0,1}</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>q_1 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.append(<span class="st">'!'</span>), q_1(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'0'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> [stack.pop(), q_2(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-3"><a href="#cb1-3"></a>q_2 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.pop(), q_2(s[<span class="dv">1</span>:],stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> q_n(s, stack)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>q_n <span class="op">=</span> <span class="kw">lambda</span> s, stack : s <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(stack) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>q_1(<span class="st">'000111'</span>, []), q_1(<span class="st">'00111'</span>, []), q_1(<span class="st">'00011'</span>, [])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>(True, False, False)</code></pre>
+</div>
+</div>
+</section>
+<section id="strategy" class="level2">
+<h2 class="anchored" data-anchor-id="strategy">Strategy</h2>
+<ul>
+<li>Utilize non-determinism.</li>
+<li>Replace the start symbol <span class="math inline">\(S\)</span>
+<ul>
+<li>Nondeterminististically, so we may assume we make the correct substitution.</li>
+</ul></li>
+<li>Let’s follow through for a moment.</li>
+<li>We target <span class="math inline">\(a+a\times a\)</span> with <span class="math inline">\(G_2\)</span></li>
+</ul>
+</section>
+<section id="maintaining-the-stack" class="level2">
+<h2 class="anchored" data-anchor-id="maintaining-the-stack">Maintaining the Stack</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Goal: <span class="math inline">\(a+a\times a\)</span></li>
+</ul>
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 278.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 274,-368 274,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-239.69C27,-231.8 27,-222.68 27,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-214.02 27,-204.02 23.5,-214.02 30.5,-214.02"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M151.33,-239.69C143.32,-231.02 133.96,-220.87 125.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="127.76,-208.99 118.4,-204.02 122.61,-213.74 127.76,-208.99"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M171,-239.69C171,-231.8 171,-222.68 171,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-214.02 171,-204.02 167.5,-214.02 174.5,-214.02"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="243" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M190.67,-239.69C198.68,-231.02 208.04,-220.87 216.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="219.39,-213.74 223.6,-204.02 214.24,-208.99 219.39,-213.74"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="27" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M27,-159.69C27,-151.8 27,-142.68 27,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-134.02 27,-124.02 23.5,-134.02 30.5,-134.02"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 6&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>6-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="243" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 8&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>8-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M243,-159.69C243,-151.8 243,-142.68 243,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-134.02 243,-124.02 239.5,-134.02 246.5,-134.02"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>9-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M27,-79.69C27,-71.8 27,-62.68 27,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.02 27,-44.02 23.5,-54.02 30.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- A&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>A-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Pythonic notation</li>
+<li><code>['E']</code></li>
+<li><code>['E','+','T']</code></li>
+<li><code>['T','+','T']</code></li>
+<li><code>['T','+','T']</code></li>
+<li><code>['T','+','T','×','F']</code></li>
+<li><strong>BAD/WRONG!!!</strong></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="a-stack" class="level2">
+<h2 class="anchored" data-anchor-id="a-stack">A Stack</h2>
+<ul>
+<li>A stack has <em>only</em> push and pop operations.</li>
+<li>We can, say, pop <span class="math inline">\(E\)</span> then push <span class="math inline">\(T\)</span>
+<ul>
+<li>Python tail pops, so <code>[::1]</code>.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<div id="c61acf4a" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>s <span class="op">=</span> [<span class="st">'E'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-2"><a href="#cb3-2"></a>s.pop()</span>
+<span id="cb3-3"><a href="#cb3-3"></a>s.append(<span class="st">'T'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['T', '+', 'T']</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="a-stack-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-stack-1">A Stack</h2>
+<ul>
+<li>Say we then pop <span class="math inline">\(T\)</span> and push <span class="math inline">\(T\times F\)</span></li>
+</ul>
+<div class="fragment">
+<div id="6e73fe54" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>s <span class="op">=</span> [<span class="st">'T'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-2"><a href="#cb5-2"></a>s.pop()</span>
+<span id="cb5-3"><a href="#cb5-3"></a>[s.append(a) <span class="cf">for</span> a <span class="kw">in</span> [<span class="st">'T'</span>,<span class="st">'×'</span>,<span class="st">'F'</span>][::<span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['T', '×', 'F', '+', 'T']</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li>It replaced the first <span class="math inline">\(T\)</span></li>
+<li>Now the operators are in the wrong arrangement.
+<ul>
+<li><span class="math inline">\(\times\)</span> before <span class="math inline">\(+\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="what-to-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-do">What to do?</h2>
+<ul>
+<li>Only push and pop to the top of the stack.</li>
+<li>That said, if we didn’t have to do that, our proof would work.
+<ul>
+<li>If we can access below, that is random access memory (!!!)</li>
+<li>Equivalent to general computing
+<ul>
+<li>Turing Machine / Church’s Lambda Calculus</li>
+<li>Gödel’s General Recursion</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="a-workaround" class="level2">
+<h2 class="anchored" data-anchor-id="a-workaround">A Workaround</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-fig-width="500px" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="500" height="480" viewbox="0.00 0.00 278.00 372.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 368)">
+<title>finite_automata</title>
+<polygon fill="#191919" stroke="transparent" points="-4,4 -4,-368 274,-368 274,4 -4,4"></polygon>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<text text-anchor="middle" x="99" y="-333" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<text text-anchor="middle" x="27" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">E</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1-&gt;2</title>
+<path fill="none" stroke="#ffffff" d="M79.33,-319.69C71.32,-311.02 61.96,-300.87 53.38,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="55.76,-288.99 46.4,-284.02 50.61,-293.74 55.76,-288.99"></polygon>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<text text-anchor="middle" x="99" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">+</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#ffffff" d="M99,-319.69C99,-311.8 99,-302.68 99,-294.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-294.02 99,-284.02 95.5,-294.02 102.5,-294.02"></polygon>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<text text-anchor="middle" x="171" y="-253" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 1&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>1-&gt;4</title>
+<path fill="none" stroke="#ffffff" d="M118.67,-319.69C126.68,-311.02 136.04,-300.87 144.62,-291.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="147.39,-293.74 151.6,-284.02 142.24,-288.99 147.39,-293.74"></polygon>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<text text-anchor="middle" x="27" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 2&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>2-&gt;5</title>
+<path fill="none" stroke="#ffffff" d="M27,-239.69C27,-231.8 27,-222.68 27,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-214.02 27,-204.02 23.5,-214.02 30.5,-214.02"></polygon>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<text text-anchor="middle" x="99" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">T</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#ffffff" d="M151.33,-239.69C143.32,-231.02 133.96,-220.87 125.38,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="127.76,-208.99 118.4,-204.02 122.61,-213.74 127.76,-208.99"></polygon>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<text text-anchor="middle" x="171" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">×</text>
+</g>
+<!-- 4&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>4-&gt;7</title>
+<path fill="none" stroke="#ffffff" d="M171,-239.69C171,-231.8 171,-222.68 171,-214.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="174.5,-214.02 171,-204.02 167.5,-214.02 174.5,-214.02"></polygon>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<text text-anchor="middle" x="243" y="-173" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#ffffff" d="M190.67,-239.69C198.68,-231.02 208.04,-220.87 216.62,-211.57"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="219.39,-213.74 223.6,-204.02 214.24,-208.99 219.39,-213.74"></polygon>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<text text-anchor="middle" x="27" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#ffffff" d="M27,-159.69C27,-151.8 27,-142.68 27,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-134.02 27,-124.02 23.5,-134.02 30.5,-134.02"></polygon>
+</g>
+<!-- A -->
+<g id="node10" class="node">
+<title>A</title>
+<text text-anchor="middle" x="99" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">F</text>
+</g>
+<!-- 6&#45;&gt;A -->
+<g id="edge9" class="edge">
+<title>6-&gt;A</title>
+<path fill="none" stroke="#ffffff" d="M99,-159.69C99,-151.8 99,-142.68 99,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-134.02 99,-124.02 95.5,-134.02 102.5,-134.02"></polygon>
+</g>
+<!-- B -->
+<g id="node11" class="node">
+<title>B</title>
+<text text-anchor="middle" x="243" y="-93" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 8&#45;&gt;B -->
+<g id="edge10" class="edge">
+<title>8-&gt;B</title>
+<path fill="none" stroke="#ffffff" d="M243,-159.69C243,-151.8 243,-142.68 243,-134.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="246.5,-134.02 243,-124.02 239.5,-134.02 246.5,-134.02"></polygon>
+</g>
+<!-- C -->
+<g id="node12" class="node">
+<title>C</title>
+<text text-anchor="middle" x="27" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- 9&#45;&gt;C -->
+<g id="edge11" class="edge">
+<title>9-&gt;C</title>
+<path fill="none" stroke="#ffffff" d="M27,-79.69C27,-71.8 27,-62.68 27,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="30.5,-54.02 27,-44.02 23.5,-54.02 30.5,-54.02"></polygon>
+</g>
+<!-- D -->
+<g id="node13" class="node">
+<title>D</title>
+<text text-anchor="middle" x="99" y="-13" font-family="Times,serif" font-size="30.00" fill="#ffffff">a</text>
+</g>
+<!-- A&#45;&gt;D -->
+<g id="edge12" class="edge">
+<title>A-&gt;D</title>
+<path fill="none" stroke="#ffffff" d="M99,-79.69C99,-71.8 99,-62.68 99,-54.1"></path>
+<polygon fill="#ffffff" stroke="#ffffff" points="102.5,-54.02 99,-44.02 95.5,-54.02 102.5,-54.02"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>We needn’t need to work with the bottom of the stack.</li>
+<li>That <code>T</code> at the top will ultimately turn into a terminal <span class="math inline">\(a\)</span></li>
+<li>Simply do that first.
+<ul>
+<li>This is easy to do nondeterministically.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="reorder-substitutions" class="level2">
+<h2 class="anchored" data-anchor-id="reorder-substitutions">Reorder Substitutions</h2>
+<ul>
+<li>Simply do the leftmost/topmost operations first.</li>
+<li>Copy the output to the tape</li>
+<li>The stack will contain no leading terminals.</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>[<span class="st">'E'</span>],         <span class="st">""</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>[<span class="st">'E'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>[<span class="st">'T'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>[<span class="st">'F'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>[<span class="st">'a'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>], <span class="st">""</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>[<span class="st">'+'</span>,<span class="st">'T'</span>],     <span class="st">"a"</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>[<span class="st">'T'</span>],         <span class="st">"a+"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="new-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="new-strategy">New Strategy</h2>
+<ul>
+<li>Aggressively resolve to terminal symbols</li>
+<li>Copy terminals to the tape</li>
+<li>Only work on the top of the stack.</li>
+</ul>
+</section>
+<section id="theorem-7-1" class="level2">
+<h2 class="anchored" data-anchor-id="theorem-7-1">Theorem 7</h2>
+<p><span class="math display">\[
+\forall \text{CFL}: \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = \text{CFL}
+\]</span></p>
+<p><em>Proof</em></p>
+<ul>
+<li>Take <span class="math inline">\(\Sigma\)</span> to be the terminals</li>
+<li>Take <span class="math inline">\(\Gamma\)</span> to be the terminals <span class="math inline">\(\cup\)</span> variables</li>
+<li>Take <span class="math inline">\(\delta\)</span> to…
+<ul>
+<li>Write CFL’s <span class="math inline">\(S\)</span> to stack from <span class="math inline">\(q_0\)</span></li>
+<li>Write stack terminals to the tape</li>
+<li>Apply rules</li>
+</ul></li>
+</ul>
+</section>
+<section id="adjacent-results" class="level2">
+<h2 class="anchored" data-anchor-id="adjacent-results">Adjacent Results</h2>
+<ul>
+<li>It is the case the PDAs may be converted to CFLs, but it is non-trivial.
+<ul>
+<li>It is sufficient to know it is the case.</li>
+</ul></li>
+<li>Every regular language is a context free language.
+<ul>
+<li>Convert to automata.</li>
+<li>Ignore stacks.</li>
+</ul></li>
+</ul>
+</section>
+<section id="summary-of-results" class="level2">
+<h2 class="anchored" data-anchor-id="summary-of-results">Summary of Results</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Recognizer</th>
+<th>Generator</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Regular language</strong></td>
+<td>*FA</td>
+<td>Regular Expression</td>
+</tr>
+<tr class="even">
+<td><strong>Context Free lanuage</strong></td>
+<td>PDA</td>
+<td>Context Free Grammar</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relation-between-results" class="level2">
+<h2 class="anchored" data-anchor-id="relation-between-results">Relation Between Results</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div id="36059c75" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_cfgpda_files/figure-html/cell-5-output-1.png" width="389" height="389" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Can be fun to view as a Venn diagram.</li>
+<li>Many more PDA than *FA languages
+<ul>
+<li>How many more?</li>
+</ul></li>
+<li>Things bigger than PDA, of course.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="code-reveal" class="level2">
+<h2 class="anchored" data-anchor-id="code-reveal">Code Reveal</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div id="96087d3a" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09_cfgpda_files/figure-html/cell-6-output-1.png" width="389" height="389" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a>v <span class="op">=</span> venn2(subsets <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>), set_labels<span class="op">=</span>(<span class="st">"PDA"</span>, <span class="st">"*FA"</span>,))</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="cf">for</span> idx, subset <span class="kw">in</span> <span class="bu">enumerate</span>(v.subset_labels):</span>
+<span id="cb8-9"><a href="#cb8-9"></a>    v.subset_labels[idx].set_visible(<span class="va">False</span>)</span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a>plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="faq-0" class="level2">
+<h2 class="anchored" data-anchor-id="faq-0">FAQ 0</h2>
+<ul>
+<li>Why do we restrict ourselves to a stack?
+<ul>
+<li>The PDA happens to be equivalent to CFG when using a stack.</li>
+<li>We like automata as many of the proofs are easier with automata.</li>
+</ul></li>
+</ul>
+</section>
+<section id="faq-1" class="level2">
+<h2 class="anchored" data-anchor-id="faq-1">FAQ 1</h2>
+<ul>
+<li>Why use “weaker” models without e.g.&nbsp;random access memory.
+<ul>
+<li>It is possible to prove properties of *FAs/PDAs which cannot be proved of other models.</li>
+<li>*FA/CFG are quite powerful and capture many applications.</li>
+</ul></li>
+</ul>
+</section>
+<section id="faq-2" class="level2">
+<h2 class="anchored" data-anchor-id="faq-2">FAQ 2</h2>
+<ul>
+<li>Do we need nondeterminism?
+<ul>
+<li>Nondeterministic PDA and deterministic PDA are not equivalent.</li>
+<li>No deterministic PDA recognizes <span class="math inline">\(B = \{ww^\mathcal{R} | w \in \{0,1\}*\}\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="stretch-break" class="level1">
+<h1>Stretch Break</h1>
+<ul>
+<li><a href="https://cd-public.github.io/compute/">Home</a></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./08_pda.html" class="pagination-link" aria-label="Pushdown Automata">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Pushdown Automata</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./10_cfpump.html" class="pagination-link" aria-label="Context Free Pumping">
+        <span class="nav-page-text">Context Free Pumping</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">---</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="an">title:</span><span class="co"> "CFG &amp;rarr; PDA"</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">---</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">## Sketch</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>:::: {.columns}</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a>::: {.column width="50%"}</span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a>$$</span>
+<span id="cb9-12"><a href="#cb9-12"></a>\begin{aligned}</span>
+<span id="cb9-13"><a href="#cb9-13"></a>    &amp;S \rightarrow 0S1 <span class="sc">\\</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>    &amp;S \rightarrow R <span class="sc">\\</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>    &amp;R \rightarrow \varepsilon</span>
+<span id="cb9-16"><a href="#cb9-16"></a>\end{aligned}</span>
+<span id="cb9-17"><a href="#cb9-17"></a>$$</span>
+<span id="cb9-18"><a href="#cb9-18"></a></span>
+<span id="cb9-19"><a href="#cb9-19"></a></span>
+<span id="cb9-20"><a href="#cb9-20"></a>:::</span>
+<span id="cb9-21"><a href="#cb9-21"></a></span>
+<span id="cb9-22"><a href="#cb9-22"></a></span>
+<span id="cb9-23"><a href="#cb9-23"></a>::: {.column width="50%"}</span>
+<span id="cb9-24"><a href="#cb9-24"></a></span>
+<span id="cb9-25"><a href="#cb9-25"></a>&lt;img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg"&gt;</span>
+<span id="cb9-26"><a href="#cb9-26"></a></span>
+<span id="cb9-27"><a href="#cb9-27"></a>:::</span>
+<span id="cb9-28"><a href="#cb9-28"></a></span>
+<span id="cb9-29"><a href="#cb9-29"></a>::::</span>
+<span id="cb9-30"><a href="#cb9-30"></a></span>
+<span id="cb9-31"><a href="#cb9-31"></a><span class="fu">## Sketch</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a></span>
+<span id="cb9-33"><a href="#cb9-33"></a><span class="ss">- </span>If $G$ is a CFG then some PDA recognizes $A$.</span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="ss">- </span>*We will convert $A$'s CFG to a PDA.</span>
+<span id="cb9-35"><a href="#cb9-35"></a></span>
+<span id="cb9-36"><a href="#cb9-36"></a><span class="fu">## Theorem 7</span></span>
+<span id="cb9-37"><a href="#cb9-37"></a></span>
+<span id="cb9-38"><a href="#cb9-38"></a>$$</span>
+<span id="cb9-39"><a href="#cb9-39"></a>\forall G:\text{CFL}, \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = G</span>
+<span id="cb9-40"><a href="#cb9-40"></a>$$</span>
+<span id="cb9-41"><a href="#cb9-41"></a></span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="fu">## On Alphabets</span></span>
+<span id="cb9-43"><a href="#cb9-43"></a></span>
+<span id="cb9-44"><a href="#cb9-44"></a><span class="ss">- </span>$P$ begins by placing the first variable of the CFL on the stack.</span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="ss">- </span>Consider $G_2$</span>
+<span id="cb9-46"><a href="#cb9-46"></a></span>
+<span id="cb9-47"><a href="#cb9-47"></a>:::{.fragment}</span>
+<span id="cb9-48"><a href="#cb9-48"></a></span>
+<span id="cb9-49"><a href="#cb9-49"></a>$$</span>
+<span id="cb9-50"><a href="#cb9-50"></a>\begin{aligned}</span>
+<span id="cb9-51"><a href="#cb9-51"></a>    &amp;E \rightarrow E+T \quad | \quad  T<span class="sc">\\</span></span>
+<span id="cb9-52"><a href="#cb9-52"></a>    &amp;T \rightarrow T\times F \quad | \quad  F <span class="sc">\\</span></span>
+<span id="cb9-53"><a href="#cb9-53"></a>    &amp;F \rightarrow ( E ) \quad | \quad a</span>
+<span id="cb9-54"><a href="#cb9-54"></a>\end{aligned}</span>
+<span id="cb9-55"><a href="#cb9-55"></a>$$</span>
+<span id="cb9-56"><a href="#cb9-56"></a></span>
+<span id="cb9-57"><a href="#cb9-57"></a>:::</span>
+<span id="cb9-58"><a href="#cb9-58"></a></span>
+<span id="cb9-59"><a href="#cb9-59"></a><span class="ss">- </span>Begin by placing $E$ on the stack.</span>
+<span id="cb9-60"><a href="#cb9-60"></a></span>
+<span id="cb9-61"><a href="#cb9-61"></a><span class="fu">## A Note</span></span>
+<span id="cb9-62"><a href="#cb9-62"></a></span>
+<span id="cb9-63"><a href="#cb9-63"></a><span class="ss">- </span>Placing $E$, a variable, on stack suggests that $E$ is part of the stack alphabet $\Gamma$.</span>
+<span id="cb9-64"><a href="#cb9-64"></a><span class="ss">- </span>$E$ is necessarily not part of the input alphabet $\Sigma$</span>
+<span id="cb9-65"><a href="#cb9-65"></a><span class="ss">- </span>This is a good example of how (and why) these languages may differ.</span>
+<span id="cb9-66"><a href="#cb9-66"></a><span class="ss">- </span>We make no claims (yet) about whether the input alphabet appears on the stack (or not).</span>
+<span id="cb9-67"><a href="#cb9-67"></a></span>
+<span id="cb9-68"><a href="#cb9-68"></a><span class="fu">## A Note, Cont.</span></span>
+<span id="cb9-69"><a href="#cb9-69"></a></span>
+<span id="cb9-72"><a href="#cb9-72"></a><span class="in">```{python}</span></span>
+<span id="cb9-73"><a href="#cb9-73"></a><span class="co"># We note we can use a stack language of {!} for an input language of {0,1}</span></span>
+<span id="cb9-74"><a href="#cb9-74"></a>q_1 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.append(<span class="st">'!'</span>), q_1(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'0'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> [stack.pop(), q_2(s[<span class="dv">1</span>:], stack)][<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb9-75"><a href="#cb9-75"></a>q_2 <span class="op">=</span> <span class="kw">lambda</span> s, stack : [stack.pop(), q_2(s[<span class="dv">1</span>:],stack)][<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> s[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(s) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> q_n(s, stack)</span>
+<span id="cb9-76"><a href="#cb9-76"></a>q_n <span class="op">=</span> <span class="kw">lambda</span> s, stack : s <span class="op">==</span> <span class="st">'1'</span> <span class="kw">and</span> <span class="bu">len</span>(stack) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb9-77"><a href="#cb9-77"></a>q_1(<span class="st">'000111'</span>, []), q_1(<span class="st">'00111'</span>, []), q_1(<span class="st">'00011'</span>, [])</span>
+<span id="cb9-78"><a href="#cb9-78"></a><span class="in">```</span></span>
+<span id="cb9-79"><a href="#cb9-79"></a></span>
+<span id="cb9-80"><a href="#cb9-80"></a><span class="fu">## Strategy</span></span>
+<span id="cb9-81"><a href="#cb9-81"></a></span>
+<span id="cb9-82"><a href="#cb9-82"></a><span class="ss">- </span>Utilize non-determinism.</span>
+<span id="cb9-83"><a href="#cb9-83"></a><span class="ss">- </span>Replace the start symbol $S$</span>
+<span id="cb9-84"><a href="#cb9-84"></a><span class="ss">  - </span>Nondeterminististically, so we may assume we make the correct substitution.</span>
+<span id="cb9-85"><a href="#cb9-85"></a><span class="ss">- </span>Let's follow through for a moment.</span>
+<span id="cb9-86"><a href="#cb9-86"></a><span class="ss">- </span>We target $a+a\times a$ with $G_2$</span>
+<span id="cb9-87"><a href="#cb9-87"></a></span>
+<span id="cb9-88"><a href="#cb9-88"></a><span class="fu">## Maintaining the Stack</span></span>
+<span id="cb9-89"><a href="#cb9-89"></a></span>
+<span id="cb9-90"><a href="#cb9-90"></a>:::: {.columns}</span>
+<span id="cb9-91"><a href="#cb9-91"></a></span>
+<span id="cb9-92"><a href="#cb9-92"></a>::: {.column width="50%"}</span>
+<span id="cb9-93"><a href="#cb9-93"></a><span class="ss">- </span>Goal: $a+a\times a$</span>
+<span id="cb9-96"><a href="#cb9-96"></a><span class="in">```{dot}</span></span>
+<span id="cb9-97"><a href="#cb9-97"></a><span class="in">// | echo: false</span></span>
+<span id="cb9-98"><a href="#cb9-98"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb9-99"><a href="#cb9-99"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb9-100"><a href="#cb9-100"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb9-101"><a href="#cb9-101"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb9-102"><a href="#cb9-102"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb9-103"><a href="#cb9-103"></a></span>
+<span id="cb9-104"><a href="#cb9-104"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb9-105"><a href="#cb9-105"></a><span class="in">  1 [label="E"]; </span></span>
+<span id="cb9-106"><a href="#cb9-106"></a></span>
+<span id="cb9-107"><a href="#cb9-107"></a><span class="in">  2 [label="E"];</span></span>
+<span id="cb9-108"><a href="#cb9-108"></a><span class="in">  3 [label="+"];</span></span>
+<span id="cb9-109"><a href="#cb9-109"></a><span class="in">  4 [label="T"];</span></span>
+<span id="cb9-110"><a href="#cb9-110"></a></span>
+<span id="cb9-111"><a href="#cb9-111"></a><span class="in">  5 [label="T"];</span></span>
+<span id="cb9-112"><a href="#cb9-112"></a><span class="in">  6 [label="T"];</span></span>
+<span id="cb9-113"><a href="#cb9-113"></a><span class="in">  7 [label="×"];</span></span>
+<span id="cb9-114"><a href="#cb9-114"></a><span class="in">  8 [label="F"];</span></span>
+<span id="cb9-115"><a href="#cb9-115"></a></span>
+<span id="cb9-116"><a href="#cb9-116"></a><span class="in">  9 [label="F"];</span></span>
+<span id="cb9-117"><a href="#cb9-117"></a><span class="in">  A [label="F"];</span></span>
+<span id="cb9-118"><a href="#cb9-118"></a><span class="in">  B [label="a"];</span></span>
+<span id="cb9-119"><a href="#cb9-119"></a></span>
+<span id="cb9-120"><a href="#cb9-120"></a><span class="in">  C [label="a"];</span></span>
+<span id="cb9-121"><a href="#cb9-121"></a><span class="in">  D [label="a"];</span></span>
+<span id="cb9-122"><a href="#cb9-122"></a></span>
+<span id="cb9-123"><a href="#cb9-123"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb9-124"><a href="#cb9-124"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb9-125"><a href="#cb9-125"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb9-126"><a href="#cb9-126"></a></span>
+<span id="cb9-127"><a href="#cb9-127"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb9-128"><a href="#cb9-128"></a><span class="in">  4 -&gt; 6</span></span>
+<span id="cb9-129"><a href="#cb9-129"></a><span class="in">  4 -&gt; 7</span></span>
+<span id="cb9-130"><a href="#cb9-130"></a><span class="in">  4 -&gt; 8</span></span>
+<span id="cb9-131"><a href="#cb9-131"></a></span>
+<span id="cb9-132"><a href="#cb9-132"></a><span class="in">  5 -&gt; 9</span></span>
+<span id="cb9-133"><a href="#cb9-133"></a><span class="in">  6 -&gt; A</span></span>
+<span id="cb9-134"><a href="#cb9-134"></a><span class="in">  8 -&gt; B</span></span>
+<span id="cb9-135"><a href="#cb9-135"></a></span>
+<span id="cb9-136"><a href="#cb9-136"></a><span class="in">  9 -&gt; C</span></span>
+<span id="cb9-137"><a href="#cb9-137"></a><span class="in">  A -&gt; D</span></span>
+<span id="cb9-138"><a href="#cb9-138"></a></span>
+<span id="cb9-139"><a href="#cb9-139"></a></span>
+<span id="cb9-140"><a href="#cb9-140"></a><span class="in">}</span></span>
+<span id="cb9-141"><a href="#cb9-141"></a><span class="in">```</span></span>
+<span id="cb9-142"><a href="#cb9-142"></a></span>
+<span id="cb9-143"><a href="#cb9-143"></a></span>
+<span id="cb9-144"><a href="#cb9-144"></a>:::</span>
+<span id="cb9-145"><a href="#cb9-145"></a></span>
+<span id="cb9-146"><a href="#cb9-146"></a></span>
+<span id="cb9-147"><a href="#cb9-147"></a>::: {.column width="50%"}</span>
+<span id="cb9-148"><a href="#cb9-148"></a></span>
+<span id="cb9-149"><a href="#cb9-149"></a><span class="ss">- </span>Pythonic notation</span>
+<span id="cb9-150"><a href="#cb9-150"></a><span class="ss">- </span><span class="in">`['E']`</span></span>
+<span id="cb9-151"><a href="#cb9-151"></a><span class="ss">- </span><span class="in">`['E','+','T']`</span></span>
+<span id="cb9-152"><a href="#cb9-152"></a><span class="ss">- </span><span class="in">`['T','+','T']`</span></span>
+<span id="cb9-153"><a href="#cb9-153"></a><span class="ss">- </span><span class="in">`['T','+','T']`</span></span>
+<span id="cb9-154"><a href="#cb9-154"></a><span class="ss">- </span><span class="in">`['T','+','T','×','F']`</span></span>
+<span id="cb9-155"><a href="#cb9-155"></a><span class="ss">- </span>**BAD/WRONG!!!**</span>
+<span id="cb9-156"><a href="#cb9-156"></a></span>
+<span id="cb9-157"><a href="#cb9-157"></a>:::</span>
+<span id="cb9-158"><a href="#cb9-158"></a></span>
+<span id="cb9-159"><a href="#cb9-159"></a>::::</span>
+<span id="cb9-160"><a href="#cb9-160"></a></span>
+<span id="cb9-161"><a href="#cb9-161"></a><span class="fu">## A Stack</span></span>
+<span id="cb9-162"><a href="#cb9-162"></a></span>
+<span id="cb9-163"><a href="#cb9-163"></a><span class="ss">- </span>A stack has *only* push and pop operations.</span>
+<span id="cb9-164"><a href="#cb9-164"></a><span class="ss">- </span>We can, say, pop $E$ then push $T$</span>
+<span id="cb9-165"><a href="#cb9-165"></a><span class="ss">  - </span>Python tail pops, so <span class="in">`[::1]`</span>.</span>
+<span id="cb9-166"><a href="#cb9-166"></a></span>
+<span id="cb9-167"><a href="#cb9-167"></a>:::{.fragment}</span>
+<span id="cb9-170"><a href="#cb9-170"></a><span class="in">```{python}</span></span>
+<span id="cb9-171"><a href="#cb9-171"></a>s <span class="op">=</span> [<span class="st">'E'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb9-172"><a href="#cb9-172"></a>s.pop()</span>
+<span id="cb9-173"><a href="#cb9-173"></a>s.append(<span class="st">'T'</span>)</span>
+<span id="cb9-174"><a href="#cb9-174"></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb9-175"><a href="#cb9-175"></a><span class="in">```</span></span>
+<span id="cb9-176"><a href="#cb9-176"></a></span>
+<span id="cb9-177"><a href="#cb9-177"></a>:::</span>
+<span id="cb9-178"><a href="#cb9-178"></a></span>
+<span id="cb9-179"><a href="#cb9-179"></a><span class="fu">## A Stack</span></span>
+<span id="cb9-180"><a href="#cb9-180"></a></span>
+<span id="cb9-181"><a href="#cb9-181"></a><span class="ss">- </span>Say we then pop $T$ and push $T\times F$</span>
+<span id="cb9-182"><a href="#cb9-182"></a></span>
+<span id="cb9-183"><a href="#cb9-183"></a>:::{.fragment}</span>
+<span id="cb9-186"><a href="#cb9-186"></a><span class="in">```{python}</span></span>
+<span id="cb9-187"><a href="#cb9-187"></a>s <span class="op">=</span> [<span class="st">'T'</span>,<span class="st">'+'</span>,<span class="st">'T'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb9-188"><a href="#cb9-188"></a>s.pop()</span>
+<span id="cb9-189"><a href="#cb9-189"></a>[s.append(a) <span class="cf">for</span> a <span class="kw">in</span> [<span class="st">'T'</span>,<span class="st">'×'</span>,<span class="st">'F'</span>][::<span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb9-190"><a href="#cb9-190"></a><span class="bu">print</span>(s[::<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb9-191"><a href="#cb9-191"></a><span class="in">```</span></span>
+<span id="cb9-192"><a href="#cb9-192"></a></span>
+<span id="cb9-193"><a href="#cb9-193"></a>:::</span>
+<span id="cb9-194"><a href="#cb9-194"></a></span>
+<span id="cb9-195"><a href="#cb9-195"></a><span class="ss">- </span>It replaced the first $T$</span>
+<span id="cb9-196"><a href="#cb9-196"></a><span class="ss">- </span>Now the operators are in the wrong arrangement.</span>
+<span id="cb9-197"><a href="#cb9-197"></a><span class="ss">  - </span>$\times$ before $+$</span>
+<span id="cb9-198"><a href="#cb9-198"></a></span>
+<span id="cb9-199"><a href="#cb9-199"></a><span class="fu">## What to do?</span></span>
+<span id="cb9-200"><a href="#cb9-200"></a></span>
+<span id="cb9-201"><a href="#cb9-201"></a><span class="ss">- </span>Only push and pop to the top of the stack.</span>
+<span id="cb9-202"><a href="#cb9-202"></a><span class="ss">- </span>That said, if we didn't have to do that, our proof would work.</span>
+<span id="cb9-203"><a href="#cb9-203"></a><span class="ss">  - </span>If we can access below, that is random access memory (!!!)</span>
+<span id="cb9-204"><a href="#cb9-204"></a><span class="ss">  - </span>Equivalent to general computing</span>
+<span id="cb9-205"><a href="#cb9-205"></a><span class="ss">    - </span>Turing Machine / Church's Lambda Calculus</span>
+<span id="cb9-206"><a href="#cb9-206"></a><span class="ss">    - </span>Gödel's General Recursion</span>
+<span id="cb9-207"><a href="#cb9-207"></a></span>
+<span id="cb9-208"><a href="#cb9-208"></a><span class="fu">## A Workaround</span></span>
+<span id="cb9-209"><a href="#cb9-209"></a></span>
+<span id="cb9-210"><a href="#cb9-210"></a>:::: {.columns}</span>
+<span id="cb9-211"><a href="#cb9-211"></a></span>
+<span id="cb9-212"><a href="#cb9-212"></a>::: {.column width="50%"}</span>
+<span id="cb9-215"><a href="#cb9-215"></a><span class="in">```{dot}</span></span>
+<span id="cb9-216"><a href="#cb9-216"></a><span class="in">// | echo: false</span></span>
+<span id="cb9-217"><a href="#cb9-217"></a><span class="in">// | fig-width: 500px</span></span>
+<span id="cb9-218"><a href="#cb9-218"></a><span class="in">digraph finite_automata {</span></span>
+<span id="cb9-219"><a href="#cb9-219"></a><span class="in">  rankdir=TB; bgcolor="#191919";  </span></span>
+<span id="cb9-220"><a href="#cb9-220"></a><span class="in">  node [fontcolor = "#ffffff", color = "#ffffff", fontsize="30"]</span></span>
+<span id="cb9-221"><a href="#cb9-221"></a><span class="in">  edge [color = "#ffffff",fontcolor = "#ffffff"]</span></span>
+<span id="cb9-222"><a href="#cb9-222"></a></span>
+<span id="cb9-223"><a href="#cb9-223"></a><span class="in">  node [shape=plaintext];</span></span>
+<span id="cb9-224"><a href="#cb9-224"></a><span class="in">  1 [label="E"]; </span></span>
+<span id="cb9-225"><a href="#cb9-225"></a></span>
+<span id="cb9-226"><a href="#cb9-226"></a><span class="in">  2 [label="E"];</span></span>
+<span id="cb9-227"><a href="#cb9-227"></a><span class="in">  3 [label="+"];</span></span>
+<span id="cb9-228"><a href="#cb9-228"></a><span class="in">  4 [label="T"];</span></span>
+<span id="cb9-229"><a href="#cb9-229"></a></span>
+<span id="cb9-230"><a href="#cb9-230"></a><span class="in">  5 [label="T"];</span></span>
+<span id="cb9-231"><a href="#cb9-231"></a><span class="in">  6 [label="T"];</span></span>
+<span id="cb9-232"><a href="#cb9-232"></a><span class="in">  7 [label="×"];</span></span>
+<span id="cb9-233"><a href="#cb9-233"></a><span class="in">  8 [label="F"];</span></span>
+<span id="cb9-234"><a href="#cb9-234"></a></span>
+<span id="cb9-235"><a href="#cb9-235"></a><span class="in">  9 [label="F"];</span></span>
+<span id="cb9-236"><a href="#cb9-236"></a><span class="in">  A [label="F"];</span></span>
+<span id="cb9-237"><a href="#cb9-237"></a><span class="in">  B [label="a"];</span></span>
+<span id="cb9-238"><a href="#cb9-238"></a></span>
+<span id="cb9-239"><a href="#cb9-239"></a><span class="in">  C [label="a"];</span></span>
+<span id="cb9-240"><a href="#cb9-240"></a><span class="in">  D [label="a"];</span></span>
+<span id="cb9-241"><a href="#cb9-241"></a></span>
+<span id="cb9-242"><a href="#cb9-242"></a><span class="in">  1 -&gt; 2</span></span>
+<span id="cb9-243"><a href="#cb9-243"></a><span class="in">  1 -&gt; 3</span></span>
+<span id="cb9-244"><a href="#cb9-244"></a><span class="in">  1 -&gt; 4</span></span>
+<span id="cb9-245"><a href="#cb9-245"></a></span>
+<span id="cb9-246"><a href="#cb9-246"></a><span class="in">  2 -&gt; 5</span></span>
+<span id="cb9-247"><a href="#cb9-247"></a><span class="in">  4 -&gt; 6</span></span>
+<span id="cb9-248"><a href="#cb9-248"></a><span class="in">  4 -&gt; 7</span></span>
+<span id="cb9-249"><a href="#cb9-249"></a><span class="in">  4 -&gt; 8</span></span>
+<span id="cb9-250"><a href="#cb9-250"></a></span>
+<span id="cb9-251"><a href="#cb9-251"></a><span class="in">  5 -&gt; 9</span></span>
+<span id="cb9-252"><a href="#cb9-252"></a><span class="in">  6 -&gt; A</span></span>
+<span id="cb9-253"><a href="#cb9-253"></a><span class="in">  8 -&gt; B</span></span>
+<span id="cb9-254"><a href="#cb9-254"></a></span>
+<span id="cb9-255"><a href="#cb9-255"></a><span class="in">  9 -&gt; C</span></span>
+<span id="cb9-256"><a href="#cb9-256"></a><span class="in">  A -&gt; D</span></span>
+<span id="cb9-257"><a href="#cb9-257"></a></span>
+<span id="cb9-258"><a href="#cb9-258"></a></span>
+<span id="cb9-259"><a href="#cb9-259"></a><span class="in">}</span></span>
+<span id="cb9-260"><a href="#cb9-260"></a><span class="in">```</span></span>
+<span id="cb9-261"><a href="#cb9-261"></a></span>
+<span id="cb9-262"><a href="#cb9-262"></a></span>
+<span id="cb9-263"><a href="#cb9-263"></a>:::</span>
+<span id="cb9-264"><a href="#cb9-264"></a></span>
+<span id="cb9-265"><a href="#cb9-265"></a></span>
+<span id="cb9-266"><a href="#cb9-266"></a>::: {.column width="50%"}</span>
+<span id="cb9-267"><a href="#cb9-267"></a></span>
+<span id="cb9-268"><a href="#cb9-268"></a></span>
+<span id="cb9-269"><a href="#cb9-269"></a><span class="ss">- </span>We needn't need to work with the bottom of the stack.</span>
+<span id="cb9-270"><a href="#cb9-270"></a><span class="ss">- </span>That <span class="in">`T`</span> at the top will ultimately turn into a terminal $a$</span>
+<span id="cb9-271"><a href="#cb9-271"></a><span class="ss">- </span>Simply do that first.</span>
+<span id="cb9-272"><a href="#cb9-272"></a><span class="ss">  - </span>This is easy to do nondeterministically.</span>
+<span id="cb9-273"><a href="#cb9-273"></a></span>
+<span id="cb9-274"><a href="#cb9-274"></a>:::</span>
+<span id="cb9-275"><a href="#cb9-275"></a></span>
+<span id="cb9-276"><a href="#cb9-276"></a>::::</span>
+<span id="cb9-277"><a href="#cb9-277"></a></span>
+<span id="cb9-278"><a href="#cb9-278"></a><span class="fu">## Reorder Substitutions</span></span>
+<span id="cb9-279"><a href="#cb9-279"></a></span>
+<span id="cb9-280"><a href="#cb9-280"></a><span class="ss">- </span>Simply do the leftmost/topmost operations first.</span>
+<span id="cb9-281"><a href="#cb9-281"></a><span class="ss">- </span>Copy the output to the tape</span>
+<span id="cb9-282"><a href="#cb9-282"></a><span class="ss">- </span>The stack will contain no leading terminals.</span>
+<span id="cb9-283"><a href="#cb9-283"></a></span>
+<span id="cb9-284"><a href="#cb9-284"></a>:::{.fragment}</span>
+<span id="cb9-285"><a href="#cb9-285"></a></span>
+<span id="cb9-286"><a href="#cb9-286"></a><span class="in">```{.python}</span></span>
+<span id="cb9-287"><a href="#cb9-287"></a><span class="in">['E'],         ""</span></span>
+<span id="cb9-288"><a href="#cb9-288"></a><span class="in">['E','+','T'], ""</span></span>
+<span id="cb9-289"><a href="#cb9-289"></a><span class="in">['T','+','T'], ""</span></span>
+<span id="cb9-290"><a href="#cb9-290"></a><span class="in">['F','+','T'], ""</span></span>
+<span id="cb9-291"><a href="#cb9-291"></a><span class="in">['a','+','T'], ""</span></span>
+<span id="cb9-292"><a href="#cb9-292"></a><span class="in">['+','T'],     "a"</span></span>
+<span id="cb9-293"><a href="#cb9-293"></a><span class="in">['T'],         "a+"</span></span>
+<span id="cb9-294"><a href="#cb9-294"></a><span class="in">```</span></span>
+<span id="cb9-295"><a href="#cb9-295"></a></span>
+<span id="cb9-296"><a href="#cb9-296"></a>:::</span>
+<span id="cb9-297"><a href="#cb9-297"></a></span>
+<span id="cb9-298"><a href="#cb9-298"></a><span class="fu">## New Strategy</span></span>
+<span id="cb9-299"><a href="#cb9-299"></a></span>
+<span id="cb9-300"><a href="#cb9-300"></a><span class="ss">- </span>Aggressively resolve to terminal symbols</span>
+<span id="cb9-301"><a href="#cb9-301"></a><span class="ss">- </span>Copy terminals to the tape</span>
+<span id="cb9-302"><a href="#cb9-302"></a><span class="ss">- </span>Only work on the top of the stack.</span>
+<span id="cb9-303"><a href="#cb9-303"></a></span>
+<span id="cb9-304"><a href="#cb9-304"></a><span class="fu">## Theorem 7</span></span>
+<span id="cb9-305"><a href="#cb9-305"></a></span>
+<span id="cb9-306"><a href="#cb9-306"></a>$$</span>
+<span id="cb9-307"><a href="#cb9-307"></a>\forall \text{CFL}: \exists P = (Q, \Sigma, \Gamma, \delta, q_0, F) : L(P) = \text{CFL}</span>
+<span id="cb9-308"><a href="#cb9-308"></a>$$</span>
+<span id="cb9-309"><a href="#cb9-309"></a></span>
+<span id="cb9-310"><a href="#cb9-310"></a>*Proof*</span>
+<span id="cb9-311"><a href="#cb9-311"></a></span>
+<span id="cb9-312"><a href="#cb9-312"></a><span class="ss">- </span>Take $\Sigma$ to be the terminals</span>
+<span id="cb9-313"><a href="#cb9-313"></a><span class="ss">- </span>Take $\Gamma$ to be the terminals $\cup$ variables</span>
+<span id="cb9-314"><a href="#cb9-314"></a><span class="ss">- </span>Take $\delta$ to...</span>
+<span id="cb9-315"><a href="#cb9-315"></a><span class="ss">  - </span>Write CFL's $S$ to stack from $q_0$</span>
+<span id="cb9-316"><a href="#cb9-316"></a><span class="ss">  - </span>Write stack terminals to the tape</span>
+<span id="cb9-317"><a href="#cb9-317"></a><span class="ss">  - </span>Apply rules</span>
+<span id="cb9-318"><a href="#cb9-318"></a></span>
+<span id="cb9-319"><a href="#cb9-319"></a><span class="fu">## Adjacent Results</span></span>
+<span id="cb9-320"><a href="#cb9-320"></a></span>
+<span id="cb9-321"><a href="#cb9-321"></a><span class="ss">- </span>It is the case the PDAs may be converted to CFLs, but it is non-trivial.</span>
+<span id="cb9-322"><a href="#cb9-322"></a><span class="ss">  - </span>It is sufficient to know it is the case.</span>
+<span id="cb9-323"><a href="#cb9-323"></a><span class="ss">- </span>Every regular language is a context free language.</span>
+<span id="cb9-324"><a href="#cb9-324"></a><span class="ss">  - </span>Convert to automata.</span>
+<span id="cb9-325"><a href="#cb9-325"></a><span class="ss">  - </span>Ignore stacks.</span>
+<span id="cb9-326"><a href="#cb9-326"></a></span>
+<span id="cb9-327"><a href="#cb9-327"></a><span class="fu">## Summary of Results</span></span>
+<span id="cb9-328"><a href="#cb9-328"></a></span>
+<span id="cb9-329"><a href="#cb9-329"></a>|                 |Recognizer|Generator|</span>
+<span id="cb9-330"><a href="#cb9-330"></a>|-----------------|----------|---------|</span>
+<span id="cb9-331"><a href="#cb9-331"></a>|**Regular language** | *FA      | Regular Expression |</span>
+<span id="cb9-332"><a href="#cb9-332"></a>|**Context Free lanuage**| PDA | Context Free Grammar |</span>
+<span id="cb9-333"><a href="#cb9-333"></a></span>
+<span id="cb9-334"><a href="#cb9-334"></a><span class="fu">## Relation Between Results</span></span>
+<span id="cb9-335"><a href="#cb9-335"></a></span>
+<span id="cb9-336"><a href="#cb9-336"></a></span>
+<span id="cb9-337"><a href="#cb9-337"></a>:::: {.columns}</span>
+<span id="cb9-338"><a href="#cb9-338"></a></span>
+<span id="cb9-339"><a href="#cb9-339"></a>::: {.column width="50%"}</span>
+<span id="cb9-340"><a href="#cb9-340"></a></span>
+<span id="cb9-343"><a href="#cb9-343"></a><span class="in">```{python}</span></span>
+<span id="cb9-344"><a href="#cb9-344"></a><span class="co">#| echo: false</span></span>
+<span id="cb9-345"><a href="#cb9-345"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-346"><a href="#cb9-346"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
+<span id="cb9-347"><a href="#cb9-347"></a></span>
+<span id="cb9-348"><a href="#cb9-348"></a></span>
+<span id="cb9-349"><a href="#cb9-349"></a></span>
+<span id="cb9-350"><a href="#cb9-350"></a>v <span class="op">=</span> venn2(subsets <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>), set_labels<span class="op">=</span>(<span class="st">"PDA"</span>, <span class="st">"*FA"</span>,))</span>
+<span id="cb9-351"><a href="#cb9-351"></a></span>
+<span id="cb9-352"><a href="#cb9-352"></a><span class="cf">for</span> idx, subset <span class="kw">in</span> <span class="bu">enumerate</span>(v.subset_labels):</span>
+<span id="cb9-353"><a href="#cb9-353"></a>    v.subset_labels[idx].set_visible(<span class="va">False</span>)</span>
+<span id="cb9-354"><a href="#cb9-354"></a></span>
+<span id="cb9-355"><a href="#cb9-355"></a>plt</span>
+<span id="cb9-356"><a href="#cb9-356"></a><span class="in">```</span></span>
+<span id="cb9-357"><a href="#cb9-357"></a></span>
+<span id="cb9-358"><a href="#cb9-358"></a>:::</span>
+<span id="cb9-359"><a href="#cb9-359"></a></span>
+<span id="cb9-360"><a href="#cb9-360"></a>::: {.column width="50%"}</span>
+<span id="cb9-361"><a href="#cb9-361"></a></span>
+<span id="cb9-362"><a href="#cb9-362"></a><span class="ss">- </span>Can be fun to view as a Venn diagram.</span>
+<span id="cb9-363"><a href="#cb9-363"></a><span class="ss">- </span>Many more PDA than *FA languages</span>
+<span id="cb9-364"><a href="#cb9-364"></a><span class="ss">  - </span>How many more?</span>
+<span id="cb9-365"><a href="#cb9-365"></a><span class="ss">- </span>Things bigger than PDA, of course.</span>
+<span id="cb9-366"><a href="#cb9-366"></a></span>
+<span id="cb9-367"><a href="#cb9-367"></a>:::</span>
+<span id="cb9-368"><a href="#cb9-368"></a></span>
+<span id="cb9-369"><a href="#cb9-369"></a>::::</span>
+<span id="cb9-370"><a href="#cb9-370"></a></span>
+<span id="cb9-371"><a href="#cb9-371"></a><span class="fu">## Code Reveal</span></span>
+<span id="cb9-372"><a href="#cb9-372"></a></span>
+<span id="cb9-373"><a href="#cb9-373"></a></span>
+<span id="cb9-374"><a href="#cb9-374"></a>:::: {.columns}</span>
+<span id="cb9-375"><a href="#cb9-375"></a></span>
+<span id="cb9-376"><a href="#cb9-376"></a>::: {.column width="50%"}</span>
+<span id="cb9-377"><a href="#cb9-377"></a></span>
+<span id="cb9-380"><a href="#cb9-380"></a><span class="in">```{python}</span></span>
+<span id="cb9-381"><a href="#cb9-381"></a><span class="co">#| echo: false</span></span>
+<span id="cb9-382"><a href="#cb9-382"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-383"><a href="#cb9-383"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
+<span id="cb9-384"><a href="#cb9-384"></a></span>
+<span id="cb9-385"><a href="#cb9-385"></a></span>
+<span id="cb9-386"><a href="#cb9-386"></a></span>
+<span id="cb9-387"><a href="#cb9-387"></a>v <span class="op">=</span> venn2(subsets <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>), set_labels<span class="op">=</span>(<span class="st">"PDA"</span>, <span class="st">"*FA"</span>,))</span>
+<span id="cb9-388"><a href="#cb9-388"></a></span>
+<span id="cb9-389"><a href="#cb9-389"></a><span class="cf">for</span> idx, subset <span class="kw">in</span> <span class="bu">enumerate</span>(v.subset_labels):</span>
+<span id="cb9-390"><a href="#cb9-390"></a>    v.subset_labels[idx].set_visible(<span class="va">False</span>)</span>
+<span id="cb9-391"><a href="#cb9-391"></a></span>
+<span id="cb9-392"><a href="#cb9-392"></a>plt</span>
+<span id="cb9-393"><a href="#cb9-393"></a><span class="in">```</span></span>
+<span id="cb9-394"><a href="#cb9-394"></a></span>
+<span id="cb9-395"><a href="#cb9-395"></a>:::</span>
+<span id="cb9-396"><a href="#cb9-396"></a></span>
+<span id="cb9-397"><a href="#cb9-397"></a>::: {.column width="50%"}</span>
+<span id="cb9-398"><a href="#cb9-398"></a></span>
+<span id="cb9-399"><a href="#cb9-399"></a><span class="in">```{.python}</span></span>
+<span id="cb9-400"><a href="#cb9-400"></a><span class="in">import matplotlib.pyplot as plt</span></span>
+<span id="cb9-401"><a href="#cb9-401"></a><span class="in">from matplotlib_venn import venn2</span></span>
+<span id="cb9-402"><a href="#cb9-402"></a></span>
+<span id="cb9-403"><a href="#cb9-403"></a></span>
+<span id="cb9-404"><a href="#cb9-404"></a></span>
+<span id="cb9-405"><a href="#cb9-405"></a><span class="in">v = venn2(subsets = (4, 0, 1), set_labels=("PDA", "*FA",))</span></span>
+<span id="cb9-406"><a href="#cb9-406"></a></span>
+<span id="cb9-407"><a href="#cb9-407"></a><span class="in">for idx, subset in enumerate(v.subset_labels):</span></span>
+<span id="cb9-408"><a href="#cb9-408"></a><span class="in">    v.subset_labels[idx].set_visible(False)</span></span>
+<span id="cb9-409"><a href="#cb9-409"></a></span>
+<span id="cb9-410"><a href="#cb9-410"></a><span class="in">plt</span></span>
+<span id="cb9-411"><a href="#cb9-411"></a><span class="in">```</span></span>
+<span id="cb9-412"><a href="#cb9-412"></a>:::</span>
+<span id="cb9-413"><a href="#cb9-413"></a></span>
+<span id="cb9-414"><a href="#cb9-414"></a>::::</span>
+<span id="cb9-415"><a href="#cb9-415"></a></span>
+<span id="cb9-416"><a href="#cb9-416"></a><span class="fu">## FAQ 0</span></span>
+<span id="cb9-417"><a href="#cb9-417"></a></span>
+<span id="cb9-418"><a href="#cb9-418"></a><span class="ss">- </span>Why do we restrict ourselves to a stack?</span>
+<span id="cb9-419"><a href="#cb9-419"></a><span class="ss">  - </span>The PDA happens to be equivalent to CFG when using a stack.</span>
+<span id="cb9-420"><a href="#cb9-420"></a><span class="ss">  - </span>We like automata as many of the proofs are easier with automata.</span>
+<span id="cb9-421"><a href="#cb9-421"></a></span>
+<span id="cb9-422"><a href="#cb9-422"></a></span>
+<span id="cb9-423"><a href="#cb9-423"></a><span class="fu">## FAQ 1</span></span>
+<span id="cb9-424"><a href="#cb9-424"></a></span>
+<span id="cb9-425"><a href="#cb9-425"></a><span class="ss">- </span>Why use "weaker" models without e.g. random access memory.</span>
+<span id="cb9-426"><a href="#cb9-426"></a><span class="ss">  - </span>It is possible to prove properties of *FAs/PDAs which cannot be proved of other models.</span>
+<span id="cb9-427"><a href="#cb9-427"></a><span class="ss">  - </span>*FA/CFG are quite powerful and capture many applications.</span>
+<span id="cb9-428"><a href="#cb9-428"></a></span>
+<span id="cb9-429"><a href="#cb9-429"></a></span>
+<span id="cb9-430"><a href="#cb9-430"></a><span class="fu">## FAQ 2</span></span>
+<span id="cb9-431"><a href="#cb9-431"></a></span>
+<span id="cb9-432"><a href="#cb9-432"></a><span class="ss">- </span>Do we need nondeterminism?</span>
+<span id="cb9-433"><a href="#cb9-433"></a><span class="ss">  - </span>Nondeterministic PDA and deterministic PDA are not equivalent.</span>
+<span id="cb9-434"><a href="#cb9-434"></a><span class="ss">  - </span>No deterministic PDA recognizes $B = <span class="sc">\{</span>ww^\mathcal{R} | w \in <span class="sc">\{</span>0,1<span class="sc">\}</span>*<span class="sc">\}</span>$</span>
+<span id="cb9-435"><a href="#cb9-435"></a></span>
+<span id="cb9-436"><a href="#cb9-436"></a><span class="fu"># Stretch Break</span></span>
+<span id="cb9-437"><a href="#cb9-437"></a></span>
+<span id="cb9-438"><a href="#cb9-438"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Home</span><span class="co">](https://cd-public.github.io/compute/)</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

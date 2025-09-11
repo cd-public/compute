@@ -1,0 +1,194 @@
+---
+title: "Pushdown Automata"
+---
+
+## Sketch
+
+::: {.nonincremental}
+- Schematic View of Automata
+- The Stack
+- The Automaton
+- Conversions
+
+:::
+
+# Schematic View
+
+## Vs CFG
+
+- CFGs Pāṇini ~2500 years ago
+- Formalized 1950s (Chomsky)
+- Then PDAs 1960s (Chomsky)
+
+## Overview
+
+- We *abstract* the automata into a unit called the "Finite Control"
+  - In a *FA, this denotes the current state.
+  - We often denote it as a box
+- We imagine input as coming on a tape.
+  - In practice, early devices did use tapes.
+  - Modern devices use block reads of SSDs (same thing)
+
+## Tapes
+
+<img style="filter: invert(100%)" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Pushdown-overview.svg">
+
+
+## Terms
+
+- *Finite Control*: Represents the finite state, or states, of an automata.
+- *Input*: Represents the input string to some automata.
+  - *FAs can only read in one direction - not so for all automata.
+- This abstraction made it easier for me to separate letters and states in my mind.
+
+## New Terms
+
+- *Stack*: Memory of the automata
+  - *FAs had no memory other than internal state - not so for all automata.
+- *Head*: Refer to "wherever the automata is currently pointed" as where the head of the automata is.
+  - Think, perhaps, of a vinyl player.
+  - My first job was on Hard Disk Drives (HDDs) with a "head" which wrote/read bits from a rotating magnetic disk.
+
+# The Stack
+
+## The Stack
+
+- PDA has *unlimited* but *restricted* memory.
+- It can only write certain symbols.
+- It can only read the most recent symbol.
+- Think the stack abstract data structure.
+
+:::{.fragment}
+
+```{python}
+stack = []
+stack.append('a')
+stack.append('b')
+stack.append('a')
+print(stack.pop())
+```
+
+:::
+
+## Intuition
+
+- Think of an NFA
+- Which write/add and read/remove symbols from the stack.
+- There is no "peek" operation.
+  - But if can be synthesize from read+write.
+
+## Exercise
+
+- Recognize $D = \{ 0^k1^k | k \in \mathbb{N}\}$ in Python
+- Read every character individually.
+- Only use one stack.
+- If you're not sure of goals, read the solution and translate it to `def` from `lambda`
+
+## Solution
+
+```{python}
+q_1 = lambda s, stack : [stack.append('0'), q_1(s[1:], stack)][-1] if s[0] == '0' and len(s) > 1 else [stack.pop(), q_2(s[1:], stack)][-1]
+q_2 = lambda s, stack : [stack.pop(), q_2(s[1:],stack)][-1] if s[0] == '1' and len(s) > 1 else q_n(s, stack)
+q_n = lambda s, stack : s == '1' and len(stack) == 1
+q_1('000111', []), q_1('00111', []), q_1('00011', [])
+```
+
+# The Automaton
+
+## Formal Definition...
+
+A Pushdown Automaton (PDA) is formally defined as a 6-*tuple*:
+
+- **$Q$**: A finite, non-empty *set* of states.
+- **$\Sigma$**: A finite, non-empty *set* of input symbols called the input alphabet.
+- **$\Gamma$**: A finite, non-empty *set* of stack symbols called the stack alphabet.
+- **$\delta$**: The transition function, a mapping 
+
+## Formal Definition..
+
+A PDA is a 6-*tuple* $(Q, \Sigma, \Gamma, \delta, \ldots)$
+
+- **$\delta$**: The transition function, a mapping 
+    - $\delta : Q \times (\Sigma_{\varepsilon} \cup \Gamma_{\varepsilon}) \rightarrow \mathcal{P} (Q \times \Gamma_{\varepsilon})$
+    - Given a state, letter, and stack symbol
+    - Get a set of states and stack symbols.
+    - $\delta(q, a, c) = {(r_1, d), (r_2, e)}$
+      - In state $q$, reading $a$ on tape and $c$ on stack, either write $d$ and go to state $r_1$ or write $e$ and go to state $r_2$
+
+## Formal Definition.
+
+A PDA is a 6-*tuple* $(Q, \Sigma, \Gamma, \delta, q_0, F)$
+
+- $q_0, F$ as in the *FAs.
+- It's a *FA with a new alphabet that delta reads.
+
+## Example
+
+- Introduce reverse operation $w^\mathcal{R}$
+- Easiest to define with Python.
+
+:::{.fragment}
+
+```{python}
+superscript_r = lambda w : w[::-1]
+w = "stressed"
+print('w =', w, 'w^R =', superscript_r(w))
+```
+
+:::
+
+- Take $B = \{ww^\mathcal{R} | w \in \{0,1\}*\}$
+
+:::{.fragment}
+
+```{dot}
+// | echo: false
+// | fig-width: 300px
+// | fig-height: 100px
+digraph g {
+  rankdir=TD;
+  bgcolor="#191919";
+
+  node [
+      fontcolor = "#ffffff",
+      color = "#ffffff",
+      shape=record,
+  ]
+
+  edge [
+      color = "#ffffff",
+      fontcolor = "#ffffff"
+  ]
+
+  n [label="0 | 0 | 1 | 1 | 1 | 1 | 0 | 0"]
+}
+```
+
+:::
+
+## Intuition
+
+- Read symbol, push to stack
+- At halfway mark, pop off stack and read.
+  -  If same, continue
+  -  If different, reject
+- How do we know we are the middle?
+  - Nondeterminism - it doesn't matter!
+  - Each nondeterministic branch gets its own stack!
+
+## Empty stack
+
+- Wait... how do we see if the stack is empty.
+  - Easy.
+  - Invent a novel symbol.
+  - Necessarily write it in the first state.
+    - Can simply add a new state, transition, as needed.
+  - These simplifying assumptions are useful convenience that doesn't adversely impact rigor or change results.
+
+## Exercise
+
+- Accept $D$ in Python.
+
+# Stretch Break
+
+- [Home](https://cd-public.github.io/compute/)
