@@ -1,5 +1,5 @@
 ---
-title: Systems in Rust
+title: Automata
 author: ""
 subtitle: ""
 format: html
