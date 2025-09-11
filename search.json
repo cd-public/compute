@@ -3530,21 +3530,21 @@
     "href": "00_aims.rjs.html#announcements",
     "title": "Aims of Education",
     "section": "Announcements",
-    "text": "Announcements\n\nWelcome to residency of CSCI 5100: Theory of Computation!\nIt is a pleasure to launch the LaGrange College M.S. in Computer Science (MSCS) with you.\nYou should have:\n\nQuarto running.\nDGitHub pages set up."
+    "text": "Announcements\n\nWelcome to Automata\nYou should have:\n\nQuarto running.\nGitHub pages set up."
   },
   {
     "objectID": "00_aims.rjs.html#sketch",
     "href": "00_aims.rjs.html#sketch",
     "title": "Aims of Education",
     "section": "Sketch",
-    "text": "Sketch\n\n\n20 minute intro\n20 guest lecture\n20 minute goal setting\nThen into Theory of Computatation"
+    "text": "Sketch\n\n\nIntro\nGuest lecture\nGoal setting\nThen into Automata"
   },
   {
     "objectID": "00_aims.rjs.html#about-me",
     "href": "00_aims.rjs.html#about-me",
     "title": "Aims of Education",
     "section": "About Me",
-    "text": "About Me\n\n\n\nAbout\nMe\n\n\n\n\nName:\nCalvin (Deutschbein)\n\n\nSay:\n(Professor) Calvin\n\n\nPronoun:\nthey/them\n\n\nOffice:\nDiscord calvin2501\n\n\nEmail:\nckdeutschbein@willamette.edu (@lagrange email Soon™)\n\n\nWebsite:\ncd-public.github.io"
+    "text": "About Me\n\n\n\nAbout\nMe\n\n\n\n\nName:\nCalvin (Deutschbein)\n\n\nSay:\n(Professor) Calvin\n\n\nPronoun:\nthey/them\n\n\nOffice:\nDiscord calvin2501\n\n\nEmail:\nckdeutschbein@willamette.edu\n\n\nWebsite:\ncd-public.github.io"
   },
   {
     "objectID": "00_aims.rjs.html#background",
@@ -3649,7 +3649,7 @@
     "href": "00_aims.html#announcements",
     "title": "Aims of Education",
     "section": "Announcements",
-    "text": "Announcements\n\nWelcome to residency of CSCI 5100: Theory of Computation!\nIt is a pleasure to launch the LaGrange College M.S. in Computer Science (MSCS) with you.\nYou should have:\n\nQuarto running.\nDGitHub pages set up.",
+    "text": "Announcements\n\nWelcome to Automata\nYou should have:\n\nQuarto running.\nGitHub pages set up.",
     "crumbs": [
       "Aims of Education"
     ]
@@ -3659,7 +3659,7 @@
     "href": "00_aims.html#sketch",
     "title": "Aims of Education",
     "section": "Sketch",
-    "text": "Sketch\n\n\n20 minute intro\n20 guest lecture\n20 minute goal setting\nThen into Theory of Computatation",
+    "text": "Sketch\n\n\nIntro\nGuest lecture\nGoal setting\nThen into Automata",
     "crumbs": [
       "Aims of Education"
     ]
@@ -3669,7 +3669,7 @@
     "href": "00_aims.html#about-me",
     "title": "Aims of Education",
     "section": "About Me",
-    "text": "About Me\n\n\n\nAbout\nMe\n\n\n\n\nName:\nCalvin (Deutschbein)\n\n\nSay:\n(Professor) Calvin\n\n\nPronoun:\nthey/them\n\n\nOffice:\nDiscord calvin2501\n\n\nEmail:\nckdeutschbein@willamette.edu (@lagrange email Soon™)\n\n\nWebsite:\ncd-public.github.io",
+    "text": "About Me\n\n\n\nAbout\nMe\n\n\n\n\nName:\nCalvin (Deutschbein)\n\n\nSay:\n(Professor) Calvin\n\n\nPronoun:\nthey/them\n\n\nOffice:\nDiscord calvin2501\n\n\nEmail:\nckdeutschbein@willamette.edu\n\n\nWebsite:\ncd-public.github.io",
     "crumbs": [
       "Aims of Education"
     ]

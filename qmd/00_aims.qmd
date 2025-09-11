@@ -17,7 +17,7 @@ title: "Aims of Education"
 - Intro
 - Guest lecture
 - Goal setting
-- Then into Theory of Computatation
+- Then into Automata
 :::
 
 ## About Me
