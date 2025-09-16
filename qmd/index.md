@@ -21,8 +21,8 @@ format: html
 |:--:|:---|:----|:-------|:-------|
 |0x0|08/25|[Aims of Education](00_aims.qmd)|[Video](https://www.youtube.com/watch?v=trabJm8GT0s)|Watch Guest Lecture|
 |0x1|09/01|[Quarto](https://cd-public.github.io/python-stack-book/doc/VSCode.html)|[Video](https://www.youtube.com/live/ExpLC4r4H9M?feature=shared)|Make GitHub Pages|
-|0x2|09/08|[Finite Automata](01_starfa.qmd)|[Video](https://www.youtube.com/watch?v=PgZxswUfypU&list=PLu3KAnn4RkATkXZsQuk6Fj7p3iqn-iYj1&index=6)|Soon_TM|
-|0x3|09/15|[Regular Expressions](02_regexp.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?feature=shared&t=4525)|Soon_TM|
+|0x2|09/08|[Finite Automata](01_starfa.qmd)|[Video](https://www.youtube.com/watch?v=PgZxswUfypU&list=PLu3KAnn4RkATkXZsQuk6Fj7p3iqn-iYj1&index=6)|[Exercise](01_starfa.qmd#exercise)|
+|0x3|09/15|[Regular Expressions](02_regexp.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?feature=shared&t=4525)|[Exercise](02_regexp.qmd#exercise)|
 |0x4|09/22|
 |0x5|09/29|
 |0x6|10/06|
