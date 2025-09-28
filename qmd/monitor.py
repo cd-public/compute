@@ -1,15 +1,15 @@
 import sys, os, time, webbrowser
 
-fname = input("file name (without ending)?\n>>> ")
+fname = sys.argv[1] 
 
-last = os.stat(fname + ".qmd").st_mtime
+last = os.stat(fname).st_mtime
 
-print("Monitoring " + fname + ".qmd...")
+print("Monitoring " + fname)
 
 while True:
     time.sleep(1)
-    curr = os.stat(fname + ".qmd").st_mtime
+    curr = os.stat(fname).st_mtime
     if curr != last:
-        os.system("quarto render " + fname + ".qmd")
+        os.system("quarto render " + fname)
         last = curr
         print(last)

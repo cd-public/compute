@@ -21,10 +21,10 @@ format: html
 |:--:|:---|:----|:-------|:-------|
 |0x0|08/25|[Aims of Education](00_aims.qmd)|[Video](https://www.youtube.com/watch?v=trabJm8GT0s)|Watch Guest Lecture|
 |0x1|09/01|[Quarto](https://cd-public.github.io/python-stack-book/doc/VSCode.html)|[Video](https://www.youtube.com/live/ExpLC4r4H9M?feature=shared)|Make GitHub Pages|
-|0x2|09/08|[Finite Automata](01_starfa.qmd)|[Video](https://www.youtube.com/watch?v=PgZxswUfypU&list=PLu3KAnn4RkATkXZsQuk6Fj7p3iqn-iYj1&index=6)|[Exercise](01_starfa.qmd#exercise)|
-|0x3|09/15|[Regular Expressions](02_regexp.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?feature=shared&t=4525)|[Exercise](02_regexp.qmd#exercise)|
-|0x4|09/22|
-|0x5|09/29|
+|0x2|09/08|[Finite Automata](01_starfa.qmd)|[Video](https://www.youtube.com/watch?v=PgZxswUfypU)|[Exercise](01_starfa.qmd#exercise)|
+|0x3|09/15|[Regular Expressions](02_regexp.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?t=4525)|[Exercise](02_regexp.qmd#exercise)|
+|0x4|09/22|[Nondeterministic Finite Automata](03_nfas.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?t=7341)|[Exercises](03_nfas.qmd#exercise-0)|
+|0x5|09/29|[Closures](04_closures.qmd)|[Video](https://www.youtube.com/live/Bx8e0cFMv4c)|[Problem Set 1](https://github.com/cd-public/compute/blob/main/ps/FA_Reg.ipynb)|
 |0x6|10/06|
 |0x7|10/13|
 |0x8|10/20|
