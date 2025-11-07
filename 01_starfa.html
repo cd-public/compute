@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.30">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,8 +22,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,15 +68,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <link href="./02_regexp.html" rel="next">
 <link href="./00_aims.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-b86297dc19107d1c9b1952b0f8e15fd8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,7 +121,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -136,7 +139,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -159,9 +162,8 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">Automata</a> 
-    </div>
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -275,19 +277,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Diagonalization</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Review</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Review 2</span></a>
+ <span class="menu-text">Undecidability</span></a>
   </div>
 </li>
     </ul>
@@ -625,7 +615,7 @@ window.Quarto = {
 <ul>
 <li>The inital state is <span class="math inline">\(q_1\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>[] <span class="co"># We'll use a Python list to represent the input.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>[] <span class="co"># We'll use a Python list to represent the input.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -716,7 +706,7 @@ window.Quarto = {
 <ul>
 <li>Find label containing <code>0</code> out of <span class="math inline">\(q_1\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>[<span class="dv">0</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>[<span class="dv">0</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -807,7 +797,7 @@ window.Quarto = {
 <ul>
 <li>Find label containing <code>1</code> out of <span class="math inline">\(q_1\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -898,7 +888,7 @@ window.Quarto = {
 <ul>
 <li>Find label containing <code>1</code> out of <span class="math inline">\(q_2\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -989,7 +979,7 @@ window.Quarto = {
 <ul>
 <li>Find label containing <code>0</code> out of <span class="math inline">\(q_3\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -1080,7 +1070,7 @@ window.Quarto = {
 <ul>
 <li>Find label containing <code>1</code> out of <span class="math inline">\(q_3\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>] <span class="co"># We'll use a Python list to represent the input.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -1171,7 +1161,7 @@ window.Quarto = {
 <ul>
 <li><span class="math inline">\(M_1\)</span> accepts <code>[0, 1, 1, 0, 1]</code> by ending in <span class="math inline">\(q_3\)</span></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">assert</span>(M_1([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]) <span class="co"># M_1 as a function from bit strings to booleans.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">assert</span>(M_1([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]) <span class="co"># M_1 as a function from bit strings to booleans.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -1262,7 +1252,7 @@ window.Quarto = {
 <ul>
 <li>Does <span class="math inline">\(M_1\)</span> accept <code>[0, 0, 1, 0, 1]</code>?</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>] <span class="co"># M_1 as a function from bit strings to booleans.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>] <span class="co"># M_1 as a function from bit strings to booleans.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-fig-width="800px" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -1362,8 +1352,8 @@ w \in A \implies \exists i &lt; |w| - 1 : w_i = 1 \land w_{i+1} = 1
 \]</span></li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>w <span class="op">=</span> <span class="st">'01101'</span> <span class="co"># for example</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="cf">assert</span>(<span class="st">'11'</span> <span class="kw">in</span> w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>w <span class="op">=</span> <span class="st">'01101'</span> <span class="co"># for example</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="cf">assert</span>(<span class="st">'11'</span> <span class="kw">in</span> w)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -1449,7 +1439,7 @@ w \in A \implies \exists i &lt; |w| - 1 : w_i = 1 \land w_{i+1} = 1
 <section id="python" class="level2">
 <h2 class="anchored" data-anchor-id="python">Python</h2>
 <div id="3c508aeb" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># define q_n as a convenience</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># define q_n as a convenience</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>q_1, q_2, q_3 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span>, <span class="st">"q_3"</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="co"># define M_1</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a>Q <span class="op">=</span> {q_1, q_2, q_3}</span>
@@ -1460,7 +1450,7 @@ w \in A \implies \exists i &lt; |w| - 1 : w_i = 1 \land w_{i+1} = 1
 <span id="cb10-9"><a href="#cb10-9"></a>    q_3 : { <span class="dv">0</span>:q_3, <span class="dv">1</span>:q_3 }</span>
 <span id="cb10-10"><a href="#cb10-10"></a>}</span>
 <span id="cb10-11"><a href="#cb10-11"></a>M_1 <span class="op">=</span> (Q,S,d,q_1,{q_3})</span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="bu">print</span>(M_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="bu">print</span>(M_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>({'q_1', 'q_3', 'q_2'}, {0, 1}, {'q_1': {0: 'q_1', 1: 'q_2'}, 'q_2': {0: 'q_1', 1: 'q_3'}, 'q_3': {0: 'q_3', 1: 'q_3'}}, 'q_1', {'q_3'})</code></pre>
 </div>
@@ -1518,290 +1508,294 @@ r_n \in F \land
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
           } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
         }
-        return container.innerHTML
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1809,185 +1803,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./00_aims.html" class="pagination-link" aria-label="Aims of Education">
@@ -2000,7 +1970,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">---</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">---</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="an">title:</span><span class="co"> "Finite Automata"</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="co">---</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a></span>
@@ -2090,35 +2060,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-88"><a href="#cb12-88"></a></span>
 <span id="cb12-89"><a href="#cb12-89"></a>::: {.column width="50%"}</span>
 <span id="cb12-90"><a href="#cb12-90"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
-<span id="cb12-91"><a href="#cb12-91"></a><span class="in">//| fig-width: 500px</span></span>
-<span id="cb12-92"><a href="#cb12-92"></a><span class="in">//| echo: false</span></span>
-<span id="cb12-93"><a href="#cb12-93"></a><span class="in">digraph finite_automata {</span></span>
-<span id="cb12-94"><a href="#cb12-94"></a><span class="in">  rankdir=LR;</span></span>
-<span id="cb12-95"><a href="#cb12-95"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb12-91"><a href="#cb12-91"></a><span class="co">//| fig-width: 500px</span></span>
+<span id="cb12-92"><a href="#cb12-92"></a><span class="co">//| echo: false</span></span>
+<span id="cb12-93"><a href="#cb12-93"></a><span class="kw">digraph</span> <span class="va">finite_automata</span> <span class="ot">{</span></span>
+<span id="cb12-94"><a href="#cb12-94"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">LR</span><span class="ot">;</span></span>
+<span id="cb12-95"><a href="#cb12-95"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb12-96"><a href="#cb12-96"></a></span>
-<span id="cb12-97"><a href="#cb12-97"></a><span class="in">  node [</span></span>
-<span id="cb12-98"><a href="#cb12-98"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb12-99"><a href="#cb12-99"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-100"><a href="#cb12-100"></a><span class="in">  ]</span></span>
+<span id="cb12-97"><a href="#cb12-97"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-98"><a href="#cb12-98"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-99"><a href="#cb12-99"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-100"><a href="#cb12-100"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-101"><a href="#cb12-101"></a></span>
-<span id="cb12-102"><a href="#cb12-102"></a><span class="in">  edge [</span></span>
-<span id="cb12-103"><a href="#cb12-103"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-104"><a href="#cb12-104"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb12-105"><a href="#cb12-105"></a><span class="in">  ]</span></span>
+<span id="cb12-102"><a href="#cb12-102"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-103"><a href="#cb12-103"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-104"><a href="#cb12-104"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb12-105"><a href="#cb12-105"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-106"><a href="#cb12-106"></a></span>
-<span id="cb12-107"><a href="#cb12-107"></a><span class="in">  node [shape=circle];</span></span>
-<span id="cb12-108"><a href="#cb12-108"></a><span class="in">  q0 [label="",shape=point]; </span></span>
-<span id="cb12-109"><a href="#cb12-109"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-110"><a href="#cb12-110"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-111"><a href="#cb12-111"></a><span class="in">  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb12-107"><a href="#cb12-107"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="ot">];</span></span>
+<span id="cb12-108"><a href="#cb12-108"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">""</span><span class="co">,</span><span class="at">shape</span><span class="ot">=</span><span class="va">point</span><span class="ot">];</span><span class="co"> </span></span>
+<span id="cb12-109"><a href="#cb12-109"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">1</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-110"><a href="#cb12-110"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">2</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-111"><a href="#cb12-111"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">3</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">shape</span><span class="ot">=</span><span class="va">doublecircle</span><span class="ot">];</span><span class="co"> </span></span>
 <span id="cb12-112"><a href="#cb12-112"></a></span>
-<span id="cb12-113"><a href="#cb12-113"></a><span class="in">  q0 -&gt; q1</span></span>
-<span id="cb12-114"><a href="#cb12-114"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-115"><a href="#cb12-115"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
-<span id="cb12-116"><a href="#cb12-116"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-117"><a href="#cb12-117"></a><span class="in">  q2 -&gt; q3 [label="{1}"];</span></span>
-<span id="cb12-118"><a href="#cb12-118"></a><span class="in">  q3 -&gt; q3 [label="{0,1}"];</span></span>
-<span id="cb12-119"><a href="#cb12-119"></a><span class="in">}</span></span>
+<span id="cb12-113"><a href="#cb12-113"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span></span>
+<span id="cb12-114"><a href="#cb12-114"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-115"><a href="#cb12-115"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-116"><a href="#cb12-116"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-117"><a href="#cb12-117"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-118"><a href="#cb12-118"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0,1}"</span><span class="ot">];</span></span>
+<span id="cb12-119"><a href="#cb12-119"></a><span class="ot">}</span></span>
 <span id="cb12-120"><a href="#cb12-120"></a><span class="in">```</span></span>
 <span id="cb12-121"><a href="#cb12-121"></a>:::</span>
 <span id="cb12-122"><a href="#cb12-122"></a></span>
@@ -2175,35 +2145,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-173"><a href="#cb12-173"></a><span class="in">```</span></span>
 <span id="cb12-174"><a href="#cb12-174"></a></span>
 <span id="cb12-175"><a href="#cb12-175"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
-<span id="cb12-176"><a href="#cb12-176"></a><span class="in">//| fig-width: 800px</span></span>
-<span id="cb12-177"><a href="#cb12-177"></a><span class="in">//| echo: false</span></span>
-<span id="cb12-178"><a href="#cb12-178"></a><span class="in">digraph finite_automata {</span></span>
-<span id="cb12-179"><a href="#cb12-179"></a><span class="in">  rankdir=LR;</span></span>
-<span id="cb12-180"><a href="#cb12-180"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb12-176"><a href="#cb12-176"></a><span class="co">//| fig-width: 800px</span></span>
+<span id="cb12-177"><a href="#cb12-177"></a><span class="co">//| echo: false</span></span>
+<span id="cb12-178"><a href="#cb12-178"></a><span class="kw">digraph</span> <span class="va">finite_automata</span> <span class="ot">{</span></span>
+<span id="cb12-179"><a href="#cb12-179"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">LR</span><span class="ot">;</span></span>
+<span id="cb12-180"><a href="#cb12-180"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb12-181"><a href="#cb12-181"></a></span>
-<span id="cb12-182"><a href="#cb12-182"></a><span class="in">  node [</span></span>
-<span id="cb12-183"><a href="#cb12-183"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb12-184"><a href="#cb12-184"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-185"><a href="#cb12-185"></a><span class="in">  ]</span></span>
+<span id="cb12-182"><a href="#cb12-182"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-183"><a href="#cb12-183"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-184"><a href="#cb12-184"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-185"><a href="#cb12-185"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-186"><a href="#cb12-186"></a></span>
-<span id="cb12-187"><a href="#cb12-187"></a><span class="in">  edge [</span></span>
-<span id="cb12-188"><a href="#cb12-188"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-189"><a href="#cb12-189"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb12-190"><a href="#cb12-190"></a><span class="in">  ]</span></span>
+<span id="cb12-187"><a href="#cb12-187"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-188"><a href="#cb12-188"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-189"><a href="#cb12-189"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb12-190"><a href="#cb12-190"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-191"><a href="#cb12-191"></a></span>
-<span id="cb12-192"><a href="#cb12-192"></a><span class="in">  node [shape=circle];</span></span>
-<span id="cb12-193"><a href="#cb12-193"></a><span class="in">  q0 [label="",shape=point]; </span></span>
-<span id="cb12-194"><a href="#cb12-194"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;, color="orange"];</span></span>
-<span id="cb12-195"><a href="#cb12-195"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-196"><a href="#cb12-196"></a><span class="in">  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb12-192"><a href="#cb12-192"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="ot">];</span></span>
+<span id="cb12-193"><a href="#cb12-193"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">""</span><span class="co">,</span><span class="at">shape</span><span class="ot">=</span><span class="va">point</span><span class="ot">];</span><span class="co"> </span></span>
+<span id="cb12-194"><a href="#cb12-194"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">1</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-195"><a href="#cb12-195"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">2</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-196"><a href="#cb12-196"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">3</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">shape</span><span class="ot">=</span><span class="va">doublecircle</span><span class="ot">];</span><span class="co"> </span></span>
 <span id="cb12-197"><a href="#cb12-197"></a></span>
-<span id="cb12-198"><a href="#cb12-198"></a><span class="in">  q0 -&gt; q1 [color="orange"]</span></span>
-<span id="cb12-199"><a href="#cb12-199"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-200"><a href="#cb12-200"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
-<span id="cb12-201"><a href="#cb12-201"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-202"><a href="#cb12-202"></a><span class="in">  q2 -&gt; q3 [label="{1}"];</span></span>
-<span id="cb12-203"><a href="#cb12-203"></a><span class="in">  q3 -&gt; q3 [label="{0,1}"];</span></span>
-<span id="cb12-204"><a href="#cb12-204"></a><span class="in">}</span></span>
+<span id="cb12-198"><a href="#cb12-198"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">]</span></span>
+<span id="cb12-199"><a href="#cb12-199"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-200"><a href="#cb12-200"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-201"><a href="#cb12-201"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-202"><a href="#cb12-202"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-203"><a href="#cb12-203"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0,1}"</span><span class="ot">];</span></span>
+<span id="cb12-204"><a href="#cb12-204"></a><span class="ot">}</span></span>
 <span id="cb12-205"><a href="#cb12-205"></a><span class="in">```</span></span>
 <span id="cb12-206"><a href="#cb12-206"></a></span>
 <span id="cb12-207"><a href="#cb12-207"></a></span>
@@ -2216,35 +2186,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-214"><a href="#cb12-214"></a><span class="in">```</span></span>
 <span id="cb12-215"><a href="#cb12-215"></a></span>
 <span id="cb12-216"><a href="#cb12-216"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
-<span id="cb12-217"><a href="#cb12-217"></a><span class="in">//| fig-width: 800px</span></span>
-<span id="cb12-218"><a href="#cb12-218"></a><span class="in">//| echo: false</span></span>
-<span id="cb12-219"><a href="#cb12-219"></a><span class="in">digraph finite_automata {</span></span>
-<span id="cb12-220"><a href="#cb12-220"></a><span class="in">  rankdir=LR;</span></span>
-<span id="cb12-221"><a href="#cb12-221"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb12-217"><a href="#cb12-217"></a><span class="co">//| fig-width: 800px</span></span>
+<span id="cb12-218"><a href="#cb12-218"></a><span class="co">//| echo: false</span></span>
+<span id="cb12-219"><a href="#cb12-219"></a><span class="kw">digraph</span> <span class="va">finite_automata</span> <span class="ot">{</span></span>
+<span id="cb12-220"><a href="#cb12-220"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">LR</span><span class="ot">;</span></span>
+<span id="cb12-221"><a href="#cb12-221"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb12-222"><a href="#cb12-222"></a></span>
-<span id="cb12-223"><a href="#cb12-223"></a><span class="in">  node [</span></span>
-<span id="cb12-224"><a href="#cb12-224"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb12-225"><a href="#cb12-225"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-226"><a href="#cb12-226"></a><span class="in">  ]</span></span>
+<span id="cb12-223"><a href="#cb12-223"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-224"><a href="#cb12-224"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-225"><a href="#cb12-225"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-226"><a href="#cb12-226"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-227"><a href="#cb12-227"></a></span>
-<span id="cb12-228"><a href="#cb12-228"></a><span class="in">  edge [</span></span>
-<span id="cb12-229"><a href="#cb12-229"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-230"><a href="#cb12-230"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb12-231"><a href="#cb12-231"></a><span class="in">  ]</span></span>
+<span id="cb12-228"><a href="#cb12-228"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-229"><a href="#cb12-229"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-230"><a href="#cb12-230"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb12-231"><a href="#cb12-231"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-232"><a href="#cb12-232"></a></span>
-<span id="cb12-233"><a href="#cb12-233"></a><span class="in">  node [shape=circle];</span></span>
-<span id="cb12-234"><a href="#cb12-234"></a><span class="in">  q0 [label="",shape=point]; </span></span>
-<span id="cb12-235"><a href="#cb12-235"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;, color="orange"];</span></span>
-<span id="cb12-236"><a href="#cb12-236"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-237"><a href="#cb12-237"></a><span class="in">  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb12-233"><a href="#cb12-233"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="ot">];</span></span>
+<span id="cb12-234"><a href="#cb12-234"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">""</span><span class="co">,</span><span class="at">shape</span><span class="ot">=</span><span class="va">point</span><span class="ot">];</span><span class="co"> </span></span>
+<span id="cb12-235"><a href="#cb12-235"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">1</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-236"><a href="#cb12-236"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">2</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-237"><a href="#cb12-237"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">3</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">shape</span><span class="ot">=</span><span class="va">doublecircle</span><span class="ot">];</span><span class="co"> </span></span>
 <span id="cb12-238"><a href="#cb12-238"></a></span>
-<span id="cb12-239"><a href="#cb12-239"></a><span class="in">  q0 -&gt; q1 []</span></span>
-<span id="cb12-240"><a href="#cb12-240"></a><span class="in">  q1 -&gt; q1 [label="{0}", color="orange"];</span></span>
-<span id="cb12-241"><a href="#cb12-241"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
-<span id="cb12-242"><a href="#cb12-242"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-243"><a href="#cb12-243"></a><span class="in">  q2 -&gt; q3 [label="{1}"];</span></span>
-<span id="cb12-244"><a href="#cb12-244"></a><span class="in">  q3 -&gt; q3 [label="{0,1}"];</span></span>
-<span id="cb12-245"><a href="#cb12-245"></a><span class="in">}</span></span>
+<span id="cb12-239"><a href="#cb12-239"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[]</span></span>
+<span id="cb12-240"><a href="#cb12-240"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-241"><a href="#cb12-241"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-242"><a href="#cb12-242"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-243"><a href="#cb12-243"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-244"><a href="#cb12-244"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0,1}"</span><span class="ot">];</span></span>
+<span id="cb12-245"><a href="#cb12-245"></a><span class="ot">}</span></span>
 <span id="cb12-246"><a href="#cb12-246"></a><span class="in">```</span></span>
 <span id="cb12-247"><a href="#cb12-247"></a></span>
 <span id="cb12-248"><a href="#cb12-248"></a><span class="fu">## '01'</span></span>
@@ -2256,35 +2226,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-254"><a href="#cb12-254"></a><span class="in">```</span></span>
 <span id="cb12-255"><a href="#cb12-255"></a></span>
 <span id="cb12-256"><a href="#cb12-256"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
-<span id="cb12-257"><a href="#cb12-257"></a><span class="in">//| fig-width: 800px</span></span>
-<span id="cb12-258"><a href="#cb12-258"></a><span class="in">//| echo: false</span></span>
-<span id="cb12-259"><a href="#cb12-259"></a><span class="in">digraph finite_automata {</span></span>
-<span id="cb12-260"><a href="#cb12-260"></a><span class="in">  rankdir=LR;</span></span>
-<span id="cb12-261"><a href="#cb12-261"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb12-257"><a href="#cb12-257"></a><span class="co">//| fig-width: 800px</span></span>
+<span id="cb12-258"><a href="#cb12-258"></a><span class="co">//| echo: false</span></span>
+<span id="cb12-259"><a href="#cb12-259"></a><span class="kw">digraph</span> <span class="va">finite_automata</span> <span class="ot">{</span></span>
+<span id="cb12-260"><a href="#cb12-260"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">LR</span><span class="ot">;</span></span>
+<span id="cb12-261"><a href="#cb12-261"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb12-262"><a href="#cb12-262"></a></span>
-<span id="cb12-263"><a href="#cb12-263"></a><span class="in">  node [</span></span>
-<span id="cb12-264"><a href="#cb12-264"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb12-265"><a href="#cb12-265"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-266"><a href="#cb12-266"></a><span class="in">  ]</span></span>
+<span id="cb12-263"><a href="#cb12-263"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-264"><a href="#cb12-264"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-265"><a href="#cb12-265"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-266"><a href="#cb12-266"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-267"><a href="#cb12-267"></a></span>
-<span id="cb12-268"><a href="#cb12-268"></a><span class="in">  edge [</span></span>
-<span id="cb12-269"><a href="#cb12-269"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-270"><a href="#cb12-270"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb12-271"><a href="#cb12-271"></a><span class="in">  ]</span></span>
+<span id="cb12-268"><a href="#cb12-268"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-269"><a href="#cb12-269"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-270"><a href="#cb12-270"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb12-271"><a href="#cb12-271"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-272"><a href="#cb12-272"></a></span>
-<span id="cb12-273"><a href="#cb12-273"></a><span class="in">  node [shape=circle];</span></span>
-<span id="cb12-274"><a href="#cb12-274"></a><span class="in">  q0 [label="",shape=point]; </span></span>
-<span id="cb12-275"><a href="#cb12-275"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-276"><a href="#cb12-276"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;, color="orange"];</span></span>
-<span id="cb12-277"><a href="#cb12-277"></a><span class="in">  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle]; </span></span>
+<span id="cb12-273"><a href="#cb12-273"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="ot">];</span></span>
+<span id="cb12-274"><a href="#cb12-274"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">""</span><span class="co">,</span><span class="at">shape</span><span class="ot">=</span><span class="va">point</span><span class="ot">];</span><span class="co"> </span></span>
+<span id="cb12-275"><a href="#cb12-275"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">1</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-276"><a href="#cb12-276"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">2</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-277"><a href="#cb12-277"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">3</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">shape</span><span class="ot">=</span><span class="va">doublecircle</span><span class="ot">];</span><span class="co"> </span></span>
 <span id="cb12-278"><a href="#cb12-278"></a></span>
-<span id="cb12-279"><a href="#cb12-279"></a><span class="in">  q0 -&gt; q1 []</span></span>
-<span id="cb12-280"><a href="#cb12-280"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-281"><a href="#cb12-281"></a><span class="in">  q1 -&gt; q2 [label="{1}", color="orange"];</span></span>
-<span id="cb12-282"><a href="#cb12-282"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-283"><a href="#cb12-283"></a><span class="in">  q2 -&gt; q3 [label="{1}"];</span></span>
-<span id="cb12-284"><a href="#cb12-284"></a><span class="in">  q3 -&gt; q3 [label="{0,1}"];</span></span>
-<span id="cb12-285"><a href="#cb12-285"></a><span class="in">}</span></span>
+<span id="cb12-279"><a href="#cb12-279"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[]</span></span>
+<span id="cb12-280"><a href="#cb12-280"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-281"><a href="#cb12-281"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-282"><a href="#cb12-282"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-283"><a href="#cb12-283"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-284"><a href="#cb12-284"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0,1}"</span><span class="ot">];</span></span>
+<span id="cb12-285"><a href="#cb12-285"></a><span class="ot">}</span></span>
 <span id="cb12-286"><a href="#cb12-286"></a><span class="in">```</span></span>
 <span id="cb12-287"><a href="#cb12-287"></a></span>
 <span id="cb12-288"><a href="#cb12-288"></a><span class="fu">## '011'</span></span>
@@ -2296,35 +2266,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-294"><a href="#cb12-294"></a><span class="in">```</span></span>
 <span id="cb12-295"><a href="#cb12-295"></a></span>
 <span id="cb12-296"><a href="#cb12-296"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
-<span id="cb12-297"><a href="#cb12-297"></a><span class="in">//| fig-width: 800px</span></span>
-<span id="cb12-298"><a href="#cb12-298"></a><span class="in">//| echo: false</span></span>
-<span id="cb12-299"><a href="#cb12-299"></a><span class="in">digraph finite_automata {</span></span>
-<span id="cb12-300"><a href="#cb12-300"></a><span class="in">  rankdir=LR;</span></span>
-<span id="cb12-301"><a href="#cb12-301"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb12-297"><a href="#cb12-297"></a><span class="co">//| fig-width: 800px</span></span>
+<span id="cb12-298"><a href="#cb12-298"></a><span class="co">//| echo: false</span></span>
+<span id="cb12-299"><a href="#cb12-299"></a><span class="kw">digraph</span> <span class="va">finite_automata</span> <span class="ot">{</span></span>
+<span id="cb12-300"><a href="#cb12-300"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">LR</span><span class="ot">;</span></span>
+<span id="cb12-301"><a href="#cb12-301"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb12-302"><a href="#cb12-302"></a></span>
-<span id="cb12-303"><a href="#cb12-303"></a><span class="in">  node [</span></span>
-<span id="cb12-304"><a href="#cb12-304"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb12-305"><a href="#cb12-305"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-306"><a href="#cb12-306"></a><span class="in">  ]</span></span>
+<span id="cb12-303"><a href="#cb12-303"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-304"><a href="#cb12-304"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-305"><a href="#cb12-305"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-306"><a href="#cb12-306"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-307"><a href="#cb12-307"></a></span>
-<span id="cb12-308"><a href="#cb12-308"></a><span class="in">  edge [</span></span>
-<span id="cb12-309"><a href="#cb12-309"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-310"><a href="#cb12-310"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb12-311"><a href="#cb12-311"></a><span class="in">  ]</span></span>
+<span id="cb12-308"><a href="#cb12-308"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-309"><a href="#cb12-309"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-310"><a href="#cb12-310"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb12-311"><a href="#cb12-311"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-312"><a href="#cb12-312"></a></span>
-<span id="cb12-313"><a href="#cb12-313"></a><span class="in">  node [shape=circle];</span></span>
-<span id="cb12-314"><a href="#cb12-314"></a><span class="in">  q0 [label="",shape=point]; </span></span>
-<span id="cb12-315"><a href="#cb12-315"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-316"><a href="#cb12-316"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-317"><a href="#cb12-317"></a><span class="in">  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle, color="orange"]; </span></span>
+<span id="cb12-313"><a href="#cb12-313"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="ot">];</span></span>
+<span id="cb12-314"><a href="#cb12-314"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">""</span><span class="co">,</span><span class="at">shape</span><span class="ot">=</span><span class="va">point</span><span class="ot">];</span><span class="co"> </span></span>
+<span id="cb12-315"><a href="#cb12-315"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">1</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-316"><a href="#cb12-316"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">2</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-317"><a href="#cb12-317"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">3</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">shape</span><span class="ot">=</span><span class="va">doublecircle</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span><span class="co"> </span></span>
 <span id="cb12-318"><a href="#cb12-318"></a></span>
-<span id="cb12-319"><a href="#cb12-319"></a><span class="in">  q0 -&gt; q1 []</span></span>
-<span id="cb12-320"><a href="#cb12-320"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-321"><a href="#cb12-321"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
-<span id="cb12-322"><a href="#cb12-322"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-323"><a href="#cb12-323"></a><span class="in">  q2 -&gt; q3 [label="{1}", color="orange"];</span></span>
-<span id="cb12-324"><a href="#cb12-324"></a><span class="in">  q3 -&gt; q3 [label="{0,1}"];</span></span>
-<span id="cb12-325"><a href="#cb12-325"></a><span class="in">}</span></span>
+<span id="cb12-319"><a href="#cb12-319"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[]</span></span>
+<span id="cb12-320"><a href="#cb12-320"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-321"><a href="#cb12-321"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-322"><a href="#cb12-322"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-323"><a href="#cb12-323"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-324"><a href="#cb12-324"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0,1}"</span><span class="ot">];</span></span>
+<span id="cb12-325"><a href="#cb12-325"></a><span class="ot">}</span></span>
 <span id="cb12-326"><a href="#cb12-326"></a><span class="in">```</span></span>
 <span id="cb12-327"><a href="#cb12-327"></a></span>
 <span id="cb12-328"><a href="#cb12-328"></a><span class="fu">## '0110'</span></span>
@@ -2336,35 +2306,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-334"><a href="#cb12-334"></a><span class="in">```</span></span>
 <span id="cb12-335"><a href="#cb12-335"></a></span>
 <span id="cb12-336"><a href="#cb12-336"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
-<span id="cb12-337"><a href="#cb12-337"></a><span class="in">//| fig-width: 800px</span></span>
-<span id="cb12-338"><a href="#cb12-338"></a><span class="in">//| echo: false</span></span>
-<span id="cb12-339"><a href="#cb12-339"></a><span class="in">digraph finite_automata {</span></span>
-<span id="cb12-340"><a href="#cb12-340"></a><span class="in">  rankdir=LR;</span></span>
-<span id="cb12-341"><a href="#cb12-341"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb12-337"><a href="#cb12-337"></a><span class="co">//| fig-width: 800px</span></span>
+<span id="cb12-338"><a href="#cb12-338"></a><span class="co">//| echo: false</span></span>
+<span id="cb12-339"><a href="#cb12-339"></a><span class="kw">digraph</span> <span class="va">finite_automata</span> <span class="ot">{</span></span>
+<span id="cb12-340"><a href="#cb12-340"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">LR</span><span class="ot">;</span></span>
+<span id="cb12-341"><a href="#cb12-341"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb12-342"><a href="#cb12-342"></a></span>
-<span id="cb12-343"><a href="#cb12-343"></a><span class="in">  node [</span></span>
-<span id="cb12-344"><a href="#cb12-344"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb12-345"><a href="#cb12-345"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-346"><a href="#cb12-346"></a><span class="in">  ]</span></span>
+<span id="cb12-343"><a href="#cb12-343"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-344"><a href="#cb12-344"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-345"><a href="#cb12-345"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-346"><a href="#cb12-346"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-347"><a href="#cb12-347"></a></span>
-<span id="cb12-348"><a href="#cb12-348"></a><span class="in">  edge [</span></span>
-<span id="cb12-349"><a href="#cb12-349"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-350"><a href="#cb12-350"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb12-351"><a href="#cb12-351"></a><span class="in">  ]</span></span>
+<span id="cb12-348"><a href="#cb12-348"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-349"><a href="#cb12-349"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-350"><a href="#cb12-350"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb12-351"><a href="#cb12-351"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-352"><a href="#cb12-352"></a></span>
-<span id="cb12-353"><a href="#cb12-353"></a><span class="in">  node [shape=circle];</span></span>
-<span id="cb12-354"><a href="#cb12-354"></a><span class="in">  q0 [label="",shape=point]; </span></span>
-<span id="cb12-355"><a href="#cb12-355"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-356"><a href="#cb12-356"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-357"><a href="#cb12-357"></a><span class="in">  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle, color="orange"]; </span></span>
+<span id="cb12-353"><a href="#cb12-353"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="ot">];</span></span>
+<span id="cb12-354"><a href="#cb12-354"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">""</span><span class="co">,</span><span class="at">shape</span><span class="ot">=</span><span class="va">point</span><span class="ot">];</span><span class="co"> </span></span>
+<span id="cb12-355"><a href="#cb12-355"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">1</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-356"><a href="#cb12-356"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">2</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-357"><a href="#cb12-357"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">3</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">shape</span><span class="ot">=</span><span class="va">doublecircle</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span><span class="co"> </span></span>
 <span id="cb12-358"><a href="#cb12-358"></a></span>
-<span id="cb12-359"><a href="#cb12-359"></a><span class="in">  q0 -&gt; q1 []</span></span>
-<span id="cb12-360"><a href="#cb12-360"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-361"><a href="#cb12-361"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
-<span id="cb12-362"><a href="#cb12-362"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-363"><a href="#cb12-363"></a><span class="in">  q2 -&gt; q3 [label="{1}"];</span></span>
-<span id="cb12-364"><a href="#cb12-364"></a><span class="in">  q3 -&gt; q3 [label="{0,1}", color="orange"];</span></span>
-<span id="cb12-365"><a href="#cb12-365"></a><span class="in">}</span></span>
+<span id="cb12-359"><a href="#cb12-359"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[]</span></span>
+<span id="cb12-360"><a href="#cb12-360"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-361"><a href="#cb12-361"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-362"><a href="#cb12-362"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-363"><a href="#cb12-363"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-364"><a href="#cb12-364"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0,1}"</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-365"><a href="#cb12-365"></a><span class="ot">}</span></span>
 <span id="cb12-366"><a href="#cb12-366"></a><span class="in">```</span></span>
 <span id="cb12-367"><a href="#cb12-367"></a></span>
 <span id="cb12-368"><a href="#cb12-368"></a><span class="fu">## '01101'</span></span>
@@ -2376,35 +2346,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-374"><a href="#cb12-374"></a><span class="in">```</span></span>
 <span id="cb12-375"><a href="#cb12-375"></a></span>
 <span id="cb12-376"><a href="#cb12-376"></a><span class="in">```{dot filename="Finite Automata"}</span></span>
-<span id="cb12-377"><a href="#cb12-377"></a><span class="in">//| fig-width: 800px</span></span>
-<span id="cb12-378"><a href="#cb12-378"></a><span class="in">//| echo: false</span></span>
-<span id="cb12-379"><a href="#cb12-379"></a><span class="in">digraph finite_automata {</span></span>
-<span id="cb12-380"><a href="#cb12-380"></a><span class="in">  rankdir=LR;</span></span>
-<span id="cb12-381"><a href="#cb12-381"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb12-377"><a href="#cb12-377"></a><span class="co">//| fig-width: 800px</span></span>
+<span id="cb12-378"><a href="#cb12-378"></a><span class="co">//| echo: false</span></span>
+<span id="cb12-379"><a href="#cb12-379"></a><span class="kw">digraph</span> <span class="va">finite_automata</span> <span class="ot">{</span></span>
+<span id="cb12-380"><a href="#cb12-380"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">LR</span><span class="ot">;</span></span>
+<span id="cb12-381"><a href="#cb12-381"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb12-382"><a href="#cb12-382"></a></span>
-<span id="cb12-383"><a href="#cb12-383"></a><span class="in">  node [</span></span>
-<span id="cb12-384"><a href="#cb12-384"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb12-385"><a href="#cb12-385"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-386"><a href="#cb12-386"></a><span class="in">  ]</span></span>
+<span id="cb12-383"><a href="#cb12-383"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-384"><a href="#cb12-384"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-385"><a href="#cb12-385"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-386"><a href="#cb12-386"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-387"><a href="#cb12-387"></a></span>
-<span id="cb12-388"><a href="#cb12-388"></a><span class="in">  edge [</span></span>
-<span id="cb12-389"><a href="#cb12-389"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb12-390"><a href="#cb12-390"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb12-391"><a href="#cb12-391"></a><span class="in">  ]</span></span>
+<span id="cb12-388"><a href="#cb12-388"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb12-389"><a href="#cb12-389"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb12-390"><a href="#cb12-390"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb12-391"><a href="#cb12-391"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb12-392"><a href="#cb12-392"></a></span>
-<span id="cb12-393"><a href="#cb12-393"></a><span class="in">  node [shape=circle];</span></span>
-<span id="cb12-394"><a href="#cb12-394"></a><span class="in">  q0 [label="",shape=point]; </span></span>
-<span id="cb12-395"><a href="#cb12-395"></a><span class="in">  q1 [label=&lt;&lt;I&gt;q&lt;SUB&gt;1&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-396"><a href="#cb12-396"></a><span class="in">  q2 [label=&lt;&lt;I&gt;q&lt;SUB&gt;2&lt;/SUB&gt;&lt;/I&gt;&gt;];</span></span>
-<span id="cb12-397"><a href="#cb12-397"></a><span class="in">  q3 [label=&lt;&lt;I&gt;q&lt;SUB&gt;3&lt;/SUB&gt;&lt;/I&gt;&gt;, shape=doublecircle, color="orange"]; </span></span>
+<span id="cb12-393"><a href="#cb12-393"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="ot">];</span></span>
+<span id="cb12-394"><a href="#cb12-394"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">""</span><span class="co">,</span><span class="at">shape</span><span class="ot">=</span><span class="va">point</span><span class="ot">];</span><span class="co"> </span></span>
+<span id="cb12-395"><a href="#cb12-395"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">1</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-396"><a href="#cb12-396"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">2</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;</span><span class="ot">];</span></span>
+<span id="cb12-397"><a href="#cb12-397"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="co">&lt;&lt;</span><span class="va">I</span><span class="co">&gt;</span><span class="va">q</span><span class="co">&lt;</span><span class="va">SUB</span><span class="co">&gt;</span><span class="dv">3</span><span class="co">&lt;/</span><span class="va">SUB</span><span class="co">&gt;&lt;/</span><span class="va">I</span><span class="co">&gt;&gt;, </span><span class="at">shape</span><span class="ot">=</span><span class="va">doublecircle</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span><span class="co"> </span></span>
 <span id="cb12-398"><a href="#cb12-398"></a></span>
-<span id="cb12-399"><a href="#cb12-399"></a><span class="in">  q0 -&gt; q1 []</span></span>
-<span id="cb12-400"><a href="#cb12-400"></a><span class="in">  q1 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-401"><a href="#cb12-401"></a><span class="in">  q1 -&gt; q2 [label="{1}"];</span></span>
-<span id="cb12-402"><a href="#cb12-402"></a><span class="in">  q2 -&gt; q1 [label="{0}"];</span></span>
-<span id="cb12-403"><a href="#cb12-403"></a><span class="in">  q2 -&gt; q3 [label="{1}"];</span></span>
-<span id="cb12-404"><a href="#cb12-404"></a><span class="in">  q3 -&gt; q3 [label="{0,1}", color="orange"];</span></span>
-<span id="cb12-405"><a href="#cb12-405"></a><span class="in">}</span></span>
+<span id="cb12-399"><a href="#cb12-399"></a><span class="co">  </span><span class="va">q0</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[]</span></span>
+<span id="cb12-400"><a href="#cb12-400"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-401"><a href="#cb12-401"></a><span class="co">  </span><span class="va">q1</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q2</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-402"><a href="#cb12-402"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q1</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0}"</span><span class="ot">];</span></span>
+<span id="cb12-403"><a href="#cb12-403"></a><span class="co">  </span><span class="va">q2</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{1}"</span><span class="ot">];</span></span>
+<span id="cb12-404"><a href="#cb12-404"></a><span class="co">  </span><span class="va">q3</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">q3</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"{0,1}"</span><span class="co">, </span><span class="at">color</span><span class="ot">=</span><span class="st">"orange"</span><span class="ot">];</span></span>
+<span id="cb12-405"><a href="#cb12-405"></a><span class="ot">}</span></span>
 <span id="cb12-406"><a href="#cb12-406"></a><span class="in">```</span></span>
 <span id="cb12-407"><a href="#cb12-407"></a></span>
 <span id="cb12-408"><a href="#cb12-408"></a><span class="fu">## '01101'</span></span>
@@ -2625,7 +2595,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-625"><a href="#cb12-625"></a><span class="co"># Stretch Break</span></span>
 <span id="cb12-626"><a href="#cb12-626"></a></span>
 <span id="cb12-627"><a href="#cb12-627"></a><span class="op">-</span> [Home](https:<span class="op">//</span>cd<span class="op">-</span>public.github.io<span class="op">/</span>compute<span class="op">/</span>)</span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

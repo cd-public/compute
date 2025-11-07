@@ -23,7 +23,7 @@ format: html
 |0x1|09/01|[Quarto](https://cd-public.github.io/python-stack-book/doc/VSCode.html)|[Video](https://www.youtube.com/live/ExpLC4r4H9M?feature=shared)|Make GitHub Pages|
 |0x2|09/08|[Finite Automata](01_starfa.qmd)|[Video](https://www.youtube.com/watch?v=PgZxswUfypU)|[Exercise](01_starfa.qmd#exercise)|
 |0x3|09/15|[Regular Expressions](02_regexp.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?t=4525)|[Exercise](02_regexp.qmd#exercise)|
-|0x4|09/22|[Nondeterministic Finite Automata](03_nfas.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?t=7341)|[Exercises](03_nfas.qmd#exercise-0)|
+|0x4|09/22|[Nondeterminism](03_nfas.qmd)|[Video](https://www.youtube.com/live/PgZxswUfypU?t=7341)|[Exercises](03_nfas.qmd#exercise-0)|
 |0x5|09/29|[Closures](04_closures.qmd)|[Video](https://www.youtube.com/live/Bx8e0cFMv4c)|[Problem Set 1](https://github.com/cd-public/compute/blob/main/ps/FA_Reg.ipynb)|
 |0x6|10/06|[Regularity](05_regularity.qmd)|[Video](https://www.youtube.com/live/Bx8e0cFMv4c?si=o9rCRGxTCiYpmlpH&t=3120)|$\varnothing$|
 |0x7|10/13|[Pumping Lemma](06_pump.qmd)|[Video](https://www.youtube.com/live/Bx8e0cFMv4c?si=tmpYkuklpMXzTODU&t=8468)|[Examples](06_pump.qmd#examples)|

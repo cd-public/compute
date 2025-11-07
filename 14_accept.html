@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.30">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,8 +22,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,15 +68,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <link href="./15_empty.html" rel="next">
 <link href="./13_thesis.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a4a11d514c7d463668e07712114998e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-70c9a4798e5f6abb0636bcdc3eed0e90.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-b86297dc19107d1c9b1952b0f8e15fd8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,7 +121,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -136,7 +139,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -159,9 +162,8 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">Automata</a> 
-    </div>
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -275,19 +277,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./17_undecide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Diagonalization</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./saturday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Review</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./sunday.rjs.html.rjs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Review 2</span></a>
+ <span class="menu-text">Undecidability</span></a>
   </div>
 </li>
     </ul>
@@ -484,9 +474,9 @@ A_{DFA} := \{\langle B, w \rangle | B \text{ is a DFA and } B \text{ accepts } w
 <li>It is always appropriate to use a programing language here, e.g.</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> d_a_dfa(B:DFA, w:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> d_a_dfa(B:DFA, w:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  a_or_r <span class="op">=</span> B(w)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="cf">return</span> a_or_r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="cf">return</span> a_or_r</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="what-about-loops" class="level2">
@@ -507,10 +497,10 @@ A_{DFA} := \{\langle B, w \rangle | B \text{ is a DFA and } B \text{ accepts } w
 A_{DFA} := \{\langle B, w \rangle | B \text{ is a DFA and } B \text{ accepts } w\} \in \text{T-Decidable}
 \]</span></p>
 <p><em>Proof.</em></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> d_a_dfa(B:DFA, w:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> d_a_dfa(B:DFA, w:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
 <span id="cb2-2"><a href="#cb2-2"></a>  accept : <span class="bu">bool</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>  accept <span class="op">=</span> B(w)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="cf">return</span> accept</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="cf">return</span> accept</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="theorem-11" class="level2">
 <h2 class="anchored" data-anchor-id="theorem-11">Theorem 11</h2>
@@ -547,7 +537,7 @@ M_{DFA}(&amp;\mathcal{P} (Q), \Sigma, \delta, \{q_1\}, \\
 A_{NFA} := \{\langle B, w \rangle | B \text{ is a NFA and } B \text{ accepts } w\} \in \text{T-Decidable}
 \]</span></p>
 <p><em>Proof.</em></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> theorem_02 <span class="im">import</span> NFA_to_DFA</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> theorem_02 <span class="im">import</span> NFA_to_DFA</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> theorem_10 <span class="im">import</span> d_a_dfa</span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="kw">def</span> d_a_nfa(B:NFA, w:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
@@ -555,7 +545,7 @@ A_{NFA} := \{\langle B, w \rangle | B \text{ is a NFA and } B \text{ accepts } w
 <span id="cb3-6"><a href="#cb3-6"></a>  B_prime <span class="op">=</span> NFA_to_DFA(B)</span>
 <span id="cb3-7"><a href="#cb3-7"></a>  accept : <span class="bu">bool</span></span>
 <span id="cb3-8"><a href="#cb3-8"></a>  accept <span class="op">=</span> d_a_dfa(B_prime, w)</span>
-<span id="cb3-9"><a href="#cb3-9"></a>  <span class="cf">return</span> accept</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="cf">return</span> accept</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="theorem-12" class="level2">
 <h2 class="anchored" data-anchor-id="theorem-12">Theorem 12</h2>
@@ -586,7 +576,7 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 </section>
 <section id="dfa.py" class="level2">
 <h2 class="anchored" data-anchor-id="dfa.py">DFA.py</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># define q_n as a convenience</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># define q_n as a convenience</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>q_1, q_2, q_3 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span>, <span class="st">"q_3"</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co"># define M_1</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>Q <span class="op">=</span> {q_1, q_2, q_3}</span>
@@ -597,25 +587,25 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <span id="cb4-9"><a href="#cb4-9"></a>    q_3 : { <span class="dv">0</span>:q_3, <span class="dv">1</span>:q_3 }</span>
 <span id="cb4-10"><a href="#cb4-10"></a>}</span>
 <span id="cb4-11"><a href="#cb4-11"></a>M_1 <span class="op">=</span> (Q,S,d,q_1,{q_3})</span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="bu">print</span>(M_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="bu">print</span>(M_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="express-dfa-to-a-tm" class="level2">
 <h2 class="anchored" data-anchor-id="express-dfa-to-a-tm">Express DFA to a TM</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">def</span> d_e_dfa(Q:<span class="bu">set</span>[state], S:<span class="bu">set</span>[symbol], d:<span class="bu">dict</span>, q_0:state, F:<span class="bu">set</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">def</span> d_e_dfa(Q:<span class="bu">set</span>[state], S:<span class="bu">set</span>[symbol], d:<span class="bu">dict</span>, q_0:state, F:<span class="bu">set</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="take-start-state" class="level2">
 <h2 class="anchored" data-anchor-id="take-start-state">Take start state</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw">def</span> d_e_dfa(Q:<span class="bu">set</span>[state], S:<span class="bu">set</span>[symbol], d:<span class="bu">dict</span>, q_0:state, F:<span class="bu">set</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
-<span id="cb6-3"><a href="#cb6-3"></a>  current <span class="op">=</span> q_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3"></a>  current <span class="op">=</span> q_0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="track-visited-states" class="level2">
 <h2 class="anchored" data-anchor-id="track-visited-states">Track visited states</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="kw">def</span> d_e_dfa(Q:<span class="bu">set</span>[state], S:<span class="bu">set</span>[symbol], d:<span class="bu">dict</span>, q_0:state, F:<span class="bu">set</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
 <span id="cb7-3"><a href="#cb7-3"></a>  current <span class="op">=</span> q_0</span>
-<span id="cb7-4"><a href="#cb7-4"></a>  visited <span class="op">=</span> [q_0]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4"></a>  visited <span class="op">=</span> [q_0]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>It is very important to keep those states in order…
 <ul>
@@ -625,18 +615,18 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 </section>
 <section id="reachable-states-from-q_0" class="level2">
 <h2 class="anchored" data-anchor-id="reachable-states-from-q_0">Reachable states from q_0</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="kw">def</span> d_e_dfa(Q:<span class="bu">set</span>[state], S:<span class="bu">set</span>[symbol], d:<span class="bu">dict</span>, q_0:state, F:<span class="bu">set</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
 <span id="cb8-3"><a href="#cb8-3"></a>  current <span class="op">=</span> q_0</span>
 <span id="cb8-4"><a href="#cb8-4"></a>  visited <span class="op">=</span> [q_0]</span>
 <span id="cb8-5"><a href="#cb8-5"></a>  transitions <span class="op">=</span> d[d_0]</span>
 <span id="cb8-6"><a href="#cb8-6"></a>  <span class="cf">for</span> transition <span class="kw">in</span> transitions:</span>
-<span id="cb8-7"><a href="#cb8-7"></a>    <span class="cf">pass</span> <span class="co"># do something</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="cf">pass</span> <span class="co"># do something</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="quick-python-refresher" class="level2">
 <h2 class="anchored" data-anchor-id="quick-python-refresher">Quick Python Refresher</h2>
 <div id="ed185f03" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># how does dict iteration work?</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># how does dict iteration work?</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>q_1, q_2, q_3 <span class="op">=</span> <span class="st">"q_1"</span>, <span class="st">"q_2"</span>, <span class="st">"q_3"</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a>d <span class="op">=</span> {</span>
 <span id="cb9-4"><a href="#cb9-4"></a>    q_1 : { <span class="dv">0</span>:q_1, <span class="dv">1</span>:q_2 },</span>
@@ -644,7 +634,7 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <span id="cb9-6"><a href="#cb9-6"></a>    q_3 : { <span class="dv">0</span>:q_3, <span class="dv">1</span>:q_3 }</span>
 <span id="cb9-7"><a href="#cb9-7"></a>}</span>
 <span id="cb9-8"><a href="#cb9-8"></a><span class="cf">for</span> element <span class="kw">in</span> d[q_1]:</span>
-<span id="cb9-9"><a href="#cb9-9"></a>    <span class="bu">print</span>(element)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-9"><a href="#cb9-9"></a>    <span class="bu">print</span>(element)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0
 1</code></pre>
@@ -653,7 +643,7 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 </section>
 <section id="reachable-states-from-q_0-1" class="level2">
 <h2 class="anchored" data-anchor-id="reachable-states-from-q_0-1">Reachable states from q_0</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="kw">def</span> d_e_dfa(Q:<span class="bu">set</span>[state], S:<span class="bu">set</span>[symbol], d:<span class="bu">dict</span>, q_0:state, F:<span class="bu">set</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
 <span id="cb11-3"><a href="#cb11-3"></a>  current <span class="op">=</span> q_0</span>
 <span id="cb11-4"><a href="#cb11-4"></a>  visited <span class="op">=</span> [q_0]</span>
@@ -662,14 +652,14 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <span id="cb11-7"><a href="#cb11-7"></a>    <span class="co"># we will get symbols, see where the symbols go</span></span>
 <span id="cb11-8"><a href="#cb11-8"></a>    state <span class="op">=</span> transitions[symbol]</span>
 <span id="cb11-9"><a href="#cb11-9"></a>    <span class="co"># we will add that state to visted state</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a>    visted.append(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-10"><a href="#cb11-10"></a>    visted.append(state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Then what?</li>
 </ul>
 </section>
 <section id="reachable-states-from-q_0-2" class="level2">
 <h2 class="anchored" data-anchor-id="reachable-states-from-q_0-2">Reachable states from q_0</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># We use strings for states and ints for letters</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="kw">def</span> d_e_dfa(Q:<span class="bu">set</span>[state], S:<span class="bu">set</span>[symbol], d:<span class="bu">dict</span>, q_0:state, F:<span class="bu">set</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
 <span id="cb12-3"><a href="#cb12-3"></a>  current <span class="op">=</span> q_0</span>
 <span id="cb12-4"><a href="#cb12-4"></a>  visited <span class="op">=</span> [q_0]</span>
@@ -681,7 +671,7 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <span id="cb12-10"><a href="#cb12-10"></a>      <span class="co"># we will get symbols, see where the symbols go</span></span>
 <span id="cb12-11"><a href="#cb12-11"></a>      state <span class="op">=</span> transitions[symbol]</span>
 <span id="cb12-12"><a href="#cb12-12"></a>      <span class="co"># we will add that state to visted state</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a>      visted.append(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-13"><a href="#cb12-13"></a>      visted.append(state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Is using <code>len</code> cheating?</li>
 <li>What about <code>for</code> and <code>while</code>?</li>
@@ -691,7 +681,7 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <h2 class="anchored" data-anchor-id="imagine">Imagine</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> d_e_dfa(Q, S, d, q_0, F):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> d_e_dfa(Q, S, d, q_0, F):</span>
 <span id="cb13-2"><a href="#cb13-2"></a>  visited <span class="op">=</span> [q_0]</span>
 <span id="cb13-3"><a href="#cb13-3"></a>  count <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a>  <span class="cf">while</span> count <span class="op">&lt;</span> <span class="bu">len</span>(visited):</span>
@@ -699,9 +689,9 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <span id="cb13-6"><a href="#cb13-6"></a>    <span class="cf">for</span> symbol <span class="kw">in</span> transitions:</span>
 <span id="cb13-7"><a href="#cb13-7"></a>      state <span class="op">=</span> transitions[symbol]</span>
 <span id="cb13-8"><a href="#cb13-8"></a>      <span class="cf">if</span> state <span class="kw">not</span> <span class="kw">in</span> visted:</span>
-<span id="cb13-9"><a href="#cb13-9"></a>        visted.append(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-9"><a href="#cb13-9"></a>        visted.append(state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource email number-lines code-with-copy"><code class="sourceCode email"><span id="cb14-1"><a href="#cb14-1"></a>$D_{A_{DFA}} =$ "On input $M$ </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource email number-lines code-with-copy"><code class="sourceCode email"><span id="cb14-1"><a href="#cb14-1"></a>$D_{A_{DFA}} =$ "On input $M$ </span>
 <span id="cb14-2"><a href="#cb14-2"></a>Track states on working tape 1</span>
 <span id="cb14-3"><a href="#cb14-3"></a>Use head to track current state</span>
 <span id="cb14-4"><a href="#cb14-4"></a>While current not blank</span>
@@ -709,13 +699,13 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <span id="cb14-6"><a href="#cb14-6"></a>  Move head head 2 along delta</span>
 <span id="cb14-7"><a href="#cb14-7"></a>    copy all state names to tape 3</span>
 <span id="cb14-8"><a href="#cb14-8"></a>    read all of tape 1 for each state</span>
-<span id="cb14-9"><a href="#cb14-9"></a>      if state is new, add to tape 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-9"><a href="#cb14-9"></a>      if state is new, add to tape 1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
 <section id="accept" class="level2">
 <h2 class="anchored" data-anchor-id="accept">Accept</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">def</span> d_e_dfa(Q, S, d, q_0, F):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">def</span> d_e_dfa(Q, S, d, q_0, F):</span>
 <span id="cb15-2"><a href="#cb15-2"></a>  visited <span class="op">=</span> [q_0]</span>
 <span id="cb15-3"><a href="#cb15-3"></a>  count <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb15-4"><a href="#cb15-4"></a>  <span class="cf">while</span> count <span class="op">&lt;</span> <span class="bu">len</span>(visited):</span>
@@ -726,7 +716,7 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 <span id="cb15-9"><a href="#cb15-9"></a>        <span class="cf">if</span> state <span class="kw">in</span> F:</span>
 <span id="cb15-10"><a href="#cb15-10"></a>          <span class="cf">return</span> <span class="va">True</span></span>
 <span id="cb15-11"><a href="#cb15-11"></a>        visted.append(state)</span>
-<span id="cb15-12"><a href="#cb15-12"></a>  <span class="cf">return</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-12"><a href="#cb15-12"></a>  <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Copy <span class="math inline">\(F\)</span> to another tape, and check it before checking the visit tracker.</li>
 <li>This halts as there are finite states</li>
@@ -738,7 +728,7 @@ E_{DFA} := \{\langle B \rangle | B \text{ is a DFA and } L(B) = \varnothing\} \i
 E_{DFA} := \{\langle B \rangle | L(B:\text{DFA}) = \varnothing\} \in \text{T-Decidable}
 \]</span></p>
 <p><em>Proof.</em></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">def</span> d_e_dfa(Q, S, d, q_0, F):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">def</span> d_e_dfa(Q, S, d, q_0, F):</span>
 <span id="cb16-2"><a href="#cb16-2"></a>  visited <span class="op">=</span> [q_0]</span>
 <span id="cb16-3"><a href="#cb16-3"></a>  count <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb16-4"><a href="#cb16-4"></a>  <span class="cf">while</span> count <span class="op">&lt;</span> <span class="bu">len</span>(visited):</span>
@@ -749,7 +739,7 @@ E_{DFA} := \{\langle B \rangle | L(B:\text{DFA}) = \varnothing\} \in \text{T-Dec
 <span id="cb16-9"><a href="#cb16-9"></a>        <span class="cf">if</span> state <span class="kw">in</span> F:</span>
 <span id="cb16-10"><a href="#cb16-10"></a>          <span class="cf">return</span> <span class="va">True</span></span>
 <span id="cb16-11"><a href="#cb16-11"></a>        visted.append(state)</span>
-<span id="cb16-12"><a href="#cb16-12"></a>  <span class="cf">return</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-12"><a href="#cb16-12"></a>  <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="theorem-13" class="level2">
 <h2 class="anchored" data-anchor-id="theorem-13">Theorem 13</h2>
@@ -788,290 +778,294 @@ EQ_{REX} := \{\langle R_1,R_2 \rangle | (R_1:\text{Reg. Exp.} = R_2:\text{Reg. E
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
           } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
         }
-        return container.innerHTML
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1079,185 +1073,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./13_thesis.html" class="pagination-link" aria-label="Church-Turing">
@@ -1270,7 +1240,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">---</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">---</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="an">title:</span><span class="co"> "Acceptance"</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a><span class="co">---</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a></span>
@@ -1308,28 +1278,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-36"><a href="#cb17-36"></a><span class="fu">## Schematic</span></span>
 <span id="cb17-37"><a href="#cb17-37"></a></span>
 <span id="cb17-40"><a href="#cb17-40"></a><span class="in">```{dot}</span></span>
-<span id="cb17-41"><a href="#cb17-41"></a><span class="in">// | echo: false</span></span>
-<span id="cb17-42"><a href="#cb17-42"></a><span class="in">// | height: 100px</span></span>
-<span id="cb17-43"><a href="#cb17-43"></a><span class="in">digraph g {</span></span>
-<span id="cb17-44"><a href="#cb17-44"></a><span class="in">  rankdir=TD;</span></span>
-<span id="cb17-45"><a href="#cb17-45"></a><span class="in">  bgcolor="#191919";</span></span>
+<span id="cb17-41"><a href="#cb17-41"></a><span class="co">// | echo: false</span></span>
+<span id="cb17-42"><a href="#cb17-42"></a><span class="co">// | height: 100px</span></span>
+<span id="cb17-43"><a href="#cb17-43"></a><span class="kw">digraph</span> <span class="va">g</span> <span class="ot">{</span></span>
+<span id="cb17-44"><a href="#cb17-44"></a><span class="co">  </span><span class="at">rankdir</span><span class="ot">=</span><span class="va">TD</span><span class="ot">;</span></span>
+<span id="cb17-45"><a href="#cb17-45"></a><span class="co">  </span><span class="at">bgcolor</span><span class="ot">=</span><span class="st">"#191919"</span><span class="ot">;</span></span>
 <span id="cb17-46"><a href="#cb17-46"></a></span>
-<span id="cb17-47"><a href="#cb17-47"></a><span class="in">  node [</span></span>
-<span id="cb17-48"><a href="#cb17-48"></a><span class="in">      fontcolor = "#ffffff",</span></span>
-<span id="cb17-49"><a href="#cb17-49"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb17-50"><a href="#cb17-50"></a><span class="in">      shape=record,</span></span>
-<span id="cb17-51"><a href="#cb17-51"></a><span class="in">  ]</span></span>
+<span id="cb17-47"><a href="#cb17-47"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb17-48"><a href="#cb17-48"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb17-49"><a href="#cb17-49"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb17-50"><a href="#cb17-50"></a><span class="co">      </span><span class="at">shape</span><span class="ot">=</span><span class="va">record</span><span class="co">,</span></span>
+<span id="cb17-51"><a href="#cb17-51"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb17-52"><a href="#cb17-52"></a></span>
-<span id="cb17-53"><a href="#cb17-53"></a><span class="in">  edge [</span></span>
-<span id="cb17-54"><a href="#cb17-54"></a><span class="in">      color = "#ffffff",</span></span>
-<span id="cb17-55"><a href="#cb17-55"></a><span class="in">      fontcolor = "#ffffff"</span></span>
-<span id="cb17-56"><a href="#cb17-56"></a><span class="in">  ]</span></span>
+<span id="cb17-53"><a href="#cb17-53"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span></span>
+<span id="cb17-54"><a href="#cb17-54"></a><span class="co">      </span><span class="at">color</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span><span class="co">,</span></span>
+<span id="cb17-55"><a href="#cb17-55"></a><span class="co">      </span><span class="at">fontcolor</span><span class="co"> </span><span class="ot">=</span><span class="co"> </span><span class="st">"#ffffff"</span></span>
+<span id="cb17-56"><a href="#cb17-56"></a><span class="co">  </span><span class="ot">]</span></span>
 <span id="cb17-57"><a href="#cb17-57"></a></span>
-<span id="cb17-58"><a href="#cb17-58"></a><span class="in">  t  [label=" Q | 0,1 | δ | q_0 | F | # | 0 | 1 | 1 | 0 | 1"]</span></span>
-<span id="cb17-59"><a href="#cb17-59"></a><span class="in">  h</span></span>
+<span id="cb17-58"><a href="#cb17-58"></a><span class="co">  </span><span class="va">t</span><span class="co">  </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">" Q | 0,1 | δ | q_0 | F | # | 0 | 1 | 1 | 0 | 1"</span><span class="ot">]</span></span>
+<span id="cb17-59"><a href="#cb17-59"></a><span class="co">  </span><span class="va">h</span></span>
 <span id="cb17-60"><a href="#cb17-60"></a></span>
-<span id="cb17-61"><a href="#cb17-61"></a><span class="in">  t -&gt;h [dir=back];</span></span>
-<span id="cb17-62"><a href="#cb17-62"></a><span class="in">}</span></span>
+<span id="cb17-61"><a href="#cb17-61"></a><span class="co">  </span><span class="va">t</span><span class="co"> </span><span class="ot">-&gt;</span><span class="va">h</span><span class="co"> </span><span class="ot">[</span><span class="at">dir</span><span class="ot">=</span><span class="va">back</span><span class="ot">];</span></span>
+<span id="cb17-62"><a href="#cb17-62"></a><span class="ot">}</span></span>
 <span id="cb17-63"><a href="#cb17-63"></a><span class="in">```</span></span>
 <span id="cb17-64"><a href="#cb17-64"></a></span>
 <span id="cb17-65"><a href="#cb17-65"></a><span class="fu">## Simplify</span></span>
@@ -1666,7 +1636,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-398"><a href="#cb17-398"></a><span class="fu"># End of Day :)</span></span>
 <span id="cb17-399"><a href="#cb17-399"></a></span>
 <span id="cb17-400"><a href="#cb17-400"></a><span class="ss">- </span>Good work!</span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
